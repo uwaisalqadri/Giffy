@@ -6,3 +6,13 @@
 //
 
 import Foundation
+import Combine
+
+class HomeViewModel: ObservableObject {
+
+  private let homeUseCase: HomeUseCase
+
+  init(homeUseCase: HomeUseCase) {
+    self.homeUseCase = homeUseCase
+  }
+}

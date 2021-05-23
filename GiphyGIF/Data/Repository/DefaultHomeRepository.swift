@@ -9,7 +9,16 @@ import Foundation
 import Combine
 
 public struct DefaultHomeRepository: HomeRepository {
+
+  fileprivate let remoteDataSource: RemoteDataSource
+
+  init(remoteDataSource: RemoteDataSource) {
+    self.remoteDataSource = remoteDataSource
+  }
+
   func getTrendingGiphy() -> AnyPublisher<[Giphy], Error> {
-    <#code#>
+    return remoteDataSource.getTrendingGiphy()
+      .map { ObjectMapper.mapGiphyResponseToDomain(input: $0) }
+      .eraseToAnyPublisher()
   }
 }

@@ -11,6 +11,5 @@ protocol SearchAssembler {
 }
 
 extension SearchAssembler where Self: Assembler {
-
   
 }

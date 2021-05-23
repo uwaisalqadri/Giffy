@@ -12,3 +12,4 @@ protocol Assembler: HomeAssembler,
                     SearchAssembler {}
 
 class AppAssembler: Assembler {}
+
