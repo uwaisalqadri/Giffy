@@ -6,5 +6,10 @@ target 'GiphyGIF' do
   use_frameworks!
 
   # Pods for GiphyGIF
+  pod 'Moya', '~> 14.0'
+  pod 'Kingfisher'
+  pod 'MaterialComponents/BottomSheet'
+  pod 'Toast-Swift', '~> 5.0.1'
+  pod 'Alamofire'
 
 end
