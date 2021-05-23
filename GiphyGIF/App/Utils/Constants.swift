@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Contants {
+struct Constants {
 
   static let baseUrl = "https://api.giphy.com/v1/gifs/"
   static let apiKey = "API_KEY"

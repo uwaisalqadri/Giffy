@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GiphyResponse {
+struct GiphyResponse: Decodable {
   let data: [GiphyItem]
 
   enum CodingKeys: String, CodingKey {
@@ -24,30 +24,30 @@ struct GiphyItem: Identifiable, Decodable {
   let username: String
   let title: String
   let trendingDateTime: String
-  let images: Image
+  let images: ImageItem
 
   enum CodingKeys: String, CodingKey {
     case type
     case id
     case url
-    case embedUrl
+    case embedUrl = "embed_url"
     case rating
     case username
     case title
-    case trendingDateTime
+    case trendingDateTime = "trending_date_time"
     case images
   }
 }
 
-struct Image: Decodable {
-  let original: Original
+struct ImageItem: Decodable {
+  let original: OriginalItem
 
   enum CodingKeys: String, CodingKey {
     case original
   }
 }
 
-struct Original: Decodable {
+struct OriginalItem: Decodable {
   let url: String
 
   enum CodingKeys: String, CodingKey {
