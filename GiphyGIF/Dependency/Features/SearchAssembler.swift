@@ -14,7 +14,6 @@ protocol SearchAssembler {
 }
 
 extension SearchAssembler {
-
   func resolve() -> SearchViewModel {
     return SearchViewModel(searchUseCase: resolve())
   }

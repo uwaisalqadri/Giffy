@@ -16,7 +16,7 @@ protocol RemoteDataSource {
 
 class DefaultRemoteDataSource: NSObject {
 
-  override init() {  }
+  override init() {}
 
   static let shared: DefaultRemoteDataSource = DefaultRemoteDataSource()
 

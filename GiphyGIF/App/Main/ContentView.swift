@@ -16,15 +16,13 @@ struct ContentView: View {
       HomeView(viewModel: assembler.resolve())
         .tabItem {
           Label("Home", systemImage: "house.fill")
-
         }
 
       SearchView(viewModel: assembler.resolve())
         .tabItem {
           Label("Search", systemImage: "magnifyingglass")
-
         }
-    }.tabViewStyle(DefaultTabViewStyle())
+    }
   }
 }
 

@@ -38,6 +38,7 @@
 		52ECB3BF265B19710075082C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ECB3BE265B19710075082C /* HomeView.swift */; };
 		52ECB3C4265B34000075082C /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ECB3C3265B34000075082C /* SearchView.swift */; };
 		52ECB3C7265B35FC0075082C /* SearchAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ECB3C6265B35FC0075082C /* SearchAssembler.swift */; };
+		52ECB3D7265B6CA00075082C /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ECB3D6265B6CA00075082C /* ActivityIndicator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +74,7 @@
 		52ECB3BE265B19710075082C /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		52ECB3C3265B34000075082C /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		52ECB3C6265B35FC0075082C /* SearchAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAssembler.swift; sourceTree = "<group>"; };
+		52ECB3D6265B6CA00075082C /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		5632D7FA6078BA30B88DB521 /* Pods-GiphyGIF.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiphyGIF.debug.xcconfig"; path = "Target Support Files/Pods-GiphyGIF/Pods-GiphyGIF.debug.xcconfig"; sourceTree = "<group>"; };
 		A4E86597DAED5F02D2B9C068 /* Pods-GiphyGIF.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiphyGIF.release.xcconfig"; path = "Target Support Files/Pods-GiphyGIF/Pods-GiphyGIF.release.xcconfig"; sourceTree = "<group>"; };
 		EE7C430D93A98A1BC9E3B6A5 /* Pods_GiphyGIF.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GiphyGIF.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -238,6 +240,7 @@
 			isa = PBXGroup;
 			children = (
 				522768CA265A44EB00E7454C /* Constants.swift */,
+				52ECB3D6265B6CA00075082C /* ActivityIndicator.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -558,6 +561,7 @@
 				52ECB3B4265B13580075082C /* SearchUseCase.swift in Sources */,
 				522768CB265A44EB00E7454C /* Constants.swift in Sources */,
 				522768FD265A476600E7454C /* SeachNavigator.swift in Sources */,
+				52ECB3D7265B6CA00075082C /* ActivityIndicator.swift in Sources */,
 				52276913265A4AE000E7454C /* Date.swift in Sources */,
 				5227691D265A53FC00E7454C /* GiphyResponse.swift in Sources */,
 			);

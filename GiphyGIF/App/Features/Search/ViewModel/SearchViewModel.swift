@@ -29,11 +29,11 @@ class SearchViewModel: ObservableObject {
         switch completion {
         case .failure:
           self.errorMessage = String(describing: completion)
+          print(self.errorMessage)
         case .finished:
           self.loadingState = false
         }
       }, receiveValue: { result in
-        print(result)
         self.giphys = result
       }).store(in: &cancellables)
   }

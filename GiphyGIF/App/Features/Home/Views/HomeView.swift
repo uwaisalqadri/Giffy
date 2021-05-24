@@ -12,10 +12,11 @@ struct HomeView: View {
   @ObservedObject var viewModel: HomeViewModel
 
   var body: some View {
-    Text("Home View")
-      .onAppear {
-        viewModel.getTrendingGiphy()
-      }
+    if viewModel.loadingState {
+      ActivityIndicator()
+    } else {
+      Text("Home View")
+    }
   }
 }
 

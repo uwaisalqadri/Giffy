@@ -12,15 +12,25 @@ struct SearchView: View {
   @ObservedObject var viewModel: SearchViewModel
 
   var body: some View {
-    Text("Search View")
-      .onAppear {
-        viewModel.getSearchGiphy(query: "Swift iOS")
+    if viewModel.loadingState {
+      ActivityIndicator()
+    } else {
+      NavigationView {
+        ScrollView {
+          ForEach(viewModel.giphys) { item in
+            Text("Search View")
+          }.navigationTitle("Search")
+        }
+      }.onAppear {
+        viewModel.getSearchGiphy(query: "naruto")
       }
+    }
   }
 }
 
-//struct SearchView_Previews: PreviewProvider {
-//  static var previews: some View {
-//    SearchView()
-//  }
-//}
+struct SearchView_Previews: PreviewProvider {
+  static var previews: some View {
+    let assembler = AppAssembler()
+    SearchView(viewModel: assembler.resolve())
+  }
+}
