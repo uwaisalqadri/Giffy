@@ -23,13 +23,10 @@ struct GiphyRow: View {
         .playbackMode(.bounce)
         .renderingMode(.original)
         .resizable()
-        .frame(width: 200, height: 200, alignment: .center)
+        .frame(idealWidth: giphy.images.original.width.CGFloatValue(), idealHeight: giphy.images.original.height.CGFloatValue(), alignment: .center)
         .scaledToFit()
-        .cornerRadius(10)
-
-      Text(giphy.title)
-        .font(.system(size: 15, weight: .medium))
-        .padding([.leading, .bottom], 10)
+        .cornerRadius(20)
+        .padding(.top, 10)
     }
   }
 }

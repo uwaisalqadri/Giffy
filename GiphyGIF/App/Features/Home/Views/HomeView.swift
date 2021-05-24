@@ -21,10 +21,11 @@ struct HomeView: View {
         ScrollView {
           Grid(viewModel.giphys, id: \.id) { item in
             GiphyRow(giphy: item)
-              .padding([.leading, .trailing], 10)
-          }
+              .padding([.leading, .trailing], 5)
+          }.padding([.leading, .trailing], 10)
         }.navigationTitle("Trending")
         .gridStyle(self.style)
+        .padding(.bottom, 20)
       }
     }.onAppear {
       viewModel.getTrendingGiphy()
