@@ -14,11 +14,10 @@ protocol RemoteDataSource {
   func getSearchGiphy(query: String) -> AnyPublisher<[GiphyItem], Error>
 }
 
-final class DefaultRemoteDataSource: NSObject {
-  static let shared: DefaultRemoteDataSource = DefaultRemoteDataSource()
-}
+class DefaultRemoteDataSource: RemoteDataSource {
 
-extension DefaultRemoteDataSource: RemoteDataSource {
+  init() {}
+
   func getTrendingGiphy() -> AnyPublisher<[GiphyItem], Error> {
     return Future<[GiphyItem], Error> { completion in
       if let url = URL(string: Constants.baseUrl + getEndpoint(endpoint: .trending, apiKey: Constants.apiKey)) {
@@ -53,4 +52,3 @@ extension DefaultRemoteDataSource: RemoteDataSource {
     }.eraseToAnyPublisher()
   }
 }
-

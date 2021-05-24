@@ -8,14 +8,28 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        Text("Hello, world!")
-            .padding()
+
+  let assembler = AppAssembler()
+
+  var body: some View {
+    TabView {
+      HomeView(viewModel: assembler.resolve())
+        .tabItem {
+          Label("Home", systemImage: "house.fill")
+
+        }
+
+      SearchView(viewModel: assembler.resolve())
+        .tabItem {
+          Label("Search", systemImage: "magnifyingglass")
+
+        }
     }
+  }
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+  static var previews: some View {
+    ContentView()
+  }
 }

@@ -17,7 +17,7 @@ protocol HomeAssembler {
 
 extension HomeAssembler where Self: Assembler {
   func resolve() -> HomeView {
-    return HomeView()
+    return HomeView(viewModel: resolve())
   }
 
   func resolve() -> HomeViewModel {
@@ -30,5 +30,9 @@ extension HomeAssembler where Self: Assembler {
 
   func resolve() -> HomeRepository {
     return DefaultHomeRepository(remoteDataSource: resolve())
+  }
+
+  func resolve() -> RemoteDataSource {
+    return DefaultRemoteDataSource()
   }
 }

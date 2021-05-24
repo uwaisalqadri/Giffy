@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+class SearchViewModel: ObservableObject {
+
+  let searchUseCase: SearchUseCase
+
+  init(searchUseCase: SearchUseCase) {
+    self.searchUseCase = searchUseCase
+  }
+}

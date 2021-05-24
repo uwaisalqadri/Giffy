@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-public protocol HomeUseCase {
+protocol HomeUseCase {
   func getTrendingGiphy() -> AnyPublisher<[Giphy], Error>
 }
 
@@ -16,7 +16,7 @@ open class HomeInteractor: HomeUseCase {
 
   private let repository: HomeRepository
 
-  public init(repository: HomeRepository) {
+  init(repository: HomeRepository) {
     self.repository = repository
   }
 

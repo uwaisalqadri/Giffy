@@ -18,14 +18,11 @@
 		522768CB265A44EB00E7454C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522768CA265A44EB00E7454C /* Constants.swift */; };
 		522768E3265A46E100E7454C /* HomeNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522768E2265A46E100E7454C /* HomeNavigator.swift */; };
 		522768E7265A46EC00E7454C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522768E6265A46EC00E7454C /* HomeViewModel.swift */; };
-		522768F4265A473600E7454C /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522768F3265A473600E7454C /* SearchView.swift */; };
 		522768F7265A474300E7454C /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522768F6265A474300E7454C /* SearchViewModel.swift */; };
 		522768FA265A475000E7454C /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522768F9265A475000E7454C /* PlayerViewModel.swift */; };
 		522768FD265A476600E7454C /* SeachNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522768FC265A476600E7454C /* SeachNavigator.swift */; };
 		52276900265A477B00E7454C /* PlayerNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522768FF265A477B00E7454C /* PlayerNavigator.swift */; };
 		52276903265A485800E7454C /* HomeAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52276902265A485800E7454C /* HomeAssembler.swift */; };
-		52276906265A486300E7454C /* PlayerAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52276905265A486300E7454C /* PlayerAssembler.swift */; };
-		52276909265A487100E7454C /* SearchAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52276908265A487100E7454C /* SearchAssembler.swift */; };
 		52276913265A4AE000E7454C /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52276912265A4AE000E7454C /* Date.swift */; };
 		5227691D265A53FC00E7454C /* GiphyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5227691C265A53FC00E7454C /* GiphyResponse.swift */; };
 		52276922265A579300E7454C /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52276921265A579300E7454C /* API.swift */; };
@@ -39,6 +36,8 @@
 		52ECB3B7265B15180075082C /* ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ECB3B6265B15180075082C /* ObjectMapper.swift */; };
 		52ECB3BB265B19600075082C /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ECB3BA265B19600075082C /* PlayerView.swift */; };
 		52ECB3BF265B19710075082C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ECB3BE265B19710075082C /* HomeView.swift */; };
+		52ECB3C4265B34000075082C /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ECB3C3265B34000075082C /* SearchView.swift */; };
+		52ECB3C7265B35FC0075082C /* SearchAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ECB3C6265B35FC0075082C /* SearchAssembler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,14 +53,11 @@
 		522768CA265A44EB00E7454C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		522768E2265A46E100E7454C /* HomeNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigator.swift; sourceTree = "<group>"; };
 		522768E6265A46EC00E7454C /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		522768F3265A473600E7454C /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		522768F6265A474300E7454C /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		522768F9265A475000E7454C /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
 		522768FC265A476600E7454C /* SeachNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeachNavigator.swift; sourceTree = "<group>"; };
 		522768FF265A477B00E7454C /* PlayerNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerNavigator.swift; sourceTree = "<group>"; };
 		52276902265A485800E7454C /* HomeAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAssembler.swift; sourceTree = "<group>"; };
-		52276905265A486300E7454C /* PlayerAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAssembler.swift; sourceTree = "<group>"; };
-		52276908265A487100E7454C /* SearchAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAssembler.swift; sourceTree = "<group>"; };
 		52276912265A4AE000E7454C /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		5227691C265A53FC00E7454C /* GiphyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiphyResponse.swift; sourceTree = "<group>"; };
 		52276921265A579300E7454C /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
@@ -75,6 +71,8 @@
 		52ECB3B6265B15180075082C /* ObjectMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectMapper.swift; sourceTree = "<group>"; };
 		52ECB3BA265B19600075082C /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		52ECB3BE265B19710075082C /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		52ECB3C3265B34000075082C /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		52ECB3C6265B35FC0075082C /* SearchAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAssembler.swift; sourceTree = "<group>"; };
 		5632D7FA6078BA30B88DB521 /* Pods-GiphyGIF.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiphyGIF.debug.xcconfig"; path = "Target Support Files/Pods-GiphyGIF/Pods-GiphyGIF.debug.xcconfig"; sourceTree = "<group>"; };
 		A4E86597DAED5F02D2B9C068 /* Pods-GiphyGIF.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiphyGIF.release.xcconfig"; path = "Target Support Files/Pods-GiphyGIF/Pods-GiphyGIF.release.xcconfig"; sourceTree = "<group>"; };
 		EE7C430D93A98A1BC9E3B6A5 /* Pods_GiphyGIF.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GiphyGIF.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -319,8 +317,7 @@
 			isa = PBXGroup;
 			children = (
 				52276902265A485800E7454C /* HomeAssembler.swift */,
-				52276905265A486300E7454C /* PlayerAssembler.swift */,
-				52276908265A487100E7454C /* SearchAssembler.swift */,
+				52ECB3C6265B35FC0075082C /* SearchAssembler.swift */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -376,7 +373,7 @@
 		522768EC265A470B00E7454C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				522768F3265A473600E7454C /* SearchView.swift */,
+				52ECB3C3265B34000075082C /* SearchView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -549,20 +546,19 @@
 				5258E24B265A8960005ACD9F /* HomeRepository.swift in Sources */,
 				52ECB3BF265B19710075082C /* HomeView.swift in Sources */,
 				5258E24E265A8A88005ACD9F /* Giphy.swift in Sources */,
-				52276909265A487100E7454C /* SearchAssembler.swift in Sources */,
 				5227688C265A02D500E7454C /* ContentView.swift in Sources */,
 				52ECB3B7265B15180075082C /* ObjectMapper.swift in Sources */,
 				5227688A265A02D500E7454C /* GiphyGIFApp.swift in Sources */,
 				5258E254265A8B36005ACD9F /* DefaultHomeRepository.swift in Sources */,
 				5258E251265A8AF0005ACD9F /* SearchRepository.swift in Sources */,
+				52ECB3C4265B34000075082C /* SearchView.swift in Sources */,
+				52ECB3C7265B35FC0075082C /* SearchAssembler.swift in Sources */,
 				52276922265A579300E7454C /* API.swift in Sources */,
 				522768B0265A056500E7454C /* AppAssembler.swift in Sources */,
 				52ECB3B4265B13580075082C /* SearchUseCase.swift in Sources */,
 				522768CB265A44EB00E7454C /* Constants.swift in Sources */,
 				522768FD265A476600E7454C /* SeachNavigator.swift in Sources */,
 				52276913265A4AE000E7454C /* Date.swift in Sources */,
-				52276906265A486300E7454C /* PlayerAssembler.swift in Sources */,
-				522768F4265A473600E7454C /* SearchView.swift in Sources */,
 				5227691D265A53FC00E7454C /* GiphyResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

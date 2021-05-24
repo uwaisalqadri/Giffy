@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-public protocol SearchUseCase {
+protocol SearchUseCase {
   func getSearchGiphy(query: String) -> AnyPublisher<[Giphy], Error>
 }
 
@@ -16,11 +16,11 @@ open class SearchInteractor: SearchUseCase {
 
   let repository: SearchRepository
 
-  public init(repository: SearchRepository) {
+  init(repository: SearchRepository) {
     self.repository = repository
   }
 
-  public func getSearchGiphy(query: String) -> AnyPublisher<[Giphy], Error> {
+  func getSearchGiphy(query: String) -> AnyPublisher<[Giphy], Error> {
     repository.getSearchGiphy(query: query)
   }
 }
