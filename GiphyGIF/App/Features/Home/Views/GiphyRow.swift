@@ -18,6 +18,7 @@ struct GiphyRow: View {
 
       AnimatedImage(url: URL(string: giphy.images.original.url), isAnimating: $isAnimating)
         .indicator(SDWebImageActivityIndicator.medium)
+        .customLoopCount(2)
         .playbackRate(2.0)
         .playbackMode(.bounce)
         .renderingMode(.original)

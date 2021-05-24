@@ -23,7 +23,7 @@ extension HomeAssembler {
   }
 
   func resolve() -> HomeRepository {
-    let remoteDataSource = DefaultRemoteDataSource.shared
-    return DefaultHomeRepository(remoteDataSource: remoteDataSource)
+    let remote = DefaultRemoteDataSource.shared
+    return DefaultHomeRepository(remoteDataSource: remote)
   }
 }

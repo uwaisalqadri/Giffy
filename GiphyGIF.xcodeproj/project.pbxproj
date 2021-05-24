@@ -245,7 +245,6 @@
 			children = (
 				522768CA265A44EB00E7454C /* Constants.swift */,
 				52ECB3D6265B6CA00075082C /* ActivityIndicator.swift */,
-				523AFC33265BDB3F00C052A5 /* GiphyRow.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -334,6 +333,7 @@
 			isa = PBXGroup;
 			children = (
 				52ECB3BE265B19710075082C /* HomeView.swift */,
+				523AFC33265BDB3F00C052A5 /* GiphyRow.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
