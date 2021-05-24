@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import Grid
 
 struct HomeView: View {
 
   @ObservedObject var viewModel: HomeViewModel
+  let style = StaggeredGridStyle(.vertical, tracks: .min(150), spacing: 5)
 
   var body: some View {
     NavigationView {
@@ -17,13 +19,16 @@ struct HomeView: View {
         ActivityIndicator()
       } else {
         ScrollView {
-          ForEach(viewModel.giphys) { item in
-            Text(item.title)
+          Grid(viewModel.giphys, id: \.id) { item in
+            GiphyRow(giphy: item)
+              .padding([.leading, .trailing], 10)
           }
         }.navigationTitle("Trending")
+        .gridStyle(self.style)
       }
     }.onAppear {
       viewModel.getTrendingGiphy()
+      print(viewModel.giphys)
     }
   }
 }

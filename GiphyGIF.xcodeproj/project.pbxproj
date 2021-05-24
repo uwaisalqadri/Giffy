@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -26,6 +26,8 @@
 		52276913265A4AE000E7454C /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52276912265A4AE000E7454C /* Date.swift */; };
 		5227691D265A53FC00E7454C /* GiphyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5227691C265A53FC00E7454C /* GiphyResponse.swift */; };
 		52276922265A579300E7454C /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52276921265A579300E7454C /* API.swift */; };
+		523AFC34265BDB3F00C052A5 /* GiphyRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523AFC33265BDB3F00C052A5 /* GiphyRow.swift */; };
+		523AFC38265BDE9800C052A5 /* Grid in Frameworks */ = {isa = PBXBuildFile; productRef = 523AFC37265BDE9800C052A5 /* Grid */; };
 		5258E24B265A8960005ACD9F /* HomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5258E24A265A8960005ACD9F /* HomeRepository.swift */; };
 		5258E24E265A8A88005ACD9F /* Giphy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5258E24D265A8A88005ACD9F /* Giphy.swift */; };
 		5258E251265A8AF0005ACD9F /* SearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5258E250265A8AF0005ACD9F /* SearchRepository.swift */; };
@@ -62,6 +64,7 @@
 		52276912265A4AE000E7454C /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		5227691C265A53FC00E7454C /* GiphyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiphyResponse.swift; sourceTree = "<group>"; };
 		52276921265A579300E7454C /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		523AFC33265BDB3F00C052A5 /* GiphyRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiphyRow.swift; sourceTree = "<group>"; };
 		5258E24A265A8960005ACD9F /* HomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepository.swift; sourceTree = "<group>"; };
 		5258E24D265A8A88005ACD9F /* Giphy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Giphy.swift; sourceTree = "<group>"; };
 		5258E250265A8AF0005ACD9F /* SearchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepository.swift; sourceTree = "<group>"; };
@@ -85,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				523AFC38265BDE9800C052A5 /* Grid in Frameworks */,
 				285BB7CD3EC1C05E6F15D0E8 /* Pods_GiphyGIF.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -241,6 +245,7 @@
 			children = (
 				522768CA265A44EB00E7454C /* Constants.swift */,
 				52ECB3D6265B6CA00075082C /* ActivityIndicator.swift */,
+				523AFC33265BDB3F00C052A5 /* GiphyRow.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -440,6 +445,9 @@
 			dependencies = (
 			);
 			name = GiphyGIF;
+			packageProductDependencies = (
+				523AFC37265BDE9800C052A5 /* Grid */,
+			);
 			productName = GiphyGIF;
 			productReference = 52276886265A02D500E7454C /* GiphyGIF.app */;
 			productType = "com.apple.product-type.application";
@@ -467,6 +475,9 @@
 				Base,
 			);
 			mainGroup = 5227687D265A02D500E7454C;
+			packageReferences = (
+				523AFC36265BDE9700C052A5 /* XCRemoteSwiftPackageReference "swiftui-grid" */,
+			);
 			productRefGroup = 52276887265A02D500E7454C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -555,6 +566,7 @@
 				5258E254265A8B36005ACD9F /* DefaultHomeRepository.swift in Sources */,
 				5258E251265A8AF0005ACD9F /* SearchRepository.swift in Sources */,
 				52ECB3C4265B34000075082C /* SearchView.swift in Sources */,
+				523AFC34265BDB3F00C052A5 /* GiphyRow.swift in Sources */,
 				52ECB3C7265B35FC0075082C /* SearchAssembler.swift in Sources */,
 				52276922265A579300E7454C /* API.swift in Sources */,
 				522768B0265A056500E7454C /* AppAssembler.swift in Sources */,
@@ -754,6 +766,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		523AFC36265BDE9700C052A5 /* XCRemoteSwiftPackageReference "swiftui-grid" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/spacenation/swiftui-grid.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		523AFC37265BDE9800C052A5 /* Grid */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 523AFC36265BDE9700C052A5 /* XCRemoteSwiftPackageReference "swiftui-grid" */;
+			productName = Grid;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5227687E265A02D500E7454C /* Project object */;
 }
