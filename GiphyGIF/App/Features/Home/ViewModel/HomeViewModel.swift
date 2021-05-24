@@ -12,7 +12,29 @@ class HomeViewModel: ObservableObject {
 
   private let homeUseCase: HomeUseCase
 
+  private var cancellables: Set<AnyCancellable> = []
+  @Published var giphys: [Giphy] = []
+  @Published var errorMessage: String = ""
+  @Published var loadingState: Bool = false
+
   init(homeUseCase: HomeUseCase) {
     self.homeUseCase = homeUseCase
+  }
+
+  func getTrendingGiphy() {
+    self.loadingState = true
+    homeUseCase.getTrendingGiphy()
+      .receive(on: RunLoop.main)
+      .sink(receiveCompletion: { completion in
+        switch completion {
+        case .failure:
+          self.errorMessage = String(describing: completion)
+        case .finished:
+          self.loadingState = false
+        }
+      }, receiveValue: { result in
+        print("result : \(result)")
+        self.giphys = result
+      }).store(in: &cancellables)
   }
 }

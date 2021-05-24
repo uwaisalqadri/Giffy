@@ -12,10 +12,9 @@ protocol SearchAssembler {
   func resolve() -> SearchViewModel
   func resolve() -> SearchUseCase
   func resolve() -> SearchRepository
-  func resolve() -> RemoteDataSource
 }
 
-extension SearchAssembler where Self: Assembler {
+extension SearchAssembler {
   func resolve() -> SearchView {
     return SearchView(viewModel: resolve())
   }
@@ -29,10 +28,7 @@ extension SearchAssembler where Self: Assembler {
   }
 
   func resolve() -> SearchRepository {
-    return DefaultSearchRepository(remoteDataSource: resolve())
+    return DefaultSearchRepository(remoteDataSource: DefaultRemoteDataSource())
   }
 
-  func resolve() -> RemoteDataSource {
-    return DefaultRemoteDataSource()
-  }
 }

@@ -16,7 +16,10 @@ struct HomeView: View {
   }
 
   var body: some View {
-    Text("Hello, World!")
+    Text("Home View")
+      .onAppear {
+        viewModel.getTrendingGiphy()
+      }
   }
 }
 

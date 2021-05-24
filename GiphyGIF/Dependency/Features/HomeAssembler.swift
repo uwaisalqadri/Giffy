@@ -12,10 +12,9 @@ protocol HomeAssembler {
   func resolve() -> HomeViewModel
   func resolve() -> HomeUseCase
   func resolve() -> HomeRepository
-  func resolve() -> RemoteDataSource
 }
 
-extension HomeAssembler where Self: Assembler {
+extension HomeAssembler {
   func resolve() -> HomeView {
     return HomeView(viewModel: resolve())
   }
@@ -29,10 +28,6 @@ extension HomeAssembler where Self: Assembler {
   }
 
   func resolve() -> HomeRepository {
-    return DefaultHomeRepository(remoteDataSource: resolve())
-  }
-
-  func resolve() -> RemoteDataSource {
-    return DefaultRemoteDataSource()
+    return DefaultHomeRepository(remoteDataSource: DefaultRemoteDataSource())
   }
 }

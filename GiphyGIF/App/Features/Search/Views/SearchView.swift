@@ -16,7 +16,10 @@ struct SearchView: View {
   }
 
   var body: some View {
-    Text("Hello, World!")
+    Text("Search View")
+      .onAppear {
+        viewModel.getSearchGiphy(query: "Swift iOS")
+      }
   }
 }
 

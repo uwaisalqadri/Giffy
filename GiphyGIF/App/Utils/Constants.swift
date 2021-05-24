@@ -10,5 +10,5 @@ import Foundation
 struct Constants {
 
   static let baseUrl = "https://api.giphy.com/v1/gifs/"
-  static let apiKey = "API_KEY"
+  static let apiKey = "EEx8BY3HX9JrYdFZ4Hdcx4Trbj35k5Ic"
 }
