@@ -12,18 +12,18 @@ struct SearchView: View {
   @ObservedObject var viewModel: SearchViewModel
 
   var body: some View {
-    if viewModel.loadingState {
-      ActivityIndicator()
-    } else {
-      NavigationView {
+    NavigationView {
+      if viewModel.loadingState {
+        ActivityIndicator()
+      } else {
         ScrollView {
           ForEach(viewModel.giphys) { item in
-            Text("Search View")
-          }.navigationTitle("Search")
-        }
-      }.onAppear {
-        viewModel.getSearchGiphy(query: "naruto")
+            Text(item.title)
+          }
+        }.navigationTitle("Search")
       }
+    }.onAppear {
+      viewModel.getSearchGiphy(query: "naruto")
     }
   }
 }

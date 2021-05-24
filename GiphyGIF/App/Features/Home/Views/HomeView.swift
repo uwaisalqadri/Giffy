@@ -12,10 +12,18 @@ struct HomeView: View {
   @ObservedObject var viewModel: HomeViewModel
 
   var body: some View {
-    if viewModel.loadingState {
-      ActivityIndicator()
-    } else {
-      Text("Home View")
+    NavigationView {
+      if viewModel.loadingState {
+        ActivityIndicator()
+      } else {
+        ScrollView {
+          ForEach(viewModel.giphys) { item in
+            Text(item.title)
+          }
+        }.navigationTitle("Trending")
+      }
+    }.onAppear {
+      viewModel.getTrendingGiphy()
     }
   }
 }
