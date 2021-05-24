@@ -14,13 +14,19 @@ protocol RemoteDataSource {
   func getSearchGiphy(query: String) -> AnyPublisher<[GiphyItem], Error>
 }
 
-class DefaultRemoteDataSource: RemoteDataSource {
+class DefaultRemoteDataSource: NSObject {
 
-  init() {}
+  override init() {  }
+
+  static let shared: DefaultRemoteDataSource = DefaultRemoteDataSource()
+
+}
+
+extension DefaultRemoteDataSource: RemoteDataSource {
 
   func getTrendingGiphy() -> AnyPublisher<[GiphyItem], Error> {
     return Future<[GiphyItem], Error> { completion in
-      if let url = URL(string: Constants.baseUrl + getEndpoint(endpoint: .trending, apiKey: Constants.apiKey)) {
+      if let url = URL(string: Constants.baseUrl + getEndpoint(endpoint: .trending)) {
         AF.request(url)
           .validate()
           .responseDecodable(of: GiphyResponse.self) { response in
@@ -37,7 +43,7 @@ class DefaultRemoteDataSource: RemoteDataSource {
 
   func getSearchGiphy(query: String) -> AnyPublisher<[GiphyItem], Error> {
     return Future<[GiphyItem], Error> { completion in
-      if let url = URL(string: Constants.baseUrl + getEndpoint(endpoint: .search, apiKey: Constants.apiKey, query: query)) {
+      if let url = URL(string: Constants.baseUrl + getEndpoint(endpoint: .search, query: query)) {
         AF.request(url)
           .validate()
           .responseDecodable(of: GiphyResponse.self) { response in

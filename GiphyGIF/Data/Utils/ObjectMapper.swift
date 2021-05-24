@@ -37,6 +37,10 @@ final class ObjectMapper {
   static func mapOriginalResponseToDomain(
     input originalResponse: OriginalItem
   ) -> Original {
-    return Original(url: originalResponse.url)
+    return Original(
+      url: originalResponse.url,
+      height: originalResponse.height,
+      width: originalResponse.width
+    )
   }
 }

@@ -27,4 +27,6 @@ struct Image: Decodable {
 
 struct Original: Decodable {
   let url: String
+  let height: String
+  let width: String
 }

@@ -12,12 +12,12 @@ enum EndPoints {
   case trending
 }
 
-func getEndpoint(endpoint: EndPoints, apiKey: String, query: String = "ios") -> String {
+func getEndpoint(endpoint: EndPoints, query: String = "ios") -> String {
   switch endpoint {
   case .search:
-    return "search?api_key=\(apiKey)&q=\(query)"
+    return "search?api_key=\(Constants.apiKey)&q=\(query)"
   case .trending:
-    return "trending?api_key=\(apiKey)"
+    return "trending?api_key=\(Constants.apiKey)"
   }
 }
 
@@ -30,20 +30,6 @@ enum URLError: LocalizedError {
     switch self {
     case .invalidResponse: return "The server responded with garbage."
     case .addressUnreachable(let url): return "\(url.absoluteString) is unreachable."
-    }
-  }
-
-}
-
-enum DatabaseError: LocalizedError {
-
-  case invalidInstance
-  case requestFailed
-
-  var errorDescription: String? {
-    switch self {
-    case .invalidInstance: return "Database can't instance."
-    case .requestFailed: return "Your request failed."
     }
   }
 

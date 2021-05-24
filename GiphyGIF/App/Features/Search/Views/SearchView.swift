@@ -9,11 +9,7 @@ import SwiftUI
 
 struct SearchView: View {
 
-  let viewModel: SearchViewModel
-
-  init(viewModel: SearchViewModel) {
-    self.viewModel = viewModel
-  }
+  @ObservedObject var viewModel: SearchViewModel
 
   var body: some View {
     Text("Search View")

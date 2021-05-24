@@ -10,7 +10,7 @@ import Combine
 
 class SearchViewModel: ObservableObject {
 
-  let searchUseCase: SearchUseCase
+  private let searchUseCase: SearchUseCase
 
   private var cancellables: Set<AnyCancellable> = []
   @Published var giphys: [Giphy] = []

@@ -9,9 +9,9 @@ import SwiftUI
 
 @main
 struct GiphyGIFApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
+  var body: some Scene {
+    WindowGroup {
+      ContentView()
     }
+  }
 }

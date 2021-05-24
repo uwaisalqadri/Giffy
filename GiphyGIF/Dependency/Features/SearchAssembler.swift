@@ -8,16 +8,12 @@
 import Foundation
 
 protocol SearchAssembler {
-  func resolve() -> SearchView
   func resolve() -> SearchViewModel
   func resolve() -> SearchUseCase
   func resolve() -> SearchRepository
 }
 
 extension SearchAssembler {
-  func resolve() -> SearchView {
-    return SearchView(viewModel: resolve())
-  }
 
   func resolve() -> SearchViewModel {
     return SearchViewModel(searchUseCase: resolve())
@@ -28,7 +24,8 @@ extension SearchAssembler {
   }
 
   func resolve() -> SearchRepository {
-    return DefaultSearchRepository(remoteDataSource: DefaultRemoteDataSource())
+    let remote = DefaultRemoteDataSource.shared
+    return DefaultSearchRepository(remoteDataSource: remote)
   }
 
 }

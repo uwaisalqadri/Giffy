@@ -34,7 +34,7 @@ struct GiphyItem: Identifiable, Decodable {
     case rating
     case username
     case title
-    case trendingDateTime = "trending_date_time"
+    case trendingDateTime = "trending_datetime"
     case images
   }
 }
@@ -49,8 +49,12 @@ struct ImageItem: Decodable {
 
 struct OriginalItem: Decodable {
   let url: String
+  let height: String
+  let width: String
 
   enum CodingKeys: String, CodingKey {
     case url
+    case height
+    case width
   }
 }
