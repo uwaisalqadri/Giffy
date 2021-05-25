@@ -18,7 +18,6 @@ struct SearchItemView: View {
       AnimatedImage(url: URL(string: giphy.images.original.url), isAnimating: $isAnimating)
         .indicator(SDWebImageActivityIndicator.medium)
         .resizable()
-        .background(Color.green)
         .scaledToFill()
         .frame(maxWidth: 350, maxHeight: 350, alignment: .center)
         .cornerRadius(20)

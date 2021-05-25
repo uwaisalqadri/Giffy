@@ -13,7 +13,7 @@ enum EndPoints {
   case random
 }
 
-func getEndpoint(endpoint: EndPoints, query: String = "ios") -> String {
+func getEndpoint(endpoint: EndPoints, query: String = "") -> String {
   switch endpoint {
   case .search:
     return "search?api_key=\(Constants.apiKey)&q=\(query)"

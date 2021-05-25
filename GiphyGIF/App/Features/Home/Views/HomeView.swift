@@ -25,7 +25,7 @@ struct HomeView: View {
         }
       }.navigationTitle("Trending")
       .gridStyle(self.style)
-      .padding(.bottom, 20)
+      .padding(.bottom, 100)
     }.onAppear {
       viewModel.getTrendingGiphy()
       print(viewModel.giphys)

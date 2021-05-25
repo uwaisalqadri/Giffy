@@ -23,7 +23,7 @@ struct ContentView: View {
 
       VStack {
         Spacer()
-        tabView
+        tabView.padding(.bottom, 20)
       }
     }
   }
@@ -34,7 +34,7 @@ struct ContentView: View {
         selectedIndex = 0
       }, label: {
         VStack {
-          Image(systemName: "house.fill")
+          Image(systemName: "rectangle.3.offgrid.fill")
             .resizable()
             .frame(width: 25, height: 25, alignment: .center)
         }
@@ -54,7 +54,7 @@ struct ContentView: View {
         selectedIndex = 0
       }, label: {
         VStack {
-          Image(systemName: "magnifyingglass")
+          Image(systemName: "rectangle.stack.fill")
             .resizable()
             .frame(width: 25, height: 25, alignment: .center)
         }
