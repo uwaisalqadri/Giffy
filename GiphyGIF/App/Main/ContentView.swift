@@ -9,20 +9,63 @@ import SwiftUI
 
 struct ContentView: View {
 
+  @State var selectedIndex = 0
   let assembler = AppAssembler()
 
   var body: some View {
-    TabView {
-      HomeView(viewModel: assembler.resolve())
-        .tabItem {
-          Label("Home", systemImage: "house.fill")
-        }
+    ZStack {
+      if selectedIndex == 0 {
+        HomeView(viewModel: assembler.resolve())
+      }
+      else if selectedIndex == 1 {
+        SearchView(viewModel: assembler.resolve())
+      }
 
-      SearchView(viewModel: assembler.resolve())
-        .tabItem {
-          Label("Search", systemImage: "magnifyingglass")
-        }
+      VStack {
+        Spacer()
+        tabView
+      }
     }
+  }
+
+  var tabView: some View {
+    HStack {
+      Button(action: {
+        selectedIndex = 0
+      }, label: {
+        VStack {
+          Image(systemName: "house.fill")
+            .resizable()
+            .frame(width: 25, height: 25, alignment: .center)
+        }
+      }).padding(.leading, 40)
+
+      Button(action: {
+        selectedIndex = 1
+      }, label: {
+        VStack {
+          Image(systemName: "magnifyingglass")
+            .resizable()
+            .frame(width: 25, height: 25, alignment: .center)
+        }
+      }).padding(.leading, 40)
+
+      Button(action: {
+        selectedIndex = 0
+      }, label: {
+        VStack {
+          Image(systemName: "magnifyingglass")
+            .resizable()
+            .frame(width: 25, height: 25, alignment: .center)
+        }
+      }).padding(.horizontal, 40)
+    }
+    .frame(maxWidth: .infinity, minHeight: 80)
+    .background(
+      Blur(style: .systemUltraThinMaterial)
+        .cornerRadius(15, corners: [.allCorners])
+    )
+    .padding(.horizontal, 70)
   }
 }
 

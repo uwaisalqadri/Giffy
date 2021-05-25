@@ -38,7 +38,7 @@ struct SearchItemView: View {
     }.frame(maxWidth: 350, maxHeight: 100)
     .background(
       Blur(style: .systemUltraThinMaterial)
-        .opacity(0.8)
+        //.opacity(0.8)
         .cornerRadius(20, corners: [.bottomLeft, .bottomRight])
     )
   }
