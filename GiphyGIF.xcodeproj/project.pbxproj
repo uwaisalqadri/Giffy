@@ -38,6 +38,9 @@
 		5258E258265A8C7E005ACD9F /* DefaultSearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5258E257265A8C7E005ACD9F /* DefaultSearchRepository.swift */; };
 		52E2BAF0265CF21F00E2F670 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 52E2BAEF265CF21F00E2F670 /* Alamofire */; };
 		52E2BAF4265CF28B00E2F670 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 52E2BAF3265CF28B00E2F670 /* SDWebImageSwiftUI */; };
+		52E5458F265D2CFC004F627B /* GiphyObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E5458E265D2CFC004F627B /* GiphyObject.swift */; };
+		52E54594265D337B004F627B /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 52E54593265D337B004F627B /* Realm */; };
+		52E54596265D337B004F627B /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 52E54595265D337B004F627B /* RealmSwift */; };
 		52ECB3B1265B134E0075082C /* HomeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ECB3B0265B134E0075082C /* HomeUseCase.swift */; };
 		52ECB3B4265B13580075082C /* SearchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ECB3B3265B13580075082C /* SearchUseCase.swift */; };
 		52ECB3B7265B15180075082C /* ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ECB3B6265B15180075082C /* ObjectMapper.swift */; };
@@ -79,6 +82,7 @@
 		5258E250265A8AF0005ACD9F /* SearchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepository.swift; sourceTree = "<group>"; };
 		5258E253265A8B36005ACD9F /* DefaultHomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultHomeRepository.swift; sourceTree = "<group>"; };
 		5258E257265A8C7E005ACD9F /* DefaultSearchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSearchRepository.swift; sourceTree = "<group>"; };
+		52E5458E265D2CFC004F627B /* GiphyObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiphyObject.swift; sourceTree = "<group>"; };
 		52ECB3B0265B134E0075082C /* HomeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUseCase.swift; sourceTree = "<group>"; };
 		52ECB3B3265B13580075082C /* SearchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUseCase.swift; sourceTree = "<group>"; };
 		52ECB3B6265B15180075082C /* ObjectMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectMapper.swift; sourceTree = "<group>"; };
@@ -96,6 +100,8 @@
 			files = (
 				52E2BAF4265CF28B00E2F670 /* SDWebImageSwiftUI in Frameworks */,
 				523AFC38265BDE9800C052A5 /* Grid in Frameworks */,
+				52E54594265D337B004F627B /* Realm in Frameworks */,
+				52E54596265D337B004F627B /* RealmSwift in Frameworks */,
 				52E2BAF0265CF21F00E2F670 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -322,6 +328,7 @@
 		522768AD265A054C00E7454C /* Local */ = {
 			isa = PBXGroup;
 			children = (
+				52E5458D265D2CCF004F627B /* Object */,
 				522768C0265A097B00E7454C /* LocalDataSource.swift */,
 			);
 			path = Local;
@@ -419,6 +426,14 @@
 			path = Response;
 			sourceTree = "<group>";
 		};
+		52E5458D265D2CCF004F627B /* Object */ = {
+			isa = PBXGroup;
+			children = (
+				52E5458E265D2CFC004F627B /* GiphyObject.swift */,
+			);
+			path = Object;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -439,6 +454,8 @@
 				523AFC37265BDE9800C052A5 /* Grid */,
 				52E2BAEF265CF21F00E2F670 /* Alamofire */,
 				52E2BAF3265CF28B00E2F670 /* SDWebImageSwiftUI */,
+				52E54593265D337B004F627B /* Realm */,
+				52E54595265D337B004F627B /* RealmSwift */,
 			);
 			productName = GiphyGIF;
 			productReference = 52276886265A02D500E7454C /* GiphyGIF.app */;
@@ -471,6 +488,7 @@
 				523AFC36265BDE9700C052A5 /* XCRemoteSwiftPackageReference "swiftui-grid" */,
 				52E2BAEE265CF21F00E2F670 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				52E2BAF2265CF28B00E2F670 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				52E54592265D337B004F627B /* XCRemoteSwiftPackageReference "realm-cocoa" */,
 			);
 			productRefGroup = 52276887265A02D500E7454C /* Products */;
 			projectDirPath = "";
@@ -531,6 +549,7 @@
 				522768FD265A476600E7454C /* SeachNavigator.swift in Sources */,
 				52ECB3D7265B6CA00075082C /* ActivityIndicator.swift in Sources */,
 				52276913265A4AE000E7454C /* Date.swift in Sources */,
+				52E5458F265D2CFC004F627B /* GiphyObject.swift in Sources */,
 				5227691D265A53FC00E7454C /* GiphyResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -746,6 +765,14 @@
 				minimumVersion = 2.0.2;
 			};
 		};
+		52E54592265D337B004F627B /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-cocoa.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.7.6;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -763,6 +790,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 52E2BAF2265CF28B00E2F670 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		52E54593265D337B004F627B /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 52E54592265D337B004F627B /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = Realm;
+		};
+		52E54595265D337B004F627B /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 52E54592265D337B004F627B /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
