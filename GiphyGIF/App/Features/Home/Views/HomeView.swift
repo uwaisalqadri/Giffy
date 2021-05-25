@@ -17,15 +17,11 @@ struct HomeView: View {
     NavigationView {
       ScrollView {
         VStack(alignment: .leading) {
-          if !viewModel.loadingState {
-            Text("Today's Popular Giphy").font(.system(size: 20, weight: .medium)).padding(.leading, 20)
-            Grid(viewModel.giphys, id: \.id) { item in
-              HomeItemView(giphy: item)
-                .padding([.leading, .trailing], 5)
-            }.padding([.leading, .trailing], 10)
-          } else {
-            ActivityIndicator()
-          }
+          Text("Today's Popular Giphy").font(.system(size: 20, weight: .medium)).padding(.leading, 20)
+          Grid(viewModel.giphys, id: \.id) { item in
+            HomeItemView(giphy: item)
+              .padding([.leading, .trailing], 5)
+          }.padding([.leading, .trailing], 10)
         }
       }.navigationTitle("Trending")
       .gridStyle(self.style)

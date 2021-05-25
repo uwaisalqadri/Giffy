@@ -12,6 +12,7 @@ import Alamofire
 protocol RemoteDataSource {
   func getTrendingGiphy() -> AnyPublisher<[GiphyItem], Error>
   func getSearchGiphy(query: String) -> AnyPublisher<[GiphyItem], Error>
+  func getRandomGiphy() -> AnyPublisher<[GiphyItem], Error>
 }
 
 class DefaultRemoteDataSource: NSObject {
@@ -44,6 +45,23 @@ extension DefaultRemoteDataSource: RemoteDataSource {
   func getSearchGiphy(query: String) -> AnyPublisher<[GiphyItem], Error> {
     return Future<[GiphyItem], Error> { completion in
       if let url = URL(string: Constants.baseUrl + getEndpoint(endpoint: .search, query: query)) {
+        AF.request(url)
+          .validate()
+          .responseDecodable(of: GiphyResponse.self) { response in
+            switch response.result {
+            case .success(let value):
+              completion(.success(value.data))
+            case .failure:
+              completion(.failure(URLError.invalidResponse))
+            }
+          }
+      }
+    }.eraseToAnyPublisher()
+  }
+
+  func getRandomGiphy() -> AnyPublisher<[GiphyItem], Error> {
+    return Future<[GiphyItem], Error> { completion in
+      if let url = URL(string: Constants.baseUrl + getEndpoint(endpoint: .random)) {
         AF.request(url)
           .validate()
           .responseDecodable(of: GiphyResponse.self) { response in

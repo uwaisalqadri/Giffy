@@ -10,4 +10,5 @@ import Combine
 
 protocol HomeRepository {
   func getTrendingGiphy() -> AnyPublisher<[Giphy], Error>
+  func getRandomGiphy() -> AnyPublisher<[Giphy], Error>
 }

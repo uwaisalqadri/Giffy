@@ -37,4 +37,20 @@ class HomeViewModel: ObservableObject {
         self.giphys = result
       }).store(in: &cancellables)
   }
+
+  func getRandomGiphy() {
+    self.loadingState = true
+    homeUseCase.getRandomGiphy()
+      .receive(on: RunLoop.main)
+      .sink(receiveCompletion: { completion in
+        switch completion {
+        case .failure:
+          self.errorMessage = String(describing: completion)
+        case .finished:
+          self.loadingState = false
+        }
+      }, receiveValue: { result in
+        self.giphys = result
+      }).store(in: &cancellables)
+  }
 }

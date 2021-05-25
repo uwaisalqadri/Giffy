@@ -39,7 +39,7 @@ extension SearchView {
       HStack {
         TextField("Search giphy..", text: $viewModel.searchText)
           .font(.system(size: 18, weight: .medium))
-          .padding(.horizontal, 15)
+          .padding(.horizontal, 20)
           .frame(height: 40)
           .background(
             ZStack(alignment: .trailing) {

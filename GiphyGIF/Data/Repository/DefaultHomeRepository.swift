@@ -21,4 +21,10 @@ public struct DefaultHomeRepository: HomeRepository {
       .map { ObjectMapper.mapGiphyResponseToDomain(input: $0) }
       .eraseToAnyPublisher()
   }
+
+  func getRandomGiphy() -> AnyPublisher<[Giphy], Error> {
+    return remoteDataSource.getRandomGiphy()
+      .map { ObjectMapper.mapGiphyResponseToDomain(input: $0) }
+      .eraseToAnyPublisher()
+  }
 }

@@ -10,6 +10,8 @@
 		285BB7CD3EC1C05E6F15D0E8 /* Pods_GiphyGIF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE7C430D93A98A1BC9E3B6A5 /* Pods_GiphyGIF.framework */; };
 		5215A298265BF72600F674F1 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5215A297265BF72600F674F1 /* String+Ext.swift */; };
 		5215A29D265C719D00F674F1 /* SearchItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5215A29C265C719D00F674F1 /* SearchItemView.swift */; };
+		5215A2A5265CA89D00F674F1 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5215A2A4265CA89D00F674F1 /* Blur.swift */; };
+		5215A2A8265CAAED00F674F1 /* View+RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5215A2A7265CAAED00F674F1 /* View+RoundedCorner.swift */; };
 		5227688A265A02D500E7454C /* GiphyGIFApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52276889265A02D500E7454C /* GiphyGIFApp.swift */; };
 		5227688C265A02D500E7454C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5227688B265A02D500E7454C /* ContentView.swift */; };
 		5227688E265A02D700E7454C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5227688D265A02D700E7454C /* Assets.xcassets */; };
@@ -48,6 +50,8 @@
 /* Begin PBXFileReference section */
 		5215A297265BF72600F674F1 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		5215A29C265C719D00F674F1 /* SearchItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItemView.swift; sourceTree = "<group>"; };
+		5215A2A4265CA89D00F674F1 /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
+		5215A2A7265CAAED00F674F1 /* View+RoundedCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+RoundedCorner.swift"; sourceTree = "<group>"; };
 		52276886265A02D500E7454C /* GiphyGIF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GiphyGIF.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52276889265A02D500E7454C /* GiphyGIFApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiphyGIFApp.swift; sourceTree = "<group>"; };
 		5227688B265A02D500E7454C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -223,6 +227,7 @@
 			children = (
 				52276912265A4AE000E7454C /* Date.swift */,
 				5215A297265BF72600F674F1 /* String+Ext.swift */,
+				5215A2A7265CAAED00F674F1 /* View+RoundedCorner.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -388,6 +393,7 @@
 			children = (
 				52ECB3C3265B34000075082C /* SearchView.swift */,
 				5215A29C265C719D00F674F1 /* SearchItemView.swift */,
+				5215A2A4265CA89D00F674F1 /* Blur.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -552,6 +558,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5215A2A8265CAAED00F674F1 /* View+RoundedCorner.swift in Sources */,
+				5215A2A5265CA89D00F674F1 /* Blur.swift in Sources */,
 				522768C1265A097B00E7454C /* LocalDataSource.swift in Sources */,
 				522768E7265A46EC00E7454C /* HomeViewModel.swift in Sources */,
 				522768FA265A475000E7454C /* PlayerViewModel.swift in Sources */,

@@ -16,7 +16,8 @@ struct HomeItemView: View {
   var body: some View {
     VStack(alignment: .leading) {
 
-      WebImage(url: URL(string: giphy.images.original.url), isAnimating: $isAnimating)
+      AnimatedImage(url: URL(string: giphy.images.original.url), isAnimating: $isAnimating)
+        .indicator(SDWebImageActivityIndicator.medium)
         .resizable()
         .frame(idealWidth: giphy.images.original.width.CGFloatValue(), idealHeight: giphy.images.original.height.CGFloatValue(), alignment: .center)
         .scaledToFit()

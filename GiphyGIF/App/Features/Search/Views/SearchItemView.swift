@@ -15,32 +15,31 @@ struct SearchItemView: View {
 
   var body: some View {
     ZStack {
-      WebImage(url: URL(string: giphy.images.original.url), isAnimating: $isAnimating)
+      AnimatedImage(url: URL(string: giphy.images.original.url), isAnimating: $isAnimating)
+        .indicator(SDWebImageActivityIndicator.medium)
         .resizable()
+        .background(Color.green)
         .scaledToFill()
-        .frame(maxWidth: 400, maxHeight: 400, alignment: .center)
+        .frame(maxWidth: 350, maxHeight: 350, alignment: .center)
         .cornerRadius(20)
 
       footer
-        .padding(.top, 180)
+        .padding(.top, 300)
     }
   }
 
   var footer: some View {
     VStack(alignment: .leading) {
+
       Text(giphy.title)
         .foregroundColor(.white)
-        .font(.system(size: 15, weight: .semibold))
+        .font(.system(size: 20, weight: .bold))
 
-      Text(giphy.rating)
-        .foregroundColor(.gray)
-        .font(.system(size: 15, weight: .semibold))
-
-    }.frame(maxWidth: 350, maxHeight: 80)
+    }.frame(maxWidth: 350, maxHeight: 100)
     .background(
-      RoundedRectangle(cornerRadius: 0)
-        .fill(Color.clear)
-        .blur(radius: 10)
+      Blur(style: .systemUltraThinMaterial)
+        .opacity(0.8)
+        .cornerRadius(20, corners: [.bottomLeft, .bottomRight])
     )
   }
 }

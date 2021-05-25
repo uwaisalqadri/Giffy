@@ -10,6 +10,7 @@ import Combine
 
 protocol HomeUseCase {
   func getTrendingGiphy() -> AnyPublisher<[Giphy], Error>
+  func getRandomGiphy() -> AnyPublisher<[Giphy], Error>
 }
 
 open class HomeInteractor: HomeUseCase {
@@ -22,5 +23,9 @@ open class HomeInteractor: HomeUseCase {
 
   func getTrendingGiphy() -> AnyPublisher<[Giphy], Error> {
     repository.getTrendingGiphy()
+  }
+
+  func getRandomGiphy() -> AnyPublisher<[Giphy], Error> {
+    repository.getRandomGiphy()
   }
 }
