@@ -23,17 +23,3 @@ func getEndpoint(endpoint: EndPoints, query: String = "") -> String {
   return "random?api_key=\(Constants.apiKey)"
   }
 }
-
-enum URLError: LocalizedError {
-
-  case invalidResponse
-  case addressUnreachable(URL)
-
-  var errorDescription: String? {
-    switch self {
-    case .invalidResponse: return "The server responded with garbage."
-    case .addressUnreachable(let url): return "\(url.absoluteString) is unreachable."
-    }
-  }
-
-}

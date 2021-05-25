@@ -41,6 +41,7 @@
 		52E5458F265D2CFC004F627B /* GiphyObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E5458E265D2CFC004F627B /* GiphyObject.swift */; };
 		52E54594265D337B004F627B /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 52E54593265D337B004F627B /* Realm */; };
 		52E54596265D337B004F627B /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 52E54595265D337B004F627B /* RealmSwift */; };
+		52E54599265D7577004F627B /* CustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E54598265D7577004F627B /* CustomError.swift */; };
 		52ECB3B1265B134E0075082C /* HomeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ECB3B0265B134E0075082C /* HomeUseCase.swift */; };
 		52ECB3B4265B13580075082C /* SearchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ECB3B3265B13580075082C /* SearchUseCase.swift */; };
 		52ECB3B7265B15180075082C /* ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ECB3B6265B15180075082C /* ObjectMapper.swift */; };
@@ -83,6 +84,7 @@
 		5258E253265A8B36005ACD9F /* DefaultHomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultHomeRepository.swift; sourceTree = "<group>"; };
 		5258E257265A8C7E005ACD9F /* DefaultSearchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSearchRepository.swift; sourceTree = "<group>"; };
 		52E5458E265D2CFC004F627B /* GiphyObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiphyObject.swift; sourceTree = "<group>"; };
+		52E54598265D7577004F627B /* CustomError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomError.swift; sourceTree = "<group>"; };
 		52ECB3B0265B134E0075082C /* HomeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUseCase.swift; sourceTree = "<group>"; };
 		52ECB3B3265B13580075082C /* SearchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUseCase.swift; sourceTree = "<group>"; };
 		52ECB3B6265B15180075082C /* ObjectMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectMapper.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 			children = (
 				52276921265A579300E7454C /* API.swift */,
 				52ECB3B6265B15180075082C /* ObjectMapper.swift */,
+				52E54598265D7577004F627B /* CustomError.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -551,6 +554,7 @@
 				52276913265A4AE000E7454C /* Date.swift in Sources */,
 				52E5458F265D2CFC004F627B /* GiphyObject.swift in Sources */,
 				5227691D265A53FC00E7454C /* GiphyResponse.swift in Sources */,
+				52E54599265D7577004F627B /* CustomError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
