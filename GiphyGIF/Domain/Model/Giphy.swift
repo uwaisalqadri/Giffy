@@ -17,10 +17,10 @@ struct Giphy: Identifiable, Decodable {
   let username: String
   let title: String
   let trendingDateTime: String
-  let images: Image
+  let images: ImageGIF
 }
 
-struct Image: Decodable {
+struct ImageGIF: Decodable {
   let original: Original
 
 }

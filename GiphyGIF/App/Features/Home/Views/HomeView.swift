@@ -15,18 +15,21 @@ struct HomeView: View {
 
   var body: some View {
     NavigationView {
-      if viewModel.loadingState {
-        ActivityIndicator()
-      } else {
-        ScrollView {
-          Grid(viewModel.giphys, id: \.id) { item in
-            GiphyRow(giphy: item)
-              .padding([.leading, .trailing], 5)
-          }.padding([.leading, .trailing], 10)
-        }.navigationTitle("Trending")
-        .gridStyle(self.style)
-        .padding(.bottom, 20)
-      }
+      ScrollView {
+        VStack(alignment: .leading) {
+          if !viewModel.loadingState {
+            Text("Today's Popular Giphy").font(.system(size: 20, weight: .medium)).padding(.leading, 20)
+            Grid(viewModel.giphys, id: \.id) { item in
+              HomeItemView(giphy: item)
+                .padding([.leading, .trailing], 5)
+            }.padding([.leading, .trailing], 10)
+          } else {
+            ActivityIndicator()
+          }
+        }
+      }.navigationTitle("Trending")
+      .gridStyle(self.style)
+      .padding(.bottom, 20)
     }.onAppear {
       viewModel.getTrendingGiphy()
       print(viewModel.giphys)

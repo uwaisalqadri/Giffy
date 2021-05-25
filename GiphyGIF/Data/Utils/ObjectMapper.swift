@@ -30,8 +30,8 @@ final class ObjectMapper {
 
   static func mapImageResponseToDomain(
     input imageResponse: ImageItem
-  ) -> Image {
-    return Image(original: mapOriginalResponseToDomain(input: imageResponse.original))
+  ) -> ImageGIF {
+    return ImageGIF(original: mapOriginalResponseToDomain(input: imageResponse.original))
   }
 
   static func mapOriginalResponseToDomain(

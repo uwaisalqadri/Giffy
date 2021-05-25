@@ -15,7 +15,7 @@ extension String {
       return nil
     }
 
-    return CGFloat(doubleValue/2.5)
+    return CGFloat(doubleValue/2)
   }
 }
 

@@ -10,6 +10,7 @@ import Foundation
 enum EndPoints {
   case search
   case trending
+  case random
 }
 
 func getEndpoint(endpoint: EndPoints, query: String = "ios") -> String {
@@ -18,6 +19,8 @@ func getEndpoint(endpoint: EndPoints, query: String = "ios") -> String {
     return "search?api_key=\(Constants.apiKey)&q=\(query)"
   case .trending:
     return "trending?api_key=\(Constants.apiKey)"
+  case .random:
+  return "random?api_key=\(Constants.apiKey)"
   }
 }
 
