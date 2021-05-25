@@ -1,6 +1,0 @@
-${PODS_ROOT}/Target Support Files/Pods-GiphyGIF/Pods-GiphyGIF-frameworks.sh
-${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
-${BUILT_PRODUCTS_DIR}/Moya/Moya.framework
-${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework
-${BUILT_PRODUCTS_DIR}/SDWebImageSwiftUI/SDWebImageSwiftUI.framework
-${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework
