@@ -23,6 +23,7 @@ struct GiphyItem: Identifiable, Decodable {
   let rating: String
   let username: String
   let title: String
+  let slug: String
   let trendingDateTime: String
   let images: ImageItem
 
@@ -34,6 +35,7 @@ struct GiphyItem: Identifiable, Decodable {
     case rating
     case username
     case title
+    case slug
     case trendingDateTime = "trending_datetime"
     case images
   }

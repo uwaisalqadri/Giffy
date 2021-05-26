@@ -29,13 +29,9 @@ struct SearchView: View {
       .padding(.top, 10)
     }
   }
-}
-
-extension SearchView {
 
   var searchInput: some View {
     VStack(alignment: .leading) {
-
       HStack {
         TextField("Search giphy..", text: $viewModel.searchText)
           .font(.system(size: 18, weight: .medium))
@@ -54,6 +50,7 @@ extension SearchView {
       }
     }
   }
+
 }
 
 
