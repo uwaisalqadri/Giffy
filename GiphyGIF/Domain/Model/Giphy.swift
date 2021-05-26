@@ -18,6 +18,7 @@ struct Giphy: Identifiable, Decodable {
   let title: String
   let trendingDateTime: String
   let images: ImageGIF
+  let favorite: Bool
 }
 
 struct ImageGIF: Decodable {

@@ -45,7 +45,7 @@ struct SearchItemView: View {
 
 struct SearchItemView_Previews: PreviewProvider {
   static var previews: some View {
-    SearchItemView(giphy: Giphy(type: "", id: "", url: "https://media2.giphy.com/media/pfEKZQG1IMHl2trcsL/giphy.gif?cid=acc285bff3pkjsgu883yjffvkktkh5yt5t89l9j0eiw5e0yj&rid=giphy.gif", embedUrl: "", rating: "", username: "", title: "Blogger", trendingDateTime: "", images: ImageGIF(original: Original(url: "", height: "", width: "")))
+    SearchItemView(giphy: Giphy(type: "", id: "", url: "https://media2.giphy.com/media/pfEKZQG1IMHl2trcsL/giphy.gif?cid=acc285bff3pkjsgu883yjffvkktkh5yt5t89l9j0eiw5e0yj&rid=giphy.gif", embedUrl: "", rating: "", username: "", title: "Blogger", trendingDateTime: "", images: ImageGIF(original: Original(url: "", height: "", width: "")), favorite: false)
     ).previewLayout(.sizeThatFits)
   }
 }

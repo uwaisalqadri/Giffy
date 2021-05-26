@@ -29,7 +29,7 @@ struct HomeItemView: View {
 
 struct HomeItemView_Previews: PreviewProvider {
   static var previews: some View {
-    HomeItemView(giphy: Giphy(type: "", id: "", url: "", embedUrl: "", rating: "", username: "", title: "", trendingDateTime: "", images: ImageGIF(original: Original(url: "", height: "", width: "")))
+    HomeItemView(giphy: Giphy(type: "", id: "", url: "", embedUrl: "", rating: "", username: "", title: "", trendingDateTime: "", images: ImageGIF(original: Original(url: "", height: "", width: "")), favorite: false)
     ).previewLayout(.sizeThatFits)
   }
 }

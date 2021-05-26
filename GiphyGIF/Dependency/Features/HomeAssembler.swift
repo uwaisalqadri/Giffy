@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 protocol HomeAssembler {
   func resolve() -> HomeViewModel
@@ -23,7 +24,9 @@ extension HomeAssembler {
   }
 
   func resolve() -> HomeRepository {
+    let realm = try? Realm()
     let remote = DefaultRemoteDataSource.shared
-    return DefaultHomeRepository(remoteDataSource: remote)
+    let local = DefaultLocalDataSource.shared(realm)
+    return DefaultHomeRepository(remoteDataSource: remote, localDataSource: local)
   }
 }
