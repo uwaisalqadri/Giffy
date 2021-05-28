@@ -20,12 +20,12 @@ struct HomeView: View {
           Text("Today's Popular Giphy").font(.system(size: 20, weight: .medium)).padding(.leading, 20)
           Grid(viewModel.giphys, id: \.id) { item in
             HomeItemView(giphy: item)
-              .padding([.leading, .trailing], 5)
-          }.padding([.leading, .trailing], 10)
+              .padding(.horizontal, 5)
+          }.padding(.bottom, 60)
+          .padding(.horizontal, 10)
         }
       }.navigationTitle("Trending")
       .gridStyle(self.style)
-      .padding(.bottom, 100)
     }.onAppear {
       viewModel.getTrendingGiphy()
       print(viewModel.giphys)

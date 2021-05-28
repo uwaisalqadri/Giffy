@@ -8,3 +8,6 @@
 import Foundation
 
 class FavoriteViewModel: ObservableObject {}
+
+// basically, just set saved data to favorite = true, that's it
+// and some function here will fetch it
