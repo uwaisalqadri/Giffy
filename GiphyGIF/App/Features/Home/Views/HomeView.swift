@@ -17,7 +17,7 @@ struct HomeView: View {
   var body: some View {
     NavigationView {
       ScrollView {
-        VStack(alignment: .leading) {
+        LazyVStack(alignment: .leading) {
           Text("Today's Popular Giphy").font(.system(size: 20, weight: .medium)).padding(.leading, 20)
           Grid(viewModel.giphys, id: \.id) { item in
             HomeItemView(giphy: item)

@@ -18,16 +18,21 @@ struct SearchView: View {
       ScrollView {
         searchInput
         if !viewModel.loadingState {
-          ForEach(viewModel.giphys) { item in
-            SearchItemView(giphy: item)
-              .padding([.leading, .trailing], 10)
-              .sheet(isPresented: $showPlayer) {
-                DetailView(giphy: item)
-              }
-              .onTapGesture {
-                showPlayer = true
-              }
-          }.padding(.top, 10)
+          ZStack {
+            emptyView.padding(.top, 30)
+            VStack {
+              ForEach(viewModel.giphys) { item in
+                SearchItemView(giphy: item)
+                  .padding([.leading, .trailing], 10)
+                  .sheet(isPresented: $showPlayer) {
+                    DetailView(giphy: item)
+                  }
+                  .onTapGesture {
+                    showPlayer = true
+                  }
+              }.padding(.top, 10)
+            }
+          }
         } else {
           ActivityIndicator()
             .padding(.top, 10)
@@ -58,6 +63,19 @@ struct SearchView: View {
     }
   }
 
+  var emptyView: some View {
+    VStack {
+      Image(systemName: "magnifyingglass")
+        .resizable()
+        .foregroundColor(.green)
+        .frame(width: 40, height: 40)
+        .padding(.bottom, 5)
+
+      Text("Search Something!")
+        .foregroundColor(.green)
+        .font(.system(size: 15, weight: .medium))
+    }
+  }
 }
 
 

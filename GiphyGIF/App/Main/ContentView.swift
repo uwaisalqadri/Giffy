@@ -35,8 +35,9 @@ struct ContentView: View {
         selectedIndex = 0
       }, label: {
         VStack {
-          Image(systemName: "rectangle.3.offgrid.fill")
+          Image(systemName: "rectangle.3.offgrid")
             .resizable()
+            .foregroundColor(.pink)
             .frame(width: 25, height: 25, alignment: .center)
         }
       }).padding(.leading, 40)
@@ -45,8 +46,9 @@ struct ContentView: View {
         selectedIndex = 1
       }, label: {
         VStack {
-          Image(systemName: "rectangle.stack.fill")
+          Image(systemName: "rectangle.stack")
             .resizable()
+            .foregroundColor(.yellow)
             .frame(width: 25, height: 25, alignment: .center)
         }
       }).padding(.leading, 40)
@@ -55,8 +57,9 @@ struct ContentView: View {
         selectedIndex = 2
       }, label: {
         VStack {
-          Image(systemName: "person.fill")
+          Image(systemName: "person")
             .resizable()
+            .foregroundColor(.purple)
             .frame(width: 25, height: 25, alignment: .center)
         }
       }).padding(.horizontal, 40)

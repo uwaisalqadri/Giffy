@@ -15,7 +15,7 @@ struct AboutView: View {
           HStack {
             Image("tampandanberani")
               .resizable()
-              .aspectRatio(contentMode: .fit)
+              .aspectRatio(contentMode: .fill)
               .frame(width: 80, height: 80)
               .cornerRadius(20)
 
@@ -54,6 +54,7 @@ struct AboutView: View {
           Spacer()
         }
       }
+      .padding(.bottom, 100)
       .navigationTitle("Profile")
     }
   }
