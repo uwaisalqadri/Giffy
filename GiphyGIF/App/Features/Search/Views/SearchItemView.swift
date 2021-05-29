@@ -43,27 +43,6 @@ struct SearchItemView: View {
 
       Spacer()
 
-      Button(action: {
-        if giphy.favorite {
-          print("remove from favorite")
-        } else {
-          print("add to favorite")
-        }
-      }, label: {
-        if giphy.favorite {
-          Image(systemName: "heart.fill")
-            .resizable()
-            .frame(width: 23, height: 20)
-            .foregroundColor(.red)
-        } else {
-          Image(systemName: "heart")
-            .resizable()
-            .frame(width: 23, height: 20)
-            .foregroundColor(.red)
-        }
-      }).padding(.trailing, 25)
-
-
     }.frame(maxWidth: 350, maxHeight: 130)
     .background(
       Blur(style: .systemUltraThinMaterialDark)

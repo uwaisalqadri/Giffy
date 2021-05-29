@@ -11,6 +11,7 @@ struct SearchView: View {
 
   @ObservedObject var viewModel: SearchViewModel
   @State var searchText = ""
+  @State var showPlayer = false
 
   var body: some View {
     NavigationView {
@@ -20,6 +21,12 @@ struct SearchView: View {
           ForEach(viewModel.giphys) { item in
             SearchItemView(giphy: item)
               .padding([.leading, .trailing], 10)
+              .sheet(isPresented: $showPlayer) {
+                DetailView(giphy: item)
+              }
+              .onTapGesture {
+                showPlayer = true
+              }
           }.padding(.top, 10)
         } else {
           ActivityIndicator()

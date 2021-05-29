@@ -11,7 +11,7 @@ import Grid
 struct HomeView: View {
 
   @ObservedObject var viewModel: HomeViewModel
-  @State var showPlayer = true
+  @State var showPlayer = false
   let style = StaggeredGridStyle(.vertical, tracks: .min(150), spacing: 5)
 
   var body: some View {
@@ -20,10 +20,14 @@ struct HomeView: View {
         VStack(alignment: .leading) {
           Text("Today's Popular Giphy").font(.system(size: 20, weight: .medium)).padding(.leading, 20)
           Grid(viewModel.giphys, id: \.id) { item in
-            NavigationLink(destination: PlayerView(giphy: item, showPlayer: $showPlayer)) {
-              HomeItemView(giphy: item)
-                .padding(.horizontal, 5)
-            }.buttonStyle(PlainButtonStyle())
+            HomeItemView(giphy: item)
+              .padding(.horizontal, 5)
+              .sheet(isPresented: $showPlayer) {
+                DetailView(giphy: item)
+              }
+              .onTapGesture {
+                showPlayer = true
+              }
           }.padding(.bottom, 60)
           .padding(.horizontal, 10)
         }
