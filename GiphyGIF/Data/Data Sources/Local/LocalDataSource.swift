@@ -98,8 +98,6 @@ extension DefaultLocalDataSource: LocalDataSource {
       }
     }.eraseToAnyPublisher()
   }
-
-
 }
 
 extension Results {

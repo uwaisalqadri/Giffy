@@ -16,9 +16,10 @@ struct ContentView: View {
     ZStack {
       if selectedIndex == 0 {
         HomeView(viewModel: assembler.resolve())
-      }
-      else if selectedIndex == 1 {
+      } else if selectedIndex == 1 {
         SearchView(viewModel: assembler.resolve())
+      } else if selectedIndex == 2 {
+        AboutView()
       }
 
       VStack {
@@ -44,17 +45,17 @@ struct ContentView: View {
         selectedIndex = 1
       }, label: {
         VStack {
-          Image(systemName: "magnifyingglass")
+          Image(systemName: "rectangle.stack.fill")
             .resizable()
             .frame(width: 25, height: 25, alignment: .center)
         }
       }).padding(.leading, 40)
 
       Button(action: {
-        selectedIndex = 0
+        selectedIndex = 2
       }, label: {
         VStack {
-          Image(systemName: "rectangle.stack.fill")
+          Image(systemName: "person.fill")
             .resizable()
             .frame(width: 25, height: 25, alignment: .center)
         }
@@ -62,7 +63,7 @@ struct ContentView: View {
     }
     .frame(maxWidth: .infinity, minHeight: 80)
     .background(
-      Blur(style: .systemUltraThinMaterial)
+      Blur(style: .systemUltraThinMaterialDark)
         .cornerRadius(15, corners: [.allCorners])
     )
     .padding(.horizontal, 70)

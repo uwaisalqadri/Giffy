@@ -8,13 +8,21 @@
 import SwiftUI
 
 struct PlayerView: View {
-    var body: some View {
-        Text("Player")
-    }
-}
 
-struct PlayerView_Previews: PreviewProvider {
-    static var previews: some View {
-        PlayerView()
-    }
+  let giphy: Giphy
+  @Binding var showPlayer: Bool
+  @State var isAnimation = true
+
+  var body: some View {
+    WebView(url: URL(string: giphy.url))
+      .edgesIgnoringSafeArea([.bottom, .horizontal])
+      .navigationBarItems(trailing:
+        Button(action: {
+          print("Oke")
+        }) {
+         Image(systemName: "heart")
+          .foregroundColor(.red)
+       }
+    )
+  }
 }

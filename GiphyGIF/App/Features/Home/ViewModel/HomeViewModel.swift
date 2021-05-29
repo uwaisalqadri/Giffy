@@ -34,6 +34,7 @@ class HomeViewModel: ObservableObject {
           self.loadingState = false
         }
       }, receiveValue: { result in
+        print(result)
         self.giphys = result
       }).store(in: &cancellables)
   }
