@@ -1,0 +1,9 @@
+disabled_rules: # rule identifiers to exclude from running
+- line_length
+- identifier_name
+- cyclomatic_complexity
+- trailing_whitespace
+- opening_brace
+- multiple_closures_with_trailing_closure
+- generic_type_name
+

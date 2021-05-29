@@ -23,10 +23,9 @@ class DefaultLocalDataSource: NSObject {
     self.realm = realm
   }
 
-  static let shared: (Realm?) -> DefaultLocalDataSource = {
-    realmDatabase in return DefaultLocalDataSource(realm: realmDatabase)
+  static let shared: (Realm?) -> DefaultLocalDataSource = { realmDatabase in
+    return DefaultLocalDataSource(realm: realmDatabase)
   }
-
 }
 
 extension DefaultLocalDataSource: LocalDataSource {

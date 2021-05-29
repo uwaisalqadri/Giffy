@@ -8,7 +8,6 @@
 import Foundation
 import RealmSwift
 
-
 class GiphyObject: Object {
   @objc dynamic var type: String = ""
   @objc dynamic var id: String = ""

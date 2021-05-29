@@ -28,7 +28,7 @@ struct SearchItemView: View {
   }
 
   var footer: some View {
-    HStack() {
+    HStack {
       VStack(alignment: .leading) {
         Text(giphy.title)
           .foregroundColor(.white)
@@ -57,7 +57,7 @@ struct SearchItemView_Previews: PreviewProvider {
       giphy: Giphy(
         type: "",
         id: "",
-        url:"https://media2.giphy.com/media/pfEKZQG1IMHl2trcsL/giphy.gif?cid=acc285bff3pkjsgu883yjffvkktkh5yt5t89l9j0eiw5e0yj&rid=giphy.gif",
+        url: "https://media2.giphy.com/media/pfEKZQG1IMHl2trcsL/giphy.gif?cid=acc285bff3pkjsgu883yjffvkktkh5yt5t89l9j0eiw5e0yj&rid=giphy.gif",
         embedUrl: "",
         rating: "",
         username: "",

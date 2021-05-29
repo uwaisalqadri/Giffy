@@ -36,6 +36,7 @@
 		5258E251265A8AF0005ACD9F /* SearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5258E250265A8AF0005ACD9F /* SearchRepository.swift */; };
 		5258E254265A8B36005ACD9F /* DefaultHomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5258E253265A8B36005ACD9F /* DefaultHomeRepository.swift */; };
 		5258E258265A8C7E005ACD9F /* DefaultSearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5258E257265A8C7E005ACD9F /* DefaultSearchRepository.swift */; };
+		52AADD2926627B6C00B443DA /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 52AADD2826627B6C00B443DA /* .swiftlint.yml */; };
 		52E2BAF0265CF21F00E2F670 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 52E2BAEF265CF21F00E2F670 /* Alamofire */; };
 		52E2BAF4265CF28B00E2F670 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 52E2BAF3265CF28B00E2F670 /* SDWebImageSwiftUI */; };
 		52E5458F265D2CFC004F627B /* GiphyObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E5458E265D2CFC004F627B /* GiphyObject.swift */; };
@@ -86,6 +87,7 @@
 		5258E250265A8AF0005ACD9F /* SearchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepository.swift; sourceTree = "<group>"; };
 		5258E253265A8B36005ACD9F /* DefaultHomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultHomeRepository.swift; sourceTree = "<group>"; };
 		5258E257265A8C7E005ACD9F /* DefaultSearchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSearchRepository.swift; sourceTree = "<group>"; };
+		52AADD2826627B6C00B443DA /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		52E5458E265D2CFC004F627B /* GiphyObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiphyObject.swift; sourceTree = "<group>"; };
 		52E54598265D7577004F627B /* CustomError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomError.swift; sourceTree = "<group>"; };
 		52E93D022661F20B00DBFDDD /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 		5227687D265A02D500E7454C = {
 			isa = PBXGroup;
 			children = (
+				52AADD2826627B6C00B443DA /* .swiftlint.yml */,
 				52276888265A02D500E7454C /* GiphyGIF */,
 				52276887265A02D500E7454C /* Products */,
 			);
@@ -480,6 +483,7 @@
 				52276882265A02D500E7454C /* Sources */,
 				52276883265A02D500E7454C /* Frameworks */,
 				52276884265A02D500E7454C /* Resources */,
+				52AADD2626627AAD00B443DA /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -540,12 +544,33 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52AADD2926627B6C00B443DA /* .swiftlint.yml in Resources */,
 				52276891265A02D700E7454C /* Preview Assets.xcassets in Resources */,
 				5227688E265A02D700E7454C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		52AADD2626627AAD00B443DA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then \n    swiftlint \nelse \n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\" \nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		52276882265A02D500E7454C /* Sources */ = {

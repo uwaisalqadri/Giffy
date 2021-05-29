@@ -28,4 +28,3 @@ struct WebView: UIViewRepresentable {
   }
 
 }
-

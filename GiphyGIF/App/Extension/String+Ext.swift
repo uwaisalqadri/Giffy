@@ -18,5 +18,3 @@ extension String {
     return CGFloat(doubleValue/2)
   }
 }
-
-

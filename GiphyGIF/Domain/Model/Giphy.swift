@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct Giphy: Identifiable, Decodable {
   let type: String
   let id: String

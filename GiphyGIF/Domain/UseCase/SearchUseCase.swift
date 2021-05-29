@@ -24,5 +24,3 @@ open class SearchInteractor: SearchUseCase {
     repository.getSearchGiphy(query: query)
   }
 }
-
-
