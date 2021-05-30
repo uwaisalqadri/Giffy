@@ -1,0 +1,5 @@
+language: swift
+osx_image: xcode12 
+xcode_project: GiphyGIF/GiphyGIF.xcodeproj 
+xcode_scheme: GiphyGIF
+xcode_destination: generic/platform=iOS Simulator,OS=14.0,name=iPhone 11 Pro
