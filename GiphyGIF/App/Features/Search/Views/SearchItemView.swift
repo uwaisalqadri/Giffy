@@ -11,6 +11,7 @@ import SDWebImageSwiftUI
 struct SearchItemView: View {
 
   @State var isAnimating = true
+  @State var showDetail = false
   let giphy: Giphy
 
   var body: some View {
@@ -21,6 +22,12 @@ struct SearchItemView: View {
         .scaledToFill()
         .frame(maxWidth: 350, maxHeight: 350, alignment: .center)
         .cornerRadius(20)
+        .sheet(isPresented: $showDetail) {
+          DetailView(giphy: giphy)
+        }
+        .onTapGesture {
+          showDetail.toggle()
+        }
 
       footer
         .padding(.top, 250)

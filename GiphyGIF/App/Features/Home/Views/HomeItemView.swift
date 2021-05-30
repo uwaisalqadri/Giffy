@@ -11,6 +11,7 @@ import SDWebImageSwiftUI
 struct HomeItemView: View {
 
   @State var isAnimating = true
+  @State var showDetail = false
   let giphy: Giphy
 
   var body: some View {
@@ -23,6 +24,12 @@ struct HomeItemView: View {
         .scaledToFit()
         .cornerRadius(20)
         .padding(.top, 10)
+        .sheet(isPresented: $showDetail) {
+          DetailView(giphy: giphy)
+        }
+        .onTapGesture {
+          showDetail.toggle()
+        }
     }
   }
 }

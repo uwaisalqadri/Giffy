@@ -11,7 +11,6 @@ struct SearchView: View {
 
   @ObservedObject var viewModel: SearchViewModel
   @State var searchText = ""
-  @State var showPlayer = false
 
   var body: some View {
     NavigationView {
@@ -20,16 +19,10 @@ struct SearchView: View {
         if !viewModel.loadingState {
           ZStack {
             emptyView.padding(.top, 30)
-            VStack {
+            LazyVStack {
               ForEach(viewModel.giphys) { item in
                 SearchItemView(giphy: item)
                   .padding([.leading, .trailing], 10)
-                  .sheet(isPresented: $showPlayer) {
-                    DetailView(giphy: item)
-                  }
-                  .onTapGesture {
-                    showPlayer = true
-                  }
               }.padding(.top, 10)
             }
           }
@@ -68,7 +61,7 @@ struct SearchView: View {
       Image(systemName: "magnifyingglass")
         .resizable()
         .foregroundColor(.green)
-        .frame(width: 40, height: 40)
+        .frame(width: 50, height: 50)
         .padding(.bottom, 5)
 
       Text("Search Something!")
