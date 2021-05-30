@@ -53,6 +53,7 @@ class SearchViewModel: ObservableObject {
         }
       }, receiveValue: { result in
         self.giphys = result
+        print(result)
       }).store(in: &cancellables)
   }
 }
