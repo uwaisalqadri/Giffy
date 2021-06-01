@@ -10,8 +10,8 @@ import Core
 
 struct DetailView: View {
 
+  @ObservedObject var viewModel: DetailViewModel
   let giphy: Giphy
-  @State var isAnimation = true
 
   var body: some View {
     NavigationView {
@@ -19,12 +19,21 @@ struct DetailView: View {
         .edgesIgnoringSafeArea([.bottom, .horizontal])
         .navigationBarItems(trailing:
           Button(action: {
-            print("Oke")
+            viewModel.isFavorite
+              ? viewModel.removeFromFavorites(idGiphy: giphy.id)
+              : viewModel.addToFavorites(giphy: giphy)
           }) {
-           Image(systemName: "heart")
-            .resizable()
-            .frame(width: 23, height: 20)
-            .foregroundColor(.red)
+            if viewModel.isFavorite {
+              Image(systemName: "heart.fill")
+               .resizable()
+               .frame(width: 23, height: 20)
+               .foregroundColor(.red)
+            } else {
+              Image(systemName: "heart")
+               .resizable()
+               .frame(width: 23, height: 20)
+               .foregroundColor(.red)
+            }
          })
         .navigationTitle("Detail")
         .navigationBarTitleDisplayMode(.inline)

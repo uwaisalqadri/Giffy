@@ -8,6 +8,7 @@
 import Foundation
 
 protocol Assembler: HomeAssembler,
-                    SearchAssembler {}
+                    SearchAssembler,
+                    DetailAssembler {}
 
 class AppAssembler: Assembler {}

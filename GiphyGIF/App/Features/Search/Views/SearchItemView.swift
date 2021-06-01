@@ -13,6 +13,7 @@ struct SearchItemView: View {
 
   @State var isAnimating = true
   @State var showDetail = false
+  let assembler = AppAssembler()
   let giphy: Giphy
 
   var body: some View {
@@ -24,7 +25,7 @@ struct SearchItemView: View {
         .frame(maxWidth: 350, maxHeight: 350, alignment: .center)
         .cornerRadius(20)
         .sheet(isPresented: $showDetail) {
-          DetailView(giphy: giphy)
+          DetailView(viewModel: assembler.resolve(), giphy: giphy)
         }
         .onTapGesture {
           showDetail.toggle()
@@ -71,8 +72,7 @@ struct SearchItemView_Previews: PreviewProvider {
         username: "",
         title: "Blogger",
         trendingDateTime: "",
-        images: ImageGIF(original: Original(url: "", height: "", width: "")),
-        favorite: false
+        images: ImageGIF(original: Original(url: "", height: "", width: ""))
       )
     ).previewLayout(.sizeThatFits)
   }
