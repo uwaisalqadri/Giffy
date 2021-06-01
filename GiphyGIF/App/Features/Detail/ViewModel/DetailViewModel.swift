@@ -17,7 +17,7 @@ class DetailViewModel: ObservableObject {
   @Published var giphys: [Giphy] = []
   @Published var errorMessage: String = ""
   @Published var loadingState: Bool = false
-  @Published var isFavorite: Bool = false
+  @Published var isFavorite: Bool = true
 
   init(detailUseCase: DetailUseCase) {
     self.detailUseCase = detailUseCase

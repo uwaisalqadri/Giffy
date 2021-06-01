@@ -19,6 +19,7 @@ struct DetailView: View {
         .edgesIgnoringSafeArea([.bottom, .horizontal])
         .navigationBarItems(trailing:
           Button(action: {
+            print("isFavorite \(viewModel.isFavorite)")
             viewModel.isFavorite
               ? viewModel.removeFromFavorites(idGiphy: giphy.id)
               : viewModel.addToFavorites(giphy: giphy)
@@ -37,6 +38,8 @@ struct DetailView: View {
          })
         .navigationTitle("Detail")
         .navigationBarTitleDisplayMode(.inline)
+    }.onAppear {
+      viewModel.checkFavorites(idGiphy: giphy.id)
     }
   }
 }
