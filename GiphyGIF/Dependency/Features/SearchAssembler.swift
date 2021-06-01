@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Core
 
 protocol SearchAssembler {
   func resolve() -> SearchViewModel

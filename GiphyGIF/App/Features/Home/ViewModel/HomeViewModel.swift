@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import Core
 
 class HomeViewModel: ObservableObject {
 

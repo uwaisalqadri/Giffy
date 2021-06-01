@@ -7,6 +7,7 @@
 
 import Foundation
 import RealmSwift
+import Core
 
 protocol HomeAssembler {
   func resolve() -> HomeViewModel
