@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Core
+import Lottie
 
 struct SearchView: View {
 
@@ -19,7 +20,7 @@ struct SearchView: View {
         searchInput
         if !viewModel.loadingState {
           ZStack {
-            emptyView.padding(.top, 30)
+            notSearchView.padding(.top, 30)
             LazyVStack {
               ForEach(viewModel.giphys) { item in
                 SearchItemView(giphy: item)
@@ -27,6 +28,8 @@ struct SearchView: View {
               }.padding(.top, 10)
             }
           }
+        } else if viewModel.giphys.isEmpty {
+          searchNoResultView.padding(.top, 30)
         } else {
           ActivityIndicator()
             .padding(.top, 10)
@@ -57,17 +60,22 @@ struct SearchView: View {
     }
   }
 
-  var emptyView: some View {
+  var notSearchView: some View {
     VStack {
-      Image(systemName: "magnifyingglass")
-        .resizable()
-        .foregroundColor(.green)
-        .frame(width: 50, height: 50)
+      LottieView(fileName: "search-icon", loopMode: .loop)
+        .frame(width: 150, height: 150)
         .padding(.bottom, 5)
-
       Text("Search Something!")
-        .foregroundColor(.green)
-        .font(.system(size: 15, weight: .medium))
+        .font(.system(.subheadline))
+        .foregroundColor(.blue)
+    }
+  }
+
+  var searchNoResultView: some View {
+    VStack {
+      LottieView(fileName: "search-no-result", loopMode: .loop)
+        .frame(width: 200, height: 200)
+        .padding(.bottom, 5)
     }
   }
 }

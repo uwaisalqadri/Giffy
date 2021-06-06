@@ -19,7 +19,10 @@ struct HomeView: View {
     NavigationView {
       ScrollView {
         LazyVStack(alignment: .leading) {
-          Text("Today's Popular Giphy").font(.system(size: 20, weight: .medium)).padding(.leading, 20)
+          Text(viewModel.giphys.isEmpty
+                ? "Pull to Get Latest"
+                : "Today's Popular Giphy")
+            .font(.system(size: 20, weight: .medium)).padding(.leading, 20)
           Grid(viewModel.giphys, id: \.id) { item in
             HomeItemView(giphy: item)
               .padding(.horizontal, 5)

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Grid
+import Lottie
 
 struct FavoriteView: View {
 
@@ -16,16 +17,27 @@ struct FavoriteView: View {
   var body: some View {
     ScrollView {
       LazyVStack {
-        Grid(viewModel.giphys, id: \.id) { item in
-          HomeItemView(giphy: item)
-            .padding(.horizontal, 5)
-        }.padding(.bottom, 60)
-        .padding(.horizontal, 10)
+        if !viewModel.giphys.isEmpty {
+          Grid(viewModel.giphys, id: \.id) { item in
+            HomeItemView(giphy: item)
+              .padding(.horizontal, 5)
+          }.padding(.bottom, 60)
+          .padding(.horizontal, 10)
+        } else {
+          isFavoriteEmpty.padding(.top, 50)
+        }
       }
     }.navigationTitle("Favorite")
     .gridStyle(self.style)
     .onAppear {
       viewModel.getFavorites()
+    }
+  }
+
+  var isFavoriteEmpty: some View {
+    VStack {
+      LottieView(fileName: "favorite-empty", loopMode: .loop)
+        .frame(width: 220, height: 220)
     }
   }
 }

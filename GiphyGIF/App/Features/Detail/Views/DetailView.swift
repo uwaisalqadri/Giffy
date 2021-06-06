@@ -11,6 +11,7 @@ import Core
 struct DetailView: View {
 
   @ObservedObject var viewModel: DetailViewModel
+  @State var isClicked = false
   let giphy: Giphy
 
   var body: some View {
@@ -19,21 +20,27 @@ struct DetailView: View {
         .edgesIgnoringSafeArea([.bottom, .horizontal])
         .navigationBarItems(trailing:
           Button(action: {
-            print("isFavorite \(viewModel.isFavorite)")
-            viewModel.isFavorite
-              ? viewModel.removeFromFavorites(idGiphy: giphy.id)
-              : viewModel.addToFavorites(giphy: giphy)
-          }) {
             if viewModel.isFavorite {
-              Image(systemName: "heart.fill")
-               .resizable()
-               .frame(width: 23, height: 20)
-               .foregroundColor(.red)
+              viewModel.removeFromFavorites(idGiphy: giphy.id)
             } else {
-              Image(systemName: "heart")
+              viewModel.addToFavorites(giphy: giphy)
+              isClicked.toggle()
+            }
+          }) {
+            if isClicked {
+              LottieView(fileName: "when-favorite-clicked", loopMode: .playOnce)
+                .frame(width: 53, height: 50)
+            } else if viewModel.isFavorite {
+              Image("heart.fill")
+                .resizable()
+                .frame(width: 23, height: 20)
+                .foregroundColor(.red)
+            } else {
+              Image("heart")
                .resizable()
                .frame(width: 23, height: 20)
-               .foregroundColor(.red)
+               .foregroundColor(.white)
+                .padding(.trailing, 15)
             }
          })
         .navigationTitle("Detail")
