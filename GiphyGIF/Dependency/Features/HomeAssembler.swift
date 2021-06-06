@@ -15,7 +15,7 @@ protocol HomeAssembler {
   func resolve() -> HomeRepository
 }
 
-extension HomeAssembler {
+extension HomeAssembler where Self: Assembler {
   func resolve() -> HomeViewModel {
     return HomeViewModel(homeUseCase: resolve())
   }

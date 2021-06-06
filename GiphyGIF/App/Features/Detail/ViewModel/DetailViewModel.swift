@@ -56,7 +56,7 @@ class DetailViewModel: ObservableObject {
       })
       .store(in: &cancellables)
   }
-
+  
   func removeFromFavorites(idGiphy: String) {
     detailUseCase.removeFavoriteGiphy(from: idGiphy)
       .receive(on: RunLoop.main)

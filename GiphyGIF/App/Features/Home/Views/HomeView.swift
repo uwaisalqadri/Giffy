@@ -13,6 +13,7 @@ struct HomeView: View {
 
   @ObservedObject var viewModel: HomeViewModel
   let style = StaggeredGridStyle(.vertical, tracks: .min(150), spacing: 5)
+  let assembler = AppAssembler()
 
   var body: some View {
     NavigationView {
@@ -27,6 +28,14 @@ struct HomeView: View {
         }
       }.navigationTitle("Trending")
       .gridStyle(self.style)
+      .navigationBarItems(
+        trailing: NavigationLink(destination: FavoriteView(viewModel: assembler.resolve())) {
+          Image(systemName: "heart.fill")
+            .resizable()
+            .foregroundColor(.green)
+            .frame(width: 28, height: 25)
+        }
+      )
     }.onAppear {
       viewModel.getTrendingGiphy()
     }

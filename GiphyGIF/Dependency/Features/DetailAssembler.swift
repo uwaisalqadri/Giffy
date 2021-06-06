@@ -15,7 +15,7 @@ protocol DetailAssembler {
   func resolve() -> DetailRepository
 }
 
-extension DetailAssembler {
+extension DetailAssembler where Self: Assembler {
   func resolve() -> DetailViewModel {
     return DetailViewModel(detailUseCase: resolve())
   }

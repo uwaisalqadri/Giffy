@@ -15,7 +15,7 @@ protocol SearchAssembler {
   func resolve() -> SearchRepository
 }
 
-extension SearchAssembler {
+extension SearchAssembler where Self: Assembler {
   func resolve() -> SearchViewModel {
     return SearchViewModel(searchUseCase: resolve())
   }
