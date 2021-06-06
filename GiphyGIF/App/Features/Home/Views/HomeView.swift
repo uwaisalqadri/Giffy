@@ -33,7 +33,7 @@ struct HomeView: View {
           Image(systemName: "heart.fill")
             .resizable()
             .foregroundColor(.green)
-            .frame(width: 28, height: 25)
+            .frame(width: 20, height: 18)
         }
       )
     }.onAppear {

@@ -14,10 +14,10 @@ class DetailViewModel: ObservableObject {
   private let detailUseCase: DetailUseCase
 
   private var cancellables: Set<AnyCancellable> = []
+  private var ids: [String] = []
   @Published var giphys: [Giphy] = []
   @Published var errorMessage: String = ""
-  @Published var loadingState: Bool = false
-  @Published var isFavorite: Bool = true
+  @Published var isFavorite: Bool = false
 
   init(detailUseCase: DetailUseCase) {
     self.detailUseCase = detailUseCase
@@ -31,11 +31,14 @@ class DetailViewModel: ObservableObject {
         case .failure:
           self.errorMessage = String(describing: completion)
         case .finished:
-          print("finished")
+          self.errorMessage = String(describing: completion)
         }
       }, receiveValue: { result in
         result.forEach { item in
-          self.isFavorite = item.id.contains(idGiphy)
+          self.ids.append(item.id)
+          let listId = self.ids.joined(separator: ",")
+          print("ids \(listId)")
+          self.isFavorite = listId.contains(idGiphy)
         }
       })
       .store(in: &cancellables)
@@ -56,7 +59,7 @@ class DetailViewModel: ObservableObject {
       })
       .store(in: &cancellables)
   }
-  
+
   func removeFromFavorites(idGiphy: String) {
     detailUseCase.removeFavoriteGiphy(from: idGiphy)
       .receive(on: RunLoop.main)
