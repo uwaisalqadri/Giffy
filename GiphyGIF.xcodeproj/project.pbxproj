@@ -32,10 +32,31 @@
 		522768F7265A474300E7454C /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522768F6265A474300E7454C /* SearchViewModel.swift */; };
 		522768FD265A476600E7454C /* SeachNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522768FC265A476600E7454C /* SeachNavigator.swift */; };
 		52276913265A4AE000E7454C /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52276912265A4AE000E7454C /* Date.swift */; };
-		522B55A12665CE3D008F88CF /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = 522B55A02665CE3D008F88CF /* Core */; };
 		5231E3192665B6DF00147EE6 /* AppAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5231E3152665B6DF00147EE6 /* AppAssembler.swift */; };
 		5231E31A2665B6DF00147EE6 /* HomeAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5231E3172665B6DF00147EE6 /* HomeAssembler.swift */; };
 		5231E31B2665B6DF00147EE6 /* SearchAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5231E3182665B6DF00147EE6 /* SearchAssembler.swift */; };
+		523AA212266F42CB004EA77C /* DefaultFavoriteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523AA1FF266F42CB004EA77C /* DefaultFavoriteRepository.swift */; };
+		523AA213266F42CB004EA77C /* DefaultDetailRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523AA200266F42CB004EA77C /* DefaultDetailRepository.swift */; };
+		523AA214266F42CB004EA77C /* DefaultSearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523AA201266F42CB004EA77C /* DefaultSearchRepository.swift */; };
+		523AA215266F42CB004EA77C /* DefaultHomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523AA202266F42CB004EA77C /* DefaultHomeRepository.swift */; };
+		523AA216266F42CB004EA77C /* FavGiphyObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523AA206266F42CB004EA77C /* FavGiphyObject.swift */; };
+		523AA217266F42CB004EA77C /* GiphyObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523AA207266F42CB004EA77C /* GiphyObject.swift */; };
+		523AA218266F42CB004EA77C /* LocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523AA208266F42CB004EA77C /* LocalDataSource.swift */; };
+		523AA219266F42CB004EA77C /* GiphyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523AA20B266F42CB004EA77C /* GiphyResponse.swift */; };
+		523AA21A266F42CB004EA77C /* RemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523AA20C266F42CB004EA77C /* RemoteDataSource.swift */; };
+		523AA21B266F42CB004EA77C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523AA20E266F42CB004EA77C /* Constants.swift */; };
+		523AA21C266F42CB004EA77C /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523AA20F266F42CB004EA77C /* API.swift */; };
+		523AA21D266F42CB004EA77C /* CustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523AA210266F42CB004EA77C /* CustomError.swift */; };
+		523AA21E266F42CB004EA77C /* ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523AA211266F42CB004EA77C /* ObjectMapper.swift */; };
+		523AA22E266F42D2004EA77C /* FavoriteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523AA223266F42D2004EA77C /* FavoriteRepository.swift */; };
+		523AA22F266F42D2004EA77C /* DetailRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523AA224266F42D2004EA77C /* DetailRepository.swift */; };
+		523AA230266F42D2004EA77C /* SearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523AA225266F42D2004EA77C /* SearchRepository.swift */; };
+		523AA231266F42D2004EA77C /* HomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523AA226266F42D2004EA77C /* HomeRepository.swift */; };
+		523AA232266F42D2004EA77C /* Giphy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523AA228266F42D2004EA77C /* Giphy.swift */; };
+		523AA233266F42D2004EA77C /* HomeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523AA22A266F42D2004EA77C /* HomeUseCase.swift */; };
+		523AA234266F42D2004EA77C /* SearchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523AA22B266F42D2004EA77C /* SearchUseCase.swift */; };
+		523AA235266F42D2004EA77C /* FavoriteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523AA22C266F42D2004EA77C /* FavoriteUseCase.swift */; };
+		523AA236266F42D2004EA77C /* DetailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523AA22D266F42D2004EA77C /* DetailUseCase.swift */; };
 		523AFC34265BDB3F00C052A5 /* HomeItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523AFC33265BDB3F00C052A5 /* HomeItemView.swift */; };
 		523AFC38265BDE9800C052A5 /* Grid in Frameworks */ = {isa = PBXBuildFile; productRef = 523AFC37265BDE9800C052A5 /* Grid */; };
 		52AADD2926627B6C00B443DA /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 52AADD2826627B6C00B443DA /* .swiftlint.yml */; };
@@ -91,10 +112,31 @@
 		522768F6265A474300E7454C /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		522768FC265A476600E7454C /* SeachNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeachNavigator.swift; sourceTree = "<group>"; };
 		52276912265A4AE000E7454C /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
-		522B559E2665CE24008F88CF /* Core */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Core; sourceTree = "<group>"; };
 		5231E3152665B6DF00147EE6 /* AppAssembler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAssembler.swift; sourceTree = "<group>"; };
 		5231E3172665B6DF00147EE6 /* HomeAssembler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeAssembler.swift; sourceTree = "<group>"; };
 		5231E3182665B6DF00147EE6 /* SearchAssembler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchAssembler.swift; sourceTree = "<group>"; };
+		523AA1FF266F42CB004EA77C /* DefaultFavoriteRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultFavoriteRepository.swift; sourceTree = "<group>"; };
+		523AA200266F42CB004EA77C /* DefaultDetailRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultDetailRepository.swift; sourceTree = "<group>"; };
+		523AA201266F42CB004EA77C /* DefaultSearchRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultSearchRepository.swift; sourceTree = "<group>"; };
+		523AA202266F42CB004EA77C /* DefaultHomeRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultHomeRepository.swift; sourceTree = "<group>"; };
+		523AA206266F42CB004EA77C /* FavGiphyObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavGiphyObject.swift; sourceTree = "<group>"; };
+		523AA207266F42CB004EA77C /* GiphyObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiphyObject.swift; sourceTree = "<group>"; };
+		523AA208266F42CB004EA77C /* LocalDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalDataSource.swift; sourceTree = "<group>"; };
+		523AA20B266F42CB004EA77C /* GiphyResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiphyResponse.swift; sourceTree = "<group>"; };
+		523AA20C266F42CB004EA77C /* RemoteDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteDataSource.swift; sourceTree = "<group>"; };
+		523AA20E266F42CB004EA77C /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		523AA20F266F42CB004EA77C /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		523AA210266F42CB004EA77C /* CustomError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomError.swift; sourceTree = "<group>"; };
+		523AA211266F42CB004EA77C /* ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectMapper.swift; sourceTree = "<group>"; };
+		523AA223266F42D2004EA77C /* FavoriteRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteRepository.swift; sourceTree = "<group>"; };
+		523AA224266F42D2004EA77C /* DetailRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailRepository.swift; sourceTree = "<group>"; };
+		523AA225266F42D2004EA77C /* SearchRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchRepository.swift; sourceTree = "<group>"; };
+		523AA226266F42D2004EA77C /* HomeRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeRepository.swift; sourceTree = "<group>"; };
+		523AA228266F42D2004EA77C /* Giphy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Giphy.swift; sourceTree = "<group>"; };
+		523AA22A266F42D2004EA77C /* HomeUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeUseCase.swift; sourceTree = "<group>"; };
+		523AA22B266F42D2004EA77C /* SearchUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchUseCase.swift; sourceTree = "<group>"; };
+		523AA22C266F42D2004EA77C /* FavoriteUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteUseCase.swift; sourceTree = "<group>"; };
+		523AA22D266F42D2004EA77C /* DetailUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailUseCase.swift; sourceTree = "<group>"; };
 		523AFC33265BDB3F00C052A5 /* HomeItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeItemView.swift; sourceTree = "<group>"; };
 		52AADD2826627B6C00B443DA /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		52E93D022661F20B00DBFDDD /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
@@ -124,7 +166,6 @@
 				52E54594265D337B004F627B /* Realm in Frameworks */,
 				52E54596265D337B004F627B /* RealmSwift in Frameworks */,
 				52E2BAF0265CF21F00E2F670 /* Alamofire in Frameworks */,
-				522B55A12665CE3D008F88CF /* Core in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,7 +229,6 @@
 			isa = PBXGroup;
 			children = (
 				52AADD2826627B6C00B443DA /* .swiftlint.yml */,
-				522B559E2665CE24008F88CF /* Core */,
 				52276888265A02D500E7454C /* GiphyGIF */,
 				52243589266D29220078E6F5 /* GiphyGIFTests */,
 				52276887265A02D500E7454C /* Products */,
@@ -208,6 +248,8 @@
 		52276888265A02D500E7454C /* GiphyGIF */ = {
 			isa = PBXGroup;
 			children = (
+				523AA221266F42D2004EA77C /* Domain */,
+				523AA1FD266F42CB004EA77C /* Data */,
 				5231E3142665B6DF00147EE6 /* Dependency */,
 				52276899265A02E200E7454C /* App */,
 				5227688F265A02D700E7454C /* Preview Content */,
@@ -401,6 +443,124 @@
 			path = Features;
 			sourceTree = "<group>";
 		};
+		523AA1FD266F42CB004EA77C /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				523AA1FE266F42CB004EA77C /* Repository */,
+				523AA203266F42CB004EA77C /* Data Sources */,
+				523AA20D266F42CB004EA77C /* Utils */,
+			);
+			name = Data;
+			path = Core/Sources/Core/Data;
+			sourceTree = SOURCE_ROOT;
+		};
+		523AA1FE266F42CB004EA77C /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				523AA1FF266F42CB004EA77C /* DefaultFavoriteRepository.swift */,
+				523AA200266F42CB004EA77C /* DefaultDetailRepository.swift */,
+				523AA201266F42CB004EA77C /* DefaultSearchRepository.swift */,
+				523AA202266F42CB004EA77C /* DefaultHomeRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		523AA203266F42CB004EA77C /* Data Sources */ = {
+			isa = PBXGroup;
+			children = (
+				523AA204266F42CB004EA77C /* Local */,
+				523AA209266F42CB004EA77C /* Remote */,
+			);
+			path = "Data Sources";
+			sourceTree = "<group>";
+		};
+		523AA204266F42CB004EA77C /* Local */ = {
+			isa = PBXGroup;
+			children = (
+				523AA205266F42CB004EA77C /* Object */,
+				523AA208266F42CB004EA77C /* LocalDataSource.swift */,
+			);
+			path = Local;
+			sourceTree = "<group>";
+		};
+		523AA205266F42CB004EA77C /* Object */ = {
+			isa = PBXGroup;
+			children = (
+				523AA206266F42CB004EA77C /* FavGiphyObject.swift */,
+				523AA207266F42CB004EA77C /* GiphyObject.swift */,
+			);
+			path = Object;
+			sourceTree = "<group>";
+		};
+		523AA209266F42CB004EA77C /* Remote */ = {
+			isa = PBXGroup;
+			children = (
+				523AA20A266F42CB004EA77C /* Response */,
+				523AA20C266F42CB004EA77C /* RemoteDataSource.swift */,
+			);
+			path = Remote;
+			sourceTree = "<group>";
+		};
+		523AA20A266F42CB004EA77C /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				523AA20B266F42CB004EA77C /* GiphyResponse.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		523AA20D266F42CB004EA77C /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				523AA20E266F42CB004EA77C /* Constants.swift */,
+				523AA20F266F42CB004EA77C /* API.swift */,
+				523AA210266F42CB004EA77C /* CustomError.swift */,
+				523AA211266F42CB004EA77C /* ObjectMapper.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		523AA221266F42D2004EA77C /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				523AA222266F42D2004EA77C /* Repository */,
+				523AA227266F42D2004EA77C /* Model */,
+				523AA229266F42D2004EA77C /* UseCase */,
+			);
+			name = Domain;
+			path = Core/Sources/Core/Domain;
+			sourceTree = SOURCE_ROOT;
+		};
+		523AA222266F42D2004EA77C /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				523AA223266F42D2004EA77C /* FavoriteRepository.swift */,
+				523AA224266F42D2004EA77C /* DetailRepository.swift */,
+				523AA225266F42D2004EA77C /* SearchRepository.swift */,
+				523AA226266F42D2004EA77C /* HomeRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		523AA227266F42D2004EA77C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				523AA228266F42D2004EA77C /* Giphy.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		523AA229266F42D2004EA77C /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				523AA22A266F42D2004EA77C /* HomeUseCase.swift */,
+				523AA22B266F42D2004EA77C /* SearchUseCase.swift */,
+				523AA22C266F42D2004EA77C /* FavoriteUseCase.swift */,
+				523AA22D266F42D2004EA77C /* DetailUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
 		52E93CF82661DDF600DBFDDD /* About */ = {
 			isa = PBXGroup;
 			children = (
@@ -459,7 +619,6 @@
 				52E2BAF3265CF28B00E2F670 /* SDWebImageSwiftUI */,
 				52E54593265D337B004F627B /* Realm */,
 				52E54595265D337B004F627B /* RealmSwift */,
-				522B55A02665CE3D008F88CF /* Core */,
 				52243557266CFE080078E6F5 /* Lottie */,
 			);
 			productName = GiphyGIF;
@@ -568,32 +727,54 @@
 			buildActionMask = 2147483647;
 			files = (
 				5215A2A8265CAAED00F674F1 /* View+RoundedCorner.swift in Sources */,
+				523AA21B266F42CB004EA77C /* Constants.swift in Sources */,
 				5215A2A5265CA89D00F674F1 /* Blur.swift in Sources */,
 				52243554266C86F40078E6F5 /* FavoriteAssembler.swift in Sources */,
 				522768E7265A46EC00E7454C /* HomeViewModel.swift in Sources */,
+				523AA215266F42CB004EA77C /* DefaultHomeRepository.swift in Sources */,
 				52E93D032661F20B00DBFDDD /* AboutView.swift in Sources */,
+				523AA235266F42D2004EA77C /* FavoriteUseCase.swift in Sources */,
+				523AA236266F42D2004EA77C /* DetailUseCase.swift in Sources */,
 				52E93D0C2661F27A00DBFDDD /* SocialMediaItemView.swift in Sources */,
 				522768E3265A46E100E7454C /* HomeNavigator.swift in Sources */,
 				5231E31B2665B6DF00147EE6 /* SearchAssembler.swift in Sources */,
+				523AA216266F42CB004EA77C /* FavGiphyObject.swift in Sources */,
+				523AA232266F42D2004EA77C /* Giphy.swift in Sources */,
+				523AA218266F42CB004EA77C /* LocalDataSource.swift in Sources */,
+				523AA21E266F42CB004EA77C /* ObjectMapper.swift in Sources */,
 				5214373526663D8F00040B6B /* DetailAssembler.swift in Sources */,
 				5215A298265BF72600F674F1 /* String+Ext.swift in Sources */,
 				5214373926663F9A00040B6B /* DetailViewModel.swift in Sources */,
+				523AA219266F42CB004EA77C /* GiphyResponse.swift in Sources */,
 				5224355B266CFE160078E6F5 /* LottieView.swift in Sources */,
 				52ECB3BB265B19600075082C /* DetailView.swift in Sources */,
+				523AA212266F42CB004EA77C /* DefaultFavoriteRepository.swift in Sources */,
 				522768F7265A474300E7454C /* SearchViewModel.swift in Sources */,
 				52ECB3BF265B19710075082C /* HomeView.swift in Sources */,
+				523AA22F266F42D2004EA77C /* DetailRepository.swift in Sources */,
 				5215A29D265C719D00F674F1 /* SearchItemView.swift in Sources */,
 				5227688C265A02D500E7454C /* ContentView.swift in Sources */,
+				523AA231266F42D2004EA77C /* HomeRepository.swift in Sources */,
 				5227688A265A02D500E7454C /* GiphyGIFApp.swift in Sources */,
 				5231E31A2665B6DF00147EE6 /* HomeAssembler.swift in Sources */,
+				523AA234266F42D2004EA77C /* SearchUseCase.swift in Sources */,
+				523AA21D266F42CB004EA77C /* CustomError.swift in Sources */,
+				523AA21A266F42CB004EA77C /* RemoteDataSource.swift in Sources */,
+				523AA217266F42CB004EA77C /* GiphyObject.swift in Sources */,
 				5231E3192665B6DF00147EE6 /* AppAssembler.swift in Sources */,
+				523AA214266F42CB004EA77C /* DefaultSearchRepository.swift in Sources */,
 				520F6291265E008B00C10B13 /* FavoriteViewModel.swift in Sources */,
 				52ECB3C4265B34000075082C /* SearchView.swift in Sources */,
 				523AFC34265BDB3F00C052A5 /* HomeItemView.swift in Sources */,
+				523AA230266F42D2004EA77C /* SearchRepository.swift in Sources */,
 				522768FD265A476600E7454C /* SeachNavigator.swift in Sources */,
+				523AA233266F42D2004EA77C /* HomeUseCase.swift in Sources */,
+				523AA22E266F42D2004EA77C /* FavoriteRepository.swift in Sources */,
 				52ECB3D7265B6CA00075082C /* ActivityIndicator.swift in Sources */,
+				523AA21C266F42CB004EA77C /* API.swift in Sources */,
 				52E93D112661F9E700DBFDDD /* WebView.swift in Sources */,
 				52276913265A4AE000E7454C /* Date.swift in Sources */,
+				523AA213266F42CB004EA77C /* DefaultDetailRepository.swift in Sources */,
 				520F6295265E00C500C10B13 /* FavoriteView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -889,10 +1070,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 52243556266CFE080078E6F5 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
-		};
-		522B55A02665CE3D008F88CF /* Core */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Core;
 		};
 		523AFC37265BDE9800C052A5 /* Grid */ = {
 			isa = XCSwiftPackageProductDependency;
