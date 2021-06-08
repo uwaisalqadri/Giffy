@@ -37,7 +37,7 @@ struct ContentView: View {
         VStack {
           Image(systemName: "rectangle.3.offgrid")
             .resizable()
-            .foregroundColor(.pink)
+            .foregroundColor(.green)
             .frame(width: 25, height: 25, alignment: .center)
         }
       }).padding(.leading, 40)

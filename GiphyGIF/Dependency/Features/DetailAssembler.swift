@@ -25,8 +25,7 @@ extension DetailAssembler where Self: Assembler {
   }
 
   func resolve() -> DetailRepository {
-    let realm = try? Realm()
-    let local = DefaultLocalDataSource.shared(realm)
+    let local = DefaultLocalDataSource.shared(try? Realm())
     return DefaultDetailRepository(localDataSource: local)
   }
 }

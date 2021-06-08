@@ -17,10 +17,11 @@ struct SearchView: View {
   var body: some View {
     NavigationView {
       ScrollView {
-        searchInput
+        SearchInput(viewModel: viewModel)
         if !viewModel.loadingState {
           ZStack {
-            notSearchView.padding(.top, 30)
+            NotSearchView()
+              .padding(.top, 30)
             LazyVStack {
               ForEach(viewModel.giphys) { item in
                 SearchItemView(giphy: item)
@@ -29,7 +30,8 @@ struct SearchView: View {
             }
           }
         } else if viewModel.giphys.isEmpty {
-          searchNoResultView.padding(.top, 30)
+          NoResultView()
+            .padding(.top, 30)
         } else {
           ActivityIndicator()
             .padding(.top, 10)
@@ -38,8 +40,13 @@ struct SearchView: View {
       .padding(.top, 10)
     }
   }
+}
 
-  var searchInput: some View {
+struct SearchInput: View {
+
+  @ObservedObject var viewModel: SearchViewModel
+
+  var body: some View {
     VStack(alignment: .leading) {
       HStack {
         TextField("Search giphy..", text: $viewModel.searchText)
@@ -59,8 +66,10 @@ struct SearchView: View {
       }
     }
   }
+}
 
-  var notSearchView: some View {
+struct NotSearchView: View {
+  var body: some View {
     VStack {
       LottieView(fileName: "search-icon", loopMode: .loop)
         .frame(width: 150, height: 150)
@@ -70,8 +79,10 @@ struct SearchView: View {
         .foregroundColor(.blue)
     }
   }
+}
 
-  var searchNoResultView: some View {
+struct NoResultView: View {
+  var body: some View {
     VStack {
       LottieView(fileName: "search-no-result", loopMode: .loop)
         .frame(width: 200, height: 200)

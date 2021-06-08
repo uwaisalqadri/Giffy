@@ -35,7 +35,7 @@ struct HomeView: View {
         trailing: NavigationLink(destination: FavoriteView(viewModel: assembler.resolve())) {
           Image(systemName: "heart.fill")
             .resizable()
-            .foregroundColor(.green)
+            .foregroundColor(.red)
             .frame(width: 20, height: 18)
         }
       )
