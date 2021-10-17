@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "Core",
+        "repositoryURL": "https://github.com/uwaisalqadri/CoreModule.git",
+        "state": {
+          "branch": "main",
+          "revision": "dfc49d74c949e10b3205042f3ee1fbcd0a124d28",
+          "version": null
+        }
+      },
+      {
         "package": "Lottie",
         "repositoryURL": "https://github.com/airbnb/lottie-ios.git",
         "state": {
