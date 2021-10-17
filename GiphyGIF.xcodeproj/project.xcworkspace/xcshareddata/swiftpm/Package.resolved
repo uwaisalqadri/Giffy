@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
         "state": {
           "branch": null,
-          "revision": "f96b619bcb2383b43d898402283924b80e2c4bae",
-          "version": "5.4.3"
+          "revision": "d120af1e8638c7da36c8481fd61a66c0c08dc4fc",
+          "version": "5.4.4"
         }
       },
       {
@@ -15,7 +15,7 @@
         "repositoryURL": "https://github.com/uwaisalqadri/CoreModule.git",
         "state": {
           "branch": "main",
-          "revision": "dfc49d74c949e10b3205042f3ee1fbcd0a124d28",
+          "revision": "2aa1cef74bd9b4501c863466e89edf433df14634",
           "version": null
         }
       },
@@ -29,12 +29,21 @@
         }
       },
       {
+        "package": "ObjectMapper",
+        "repositoryURL": "https://github.com/tristanhimmelman/ObjectMapper.git",
+        "state": {
+          "branch": null,
+          "revision": "0b96a734de3ea1c87374ae677064f86adb0716ec",
+          "version": "4.2.0"
+        }
+      },
+      {
         "package": "Realm",
         "repositoryURL": "https://github.com/realm/realm-cocoa.git",
         "state": {
           "branch": null,
-          "revision": "7e5c77fd7fbb30259e8e6e6a41f32289f72e0812",
-          "version": "10.7.6"
+          "revision": "7ca0ce1dd58553d5be1ec9cc7283b068c256979d",
+          "version": "10.17.0"
         }
       },
       {
@@ -42,8 +51,8 @@
         "repositoryURL": "https://github.com/realm/realm-core",
         "state": {
           "branch": null,
-          "revision": "018adb3469c2882904febca251778129ef4a9b70",
-          "version": "10.7.2"
+          "revision": "23f60515a00f076a9e3f2dc672fe1ae07601ee90",
+          "version": "11.4.1"
         }
       },
       {
@@ -51,8 +60,8 @@
         "repositoryURL": "https://github.com/SDWebImage/SDWebImage.git",
         "state": {
           "branch": null,
-          "revision": "76dd4b49110b8624317fc128e7fa0d8a252018bc",
-          "version": "5.11.1"
+          "revision": "a72df4849408da7e5d3c1b586797b7c601c41d1b",
+          "version": "5.12.1"
         }
       },
       {
