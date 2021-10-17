@@ -7,7 +7,6 @@
 
 import Foundation
 import SwiftUI
-import Core
 
 class HomeNavigator {
 

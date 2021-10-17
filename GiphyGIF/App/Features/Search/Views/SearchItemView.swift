@@ -7,7 +7,6 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-import Core
 
 struct SearchItemView: View {
 

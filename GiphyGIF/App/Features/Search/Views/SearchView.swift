@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Core
 import Lottie
 
 struct SearchView: View {

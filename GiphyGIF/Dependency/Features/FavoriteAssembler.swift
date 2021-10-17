@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Core
 import RealmSwift
 
 protocol FavoriteAssembler {

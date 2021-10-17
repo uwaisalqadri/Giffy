@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Core
 import Combine
 
 class DetailViewModel: ObservableObject {

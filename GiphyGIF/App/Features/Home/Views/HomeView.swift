@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Grid
-import Core
 
 struct HomeView: View {
 
