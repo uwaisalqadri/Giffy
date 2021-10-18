@@ -32,18 +32,13 @@ struct SearchView: View {
             NotSearchView()
               .padding(.top, 30)
             LazyVStack {
-              ForEach(0..<10) { item in
-//                _ = print(item)
-                Text("\(item)")
-                  .foregroundColor(.white)
+              ForEach(Array(presenter.list.enumerated()), id: \.offset) { index, item in
+                SearchItemView(giphy: item)
+                  .padding([.leading, .trailing], 10)
                   .onAppear {
-                    print(item)
+                    print("ITEM", item.images?.original?.url ?? "")
                   }
               }
-//              ForEach(presenter.list.indices, id: \.self) { item in
-//                SearchItemView(giphy: item)
-//                  .padding([.leading, .trailing], 10)
-//              }
             }.padding(.top, 10)
           }
         } else if presenter.list.isEmpty {
