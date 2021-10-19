@@ -17,4 +17,5 @@ public protocol Giphy {
   var title: String { get }
   var trendingDateTime: String { get }
   var images: ImageGIF? { get }
+  var isFavorite: Bool { get set }
 }

@@ -20,15 +20,77 @@ public struct GiphyLocalDataSource: LocalDataSource {
   public init() {}
 
   public func list(request: String?) -> AnyPublisher<[Giphy], Error> {
-
+    return Future<[Giphy], Error> { completion in
+      let keyword = request ?? ""
+      if let realm = realm {
+        let all = realm.objects(GiphyEntity.self)
+          .sorted(byKeyPath: "title")
+        var giphys = [GiphyEntity]()
+        all.forEach { giphy in
+          let searchableValue = [
+            giphy.title,
+            giphy.username,
+            giphy.type
+          ]
+          if (!keyword.isEmpty &&
+                searchableValue.joined(separator: " ").lowercased()
+                .contains(keyword.lowercased())) ||
+              keyword.isEmpty {
+            giphys.append(giphy)
+          }
+        }
+        completion(.success(giphys))
+      } else {
+        completion(.success([]))
+      }
+    }.eraseToAnyPublisher()
   }
 
   public func add(entity: Giphy) -> AnyPublisher<Giphy, Error> {
-
+    return Future<Giphy, Error> { completion in
+      if let realm = realm,
+         let object = entity as? GiphyEntity {
+        do {
+          try realm.write {
+            realm.add(object, update: .all)
+          }
+          object.isFavorite = true
+          completion(.success(object))
+        } catch {
+          completion(.failure(error))
+        }
+      }
+    }.eraseToAnyPublisher()
   }
 
   public func delete(entity: Giphy) -> AnyPublisher<Giphy, Error> {
+    return Future<Giphy, Error> { completion in
+      if let realm = realm,
+         let object = savedMovie(with: entity.identifier) {
+        do {
+          try realm.write {
+            realm.delete(object)
+          }
+          completion(.success(object))
+        } catch {
+          completion(.failure(error))
+        }
+      }
+    }.eraseToAnyPublisher()
+  }
 
+
+  public func get(entityId: Int) -> Giphy? {
+    savedMovie(with: entityId)
+  }
+
+  private func savedMovie(with giphyId: Int) -> MovieEntity? {
+    let giphy = realm?.object(ofType: GiphyEntity.self, forPrimaryKey: giphyId)
+    return giphy
+  }
+
+  public func isFavorited(giphyId: Int) -> Bool {
+    return savedMovie(with: giphyId) != nil
   }
 }
 

@@ -6,6 +6,7 @@
 //
 
 import ObjectMapper
+import RealmSwift
 
 public struct GiphyResponse: Mappable {
   public var data: [GiphyEntity]?
@@ -28,6 +29,7 @@ public struct GiphyEntity: Giphy, Mappable {
   public var username: String = ""
   public var title: String = ""
   public var trendingDateTime: String = ""
+  public var isFavorite: Bool = false
 
   public var _images: ImageGIFEntity?
   public var images: ImageGIF? {
