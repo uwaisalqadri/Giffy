@@ -11,7 +11,7 @@ import SwiftUI
 struct GiphyGIFApp: App {
   var body: some Scene {
     WindowGroup {
-      SearchView(presenter: Injection.shared.resolve())
+      ContentView()
     }
   }
 }

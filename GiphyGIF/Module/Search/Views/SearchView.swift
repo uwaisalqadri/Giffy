@@ -12,7 +12,7 @@ import Giphy
 
 typealias SearchPresenter = GetListPresenter<
   String, Giphy, Interactor<
-    String, [Giphy], GiphyRepository<
+    String, [Giphy], SearchGiphyRepository<
       SearchRemoteDataSource
     >
   >
@@ -25,7 +25,7 @@ struct SearchView: View {
 
   var body: some View {
     NavigationView {
-      ScrollView {
+      ScrollView(.vertical, showsIndicators: false) {
         SearchInput(presenter: presenter)
         if !presenter.isLoading {
           ZStack {
@@ -34,12 +34,9 @@ struct SearchView: View {
             LazyVStack {
               ForEach(Array(presenter.list.enumerated()), id: \.offset) { index, item in
                 SearchItemView(giphy: item)
-                  .padding([.leading, .trailing], 10)
-                  .onAppear {
-                    print("ITEM", item.images?.original?.url ?? "")
-                  }
+                  .padding(.horizontal, 10)
               }
-            }.padding(.top, 10)
+            }.padding(.top, 20)
           }
         } else if presenter.list.isEmpty {
           NoResultView()
@@ -52,64 +49,72 @@ struct SearchView: View {
       .navigationTitle("Search")
       .padding(.top, 10)
       .onAppear {
-        presenter.getList(request: "Naruto")
+        presenter.getList(request: "Hello")
       }
     }
   }
+}
 
+struct SearchInput: View {
 
-  struct SearchInput: View {
+  @State var presenter: SearchPresenter
+  @State var query = ""
 
-    @ObservedObject var presenter: SearchPresenter
+  var body: some View {
+    VStack(alignment: .leading) {
+      HStack {
+        Image(systemName: "magnifyingglass")
+          .resizable()
+          .foregroundColor(.white)
+          .frame(width: 20, height: 20)
+          .padding(.leading, 30)
 
-    var body: some View {
-      VStack(alignment: .leading) {
-        //        HStack {
-        //          TextField("Search giphy..", text: $presenter.searchText)
-        //            .font(.system(size: 18, weight: .medium))
-        //            .padding(.horizontal, 15)
-        //            .frame(height: 40)
-        //            .background(
-        //              ZStack(alignment: .trailing) {
-        //                RoundedRectangle(cornerRadius: 7)
-        //                  .fill(Color(.systemGray6))
-        //
-        //                Image(systemName: "magnifyingglass")
-        //                  .foregroundColor(Color(.systemGray2))
-        //                  .padding(.trailing, 13)
-        //              }
-        //            ).padding(.horizontal, 20)
-        //        }
-      }
+        TextField("Search Giphy...", text: $query, onCommit: {
+          presenter.getList(request: query)
+        })
+          .foregroundColor(.white)
+          .font(.system(size: 16))
+          .frame(height: 40)
+          .autocapitalization(.none)
+          .disableAutocorrection(true)
+          .padding(.leading, 13)
+          .padding(.trailing, 30)
+          .onChange(of: query) { text in
+            presenter.getList(request: text)
+          }
+
+      }.background(Color.init(.systemGray6))
+      .cornerRadius(20)
+      .padding(.horizontal, 20)
     }
   }
+}
 
-  struct NotSearchView: View {
-    var body: some View {
-      VStack {
-        LottieView(fileName: "search-icon", loopMode: .loop)
-          .frame(width: 150, height: 150)
-          .padding(.bottom, 5)
-        Text("Search Something!")
-          .font(.system(.subheadline))
-          .foregroundColor(.blue)
-      }
+struct NotSearchView: View {
+  var body: some View {
+    VStack {
+      LottieView(fileName: "search-icon", loopMode: .loop)
+        .frame(width: 150, height: 150)
+        .padding(.bottom, 5)
+      Text("Search Something!")
+        .font(.system(.subheadline))
+        .foregroundColor(.blue)
     }
   }
+}
 
-  struct NoResultView: View {
-    var body: some View {
-      VStack {
-        LottieView(fileName: "search-no-result", loopMode: .loop)
-          .frame(width: 200, height: 200)
-          .padding(.bottom, 5)
-      }
+struct NoResultView: View {
+  var body: some View {
+    VStack {
+      LottieView(fileName: "search-no-result", loopMode: .loop)
+        .frame(width: 200, height: 200)
+        .padding(.bottom, 5)
     }
   }
+}
 
-  struct SearchView_Previews: PreviewProvider {
-    static var previews: some View {
-      SearchView(presenter: Injection.shared.resolve())
-    }
+struct SearchView_Previews: PreviewProvider {
+  static var previews: some View {
+    SearchView(presenter: Injection.shared.resolve())
   }
 }

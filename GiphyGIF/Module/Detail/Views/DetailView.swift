@@ -6,17 +6,17 @@
 //
 
 import SwiftUI
+import Giphy
 
 struct DetailView: View {
 
-  @ObservedObject var viewModel: DetailViewModel
   @State var isFavorite = false
-//  let giphy: Giphy
+  let giphy: Giphy
 
   var body: some View {
     NavigationView {
-//      WebView(url: URL(string: giphy.url))
-//        .edgesIgnoringSafeArea([.bottom, .horizontal])
+      WebView(url: URL(string: giphy.url))
+        .edgesIgnoringSafeArea([.bottom, .horizontal])
 //        .navigationBarItems(trailing:
 //          Button(action: {
 //            if viewModel.isFavorite {
@@ -48,8 +48,8 @@ struct DetailView: View {
 //                .padding(.trailing, 15)
 //            }
 //         })
-//        .navigationTitle("Detail")
-//        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("Detail")
+        .navigationBarTitleDisplayMode(.inline)
     }
 //    .onAppear {
 //      viewModel.checkFavorites(idGiphy: giphy.id)

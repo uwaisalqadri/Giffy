@@ -10,53 +10,51 @@ import Grid
 import Core
 import Giphy
 
-//typealias HomePresenter = GetListPresenter<
-//  String, Giphy, Interactor<
-//    String, [Giphy], GiphyRepository<
-//      GiphyRemoteDataSource
-//    >
-//  >
-//>
+typealias HomePresenter = GetListPresenter<
+  Int, Giphy, Interactor<
+    Int, [Giphy], GetGiphyRepository<
+      GiphyRemoteDataSource
+    >
+  >
+>
 
 struct HomeView: View {
 
-//  @ObservedObject var viewModel: HomeViewModel
-//  let style = StaggeredGridStyle(.vertical, tracks: .min(150), spacing: 5)
-//  let assembler = AppAssembler()
+  @ObservedObject var presenter: HomePresenter
+  let style = StaggeredGridStyle(.vertical, tracks: .min(150), spacing: 5)
 
   var body: some View {
     NavigationView {
-      ScrollView {
-//        LazyVStack(alignment: .leading) {
-//          Text(viewModel.giphys.isEmpty
-//                ? "Pull to Get Latest"
-//                : "Today's Popular Giphy")
-//            .font(.system(size: 20, weight: .medium)).padding(.leading, 20)
-//          Grid(viewModel.giphys, id: \.id) { item in
-//            HomeItemView(giphy: item)
-//              .padding(.horizontal, 5)
-//          }.padding(.bottom, 60)
-//          .padding(.horizontal, 10)
-//        }
+      ScrollView(.vertical, showsIndicators: false) {
+        LazyVStack(alignment: .leading) {
+          Text(presenter.list.isEmpty
+                ? "Pull to Get Latest"
+                : "Today's Popular Giphy")
+            .font(.system(size: 20, weight: .medium)).padding(.leading, 20)
+          Grid(Array(presenter.list.enumerated()), id: \.offset) { index, item in
+            HomeItemView(giphy: item)
+              .padding(.horizontal, 5)
+          }
+        }.padding(.bottom, 60)
+        .padding(.horizontal, 10)
       }.navigationTitle("Trending")
-//      .gridStyle(self.style)
-//      .navigationBarItems(
-//        trailing: NavigationLink(destination: FavoriteView(viewModel: assembler.resolve())) {
-//          Image(systemName: "heart.fill")
-//            .resizable()
-//            .foregroundColor(.red)
-//            .frame(width: 20, height: 18)
-//        }
-//      )
+      .gridStyle(self.style)
+      //      .navigationBarItems(
+      //        trailing: NavigationLink(destination: FavoriteView(viewModel: assembler.resolve())) {
+      //          Image(systemName: "heart.fill")
+      //            .resizable()
+      //            .foregroundColor(.red)
+      //            .frame(width: 20, height: 18)
+      //        }
+      //      )
     }.onAppear {
-//      viewModel.getTrendingGiphy()
+      presenter.getList(request: 0)
     }
   }
 }
-//
-//struct HomeView_Previews: PreviewProvider {
-//  static var previews: some View {
-//    let assembler = AppAssembler()
-//    HomeView(viewModel: assembler.resolve())
-//  }
-//}
+
+struct HomeView_Previews: PreviewProvider {
+  static var previews: some View {
+    HomeView(presenter: Injection.shared.resolve())
+  }
+}

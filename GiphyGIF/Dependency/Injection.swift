@@ -14,7 +14,34 @@ class Injection {
   private let container = Container()
 
   init() {
+    registerHomeFeature()
     registerSearchFeature()
+  }
+
+  private func registerHomeFeature() {
+    container.register(HomeView.self) { [unowned self] _ in
+      HomeView(presenter: self.resolve())
+    }
+
+    container.register(HomePresenter.self) { [unowned self] _ in
+      GetListPresenter(useCase: self.resolve())
+    }
+
+    container.register(Interactor<
+      Int, [Giphy], GetGiphyRepository<
+        GiphyRemoteDataSource
+      >
+    >.self) { [unowned self] _ in
+      Interactor(repository: self.resolve())
+    }
+
+    container.register(GetGiphyRepository<GiphyRemoteDataSource>.self) { [unowned self] _ in
+      GetGiphyRepository(remoteDataSource: self.resolve())
+    }
+
+    container.register(GiphyRemoteDataSource.self) { _ in
+      GiphyRemoteDataSource()
+    }
   }
 
   private func registerSearchFeature() {
@@ -28,14 +55,14 @@ class Injection {
     }
     container.register(
       Interactor<
-        String, [Giphy], GiphyRepository<
+        String, [Giphy], SearchGiphyRepository<
           SearchRemoteDataSource
         >
       >.self) { [unowned self] _ in
       Interactor(repository: self.resolve())
     }
-    container.register(GiphyRepository<SearchRemoteDataSource>.self) { [unowned self] _ in
-      GiphyRepository(remoteDataSource: self.resolve())
+    container.register(SearchGiphyRepository<SearchRemoteDataSource>.self) { [unowned self] _ in
+      SearchGiphyRepository(remoteDataSource: self.resolve())
     }
     container.register(SearchRemoteDataSource.self) { _ in
       SearchRemoteDataSource()

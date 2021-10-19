@@ -25,7 +25,7 @@ struct SearchItemView: View {
         .frame(maxWidth: 350, maxHeight: 350, alignment: .center)
         .cornerRadius(20)
         .sheet(isPresented: $showDetail) {
-//          DetailView(viewModel: assembler.resolve(), giphy: giphy)
+          DetailView(giphy: giphy)
         }
         .onTapGesture {
           showDetail.toggle()
@@ -53,9 +53,9 @@ struct SearchItemView: View {
       Spacer()
 
     }.frame(maxWidth: 350, maxHeight: 130)
-//    .background(
-//      Blur(style: .systemUltraThinMaterialDark)
-//        .cornerRadius(20, corners: [.bottomLeft, .bottomRight])
-//    )
+    .background(
+      Blur(style: .systemUltraThinMaterialDark)
+        .cornerRadius(20, corners: [.bottomLeft, .bottomRight])
+    )
   }
 }
