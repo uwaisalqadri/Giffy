@@ -10,8 +10,7 @@ import SwiftUI
 
 extension String {
   public func localized() -> String {
-    let bundle = Bundle(identifier: "com.uwaisalqadri.Common") ?? .main
-    let result = bundle.localizedString(forKey: self, value: nil, table: nil)
+    let result = Bundle.module.localizedString(forKey: self, value: nil, table: nil)
     return result
   }
 

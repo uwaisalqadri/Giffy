@@ -40,7 +40,7 @@ struct FavoriteView: View {
           isFavoriteEmpty.padding(.top, 50)
         }
       }
-    }.navigationTitle("Favorite")
+    }.navigationTitle("favorite".localized())
     .gridStyle(self.style)
     .onAppear {
       presenter.getList(request: "")

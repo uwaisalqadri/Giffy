@@ -27,17 +27,17 @@ struct HomeView: View {
     NavigationView {
       ScrollView(.vertical, showsIndicators: false) {
         LazyVStack(alignment: .leading) {
-          Text(presenter.list.isEmpty
-                ? "Pull to Get Latest"
-                : "Today's Popular Giphy")
-            .font(.system(size: 20, weight: .medium)).padding(.leading, 20)
+          Text("today_popular".localized())
+            .font(.system(size: 20, weight: .medium))
+            .padding(.leading, 15)
+
           Grid(Array(presenter.list.enumerated()), id: \.offset) { index, item in
             HomeItemView(giphy: item)
               .padding(.horizontal, 5)
           }
         }.padding(.bottom, 60)
         .padding(.horizontal, 10)
-      }.navigationTitle("Trending")
+      }.navigationTitle("trending".localized())
       .gridStyle(self.style)
       .navigationBarItems(
         trailing: NavigationLink(destination: FavoriteView(presenter: Injection.shared.resolve())) {

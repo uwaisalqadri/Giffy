@@ -5,3 +5,12 @@
   Created by Uwais Alqadri on 10/17/21.
   
 */
+"profile" = "Profile";
+"search" = "Search";
+"favorite" = "Favorite";
+"trending" = "Trending";
+"detail" = "Detail";
+"today_popular" = "Today's Popular";
+"about_me" = "About Me";
+"search_desc" = "Search Giphy...";
+"about_me_desc" = "High school student majoring in Software Engineering, learn code from school, but more from the Internet and very passionate about Mobile Development in Native-way. originally from Makassar and currently live in Jakarta. started code in 15 y.o, and specialize in Android Kotlin and IOS Swift.";

@@ -8,6 +8,7 @@
 import SwiftUI
 import Giphy
 import Core
+import Common
 
 typealias AddFavoritePresenter = GetItemPresenter<
   Giphy, Giphy, Interactor<
@@ -47,12 +48,12 @@ struct DetailView: View {
 //            }
             addFavoritePresenter.execute(request: giphy)
           }) {
-            Image("heart.fill")
+            Image(uiImage: CommonImage(named: "heart.fill"))
               .resizable()
               .frame(width: 23, height: 20)
               .foregroundColor(.red)
          })
-        .navigationTitle("Detail")
+        .navigationTitle("detail".localized())
         .navigationBarTitleDisplayMode(.inline)
     }
 //    .onAppear {

@@ -43,11 +43,11 @@ struct AboutView: View {
           .padding([.leading, .trailing], 24)
 
           VStack(alignment: .leading) {
-            Text("About Me")
+            Text("about_me".localized())
               .font(.system(size: 18, weight: .medium, design: .rounded))
               .bold()
 
-            Text("High school student majoring in Software Engineering, learn code from school, but more from the Internet and very passionate about Mobile Development in Native-way. originally from Makassar and currently live in Jakarta. started code in 15 y.o, and specialize in Android Kotlin and IOS Swift.")
+            Text("about_me_desc".localized())
               .padding(.top, 16)
           }
           .padding([.leading, .trailing], 24)
@@ -56,7 +56,7 @@ struct AboutView: View {
         }
       }
       .padding(.bottom, 100)
-      .navigationTitle("Profile")
+      .navigationTitle("profile".localized())
     }
   }
 }

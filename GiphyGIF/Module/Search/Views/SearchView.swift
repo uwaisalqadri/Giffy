@@ -9,6 +9,7 @@ import SwiftUI
 import Lottie
 import Core
 import Giphy
+import Common
 
 typealias SearchPresenter = GetListPresenter<
   String, Giphy, Interactor<
@@ -48,7 +49,7 @@ struct SearchView: View {
             .padding(.top, 10)
         }
       }
-      .navigationTitle("Search")
+      .navigationTitle("search".localized())
       .padding(.top, 10)
       .onAppear {
         presenter.getList(request: "Hello")
@@ -71,7 +72,7 @@ struct SearchInput: View {
           .frame(width: 20, height: 20)
           .padding(.leading, 30)
 
-        TextField("Search Giphy...", text: $query, onCommit: {
+        TextField("search_desc".localized(), text: $query, onCommit: {
           onQuery?(query)
         })
           .foregroundColor(.white)
