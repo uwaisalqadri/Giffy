@@ -13,7 +13,7 @@ import Giphy
 
 typealias FavoritePresenter = GetListPresenter<
   String, Giphy, Interactor<
-    String, [Giphy], FavoriteGiphyRepository<
+    String, [Giphy], FavoriteGiphysRepository<
       GiphyLocalDataSource
     >
   >
@@ -28,13 +28,14 @@ struct FavoriteView: View {
     ScrollView {
       SearchInput { query in
         presenter.getList(request: query)
-      }
+      }.padding(.top, 30)
       LazyVStack {
         if !presenter.list.isEmpty {
           Grid(Array(presenter.list.enumerated()), id: \.offset) { index, item in
             HomeItemView(giphy: item, router: Injection.shared.resolve())
               .padding(.horizontal, 5)
           }.padding(.bottom, 60)
+          .padding(.top, 20)
           .padding(.horizontal, 10)
         } else {
           isFavoriteEmpty.padding(.top, 50)

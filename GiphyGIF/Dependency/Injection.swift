@@ -52,12 +52,25 @@ class Injection {
       DetailRouter()
     }
 
+    container.register(CheckFavoritePresenter.self) { [unowned self] _ in
+      CheckFavoritePresenter(useCase: self.resolve())
+    }
+
     container.register(AddFavoritePresenter.self) { [unowned self] _ in
       AddFavoritePresenter(useCase: self.resolve())
     }
 
     container.register(RemoveFavoritePresenter.self) { [unowned self] _ in
       RemoveFavoritePresenter(useCase: self.resolve())
+    }
+
+    container.register(
+      Interactor<
+        String, Giphy, FavoriteGiphyRepository<
+          GiphyLocalDataSource
+      >
+    >.self) { [unowned self] _ in
+      Interactor(repository: self.resolve())
     }
 
     container.register(
@@ -76,6 +89,10 @@ class Injection {
       >
     >.self) { [unowned self] _ in
       Interactor(repository: self.resolve())
+    }
+
+    container.register(FavoriteGiphyRepository<GiphyLocalDataSource>.self) { [unowned self] _ in
+      FavoriteGiphyRepository(localDataSource: self.resolve())
     }
 
     container.register(AddFavoriteRepository<GiphyLocalDataSource>.self) { [unowned self] _ in
@@ -125,15 +142,15 @@ class Injection {
 
     container.register(
       Interactor<
-        String, [Giphy], FavoriteGiphyRepository<
+        String, [Giphy], FavoriteGiphysRepository<
           GiphyLocalDataSource
         >
       >.self) { [unowned self] _ in
       Interactor(repository: self.resolve())
     }
 
-    container.register(FavoriteGiphyRepository<GiphyLocalDataSource>.self) { [unowned self] _ in
-      FavoriteGiphyRepository(localDataSource: self.resolve())
+    container.register(FavoriteGiphysRepository<GiphyLocalDataSource>.self) { [unowned self] _ in
+      FavoriteGiphysRepository(localDataSource: self.resolve())
     }
 
     container.register(GiphyLocalDataSource.self) { _ in

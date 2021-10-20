@@ -10,6 +10,14 @@ import Giphy
 import Core
 import Common
 
+typealias CheckFavoritePresenter = GetItemPresenter<
+  String, Giphy, Interactor<
+    String, Giphy, FavoriteGiphyRepository<
+      GiphyLocalDataSource
+    >
+  >
+>
+
 typealias AddFavoritePresenter = GetItemPresenter<
   Giphy, Giphy, Interactor<
     Giphy, Giphy, AddFavoriteRepository<
@@ -17,6 +25,7 @@ typealias AddFavoritePresenter = GetItemPresenter<
     >
   >
 >
+
 typealias RemoveFavoritePresenter = GetItemPresenter<
   Giphy, Giphy, Interactor<
     Giphy, Giphy, RemoveFavoriteRepository<
@@ -30,9 +39,10 @@ struct DetailView: View {
 
   @ObservedObject var addFavoritePresenter: AddFavoritePresenter
   @ObservedObject var removeFavoritePresenter: RemoveFavoritePresenter
-  @ObservedObject var favoritePresenter: FavoritePresenter
+  @ObservedObject var favoritePresenter: CheckFavoritePresenter
   @State var giphy: Giphy
 
+  @State private var giphys = [Giphy]()
   @State private var ids = [String]()
 
   var body: some View {
@@ -55,19 +65,17 @@ struct DetailView: View {
         .navigationTitle("detail".localized())
         .navigationBarTitleDisplayMode(.inline)
     }.onAppear {
-      checkFavorite(giphyId: giphy.identifier)
-      if !favoritePresenter.isLoading {
-        print("FAVORITO", favoritePresenter.list)
-      }
-    }
-  }
-
-  private func checkFavorite(giphyId: String) {
-    favoritePresenter.getList(request: "")
-    favoritePresenter.list.forEach { item in
-      ids.append(item.identifier)
-      let listId = ids.joined(separator: ",")
-      giphy.isFavorite = listId.contains(giphyId)
+      favoritePresenter.execute(request: giphy.identifier)
+      giphy.isFavorite = favoritePresenter.item?.identifier == giphy.identifier
+      print("RESULT", favoritePresenter.item)
+//      if !favoritePresenter.isLoading {
+//        giphys = favoritePresenter.list
+//        giphys.forEach { item in
+//          ids.append(item.identifier)
+//          let listId = ids.joined(separator: ",")
+//          giphy.isFavorite = listId.contains(giphy.identifier)
+//        }
+//      }
     }
   }
 }
