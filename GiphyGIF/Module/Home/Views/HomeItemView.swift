@@ -27,7 +27,7 @@ struct HomeItemView: View {
         .cornerRadius(20)
         .padding(.top, 10)
         .sheet(isPresented: $showDetail) {
-          DetailView(giphy: giphy)
+          DetailView(addFavoritePresenter: Injection.shared.resolve(), removeFavoritePresenter: Injection.shared.resolve(), giphy: giphy)
         }
         .onTapGesture {
           showDetail.toggle()

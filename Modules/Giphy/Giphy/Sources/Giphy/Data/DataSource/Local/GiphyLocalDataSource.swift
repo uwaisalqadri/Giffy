@@ -81,16 +81,16 @@ public struct GiphyLocalDataSource: LocalDataSource {
 
 
   public func get(entityId: Int) -> Giphy? {
-    savedMovie(with: entityId)
+    savedMovie(with: String(entityId))
   }
 
-  private func savedMovie(with giphyId: Int) -> MovieEntity? {
+  private func savedMovie(with giphyId: String) -> GiphyEntity? {
     let giphy = realm?.object(ofType: GiphyEntity.self, forPrimaryKey: giphyId)
     return giphy
   }
 
   public func isFavorited(giphyId: Int) -> Bool {
-    return savedMovie(with: giphyId) != nil
+    return savedMovie(with: String(giphyId)) != nil
   }
 }
 

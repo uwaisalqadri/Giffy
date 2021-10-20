@@ -8,10 +8,20 @@
 import SwiftUI
 import Grid
 import Lottie
+import Core
+import Giphy
+
+typealias FavoritePresenter = GetListPresenter<
+  String, Giphy, Interactor<
+    String, [Giphy], FavoriteGiphyRepository<
+      GiphyLocalDataSource
+    >
+  >
+>
 
 struct FavoriteView: View {
 
-  @ObservedObject var viewModel: FavoriteViewModel
+  @ObservedObject var presenter: FavoritePresenter
   let style = StaggeredGridStyle(.vertical, tracks: .min(150), spacing: 5)
 
   var body: some View {

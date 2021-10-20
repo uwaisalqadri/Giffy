@@ -5,35 +5,39 @@
 //  Created by Uwais Alqadri on 10/17/21.
 //
 
+import RealmSwift
 import ObjectMapper
+import ObjectMapperAdditions
 
-public struct ImageGIFEntity: ImageGIF, Mappable {
-  public var _original: OriginalEntity?
-  public var original: Original? {
+public class ImageGIFEntity: Object, ImageGIF, Mappable, RealmOptionalType {
+  dynamic public var _original: OriginalEntity?
+  dynamic public var original: Original? {
     _original
   }
 
-  public init?(map: Map) {
+  required public init?(map: ObjectMapper.Map) {
+    super.init()
     mapping(map: map)
   }
 
-  mutating public func mapping(map: Map) {
+  public func mapping(map: ObjectMapper.Map) {
     _original <- map["original"]
   }
 }
 
-public struct OriginalEntity: Original, Mappable {
-  public var url: String = ""
-  public var height: String = ""
-  public var width: String = ""
+public class OriginalEntity: Object, Original, Mappable, RealmOptionalType {
+  dynamic public var url: String = ""
+  dynamic public var height: String = ""
+  dynamic public var width: String = ""
 
-  public init?(map: Map) {
+  required public init?(map: ObjectMapper.Map) {
+    super.init()
     mapping(map: map)
   }
 
-  mutating public func mapping(map: Map) {
-    url <- map["url"]
-    height <- map["height"]
-    width <- map["width"]
+  public func mapping(map: ObjectMapper.Map) {
+    url <- (map["url"], StringTransform())
+    height <- (map["height"], StringTransform())
+    width <- (map["width"], StringTransform())
   }
 }

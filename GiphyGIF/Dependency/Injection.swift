@@ -15,7 +15,9 @@ class Injection {
 
   init() {
     registerHomeFeature()
+    registerDetailFeature()
     registerSearchFeature()
+    registerFavoriteFeature()
   }
 
   private func registerHomeFeature() {
@@ -27,9 +29,10 @@ class Injection {
       GetListPresenter(useCase: self.resolve())
     }
 
-    container.register(Interactor<
-      Int, [Giphy], GetGiphyRepository<
-        GiphyRemoteDataSource
+    container.register(
+      Interactor<
+        Int, [Giphy], GetGiphyRepository<
+          GiphyRemoteDataSource
       >
     >.self) { [unowned self] _ in
       Interactor(repository: self.resolve())
@@ -44,11 +47,49 @@ class Injection {
     }
   }
 
+  private func registerDetailFeature() {
+//    container.register(DetailView.self) { [unowned self] _ in
+//      DetailView(addFavoritePresenter: self.resolve(), removeFavoritePresenter: self.resolve(), giphy: )
+//    }
+
+    container.register(AddFavoritePresenter.self) { [unowned self] _ in
+      AddFavoritePresenter(useCase: self.resolve())
+    }
+
+    container.register(RemoveFavoritePresenter.self) { [unowned self] _ in
+      RemoveFavoritePresenter(useCase: self.resolve())
+    }
+
+    container.register(
+      Interactor<
+        Giphy, Giphy, AddFavoriteRepository<
+          GiphyLocalDataSource
+      >
+    >.self) { [unowned self] _ in
+      Interactor(repository: self.resolve())
+    }
+
+    container.register(
+      Interactor<
+        Giphy, Giphy, RemoveFavoriteRepository<
+          GiphyLocalDataSource
+      >
+    >.self) { [unowned self] _ in
+      Interactor(repository: self.resolve())
+    }
+
+    container.register(AddFavoriteRepository<GiphyLocalDataSource>.self) { [unowned self] _ in
+      AddFavoriteRepository(localDataSource: self.resolve())
+    }
+
+    container.register(RemoveFavoriteRepository<GiphyLocalDataSource>.self) { [unowned self] _ in
+      RemoveFavoriteRepository(localDataSource: self.resolve())
+    }
+  }
+
   private func registerSearchFeature() {
     container.register(SearchView.self) { [unowned self] _ in
-      SearchView(
-        presenter: self.resolve()
-      )
+      SearchView(presenter: self.resolve())
     }
     container.register(SearchPresenter.self) { [unowned self] _ in
       GetListPresenter(useCase: self.resolve())
@@ -66,6 +107,33 @@ class Injection {
     }
     container.register(SearchRemoteDataSource.self) { _ in
       SearchRemoteDataSource()
+    }
+  }
+
+  private func registerFavoriteFeature() {
+    container.register(FavoriteView.self) { [unowned self] _ in
+      FavoriteView(presenter: self.resolve())
+    }
+
+    container.register(FavoritePresenter.self) { [unowned self] _ in
+      GetListPresenter(useCase: self.resolve())
+    }
+
+    container.register(
+      Interactor<
+        String, [Giphy], FavoriteGiphyRepository<
+          GiphyLocalDataSource
+        >
+      >.self) { [unowned self] _ in
+      Interactor(repository: self.resolve())
+    }
+
+    container.register(FavoriteGiphyRepository<GiphyLocalDataSource>.self) { [unowned self] _ in
+      FavoriteGiphyRepository(localDataSource: self.resolve())
+    }
+
+    container.register(GiphyLocalDataSource.self) { _ in
+      GiphyLocalDataSource()
     }
   }
 

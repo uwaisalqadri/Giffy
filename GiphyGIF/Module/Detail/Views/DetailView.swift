@@ -7,9 +7,28 @@
 
 import SwiftUI
 import Giphy
+import Core
+
+typealias AddFavoritePresenter = GetItemPresenter<
+  Giphy, Giphy, Interactor<
+    Giphy, Giphy, AddFavoriteRepository<
+      GiphyLocalDataSource
+    >
+  >
+>
+typealias RemoveFavoritePresenter = GetItemPresenter<
+  Giphy, Giphy, Interactor<
+    Giphy, Giphy, RemoveFavoriteRepository<
+      GiphyLocalDataSource
+    >
+  >
+>
+
 
 struct DetailView: View {
 
+  @ObservedObject var addFavoritePresenter: AddFavoritePresenter
+  @ObservedObject var removeFavoritePresenter: RemoveFavoritePresenter
   @State var isFavorite = false
   let giphy: Giphy
 

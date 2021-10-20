@@ -25,7 +25,7 @@ struct SearchItemView: View {
         .frame(maxWidth: 350, maxHeight: 350, alignment: .center)
         .cornerRadius(20)
         .sheet(isPresented: $showDetail) {
-          DetailView(giphy: giphy)
+          DetailView(addFavoritePresenter: Injection.shared.resolve(), removeFavoritePresenter: Injection.shared.resolve(), giphy: giphy)
         }
         .onTapGesture {
           showDetail.toggle()

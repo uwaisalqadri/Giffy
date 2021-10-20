@@ -5,50 +5,58 @@
 //  Created by Uwais Alqadri on 10/17/21.
 //
 
-import ObjectMapper
 import RealmSwift
+import ObjectMapper
+import ObjectMapperAdditions
 
-public struct GiphyResponse: Mappable {
+public class GiphyResponse: Mappable {
   public var data: [GiphyEntity]?
 
-  public init?(map: Map) {
+  required public init?(map: ObjectMapper.Map) {
     mapping(map: map)
   }
 
-  mutating public func mapping(map: Map) {
+  public func mapping(map: ObjectMapper.Map) {
     data <- map["data"]
   }
 }
 
-public struct GiphyEntity: Giphy, Mappable {
-  public var type: String = ""
-  public var identifier: String = ""
-  public var url: String = ""
-  public var embedUrl: String = ""
-  public var rating: String = ""
-  public var username: String = ""
-  public var title: String = ""
-  public var trendingDateTime: String = ""
+public class GiphyEntity: Object, Mappable, Giphy {
+  dynamic public var type: String = ""
+  dynamic public var identifier: String = ""
+  dynamic public var url: String = ""
+  dynamic public var embedUrl: String = ""
+  dynamic public var rating: String = ""
+  dynamic public var username: String = ""
+  dynamic public var title: String = ""
+  dynamic public var trendingDateTime: String = ""
   public var isFavorite: Bool = false
 
-  public var _images: ImageGIFEntity?
+  dynamic public var _images: ImageGIFEntity?
   public var images: ImageGIF? {
     _images
   }
 
-  public init?(map: Map) {
+  required public init?(map: ObjectMapper.Map) {
+    super.init()
     mapping(map: map)
   }
 
-  mutating public func mapping(map: Map) {
-    type <- map["type"]
-    identifier <- map["id"]
-    url <- map["url"]
-    embedUrl <- map["embed_url"]
-    rating <- map["rating"]
-    username <- map["username"]
-    title <- map["title"]
-    trendingDateTime <- map["trending_datetime"]
+
+  public func mapping(map: ObjectMapper.Map) {
+//    let isWriteRequired = realm != nil && realm?.isInWriteTransaction == false
+//    isWriteRequired ? realm?.beginWrite() : ()
+
+    type <- (map["type"], StringTransform())
+    identifier <- (map["id"], StringTransform())
+    url <- (map["url"], StringTransform())
+    embedUrl <- (map["embed_url"], StringTransform())
+    rating <- (map["rating"], StringTransform())
+    username <- (map["username"], StringTransform())
+    title <- (map["title"], StringTransform())
+    trendingDateTime <- (map["trending_datetime"], StringTransform())
     _images <- map["images"]
+
+//    isWriteRequired ? try? realm?.commitWrite() : ()
   }
 }

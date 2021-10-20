@@ -15,7 +15,7 @@
         "repositoryURL": "https://github.com/uwaisalqadri/CoreModule.git",
         "state": {
           "branch": "main",
-          "revision": "e361f456356f8adb7c96c360891e41cb7745de70",
+          "revision": "a9fad9b3e5fea32d0a76422dfc9a947997504eb6",
           "version": null
         }
       },
@@ -33,17 +33,17 @@
         "repositoryURL": "https://github.com/tristanhimmelman/ObjectMapper.git",
         "state": {
           "branch": null,
-          "revision": "19d499c65b8240f1220d7cf155ccd309857f8018",
-          "version": "3.5.1"
+          "revision": "0b96a734de3ea1c87374ae677064f86adb0716ec",
+          "version": "4.2.0"
         }
       },
       {
-        "package": "ObjectMapper+Realm",
-        "repositoryURL": "https://github.com/Jakenberg/ObjectMapper-Realm.git",
+        "package": "ObjectMapperAdditions",
+        "repositoryURL": "https://github.com/APUtils/ObjectMapperAdditions.git",
         "state": {
-          "branch": "master",
-          "revision": "496b654cb57aaaf5c11e45544dd15413f1642605",
-          "version": null
+          "branch": null,
+          "revision": "57dedd298c8bb74e7e6dee982775690161dbcd2d",
+          "version": "8.0.0"
         }
       },
       {
@@ -51,17 +51,17 @@
         "repositoryURL": "https://github.com/realm/realm-cocoa.git",
         "state": {
           "branch": null,
-          "revision": "9eec060b00e5dc7f00f1b06830eb78d62c44bb07",
-          "version": "3.20.0"
+          "revision": "7e5c77fd7fbb30259e8e6e6a41f32289f72e0812",
+          "version": "10.7.6"
         }
       },
       {
-        "package": "RealmCore",
+        "package": "RealmDatabase",
         "repositoryURL": "https://github.com/realm/realm-core",
         "state": {
           "branch": null,
-          "revision": "512dfaa4f59930e193c92e00ba1924bde69b19de",
-          "version": "5.23.5"
+          "revision": "018adb3469c2882904febca251778129ef4a9b70",
+          "version": "10.7.2"
         }
       },
       {
