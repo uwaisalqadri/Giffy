@@ -31,7 +31,6 @@
 		916B8C44271F05BD00E13DF4 /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = 916B8C43271F05BD00E13DF4 /* Core */; };
 		919F5658271C1C5D008758E3 /* Common in Frameworks */ = {isa = PBXBuildFile; productRef = 919F5657271C1C5D008758E3 /* Common */; };
 		919F565A271C1C5D008758E3 /* Giphy in Frameworks */ = {isa = PBXBuildFile; productRef = 919F5659271C1C5D008758E3 /* Giphy */; };
-		91EA5E30271C4A1700250B53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91EA5E2F271C4A1700250B53 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,7 +68,6 @@
 		52ECB3D6265B6CA00075082C /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		919F5649271BFD4E008758E3 /* Giphy */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Giphy; path = Modules/Giphy/Giphy; sourceTree = "<group>"; };
 		919F564A271BFD55008758E3 /* Common */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Common; path = Modules/Common/Common; sourceTree = "<group>"; };
-		91EA5E2F271C4A1700250B53 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,7 +227,6 @@
 		522768A4265A040400E7454C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				91EA5E2F271C4A1700250B53 /* Assets.xcassets */,
 				52276892265A02D700E7454C /* Info.plist */,
 			);
 			path = Resources;
@@ -409,7 +406,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91EA5E30271C4A1700250B53 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

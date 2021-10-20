@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Common
 
 struct SocialMediaItemView: View {
   var image: String
@@ -13,7 +14,7 @@ struct SocialMediaItemView: View {
 
   var body: some View {
     HStack {
-      Image(image)
+      Image(uiImage: CommonImage(named: image))
         .resizable()
         .frame(width: 27, height: 27)
       Text(name)

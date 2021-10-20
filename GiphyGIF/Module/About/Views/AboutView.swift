@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Common
 
 struct AboutView: View {
   var body: some View {
@@ -13,7 +14,7 @@ struct AboutView: View {
       ScrollView {
         VStack(alignment: .leading) {
           HStack {
-            Image("tampandanberani")
+            Image(uiImage: CommonImage(named: "tampandanberani"))
               .resizable()
               .aspectRatio(contentMode: .fill)
               .frame(width: 80, height: 80)
