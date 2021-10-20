@@ -5,6 +5,7 @@
 //  Created by Uwais Alqadri on 10/17/21.
 //
 
+import Foundation
 import RealmSwift
 import ObjectMapper
 import ObjectMapperAdditions
@@ -22,22 +23,30 @@ public class GiphyResponse: Mappable {
 }
 
 public class GiphyEntity: Object, Mappable, Giphy {
-  dynamic public var type: String = ""
-  dynamic public var identifier: String = ""
-  dynamic public var url: String = ""
-  dynamic public var embedUrl: String = ""
-  dynamic public var rating: String = ""
-  dynamic public var username: String = ""
-  dynamic public var title: String = ""
-  dynamic public var trendingDateTime: String = ""
-  public var isFavorite: Bool = false
+  @objc dynamic public var type: String = ""
+  @objc dynamic public var identifier: String = ""
+  @objc dynamic public var url: String = ""
+  @objc dynamic public var embedUrl: String = ""
+  @objc dynamic public var rating: String = ""
+  @objc dynamic public var username: String = ""
+  @objc dynamic public var title: String = ""
+  @objc dynamic public var trendingDateTime: String = ""
+  @objc public var isFavorite: Bool = false
 
-  dynamic public var _images: ImageGIFEntity?
+  @objc dynamic public var _images: ImageGIFEntity?
   public var images: ImageGIF? {
     _images
   }
 
-  required public init?(map: ObjectMapper.Map) {
+  public override class func primaryKey() -> String? {
+    "identifier"
+  }
+
+  public override init() {
+    super.init()
+  }
+
+  public required init?(map: ObjectMapper.Map) {
     super.init()
     mapping(map: map)
   }
