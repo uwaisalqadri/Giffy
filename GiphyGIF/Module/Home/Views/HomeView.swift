@@ -39,14 +39,14 @@ struct HomeView: View {
         .padding(.horizontal, 10)
       }.navigationTitle("Trending")
       .gridStyle(self.style)
-      //      .navigationBarItems(
-      //        trailing: NavigationLink(destination: FavoriteView(viewModel: assembler.resolve())) {
-      //          Image(systemName: "heart.fill")
-      //            .resizable()
-      //            .foregroundColor(.red)
-      //            .frame(width: 20, height: 18)
-      //        }
-      //      )
+      .navigationBarItems(
+        trailing: NavigationLink(destination: FavoriteView(presenter: Injection.shared.resolve())) {
+          Image(systemName: "heart.fill")
+            .resizable()
+            .foregroundColor(.red)
+            .frame(width: 20, height: 18)
+        }
+      )
     }.onAppear {
       presenter.getList(request: 0)
     }

@@ -26,7 +26,9 @@ struct SearchView: View {
   var body: some View {
     NavigationView {
       ScrollView(.vertical, showsIndicators: false) {
-        SearchInput(presenter: presenter)
+        SearchInput { query in
+          presenter.getList(request: query)
+        }
         if !presenter.isLoading {
           ZStack {
             NotSearchView()
@@ -57,8 +59,8 @@ struct SearchView: View {
 
 struct SearchInput: View {
 
-  @State var presenter: SearchPresenter
   @State var query = ""
+  var onQuery: ((String) -> Void)?
 
   var body: some View {
     VStack(alignment: .leading) {
@@ -70,7 +72,7 @@ struct SearchInput: View {
           .padding(.leading, 30)
 
         TextField("Search Giphy...", text: $query, onCommit: {
-          presenter.getList(request: query)
+          onQuery?(query)
         })
           .foregroundColor(.white)
           .font(.system(size: 16))
@@ -80,7 +82,7 @@ struct SearchInput: View {
           .padding(.leading, 13)
           .padding(.trailing, 30)
           .onChange(of: query) { text in
-            presenter.getList(request: text)
+            onQuery?(text)
           }
 
       }.background(Color.init(.systemGray6))

@@ -26,22 +26,25 @@ struct FavoriteView: View {
 
   var body: some View {
     ScrollView {
-//      LazyVStack {
-//        if !viewModel.giphys.isEmpty {
-//          Grid(viewModel.giphys, id: \.id) { item in
-//            HomeItemView(giphy: item)
-//              .padding(.horizontal, 5)
-//          }.padding(.bottom, 60)
-//          .padding(.horizontal, 10)
-//        } else {
-//          isFavoriteEmpty.padding(.top, 50)
-//        }
-//      }
+      SearchInput { query in
+        presenter.getList(request: query)
+      }
+      LazyVStack {
+        if !presenter.list.isEmpty {
+          Grid(Array(presenter.list.enumerated()), id: \.offset) { index, item in
+            HomeItemView(giphy: item)
+              .padding(.horizontal, 5)
+          }.padding(.bottom, 60)
+          .padding(.horizontal, 10)
+        } else {
+          isFavoriteEmpty.padding(.top, 50)
+        }
+      }
     }.navigationTitle("Favorite")
     .gridStyle(self.style)
-//    .onAppear {
-//      viewModel.getFavorites()
-//    }
+    .onAppear {
+      presenter.getList(request: "")
+    }
   }
 
   var isFavoriteEmpty: some View {
@@ -52,9 +55,8 @@ struct FavoriteView: View {
   }
 }
 
-//struct FavoriteView_Previews: PreviewProvider {
-//  static var previews: some View {
-//    let assembler = AppAssembler()
-//    FavoriteView(viewModel: assembler.resolve())
-//  }
-//}
+struct FavoriteView_Previews: PreviewProvider {
+  static var previews: some View {
+    FavoriteView(presenter: Injection.shared.resolve())
+  }
+}

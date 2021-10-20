@@ -36,42 +36,27 @@ struct DetailView: View {
     NavigationView {
       WebView(url: URL(string: giphy.url))
         .edgesIgnoringSafeArea([.bottom, .horizontal])
-//        .navigationBarItems(trailing:
-//          Button(action: {
-//            if viewModel.isFavorite {
-//              viewModel.removeFromFavorites(idGiphy: giphy.id)
+        .navigationBarItems(trailing:
+          Button(action: {
+//            if .isFavorite {
+//              removeFavoritePresenter.execute(request: giphy)
 //              isFavorite.toggle()
 //            } else {
-//              viewModel.addToFavorites(giphy: giphy)
+//              addFavoritePresenter.execute(request: giphy)
 //              isFavorite.toggle()
 //            }
-//          }) {
-//            if isFavorite {
-//              if !viewModel.isFavorite {
-//                LottieView(fileName: "when-favorite-clicked", loopMode: .playOnce)
-//                  .frame(width: 53, height: 50)
-//              } else {
-//                LottieView(fileName: "when-unfavorite-clicked", loopMode: .playOnce)
-//                  .frame(width: 40, height: 50)
-//              }
-//            } else if viewModel.isFavorite {
-//              Image("heart.fill")
-//                .resizable()
-//                .frame(width: 23, height: 20)
-//                .foregroundColor(.red)
-//            } else {
-//              Image("heart")
-//               .resizable()
-//               .frame(width: 23, height: 20)
-//               .foregroundColor(.white)
-//                .padding(.trailing, 15)
-//            }
-//         })
+            addFavoritePresenter.execute(request: giphy)
+          }) {
+            Image("heart.fill")
+              .resizable()
+              .frame(width: 23, height: 20)
+              .foregroundColor(.red)
+         })
         .navigationTitle("Detail")
         .navigationBarTitleDisplayMode(.inline)
     }
 //    .onAppear {
-//      viewModel.checkFavorites(idGiphy: giphy.id)
+//      presenter.checkFavorites(idGiphy: giphy.id)
 //    }
   }
 }
