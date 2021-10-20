@@ -32,7 +32,7 @@ struct FavoriteView: View {
       LazyVStack {
         if !presenter.list.isEmpty {
           Grid(Array(presenter.list.enumerated()), id: \.offset) { index, item in
-            HomeItemView(giphy: item)
+            HomeItemView(giphy: item, router: Injection.shared.resolve())
               .padding(.horizontal, 5)
           }.padding(.bottom, 60)
           .padding(.horizontal, 10)

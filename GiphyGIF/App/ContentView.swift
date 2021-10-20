@@ -14,7 +14,7 @@ struct ContentView: View {
   var body: some View {
     ZStack {
       if selectedIndex == 0 {
-        HomeView(presenter: Injection.shared.resolve())
+        HomeView(presenter: Injection.shared.resolve(), router: Injection.shared.resolve())
       } else if selectedIndex == 1 {
         SearchView(presenter: Injection.shared.resolve())
       } else if selectedIndex == 2 {

@@ -15,6 +15,7 @@ struct HomeItemView: View {
   @State var isAnimating = true
   @State var showDetail = false
   let giphy: Giphy
+  let router: DetailRouter
 
   var body: some View {
     VStack(alignment: .leading) {
@@ -27,7 +28,7 @@ struct HomeItemView: View {
         .cornerRadius(20)
         .padding(.top, 10)
         .sheet(isPresented: $showDetail) {
-          DetailView(addFavoritePresenter: Injection.shared.resolve(), removeFavoritePresenter: Injection.shared.resolve(), giphy: giphy)
+          router.makeDetailView(giphy: giphy)
         }
         .onTapGesture {
           showDetail.toggle()

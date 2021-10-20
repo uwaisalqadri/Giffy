@@ -21,6 +21,7 @@ typealias HomePresenter = GetListPresenter<
 struct HomeView: View {
 
   @ObservedObject var presenter: HomePresenter
+  let router: FavoriteRouter
   let style = StaggeredGridStyle(.vertical, tracks: .min(150), spacing: 5)
 
   var body: some View {
@@ -32,7 +33,7 @@ struct HomeView: View {
             .padding(.leading, 15)
 
           Grid(Array(presenter.list.enumerated()), id: \.offset) { index, item in
-            HomeItemView(giphy: item)
+            HomeItemView(giphy: item, router: Injection.shared.resolve())
               .padding(.horizontal, 5)
           }
         }.padding(.bottom, 60)
@@ -40,7 +41,7 @@ struct HomeView: View {
       }.navigationTitle("trending".localized())
       .gridStyle(self.style)
       .navigationBarItems(
-        trailing: NavigationLink(destination: FavoriteView(presenter: Injection.shared.resolve())) {
+        trailing: NavigationLink(destination: router.makeFavoriteView()) {
           Image(systemName: "heart.fill")
             .resizable()
             .foregroundColor(.red)
@@ -55,6 +56,6 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
   static var previews: some View {
-    HomeView(presenter: Injection.shared.resolve())
+    HomeView(presenter: Injection.shared.resolve(), router: Injection.shared.resolve())
   }
 }

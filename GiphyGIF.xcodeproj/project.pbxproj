@@ -31,6 +31,8 @@
 		919F5658271C1C5D008758E3 /* Common in Frameworks */ = {isa = PBXBuildFile; productRef = 919F5657271C1C5D008758E3 /* Common */; };
 		919F565A271C1C5D008758E3 /* Giphy in Frameworks */ = {isa = PBXBuildFile; productRef = 919F5659271C1C5D008758E3 /* Giphy */; };
 		91F9B062271FCCD500A9AEA7 /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91F9B061271FCCD500A9AEA7 /* AppIcon.xcassets */; };
+		91F9B065271FE85300A9AEA7 /* FavoriteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F9B064271FE85300A9AEA7 /* FavoriteRouter.swift */; };
+		91F9B068271FE8CB00A9AEA7 /* DetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F9B067271FE8CB00A9AEA7 /* DetailRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +70,8 @@
 		919F5649271BFD4E008758E3 /* Giphy */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Giphy; path = Modules/Giphy/Giphy; sourceTree = "<group>"; };
 		919F564A271BFD55008758E3 /* Common */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Common; path = Modules/Common/Common; sourceTree = "<group>"; };
 		91F9B061271FCCD500A9AEA7 /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIcon.xcassets; sourceTree = "<group>"; };
+		91F9B064271FE85300A9AEA7 /* FavoriteRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRouter.swift; sourceTree = "<group>"; };
+		91F9B067271FE8CB00A9AEA7 /* DetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +102,7 @@
 		520F628C265DFFEC00C10B13 /* Favorite */ = {
 			isa = PBXGroup;
 			children = (
+				91F9B063271FE82900A9AEA7 /* Router */,
 				520F628E265DFFFB00C10B13 /* Views */,
 			);
 			path = Favorite;
@@ -194,6 +199,7 @@
 		5227689E265A034100E7454C /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				91F9B066271FE8B600A9AEA7 /* Router */,
 				522768E9265A46F600E7454C /* Views */,
 			);
 			path = Detail;
@@ -283,6 +289,22 @@
 				52E93D0B2661F27A00DBFDDD /* SocialMediaItemView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		91F9B063271FE82900A9AEA7 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				91F9B064271FE85300A9AEA7 /* FavoriteRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		91F9B066271FE8B600A9AEA7 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				91F9B067271FE8CB00A9AEA7 /* DetailRouter.swift */,
+			);
+			path = Router;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -429,6 +451,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91F9B065271FE85300A9AEA7 /* FavoriteRouter.swift in Sources */,
 				5215A2A5265CA89D00F674F1 /* Blur.swift in Sources */,
 				52E93D032661F20B00DBFDDD /* AboutView.swift in Sources */,
 				52E93D0C2661F27A00DBFDDD /* SocialMediaItemView.swift in Sources */,
@@ -442,6 +465,7 @@
 				52ECB3C4265B34000075082C /* SearchView.swift in Sources */,
 				523AFC34265BDB3F00C052A5 /* HomeItemView.swift in Sources */,
 				52ECB3D7265B6CA00075082C /* ActivityIndicator.swift in Sources */,
+				91F9B068271FE8CB00A9AEA7 /* DetailRouter.swift in Sources */,
 				52E93D112661F9E700DBFDDD /* WebView.swift in Sources */,
 				520F6295265E00C500C10B13 /* FavoriteView.swift in Sources */,
 			);

@@ -27,7 +27,7 @@ where
   public func execute(request: Giphy?) -> AnyPublisher<Giphy, Error> {
     return Future<Giphy, Error> { completion in
       if let giphy = request {
-        localDataSource.delete(entity: giphy)
+        _ = localDataSource.delete(entity: giphy)
         completion(.success(giphy))
       }
     }.eraseToAnyPublisher()

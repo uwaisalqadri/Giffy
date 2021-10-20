@@ -15,6 +15,7 @@ struct SearchItemView: View {
   @State var isAnimating = true
   @State var showDetail = false
   let giphy: Giphy
+  let router: DetailRouter
 
   var body: some View {
     ZStack {
@@ -25,7 +26,7 @@ struct SearchItemView: View {
         .frame(maxWidth: 350, maxHeight: 350, alignment: .center)
         .cornerRadius(20)
         .sheet(isPresented: $showDetail) {
-          DetailView(addFavoritePresenter: Injection.shared.resolve(), removeFavoritePresenter: Injection.shared.resolve(), giphy: giphy)
+          router.makeDetailView(giphy: giphy)
         }
         .onTapGesture {
           showDetail.toggle()

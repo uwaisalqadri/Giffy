@@ -22,7 +22,7 @@ class Injection {
 
   private func registerHomeFeature() {
     container.register(HomeView.self) { [unowned self] _ in
-      HomeView(presenter: self.resolve())
+      HomeView(presenter: self.resolve(), router: self.resolve())
     }
 
     container.register(HomePresenter.self) { [unowned self] _ in
@@ -48,9 +48,9 @@ class Injection {
   }
 
   private func registerDetailFeature() {
-//    container.register(DetailView.self) { [unowned self] _ in
-//      DetailView(addFavoritePresenter: self.resolve(), removeFavoritePresenter: self.resolve(), giphy: )
-//    }
+    container.register(DetailRouter.self) { _ in
+      DetailRouter()
+    }
 
     container.register(AddFavoritePresenter.self) { [unowned self] _ in
       AddFavoritePresenter(useCase: self.resolve())
@@ -113,6 +113,10 @@ class Injection {
   private func registerFavoriteFeature() {
     container.register(FavoriteView.self) { [unowned self] _ in
       FavoriteView(presenter: self.resolve())
+    }
+
+    container.register(FavoriteRouter.self) { _ in
+      FavoriteRouter()
     }
 
     container.register(FavoritePresenter.self) { [unowned self] _ in
