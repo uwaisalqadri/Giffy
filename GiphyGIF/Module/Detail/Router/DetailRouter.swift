@@ -10,6 +10,6 @@ import Giphy
 
 struct DetailRouter {
   func makeDetailView(giphy: Giphy) -> some View {
-    return DetailView(addFavoritePresenter: Injection.shared.resolve(), removeFavoritePresenter: Injection.shared.resolve(), giphy: giphy)
+    return DetailView(addFavoritePresenter: Injection.shared.resolve(), removeFavoritePresenter: Injection.shared.resolve(), favoritePresenter: Injection.shared.resolve(), giphy: giphy)
   }
 }

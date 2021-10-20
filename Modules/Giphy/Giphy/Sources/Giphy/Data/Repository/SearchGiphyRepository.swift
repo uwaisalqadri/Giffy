@@ -24,7 +24,7 @@ where
   }
 
   public func execute(request: String?) -> AnyPublisher<[Giphy], Error> {
-    remoteDataSource.execute(request: request)
+    return remoteDataSource.execute(request: request)
       .map { $0.data ?? [] }
       .eraseToAnyPublisher()
   }

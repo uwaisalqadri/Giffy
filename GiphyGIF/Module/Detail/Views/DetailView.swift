@@ -30,8 +30,10 @@ struct DetailView: View {
 
   @ObservedObject var addFavoritePresenter: AddFavoritePresenter
   @ObservedObject var removeFavoritePresenter: RemoveFavoritePresenter
-  @State var isFavorite = false
-  let giphy: Giphy
+  @ObservedObject var favoritePresenter: FavoritePresenter
+  @State var giphy: Giphy
+
+  @State private var ids = [String]()
 
   var body: some View {
     NavigationView {
@@ -39,25 +41,33 @@ struct DetailView: View {
         .edgesIgnoringSafeArea([.bottom, .horizontal])
         .navigationBarItems(trailing:
           Button(action: {
-//            if .isFavorite {
-//              removeFavoritePresenter.execute(request: giphy)
-//              isFavorite.toggle()
-//            } else {
-//              addFavoritePresenter.execute(request: giphy)
-//              isFavorite.toggle()
-//            }
-            addFavoritePresenter.execute(request: giphy)
+            if giphy.isFavorite {
+              removeFavoritePresenter.execute(request: giphy)
+            } else {
+              addFavoritePresenter.execute(request: giphy)
+            }
           }) {
-            Image(uiImage: CommonImage(named: "heart.fill"))
+            Image(uiImage: CommonImage(named: giphy.isFavorite ? "heart.fill" : "heart"))
               .resizable()
               .frame(width: 23, height: 20)
               .foregroundColor(.red)
          })
         .navigationTitle("detail".localized())
         .navigationBarTitleDisplayMode(.inline)
+    }.onAppear {
+      checkFavorite(giphyId: giphy.identifier)
+      if !favoritePresenter.isLoading {
+        print("FAVORITO", favoritePresenter.list)
+      }
     }
-//    .onAppear {
-//      presenter.checkFavorites(idGiphy: giphy.id)
-//    }
+  }
+
+  private func checkFavorite(giphyId: String) {
+    favoritePresenter.getList(request: "")
+    favoritePresenter.list.forEach { item in
+      ids.append(item.identifier)
+      let listId = ids.joined(separator: ",")
+      giphy.isFavorite = listId.contains(giphyId)
+    }
   }
 }

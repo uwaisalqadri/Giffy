@@ -25,7 +25,7 @@ where
   }
 
   public func execute(request: String?) -> AnyPublisher<[Giphy], Error> {
-    localDataSource.list(request: request)
+    return localDataSource.list(request: request)
       .map { $0 }
       .eraseToAnyPublisher()
   }
