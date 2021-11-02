@@ -30,7 +30,7 @@ public class ImageGIFEntity: Object, ImageGIF, Mappable, RealmOptionalType {
   }
 }
 
-public class OriginalEntity: Object, Original, Mappable, RealmOptionalType {
+public class OriginalEntity: Object, Original, Mappable {
   @objc dynamic public var url: String = ""
   @objc dynamic public var height: String = ""
   @objc dynamic public var width: String = ""

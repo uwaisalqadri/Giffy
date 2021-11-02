@@ -53,9 +53,6 @@ public class GiphyEntity: Object, Mappable, Giphy {
 
 
   public func mapping(map: ObjectMapper.Map) {
-//    let isWriteRequired = realm != nil && realm?.isInWriteTransaction == false
-//    isWriteRequired ? realm?.beginWrite() : ()
-
     type <- (map["type"], StringTransform())
     identifier <- (map["id"], StringTransform())
     url <- (map["url"], StringTransform())
@@ -65,7 +62,5 @@ public class GiphyEntity: Object, Mappable, Giphy {
     title <- (map["title"], StringTransform())
     trendingDateTime <- (map["trending_datetime"], StringTransform())
     _images <- map["images"]
-
-//    isWriteRequired ? try? realm?.commitWrite() : ()
   }
 }
