@@ -31,10 +31,10 @@ struct FavoriteView: View {
       }.padding(.top, 30)
       LazyVStack {
         if !presenter.list.isEmpty {
-          Grid(Array(presenter.list.enumerated()), id: \.offset) { index, item in
-            HomeItemView(giphy: item, router: Injection.shared.resolve())
-              .padding(.horizontal, 5)
-          }.padding(.bottom, 60)
+            ForEach(Array(presenter.list.enumerated()), id: \.offset) { index, item in
+              SearchItemView(giphy: item, router: Injection.shared.resolve())
+                .padding(.horizontal, 10)
+            }.padding(.bottom, 20)
           .padding(.top, 20)
           .padding(.horizontal, 10)
         } else {
