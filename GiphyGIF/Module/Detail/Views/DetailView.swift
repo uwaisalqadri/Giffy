@@ -66,10 +66,10 @@ struct DetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
           favoritePresenter.execute(request: giphy.identifier)
-          let saved = favoritePresenter.item
-          var newGiphy = giphy
-          newGiphy.isFavorite = saved != nil
-          print("GET", favoritePresenter.item)
+          if !favoritePresenter.isLoading {
+            giphy.isFavorite = favoritePresenter.item != nil
+            print("GET", favoritePresenter.item)
+          }
         }
     }
   }

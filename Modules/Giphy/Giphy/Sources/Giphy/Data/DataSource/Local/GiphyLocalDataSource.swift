@@ -81,14 +81,9 @@ public struct GiphyLocalDataSource: LocalDataSource {
   }
 
 
-  public func get(entityId: Int) -> AnyPublisher<Giphy, Error> {
-    print("GET FUNC DATA")
-    return Future<Giphy, Error> { completion in
-      if let object = savedMovie(with: String(entityId)) {
-        completion(.success(object))
-        print("GET LOCAL DATA", object)
-      }
-    }.eraseToAnyPublisher()
+  public func get(entityId: Int) -> Giphy? {
+    print(savedMovie(with: String(entityId)))
+    return savedMovie(with: String(entityId))
   }
 
   private func savedMovie(with giphyId: String) -> GiphyEntity? {
