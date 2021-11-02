@@ -31,7 +31,7 @@ public class GiphyEntity: Object, Mappable, Giphy {
   @objc dynamic public var username: String = ""
   @objc dynamic public var title: String = ""
   @objc dynamic public var trendingDateTime: String = ""
-  @objc public var isFavorite: Bool = false
+  public var isFavorite: Bool = false
 
   @objc dynamic public var _images: ImageGIFEntity?
   public var images: ImageGIF? {

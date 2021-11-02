@@ -71,6 +71,7 @@ public struct GiphyLocalDataSource: LocalDataSource {
           try realm.write {
             realm.delete(object)
           }
+          object.isFavorite = false
           completion(.success(object))
         } catch {
           completion(.failure(error))
@@ -81,9 +82,11 @@ public struct GiphyLocalDataSource: LocalDataSource {
 
 
   public func get(entityId: Int) -> AnyPublisher<Giphy, Error> {
+    print("GET FUNC DATA")
     return Future<Giphy, Error> { completion in
       if let object = savedMovie(with: String(entityId)) {
         completion(.success(object))
+        print("GET LOCAL DATA", object)
       }
     }.eraseToAnyPublisher()
   }
@@ -91,10 +94,6 @@ public struct GiphyLocalDataSource: LocalDataSource {
   private func savedMovie(with giphyId: String) -> GiphyEntity? {
     let giphy = realm?.object(ofType: GiphyEntity.self, forPrimaryKey: giphyId)
     return giphy
-  }
-
-  public func isFavorited(giphyId: Int) -> Bool {
-    return savedMovie(with: String(giphyId)) != nil
   }
 }
 

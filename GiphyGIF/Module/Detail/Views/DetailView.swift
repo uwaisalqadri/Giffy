@@ -64,18 +64,13 @@ struct DetailView: View {
          })
         .navigationTitle("detail".localized())
         .navigationBarTitleDisplayMode(.inline)
-    }.onAppear {
-      favoritePresenter.execute(request: giphy.identifier)
-      giphy.isFavorite = favoritePresenter.item?.identifier == giphy.identifier
-      print("RESULT", favoritePresenter.item)
-//      if !favoritePresenter.isLoading {
-//        giphys = favoritePresenter.list
-//        giphys.forEach { item in
-//          ids.append(item.identifier)
-//          let listId = ids.joined(separator: ",")
-//          giphy.isFavorite = listId.contains(giphy.identifier)
-//        }
-//      }
+        .onAppear {
+          favoritePresenter.execute(request: giphy.identifier)
+          let saved = favoritePresenter.item
+          var newGiphy = giphy
+          newGiphy.isFavorite = saved != nil
+          print("GET", favoritePresenter.item)
+        }
     }
   }
 }
