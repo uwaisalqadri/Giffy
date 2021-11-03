@@ -30,6 +30,9 @@
 		916B8C44271F05BD00E13DF4 /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = 916B8C43271F05BD00E13DF4 /* Core */; };
 		919F5658271C1C5D008758E3 /* Common in Frameworks */ = {isa = PBXBuildFile; productRef = 919F5657271C1C5D008758E3 /* Common */; };
 		919F565A271C1C5D008758E3 /* Giphy in Frameworks */ = {isa = PBXBuildFile; productRef = 919F5659271C1C5D008758E3 /* Giphy */; };
+		91D429172732DF1B004D7305 /* DummyInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D429162732DF1B004D7305 /* DummyInjection.swift */; };
+		91D429192732DF31004D7305 /* DummyRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D429182732DF31004D7305 /* DummyRemoteDataSource.swift */; };
+		91D4291B2732E25C004D7305 /* AnyPublisher+Wait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D4291A2732E25C004D7305 /* AnyPublisher+Wait.swift */; };
 		91F9B062271FCCD500A9AEA7 /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91F9B061271FCCD500A9AEA7 /* AppIcon.xcassets */; };
 		91F9B065271FE85300A9AEA7 /* FavoriteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F9B064271FE85300A9AEA7 /* FavoriteRouter.swift */; };
 		91F9B068271FE8CB00A9AEA7 /* DetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F9B067271FE8CB00A9AEA7 /* DetailRouter.swift */; };
@@ -69,6 +72,9 @@
 		52ECB3D6265B6CA00075082C /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		919F5649271BFD4E008758E3 /* Giphy */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Giphy; path = Modules/Giphy/Giphy; sourceTree = "<group>"; };
 		919F564A271BFD55008758E3 /* Common */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Common; path = Modules/Common/Common; sourceTree = "<group>"; };
+		91D429162732DF1B004D7305 /* DummyInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyInjection.swift; sourceTree = "<group>"; };
+		91D429182732DF31004D7305 /* DummyRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyRemoteDataSource.swift; sourceTree = "<group>"; };
+		91D4291A2732E25C004D7305 /* AnyPublisher+Wait.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyPublisher+Wait.swift"; sourceTree = "<group>"; };
 		91F9B061271FCCD500A9AEA7 /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIcon.xcassets; sourceTree = "<group>"; };
 		91F9B064271FE85300A9AEA7 /* FavoriteRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRouter.swift; sourceTree = "<group>"; };
 		91F9B067271FE8CB00A9AEA7 /* DetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRouter.swift; sourceTree = "<group>"; };
@@ -121,6 +127,9 @@
 			children = (
 				5224358A266D29220078E6F5 /* GiphyGIFTests.swift */,
 				5224358C266D29220078E6F5 /* Info.plist */,
+				91D429162732DF1B004D7305 /* DummyInjection.swift */,
+				91D429182732DF31004D7305 /* DummyRemoteDataSource.swift */,
+				91D4291A2732E25C004D7305 /* AnyPublisher+Wait.swift */,
 			);
 			path = GiphyGIFTests;
 			sourceTree = "<group>";
@@ -443,6 +452,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91D429172732DF1B004D7305 /* DummyInjection.swift in Sources */,
+				91D4291B2732E25C004D7305 /* AnyPublisher+Wait.swift in Sources */,
+				91D429192732DF31004D7305 /* DummyRemoteDataSource.swift in Sources */,
 				5224358B266D29220078E6F5 /* GiphyGIFTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
