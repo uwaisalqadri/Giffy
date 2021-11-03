@@ -33,6 +33,13 @@
 		91D429172732DF1B004D7305 /* DummyInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D429162732DF1B004D7305 /* DummyInjection.swift */; };
 		91D429192732DF31004D7305 /* DummyRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D429182732DF31004D7305 /* DummyRemoteDataSource.swift */; };
 		91D4291B2732E25C004D7305 /* AnyPublisher+Wait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D4291A2732E25C004D7305 /* AnyPublisher+Wait.swift */; };
+		91D429222732E8DA004D7305 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91D429212732E8DA004D7305 /* WidgetKit.framework */; };
+		91D429242732E8DA004D7305 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91D429232732E8DA004D7305 /* SwiftUI.framework */; };
+		91D429272732E8DA004D7305 /* GiphyWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D429262732E8DA004D7305 /* GiphyWidget.swift */; };
+		91D4292A2732E8DE004D7305 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91D429292732E8DE004D7305 /* Assets.xcassets */; };
+		91D4292C2732E8DE004D7305 /* GiphyWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 91D429282732E8DA004D7305 /* GiphyWidget.intentdefinition */; };
+		91D4292D2732E8DE004D7305 /* GiphyWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 91D429282732E8DA004D7305 /* GiphyWidget.intentdefinition */; };
+		91D429302732E8DE004D7305 /* GiphyWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 91D429202732E8DA004D7305 /* GiphyWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		91F9B062271FCCD500A9AEA7 /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91F9B061271FCCD500A9AEA7 /* AppIcon.xcassets */; };
 		91F9B065271FE85300A9AEA7 /* FavoriteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F9B064271FE85300A9AEA7 /* FavoriteRouter.swift */; };
 		91F9B068271FE8CB00A9AEA7 /* DetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F9B067271FE8CB00A9AEA7 /* DetailRouter.swift */; };
@@ -46,7 +53,28 @@
 			remoteGlobalIDString = 52276885265A02D500E7454C;
 			remoteInfo = GiphyGIF;
 		};
+		91D4292E2732E8DE004D7305 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5227687E265A02D500E7454C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 91D4291F2732E8DA004D7305;
+			remoteInfo = GiphyWidgetExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		91D429342732E8DE004D7305 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				91D429302732E8DE004D7305 /* GiphyWidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		520F6294265E00C500C10B13 /* FavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteView.swift; sourceTree = "<group>"; };
@@ -75,6 +103,13 @@
 		91D429162732DF1B004D7305 /* DummyInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyInjection.swift; sourceTree = "<group>"; };
 		91D429182732DF31004D7305 /* DummyRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyRemoteDataSource.swift; sourceTree = "<group>"; };
 		91D4291A2732E25C004D7305 /* AnyPublisher+Wait.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyPublisher+Wait.swift"; sourceTree = "<group>"; };
+		91D429202732E8DA004D7305 /* GiphyWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GiphyWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		91D429212732E8DA004D7305 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		91D429232732E8DA004D7305 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		91D429262732E8DA004D7305 /* GiphyWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiphyWidget.swift; sourceTree = "<group>"; };
+		91D429282732E8DA004D7305 /* GiphyWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = GiphyWidget.intentdefinition; sourceTree = "<group>"; };
+		91D429292732E8DE004D7305 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		91D4292B2732E8DE004D7305 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91F9B061271FCCD500A9AEA7 /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIcon.xcassets; sourceTree = "<group>"; };
 		91F9B064271FE85300A9AEA7 /* FavoriteRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRouter.swift; sourceTree = "<group>"; };
 		91F9B067271FE8CB00A9AEA7 /* DetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRouter.swift; sourceTree = "<group>"; };
@@ -99,6 +134,15 @@
 				919F565A271C1C5D008758E3 /* Giphy in Frameworks */,
 				916B8C44271F05BD00E13DF4 /* Core in Frameworks */,
 				919F5658271C1C5D008758E3 /* Common in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91D4291D2732E8DA004D7305 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91D429242732E8DA004D7305 /* SwiftUI.framework in Frameworks */,
+				91D429222732E8DA004D7305 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +185,7 @@
 				919F5649271BFD4E008758E3 /* Giphy */,
 				52276888265A02D500E7454C /* GiphyGIF */,
 				52243589266D29220078E6F5 /* GiphyGIFTests */,
+				91D429252732E8DA004D7305 /* GiphyWidget */,
 				5231E3102665B48600147EE6 /* Frameworks */,
 				52276887265A02D500E7454C /* Products */,
 			);
@@ -151,6 +196,7 @@
 			children = (
 				52276886265A02D500E7454C /* GiphyGIF.app */,
 				52243588266D29220078E6F5 /* GiphyGIFTests.xctest */,
+				91D429202732E8DA004D7305 /* GiphyWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -271,6 +317,8 @@
 		5231E3102665B48600147EE6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				91D429212732E8DA004D7305 /* WidgetKit.framework */,
+				91D429232732E8DA004D7305 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -298,6 +346,17 @@
 				52E93D0B2661F27A00DBFDDD /* SocialMediaItemView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		91D429252732E8DA004D7305 /* GiphyWidget */ = {
+			isa = PBXGroup;
+			children = (
+				91D429262732E8DA004D7305 /* GiphyWidget.swift */,
+				91D429282732E8DA004D7305 /* GiphyWidget.intentdefinition */,
+				91D429292732E8DE004D7305 /* Assets.xcassets */,
+				91D4292B2732E8DE004D7305 /* Info.plist */,
+			);
+			path = GiphyWidget;
 			sourceTree = "<group>";
 		};
 		91F9B063271FE82900A9AEA7 /* Router */ = {
@@ -345,10 +404,12 @@
 				52276883265A02D500E7454C /* Frameworks */,
 				52276884265A02D500E7454C /* Resources */,
 				52AADD2626627AAD00B443DA /* ShellScript */,
+				91D429342732E8DE004D7305 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				91D4292F2732E8DE004D7305 /* PBXTargetDependency */,
 			);
 			name = GiphyGIF;
 			packageProductDependencies = (
@@ -364,13 +425,30 @@
 			productReference = 52276886265A02D500E7454C /* GiphyGIF.app */;
 			productType = "com.apple.product-type.application";
 		};
+		91D4291F2732E8DA004D7305 /* GiphyWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 91D429312732E8DE004D7305 /* Build configuration list for PBXNativeTarget "GiphyWidgetExtension" */;
+			buildPhases = (
+				91D4291C2732E8DA004D7305 /* Sources */,
+				91D4291D2732E8DA004D7305 /* Frameworks */,
+				91D4291E2732E8DA004D7305 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GiphyWidgetExtension;
+			productName = GiphyWidgetExtension;
+			productReference = 91D429202732E8DA004D7305 /* GiphyWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		5227687E265A02D500E7454C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1240;
+				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
 					52243587266D29220078E6F5 = {
@@ -379,6 +457,9 @@
 					};
 					52276885265A02D500E7454C = {
 						CreatedOnToolsVersion = 12.4;
+					};
+					91D4291F2732E8DA004D7305 = {
+						CreatedOnToolsVersion = 12.5.1;
 					};
 				};
 			};
@@ -405,6 +486,7 @@
 			targets = (
 				52276885265A02D500E7454C /* GiphyGIF */,
 				52243587266D29220078E6F5 /* GiphyGIFTests */,
+				91D4291F2732E8DA004D7305 /* GiphyWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -422,6 +504,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				91F9B062271FCCD500A9AEA7 /* AppIcon.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91D4291E2732E8DA004D7305 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91D4292A2732E8DE004D7305 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,6 +561,7 @@
 				52ECB3BB265B19600075082C /* DetailView.swift in Sources */,
 				52ECB3BF265B19710075082C /* HomeView.swift in Sources */,
 				5215A29D265C719D00F674F1 /* SearchItemView.swift in Sources */,
+				91D4292D2732E8DE004D7305 /* GiphyWidget.intentdefinition in Sources */,
 				5227688C265A02D500E7454C /* ContentView.swift in Sources */,
 				5227688A265A02D500E7454C /* GiphyGIFApp.swift in Sources */,
 				5231E3192665B6DF00147EE6 /* Injection.swift in Sources */,
@@ -483,6 +574,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		91D4291C2732E8DA004D7305 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91D4292C2732E8DE004D7305 /* GiphyWidget.intentdefinition in Sources */,
+				91D429272732E8DA004D7305 /* GiphyWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -490,6 +590,11 @@
 			isa = PBXTargetDependency;
 			target = 52276885265A02D500E7454C /* GiphyGIF */;
 			targetProxy = 5224358D266D29220078E6F5 /* PBXContainerItemProxy */;
+		};
+		91D4292F2732E8DE004D7305 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 91D4291F2732E8DA004D7305 /* GiphyWidgetExtension */;
+			targetProxy = 91D4292E2732E8DE004D7305 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -655,6 +760,7 @@
 		52276896265A02D700E7454C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -679,6 +785,7 @@
 		52276897265A02D700E7454C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -695,6 +802,50 @@
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.uwaisalqadri.GiphyGIF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		91D429322732E8DE004D7305 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SM8JGRFPQU;
+				INFOPLIST_FILE = GiphyWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.uwaisalqadri.GiphyGIF.GiphyWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		91D429332732E8DE004D7305 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SM8JGRFPQU;
+				INFOPLIST_FILE = GiphyWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.uwaisalqadri.GiphyGIF.GiphyWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -726,6 +877,15 @@
 			buildConfigurations = (
 				52276896265A02D700E7454C /* Debug */,
 				52276897265A02D700E7454C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		91D429312732E8DE004D7305 /* Build configuration list for PBXNativeTarget "GiphyWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				91D429322732E8DE004D7305 /* Debug */,
+				91D429332732E8DE004D7305 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
