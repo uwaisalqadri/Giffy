@@ -10,12 +10,13 @@ import Core
 import Combine
 
 public struct GiphyRemoteDataSource: DataSource {
+
   public typealias Request = Int
-  public typealias Response = GiphyResponse
+  public typealias Response = [Giphy]
 
   public init() {}
 
-  public func execute(request: Int?) -> AnyPublisher<GiphyResponse, Error> {
+  public func execute(request: Int?) -> AnyPublisher<[Giphy], Error> {
     let api: APIFactory
     if request == 0 {
       api = APIFactory.trending
@@ -26,8 +27,10 @@ public struct GiphyRemoteDataSource: DataSource {
     let result = NetworkService.shared.connect(
       api: api.url,
       responseType: GiphyResponse.self
-    )
+    ).compactMap { $0.data ?? [] }
+    .eraseToAnyPublisher()
 
-    return result.eraseToAnyPublisher()
+    return result
   }
+
 }

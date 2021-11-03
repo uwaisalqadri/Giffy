@@ -13,7 +13,7 @@ import Giphy
 typealias HomePresenter = GetListPresenter<
   Int, Giphy, Interactor<
     Int, [Giphy], GetGiphyRepository<
-      GiphyRemoteDataSource
+      GiphyRemoteDataSource  
     >
   >
 >

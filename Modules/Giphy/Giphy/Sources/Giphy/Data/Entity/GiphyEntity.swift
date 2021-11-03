@@ -11,14 +11,17 @@ import ObjectMapper
 import ObjectMapperAdditions
 
 public class GiphyResponse: Mappable {
-  public var data: [GiphyEntity]?
+  public var data: [Giphy]? {
+    _data
+  }
+  public var _data: [GiphyEntity]?
 
   required public init?(map: ObjectMapper.Map) {
     mapping(map: map)
   }
 
   public func mapping(map: ObjectMapper.Map) {
-    data <- map["data"]
+    _data <- map["data"]
   }
 }
 

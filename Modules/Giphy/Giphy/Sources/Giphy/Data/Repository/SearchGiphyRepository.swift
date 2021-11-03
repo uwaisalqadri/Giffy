@@ -11,7 +11,7 @@ import Combine
 public struct SearchGiphyRepository<
   GiphyDataSource: DataSource>: Repository
 where
-  GiphyDataSource.Response == GiphyResponse,
+  GiphyDataSource.Response == [Giphy],
   GiphyDataSource.Request == String {
 
   public typealias Request = String
@@ -25,7 +25,6 @@ where
 
   public func execute(request: String?) -> AnyPublisher<[Giphy], Error> {
     return remoteDataSource.execute(request: request)
-      .map { $0.data ?? [] }
       .eraseToAnyPublisher()
   }
 }

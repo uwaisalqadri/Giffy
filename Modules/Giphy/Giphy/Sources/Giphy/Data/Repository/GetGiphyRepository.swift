@@ -11,7 +11,7 @@ import Combine
 public struct GetGiphyRepository<
   GiphyDataSource: DataSource>: Repository
 where
-  GiphyDataSource.Response == GiphyResponse,
+  GiphyDataSource.Response == [Giphy],
   GiphyDataSource.Request == Int {
 
   public typealias Request = Int
@@ -25,7 +25,6 @@ where
 
   public func execute(request: Int?) -> AnyPublisher<[Giphy], Error> {
     return remoteDataSource.execute(request: request)
-      .map { $0.data ?? [] }
       .eraseToAnyPublisher()
   }
 }
