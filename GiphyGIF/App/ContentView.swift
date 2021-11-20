@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
 
   @State var selectedIndex = 0
+  let isIpad = UIDevice.current.userInterfaceIdiom == .pad
 
   var body: some View {
     ZStack {
@@ -63,7 +64,7 @@ struct ContentView: View {
         }
       }).padding(.horizontal, 40)
     }
-    .frame(maxWidth: .infinity, minHeight: 80)
+    .frame(maxWidth: isIpad ? 300 : .infinity, minHeight: 80)
     .background(
       Blur(style: .systemUltraThinMaterialDark)
         .cornerRadius(15, corners: [.allCorners])

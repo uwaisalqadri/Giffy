@@ -23,7 +23,7 @@ struct SearchItemView: View {
         .indicator(SDWebImageActivityIndicator.medium)
         .resizable()
         .scaledToFill()
-        .frame(maxWidth: 350, maxHeight: 350, alignment: .center)
+        .frame(maxHeight: 350, alignment: .center)
         .cornerRadius(20)
         .sheet(isPresented: $showDetail) {
           router.makeDetailView(giphy: giphy)
@@ -53,7 +53,7 @@ struct SearchItemView: View {
 
       Spacer()
 
-    }.frame(maxWidth: 350, maxHeight: 130)
+    }.frame(maxHeight: 130)
     .background(
       Blur(style: .systemUltraThinMaterialDark)
         .cornerRadius(20, corners: [.bottomLeft, .bottomRight])

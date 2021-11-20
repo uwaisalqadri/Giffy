@@ -57,7 +57,7 @@ struct AboutView: View {
       }
       .padding(.bottom, 100)
       .navigationTitle("profile".localized())
-    }
+    }.navigationViewStyle(StackNavigationViewStyle())
   }
 }
 

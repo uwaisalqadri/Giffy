@@ -29,17 +29,17 @@ struct FavoriteView: View {
       SearchInput { query in
         presenter.getList(request: query)
       }.padding(.top, 30)
-      LazyVStack {
-        if !presenter.list.isEmpty {
-            ForEach(Array(presenter.list.enumerated()), id: \.offset) { index, item in
-              SearchItemView(giphy: item, router: Injection.shared.resolve())
-                .padding(.horizontal, 10)
-            }.padding(.bottom, 20)
-          .padding(.top, 20)
-          .padding(.horizontal, 10)
-        } else {
-          isFavoriteEmpty.padding(.top, 50)
+
+      if !presenter.list.isEmpty {
+        LazyVStack {
+          ForEach(Array(presenter.list.enumerated()), id: \.offset) { index, item in
+            SearchItemView(giphy: item, router: Injection.shared.resolve())
+              .padding(.vertical, 20)
+              .padding(.horizontal, 20)
+          }
         }
+      } else {
+        isFavoriteEmpty.padding(.top, 50)
       }
     }.navigationTitle("favorite".localized())
     .gridStyle(self.style)

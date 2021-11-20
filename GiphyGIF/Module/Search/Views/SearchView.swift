@@ -37,7 +37,8 @@ struct SearchView: View {
             LazyVStack {
               ForEach(Array(presenter.list.enumerated()), id: \.offset) { index, item in
                 SearchItemView(giphy: item, router: Injection.shared.resolve())
-                  .padding(.horizontal, 10)
+                  .padding(.horizontal, 20)
+                  .padding(.bottom, 20)
               }
             }.padding(.top, 20)
           }
@@ -54,14 +55,15 @@ struct SearchView: View {
       .onAppear {
         presenter.getList(request: "Hello")
       }
-    }
+    }.navigationViewStyle(StackNavigationViewStyle())
   }
 }
 
 struct SearchInput: View {
 
   @State var query = ""
-  var onQuery: ((String) -> Void)?
+  var onQueryChange: ((String) -> Void)?
+  let isIpad = UIDevice.current.userInterfaceIdiom == .pad
 
   var body: some View {
     VStack(alignment: .leading) {
@@ -73,17 +75,17 @@ struct SearchInput: View {
           .padding(.leading, 30)
 
         TextField("search_desc".localized(), text: $query, onCommit: {
-          onQuery?(query)
+          onQueryChange?(query)
         })
           .foregroundColor(.white)
-          .font(.system(size: 16))
-          .frame(height: 40)
+          .font(.system(size: isIpad ? 20 : 16))
+          .frame(height: isIpad ? 60 : 40)
           .autocapitalization(.none)
           .disableAutocorrection(true)
           .padding(.leading, 13)
           .padding(.trailing, 30)
           .onChange(of: query) { text in
-            onQuery?(text)
+            onQueryChange?(text)
           }
 
       }.background(Color.init(.systemGray6))

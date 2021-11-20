@@ -23,6 +23,8 @@ struct HomeView: View {
   @ObservedObject var presenter: HomePresenter
   let router: FavoriteRouter
   let style = StaggeredGridStyle(.vertical, tracks: .min(150), spacing: 5)
+  let ipadStyle = StaggeredGridStyle(.vertical, tracks: .min(250), spacing: 5)
+  let isIpad = UIDevice.current.userInterfaceIdiom == .pad
 
   var body: some View {
     NavigationView {
@@ -39,7 +41,7 @@ struct HomeView: View {
         }.padding(.bottom, 60)
         .padding(.horizontal, 10)
       }.navigationTitle("trending".localized())
-      .gridStyle(self.style)
+      .gridStyle(isIpad ? ipadStyle : style)
       .navigationBarItems(
         trailing: NavigationLink(destination: router.makeFavoriteView()) {
           Image(systemName: "heart.fill")
@@ -48,7 +50,8 @@ struct HomeView: View {
             .frame(width: 20, height: 18)
         }
       )
-    }.onAppear {
+    }.navigationViewStyle(StackNavigationViewStyle())
+    .onAppear {
       presenter.getList(request: 0)
     }
   }
