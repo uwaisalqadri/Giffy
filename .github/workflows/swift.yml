@@ -1,19 +1,28 @@
-name: Swift
+name: Giphy_App_Test
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: [push]
 
 jobs:
   build:
 
-    runs-on: macos-latest
+    runs-on: macOS-latest
+    strategy:
+      matrix:
+        destination: ['platform=iOS Simulator,OS=14.0,name=iPhone 11 Pro Max']
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@master
     - name: Build
       run: swift build -v
-    - name: Run tests
-      run: swift test -v
+
+  test:
+      name: Test
+      runs-on: macOS-latest
+      strategy:
+          matrix:
+            destination: ['platform=iOS Simulator,OS=14.0,name=iPhone 11 Pro Max']
+      steps:
+        - name: Checkout
+          uses: actions/checkout@master
+        - name: Run tests
+          run: swift test -v
