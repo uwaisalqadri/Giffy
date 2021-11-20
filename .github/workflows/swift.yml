@@ -27,7 +27,7 @@ jobs:
     env:
       DEVICE: "iPhone 11"
       DERIVED_DATA_PATH: "DerivedData"
-      UNIT_TEST_TARGET: "ActionsTests"
+      UNIT_TEST_TARGET: "GiphyGIFTests"
     runs-on: macOS-latest
     needs: build
     steps:
