@@ -6,7 +6,7 @@ jobs:
   build:
     name: Build
     env:
-      SCHEME: "Actions"
+      SCHEME: "GiphyGIF"
       DEVICE: "iPhone 11"
       DERIVED_DATA_PATH: "DerivedData"
     runs-on: macOS-latest
