@@ -54,7 +54,6 @@ public class GiphyEntity: Object, Mappable, Giphy {
     mapping(map: map)
   }
 
-
   public func mapping(map: ObjectMapper.Map) {
     type <- (map["type"], StringTransform())
     identifier <- (map["id"], StringTransform())

@@ -32,7 +32,7 @@ struct FavoriteView: View {
 
       if !presenter.list.isEmpty {
         LazyVStack {
-          ForEach(Array(presenter.list.enumerated()), id: \.offset) { index, item in
+          ForEach(Array(presenter.list.enumerated()), id: \.offset) { _, item in
             SearchItemView(giphy: item, router: Injection.shared.resolve())
               .padding(.vertical, 20)
               .padding(.horizontal, 20)

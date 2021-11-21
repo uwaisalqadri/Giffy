@@ -48,4 +48,3 @@ public extension APIFactory {
     return defaultParams
   }
 }
-

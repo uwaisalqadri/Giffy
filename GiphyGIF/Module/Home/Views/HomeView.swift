@@ -34,7 +34,7 @@ struct HomeView: View {
             .font(.system(size: 20, weight: .medium))
             .padding(.leading, 15)
 
-          Grid(Array(presenter.list.enumerated()), id: \.offset) { index, item in
+          Grid(Array(presenter.list.enumerated()), id: \.offset) { _, item in
             HomeItemView(giphy: item, router: Injection.shared.resolve())
               .padding(.horizontal, 5)
           }

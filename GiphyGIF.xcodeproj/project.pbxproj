@@ -100,6 +100,7 @@
 		52ECB3D6265B6CA00075082C /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		919F5649271BFD4E008758E3 /* Giphy */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Giphy; path = Modules/Giphy/Giphy; sourceTree = "<group>"; };
 		919F564A271BFD55008758E3 /* Common */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Common; path = Modules/Common/Common; sourceTree = "<group>"; };
+		91C3B82C274952990060C7AD /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		91D429162732DF1B004D7305 /* DummyInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyInjection.swift; sourceTree = "<group>"; };
 		91D429182732DF31004D7305 /* DummyRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyRemoteDataSource.swift; sourceTree = "<group>"; };
 		91D4291A2732E25C004D7305 /* AnyPublisher+Wait.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyPublisher+Wait.swift"; sourceTree = "<group>"; };
@@ -181,6 +182,7 @@
 		5227687D265A02D500E7454C = {
 			isa = PBXGroup;
 			children = (
+				91C3B82C274952990060C7AD /* .swiftlint.yml */,
 				919F564A271BFD55008758E3 /* Common */,
 				919F5649271BFD4E008758E3 /* Giphy */,
 				52276888265A02D500E7454C /* GiphyGIF */,
@@ -533,7 +535,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

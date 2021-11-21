@@ -80,9 +80,8 @@ public struct GiphyLocalDataSource: LocalDataSource {
     }.eraseToAnyPublisher()
   }
 
-
   public func get(entityId: Int) -> Giphy? {
-    print(savedMovie(with: String(entityId)))
+    print(savedMovie(with: String(entityId)) as Any)
     return savedMovie(with: String(entityId))
   }
 
@@ -91,4 +90,3 @@ public struct GiphyLocalDataSource: LocalDataSource {
     return giphy
   }
 }
-

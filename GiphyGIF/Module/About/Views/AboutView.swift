@@ -14,7 +14,7 @@ struct AboutView: View {
       ScrollView {
         VStack(alignment: .leading) {
           HStack {
-            Image(uiImage: CommonImage(named: "tampandanberani"))
+            Image(uiImage: loadImage(named: "tampandanberani"))
               .resizable()
               .aspectRatio(contentMode: .fill)
               .frame(width: 80, height: 80)

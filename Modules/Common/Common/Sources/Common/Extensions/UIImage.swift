@@ -8,6 +8,6 @@
 import Foundation
 import UIKit
 
-public func CommonImage(named name: String) -> UIImage {
+public func loadImage(named name: String) -> UIImage {
   UIImage(named: name, in: Bundle.module, compatibleWith: nil)!
 }

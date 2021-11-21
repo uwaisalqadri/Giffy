@@ -1,0 +1,25 @@
+# By default, SwiftLint uses a set of sensible default rules you can adjust:
+disabled_rules: # rule identifiers turned on by default to exclude from running
+  - line_length
+  - function_body_length
+  - file_length
+  - type_body_length
+  - nesting
+  - trailing_whitespace
+  - multiple_closures_with_trailing_closure
+  - trailing_comma
+
+identifier_name:
+  allowed_symbols: "_"
+
+excluded: # paths to ignore during linting.
+  - Swift Style Guide.playground
+  - .build
+  - Package.swift
+  - Packages
+  - "**/*/_*.swift"
+  - "**/*/*.generated.swift"
+  - "_*.swift"
+  - "*.generated.swift"
+  - ".build"
+  - Modules/Core/.build

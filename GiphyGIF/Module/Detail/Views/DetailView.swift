@@ -34,7 +34,6 @@ typealias RemoveFavoritePresenter = GetItemPresenter<
   >
 >
 
-
 struct DetailView: View {
 
   @ObservedObject var addFavoritePresenter: AddFavoritePresenter
@@ -57,7 +56,7 @@ struct DetailView: View {
               addFavoritePresenter.execute(request: giphy)
             }
           }) {
-            Image(uiImage: CommonImage(named: giphy.isFavorite ? "heart.fill" : "heart"))
+            Image(uiImage: loadImage(named: giphy.isFavorite ? "heart.fill" : "heart"))
               .resizable()
               .frame(width: 23, height: 20)
               .foregroundColor(.red)
@@ -68,7 +67,6 @@ struct DetailView: View {
           favoritePresenter.execute(request: giphy.identifier)
           if !favoritePresenter.isLoading {
             giphy.isFavorite = favoritePresenter.item != nil
-            print("GET", favoritePresenter.item)
           }
         }
     }

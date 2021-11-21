@@ -14,7 +14,7 @@ struct SocialMediaItemView: View {
 
   var body: some View {
     HStack {
-      Image(uiImage: CommonImage(named: image))
+      Image(uiImage: loadImage(named: image))
         .resizable()
         .frame(width: 27, height: 27)
       Text(name)

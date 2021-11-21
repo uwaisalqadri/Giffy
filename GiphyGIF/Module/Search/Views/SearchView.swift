@@ -35,7 +35,7 @@ struct SearchView: View {
             NotSearchView()
               .padding(.top, 30)
             LazyVStack {
-              ForEach(Array(presenter.list.enumerated()), id: \.offset) { index, item in
+              ForEach(Array(presenter.list.enumerated()), id: \.offset) { _, item in
                 SearchItemView(giphy: item, router: Injection.shared.resolve())
                   .padding(.horizontal, 20)
                   .padding(.bottom, 20)
