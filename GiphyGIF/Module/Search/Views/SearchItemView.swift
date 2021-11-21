@@ -14,8 +14,11 @@ struct SearchItemView: View {
 
   @State var isAnimating = true
   @State var showDetail = false
+  @State var isFavorite = false
   let giphy: Giphy
   let router: DetailRouter
+
+  var removeFavoriteHandler: ((Giphy) -> Void)?
 
   var body: some View {
     ZStack {
@@ -31,6 +34,23 @@ struct SearchItemView: View {
         .onTapGesture {
           showDetail.toggle()
         }
+        .overlay(
+          ZStack {
+            if isFavorite {
+              Button(action: {
+                removeFavoriteHandler?(giphy)
+                isFavorite.toggle()
+              }, label: {
+                Image(systemName: isFavorite ? "heart.fill" : "heart")
+                  .resizable()
+                  .foregroundColor(.red)
+                  .frame(width: 27, height: 25)
+              }).padding([.top, .trailing], 30)
+            } else {
+              EmptyView()
+            }
+          }, alignment: .topTrailing
+        )
 
       footer
         .padding(.top, 250)

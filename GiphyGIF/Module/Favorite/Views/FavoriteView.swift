@@ -10,6 +10,7 @@ import Grid
 import Lottie
 import Core
 import Giphy
+import Common
 
 typealias FavoritePresenter = GetListPresenter<
   String, Giphy, Interactor<
@@ -22,6 +23,7 @@ typealias FavoritePresenter = GetListPresenter<
 struct FavoriteView: View {
 
   @ObservedObject var presenter: FavoritePresenter
+  @ObservedObject var removeFavoritePresenter: RemoveFavoritePresenter
   let style = StaggeredGridStyle(.vertical, tracks: .min(150), spacing: 5)
 
   var body: some View {
@@ -33,9 +35,10 @@ struct FavoriteView: View {
       if !presenter.list.isEmpty {
         LazyVStack {
           ForEach(Array(presenter.list.enumerated()), id: \.offset) { _, item in
-            SearchItemView(giphy: item, router: Injection.shared.resolve())
-              .padding(.vertical, 20)
-              .padding(.horizontal, 20)
+            SearchItemView(isFavorite: true, giphy: item, router: Injection.shared.resolve()) { giphy in
+              removeFavoritePresenter.execute(request: giphy)
+            }.padding(.vertical, 20)
+            .padding(.horizontal, 20)
           }
         }
       } else {
@@ -50,7 +53,7 @@ struct FavoriteView: View {
 
   var isFavoriteEmpty: some View {
     VStack {
-      LottieView(fileName: "favorite-empty", loopMode: .loop)
+      LottieView(fileName: "add_to_favorite", bundle: Common.loadBundle(), loopMode: .loop)
         .frame(width: 220, height: 220)
     }
   }
@@ -58,6 +61,6 @@ struct FavoriteView: View {
 
 struct FavoriteView_Previews: PreviewProvider {
   static var previews: some View {
-    FavoriteView(presenter: Injection.shared.resolve())
+    FavoriteView(presenter: Injection.shared.resolve(), removeFavoritePresenter: Injection.shared.resolve())
   }
 }

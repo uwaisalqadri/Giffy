@@ -32,8 +32,6 @@ struct SearchView: View {
         }
         if !presenter.isLoading {
           ZStack {
-            NotSearchView()
-              .padding(.top, 30)
             LazyVStack {
               ForEach(Array(presenter.list.enumerated()), id: \.offset) { _, item in
                 SearchItemView(giphy: item, router: Injection.shared.resolve())
@@ -43,7 +41,7 @@ struct SearchView: View {
             }.padding(.top, 20)
           }
         } else if presenter.list.isEmpty {
-          NoResultView()
+          SearchEmptyView()
             .padding(.top, 30)
         } else {
           ActivityIndicator()
@@ -94,23 +92,10 @@ struct SearchInput: View {
   }
 }
 
-struct NotSearchView: View {
+struct SearchEmptyView: View {
   var body: some View {
     VStack {
-      LottieView(fileName: "search-icon", loopMode: .loop)
-        .frame(width: 150, height: 150)
-        .padding(.bottom, 5)
-      Text("Search Something!")
-        .font(.system(.subheadline))
-        .foregroundColor(.blue)
-    }
-  }
-}
-
-struct NoResultView: View {
-  var body: some View {
-    VStack {
-      LottieView(fileName: "search-no-result", loopMode: .loop)
+      LottieView(fileName: "search_empty", bundle: Common.loadBundle(), loopMode: .loop)
         .frame(width: 200, height: 200)
         .padding(.bottom, 5)
     }

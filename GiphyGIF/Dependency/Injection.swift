@@ -129,7 +129,7 @@ class Injection {
 
   private func registerFavoriteFeature() {
     container.register(FavoriteView.self) { [unowned self] _ in
-      FavoriteView(presenter: self.resolve())
+      FavoriteView(presenter: self.resolve(), removeFavoritePresenter: self.resolve())
     }
 
     container.register(FavoriteRouter.self) { _ in

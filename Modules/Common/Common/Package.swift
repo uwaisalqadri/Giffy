@@ -22,7 +22,12 @@ let package = Package(
     // Targets can depend on other targets in this package, and on products in packages this package depends on.
     .target(
       name: "Common",
-      dependencies: []),
+      dependencies: [],
+      resources: [
+        .process("Assets/LottieFiles/search_empty.json"),
+        .process("Assets/LottieFiles/add_to_favorite.json")
+      ]
+    ),
     .testTarget(
       name: "CommonTests",
       dependencies: ["Common"]),

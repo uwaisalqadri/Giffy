@@ -9,6 +9,6 @@ import SwiftUI
 
 struct FavoriteRouter {
   func makeFavoriteView() -> some View {
-    return FavoriteView(presenter: Injection.shared.resolve())
+    return FavoriteView(presenter: Injection.shared.resolve(), removeFavoritePresenter: Injection.shared.resolve())
   }
 }

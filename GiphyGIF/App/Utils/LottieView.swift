@@ -12,13 +12,14 @@ struct LottieView: UIViewRepresentable {
 
   typealias UIViewType = UIView
   var fileName: String
+  var bundle: Bundle
   var loopMode: LottieLoopMode
 
   func makeUIView(context: UIViewRepresentableContext<LottieView>) -> UIView {
 
     let view = UIView(frame: .zero)
     let animationView = AnimationView()
-    let animation = Animation.named(fileName)
+    let animation = Animation.named(fileName, bundle: bundle)
     animationView.animation = animation
     animationView.contentMode = .scaleAspectFit
     animationView.play()
