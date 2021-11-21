@@ -30,6 +30,17 @@
 		916B8C44271F05BD00E13DF4 /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = 916B8C43271F05BD00E13DF4 /* Core */; };
 		919F5658271C1C5D008758E3 /* Common in Frameworks */ = {isa = PBXBuildFile; productRef = 919F5657271C1C5D008758E3 /* Common */; };
 		919F565A271C1C5D008758E3 /* Giphy in Frameworks */ = {isa = PBXBuildFile; productRef = 919F5659271C1C5D008758E3 /* Giphy */; };
+		91C3B8512749FAFA0060C7AD /* Common in Frameworks */ = {isa = PBXBuildFile; productRef = 91C3B8502749FAFA0060C7AD /* Common */; };
+		91C3B8532749FAFA0060C7AD /* Giphy in Frameworks */ = {isa = PBXBuildFile; productRef = 91C3B8522749FAFA0060C7AD /* Giphy */; };
+		91C3B8552749FAFA0060C7AD /* Grid in Frameworks */ = {isa = PBXBuildFile; productRef = 91C3B8542749FAFA0060C7AD /* Grid */; };
+		91C3B8572749FAFA0060C7AD /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 91C3B8562749FAFA0060C7AD /* SDWebImageSwiftUI */; };
+		91C3B8592749FAFA0060C7AD /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 91C3B8582749FAFA0060C7AD /* Lottie */; };
+		91C3B85B2749FAFA0060C7AD /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 91C3B85A2749FAFA0060C7AD /* Swinject */; };
+		91C3B85D2749FAFA0060C7AD /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = 91C3B85C2749FAFA0060C7AD /* Core */; };
+		91C3B8622749FB910060C7AD /* WidgetInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3B8612749FB910060C7AD /* WidgetInjection.swift */; };
+		91C3B863274A01FC0060C7AD /* WidgetInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3B8612749FB910060C7AD /* WidgetInjection.swift */; };
+		91C3B866274A16970060C7AD /* GiphyWidgetItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3B865274A16970060C7AD /* GiphyWidgetItem.swift */; };
+		91C3B867274A170A0060C7AD /* GiphyWidgetItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3B865274A16970060C7AD /* GiphyWidgetItem.swift */; };
 		91D429172732DF1B004D7305 /* DummyInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D429162732DF1B004D7305 /* DummyInjection.swift */; };
 		91D429192732DF31004D7305 /* DummyRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D429182732DF31004D7305 /* DummyRemoteDataSource.swift */; };
 		91D4291B2732E25C004D7305 /* AnyPublisher+Wait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D4291A2732E25C004D7305 /* AnyPublisher+Wait.swift */; };
@@ -101,6 +112,8 @@
 		919F5649271BFD4E008758E3 /* Giphy */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Giphy; path = Modules/Giphy/Giphy; sourceTree = "<group>"; };
 		919F564A271BFD55008758E3 /* Common */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Common; path = Modules/Common/Common; sourceTree = "<group>"; };
 		91C3B82C274952990060C7AD /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		91C3B8612749FB910060C7AD /* WidgetInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetInjection.swift; sourceTree = "<group>"; };
+		91C3B865274A16970060C7AD /* GiphyWidgetItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiphyWidgetItem.swift; sourceTree = "<group>"; };
 		91D429162732DF1B004D7305 /* DummyInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyInjection.swift; sourceTree = "<group>"; };
 		91D429182732DF31004D7305 /* DummyRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyRemoteDataSource.swift; sourceTree = "<group>"; };
 		91D4291A2732E25C004D7305 /* AnyPublisher+Wait.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyPublisher+Wait.swift"; sourceTree = "<group>"; };
@@ -142,8 +155,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91C3B8572749FAFA0060C7AD /* SDWebImageSwiftUI in Frameworks */,
+				91C3B8592749FAFA0060C7AD /* Lottie in Frameworks */,
 				91D429242732E8DA004D7305 /* SwiftUI.framework in Frameworks */,
 				91D429222732E8DA004D7305 /* WidgetKit.framework in Frameworks */,
+				91C3B8532749FAFA0060C7AD /* Giphy in Frameworks */,
+				91C3B85D2749FAFA0060C7AD /* Core in Frameworks */,
+				91C3B8552749FAFA0060C7AD /* Grid in Frameworks */,
+				91C3B8512749FAFA0060C7AD /* Common in Frameworks */,
+				91C3B85B2749FAFA0060C7AD /* Swinject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,10 +370,36 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		91D429252732E8DA004D7305 /* GiphyWidget */ = {
+		91C3B85E2749FB460060C7AD /* Widgets */ = {
+			isa = PBXGroup;
+			children = (
+				91C3B8602749FB770060C7AD /* Favorite */,
+			);
+			path = Widgets;
+			sourceTree = "<group>";
+		};
+		91C3B85F2749FB5F0060C7AD /* Dependency */ = {
+			isa = PBXGroup;
+			children = (
+				91C3B8612749FB910060C7AD /* WidgetInjection.swift */,
+			);
+			path = Dependency;
+			sourceTree = "<group>";
+		};
+		91C3B8602749FB770060C7AD /* Favorite */ = {
 			isa = PBXGroup;
 			children = (
 				91D429262732E8DA004D7305 /* GiphyWidget.swift */,
+				91C3B865274A16970060C7AD /* GiphyWidgetItem.swift */,
+			);
+			path = Favorite;
+			sourceTree = "<group>";
+		};
+		91D429252732E8DA004D7305 /* GiphyWidget */ = {
+			isa = PBXGroup;
+			children = (
+				91C3B85F2749FB5F0060C7AD /* Dependency */,
+				91C3B85E2749FB460060C7AD /* Widgets */,
 				91D429282732E8DA004D7305 /* GiphyWidget.intentdefinition */,
 				91D429292732E8DE004D7305 /* Assets.xcassets */,
 				91D4292B2732E8DE004D7305 /* Info.plist */,
@@ -440,6 +486,15 @@
 			dependencies = (
 			);
 			name = GiphyWidgetExtension;
+			packageProductDependencies = (
+				91C3B8502749FAFA0060C7AD /* Common */,
+				91C3B8522749FAFA0060C7AD /* Giphy */,
+				91C3B8542749FAFA0060C7AD /* Grid */,
+				91C3B8562749FAFA0060C7AD /* SDWebImageSwiftUI */,
+				91C3B8582749FAFA0060C7AD /* Lottie */,
+				91C3B85A2749FAFA0060C7AD /* Swinject */,
+				91C3B85C2749FAFA0060C7AD /* Core */,
+			);
 			productName = GiphyWidgetExtension;
 			productReference = 91D429202732E8DA004D7305 /* GiphyWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -564,6 +619,7 @@
 				52ECB3BF265B19710075082C /* HomeView.swift in Sources */,
 				5215A29D265C719D00F674F1 /* SearchItemView.swift in Sources */,
 				91D4292D2732E8DE004D7305 /* GiphyWidget.intentdefinition in Sources */,
+				91C3B866274A16970060C7AD /* GiphyWidgetItem.swift in Sources */,
 				5227688C265A02D500E7454C /* ContentView.swift in Sources */,
 				5227688A265A02D500E7454C /* GiphyGIFApp.swift in Sources */,
 				5231E3192665B6DF00147EE6 /* Injection.swift in Sources */,
@@ -573,6 +629,7 @@
 				91F9B068271FE8CB00A9AEA7 /* DetailRouter.swift in Sources */,
 				52E93D112661F9E700DBFDDD /* WebView.swift in Sources */,
 				520F6295265E00C500C10B13 /* FavoriteView.swift in Sources */,
+				91C3B8622749FB910060C7AD /* WidgetInjection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,8 +637,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91C3B867274A170A0060C7AD /* GiphyWidgetItem.swift in Sources */,
 				91D4292C2732E8DE004D7305 /* GiphyWidget.intentdefinition in Sources */,
 				91D429272732E8DA004D7305 /* GiphyWidget.swift in Sources */,
+				91C3B863274A01FC0060C7AD /* WidgetInjection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -970,6 +1029,39 @@
 		919F5659271C1C5D008758E3 /* Giphy */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Giphy;
+		};
+		91C3B8502749FAFA0060C7AD /* Common */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Common;
+		};
+		91C3B8522749FAFA0060C7AD /* Giphy */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Giphy;
+		};
+		91C3B8542749FAFA0060C7AD /* Grid */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 523AFC36265BDE9700C052A5 /* XCRemoteSwiftPackageReference "swiftui-grid" */;
+			productName = Grid;
+		};
+		91C3B8562749FAFA0060C7AD /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 52E2BAF2265CF28B00E2F670 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+		91C3B8582749FAFA0060C7AD /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 52243556266CFE080078E6F5 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+		91C3B85A2749FAFA0060C7AD /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 916AECF9271BD67300C21275 /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
+		};
+		91C3B85C2749FAFA0060C7AD /* Core */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 916B8C42271F05BD00E13DF4 /* XCRemoteSwiftPackageReference "CoreModule" */;
+			productName = Core;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
