@@ -63,7 +63,6 @@ struct SearchInput: View {
 
   @State var query = ""
   var onQueryChange: ((String) -> Void)?
-  let isIpad = UIDevice.current.userInterfaceIdiom == .pad
 
   var body: some View {
     VStack(alignment: .leading) {
@@ -77,16 +76,16 @@ struct SearchInput: View {
         TextField("search_desc".localized(), text: $query, onCommit: {
           onQueryChange?(query)
         })
-          .foregroundColor(.white)
-          .font(.system(size: isIpad ? 20 : 16))
-          .frame(height: isIpad ? 60 : 40)
-          .autocapitalization(.none)
-          .disableAutocorrection(true)
-          .padding(.leading, 13)
-          .padding(.trailing, 30)
-          .onChange(of: query) { text in
-            onQueryChange?(text)
-          }
+        .foregroundColor(.white)
+        .font(.system(size: Common.isIpad ? 20 : 16))
+        .frame(height: Common.isIpad ? 60 : 40)
+        .autocapitalization(.none)
+        .disableAutocorrection(true)
+        .padding(.leading, 13)
+        .padding(.trailing, 30)
+        .onChange(of: query) { text in
+          onQueryChange?(text)
+        }
 
       }.background(Color.init(.systemGray6))
       .cornerRadius(20)

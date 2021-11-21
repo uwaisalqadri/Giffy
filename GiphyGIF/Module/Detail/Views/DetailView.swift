@@ -56,7 +56,7 @@ struct DetailView: View {
               addFavoritePresenter.execute(request: giphy)
             }
           }) {
-            Image(uiImage: loadImage(named: giphy.isFavorite ? "heart.fill" : "heart"))
+            Image(uiImage: Common.loadImage(named: giphy.isFavorite ? "heart.fill" : "heart"))
               .resizable()
               .frame(width: 23, height: 20)
               .foregroundColor(.red)

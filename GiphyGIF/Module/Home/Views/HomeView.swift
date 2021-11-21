@@ -9,6 +9,7 @@ import SwiftUI
 import Grid
 import Core
 import Giphy
+import Common
 
 typealias HomePresenter = GetListPresenter<
   Int, Giphy, Interactor<
@@ -24,7 +25,6 @@ struct HomeView: View {
   let router: FavoriteRouter
   let style = StaggeredGridStyle(.vertical, tracks: .min(150), spacing: 5)
   let ipadStyle = StaggeredGridStyle(.vertical, tracks: .min(250), spacing: 5)
-  let isIpad = UIDevice.current.userInterfaceIdiom == .pad
 
   var body: some View {
     NavigationView {
@@ -41,7 +41,7 @@ struct HomeView: View {
         }.padding(.bottom, 60)
         .padding(.horizontal, 10)
       }.navigationTitle("trending".localized())
-      .gridStyle(isIpad ? ipadStyle : style)
+      .gridStyle(Common.isIpad ? ipadStyle : style)
       .navigationBarItems(
         trailing: NavigationLink(destination: router.makeFavoriteView()) {
           Image(systemName: "heart.fill")
