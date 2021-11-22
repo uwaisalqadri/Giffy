@@ -23,7 +23,9 @@ struct SearchItemView: View {
   var body: some View {
     ZStack {
       AnimatedImage(url: URL(string: giphy.images?.original?.url ?? ""), isAnimating: $isAnimating)
-        .indicator(SDWebImageActivityIndicator.medium)
+        .placeholder(content: {
+          Color(Common.loadRandomColor())
+        })
         .resizable()
         .scaledToFill()
         .frame(maxHeight: 350, alignment: .center)
