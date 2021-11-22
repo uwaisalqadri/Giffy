@@ -37,6 +37,7 @@ struct FavoriteView: View {
           ForEach(Array(presenter.list.enumerated()), id: \.offset) { _, item in
             SearchItemView(isFavorite: true, giphy: item, router: Injection.shared.resolve()) { giphy in
               removeFavoritePresenter.execute(request: giphy)
+              presenter.getList(request: "")
             }.padding(.vertical, 20)
             .padding(.horizontal, 20)
           }
@@ -49,12 +50,16 @@ struct FavoriteView: View {
     .onAppear {
       presenter.getList(request: "")
     }
+    .onDisappear {
+      presenter.getList(request: "")
+    }
   }
 
   var isFavoriteEmpty: some View {
     VStack {
       LottieView(fileName: "add_to_favorite", bundle: Common.loadBundle(), loopMode: .loop)
         .frame(width: 220, height: 220)
+      Text("Favorite is Empty!")
     }
   }
 }

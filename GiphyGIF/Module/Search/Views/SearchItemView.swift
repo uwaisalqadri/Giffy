@@ -39,7 +39,6 @@ struct SearchItemView: View {
             if isFavorite {
               Button(action: {
                 removeFavoriteHandler?(giphy)
-                isFavorite.toggle()
               }, label: {
                 Image(systemName: isFavorite ? "heart.fill" : "heart")
                   .resizable()

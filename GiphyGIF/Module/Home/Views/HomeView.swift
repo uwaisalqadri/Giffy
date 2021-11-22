@@ -34,10 +34,20 @@ struct HomeView: View {
             .font(.system(size: 20, weight: .medium))
             .padding(.leading, 15)
 
-          Grid(Array(presenter.list.enumerated()), id: \.offset) { _, item in
-            HomeItemView(giphy: item, router: Injection.shared.resolve())
-              .padding(.horizontal, 5)
+          if !presenter.isLoading {
+            Grid(Array(presenter.list.enumerated()), id: \.offset) { _, item in
+              HomeItemView(giphy: item, router: Injection.shared.resolve())
+                .padding(.horizontal, 5)
+            }
+          } else {
+            HStack {
+              Spacer()
+              ActivityIndicator()
+                .padding(.top, 60)
+              Spacer()
+            }
           }
+
         }.padding(.bottom, 60)
         .padding(.horizontal, 10)
       }.navigationTitle("trending".localized())
