@@ -1,47 +1,19 @@
 name: Giphy_App_Test
 
-on: [push]
+on:
+  push:
+    branches: [ master ]
 
 jobs:
   build:
-    name: Build
-    env:
-      SCHEME: "GiphyGIF"
-      DEVICE: "iPhone 11"
-      DERIVED_DATA_PATH: "DerivedData"
-    runs-on: macOS-latest
-    steps:
-    - name: Checkout project
-      uses: actions/checkout@v1
-    - name: Build application
-      run: |
-        set -o pipefail && xcodebuild clean -scheme $SCHEME -destination "platform=iOS Simulator,name=$DEVICE" -derivedDataPath $DERIVED_DATA_PATH build-for-testing | xcpretty --color --simple
-    - name: Upload products
-      uses: actions/upload-artifact@v1
-      with:
-        name: Products
-        path: DerivedData/Build/Products
 
-  unit_test:
-    name: Unit test
-    env:
-      DEVICE: "iPhone 11"
-      DERIVED_DATA_PATH: "DerivedData"
-      UNIT_TEST_TARGET: "GiphyGIFTests"
-    runs-on: macOS-latest
-    needs: build
+    runs-on: macos-latest
+
     steps:
-    - name: Checkout project
-      uses: actions/checkout@v1
-    - name: Download products
-      uses: actions/download-artifact@v1
-      with:
-        name: Products
-    - name: Run unit tests
-      run: |
-        set -o pipefail && xcodebuild test-without-building -xctestrun $(find . -type f -name "*.xctestrun") -destination "platform=iOS Simulator,name=$DEVICE" -derivedDataPath $DERIVED_DATA_PATH -enableCodeCoverage YES -only-testing:$UNIT_TEST_TARGET | xcpretty --color --simple
-    - name: Upload test logs
-      uses: actions/upload-artifact@v1
-      with:
-        name: TestLogs
-        path: DerivedData/Logs/Test
+    - uses: actions/checkout@v2
+    - name: Force Xcode 11
+      run: sudo xcode-select -switch /Applications/Xcode_11.5.app
+    - name: Build
+      run: swift build -v
+    - name: Run tests
+      run: swift test -v
