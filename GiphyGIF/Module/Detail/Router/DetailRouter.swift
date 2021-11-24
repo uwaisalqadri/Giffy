@@ -9,7 +9,10 @@ import SwiftUI
 import Giphy
 
 struct DetailRouter {
-  func makeDetailView(giphy: Giphy) -> some View {
-    return DetailView(addFavoritePresenter: Injection.shared.resolve(), removeFavoritePresenter: Injection.shared.resolve(), favoritePresenter: Injection.shared.resolve(), giphy: giphy)
+  func makeDetailView(giphy: Giphy, isFavorite: Bool = false) -> some View {
+    return DetailView(
+      addFavoritePresenter: Injection.shared.resolve(),
+      giphy: giphy
+    )
   }
 }

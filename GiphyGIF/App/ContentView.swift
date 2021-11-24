@@ -17,7 +17,7 @@ struct ContentView: View {
       if selectedIndex == 0 {
         HomeView(presenter: Injection.shared.resolve(), router: Injection.shared.resolve())
       } else if selectedIndex == 1 {
-        SearchView(presenter: Injection.shared.resolve())
+        SearchView(presenter: Injection.shared.resolve(), router: Injection.shared.resolve())
       } else if selectedIndex == 2 {
         AboutView()
       }

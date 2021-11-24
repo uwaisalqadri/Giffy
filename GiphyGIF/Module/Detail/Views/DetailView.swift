@@ -10,14 +10,6 @@ import Giphy
 import Core
 import Common
 
-typealias CheckFavoritePresenter = GetItemPresenter<
-  String, Giphy, Interactor<
-    String, Giphy, FavoriteGiphyRepository<
-      GiphyLocalDataSource
-    >
-  >
->
-
 typealias AddFavoritePresenter = GetItemPresenter<
   Giphy, Giphy, Interactor<
     Giphy, Giphy, AddFavoriteRepository<
@@ -37,12 +29,7 @@ typealias RemoveFavoritePresenter = GetItemPresenter<
 struct DetailView: View {
 
   @ObservedObject var addFavoritePresenter: AddFavoritePresenter
-  @ObservedObject var removeFavoritePresenter: RemoveFavoritePresenter
-  @ObservedObject var favoritePresenter: CheckFavoritePresenter
   @State var giphy: Giphy
-
-  @State private var giphys = [Giphy]()
-  @State private var ids = [String]()
 
   var body: some View {
     NavigationView {
@@ -50,11 +37,7 @@ struct DetailView: View {
         .edgesIgnoringSafeArea([.bottom, .horizontal])
         .navigationBarItems(trailing:
           Button(action: {
-            if giphy.isFavorite {
-              removeFavoritePresenter.execute(request: giphy)
-            } else {
-              addFavoritePresenter.execute(request: giphy)
-            }
+            addFavoritePresenter.execute(request: giphy)
           }) {
             Image(giphy.isFavorite ? "heart.fill" : "heart", bundle: Common.loadBundle())
               .resizable()
@@ -63,12 +46,6 @@ struct DetailView: View {
          })
         .navigationTitle("detail".localized())
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear {
-          favoritePresenter.execute(request: giphy.identifier)
-          if !favoritePresenter.isLoading {
-            giphy.isFavorite = favoritePresenter.item != nil
-          }
-        }
     }
   }
 }

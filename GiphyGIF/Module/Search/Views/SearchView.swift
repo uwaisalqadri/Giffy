@@ -23,6 +23,7 @@ struct SearchView: View {
 
   @ObservedObject var presenter: SearchPresenter
   @State var searchText = ""
+  var router: FavoriteRouter
 
   var body: some View {
     NavigationView {
@@ -30,29 +31,40 @@ struct SearchView: View {
         SearchInput { query in
           presenter.getList(request: query)
         }
+
         if !presenter.isLoading {
-          ZStack {
-            LazyVStack {
-              ForEach(Array(presenter.list.enumerated()), id: \.offset) { _, item in
-                SearchItemView(giphy: item, router: Injection.shared.resolve())
-                  .padding(.horizontal, 20)
-                  .padding(.bottom, 20)
-              }
-            }.padding(.top, 20)
+          if !presenter.list.isEmpty {
+            ZStack {
+              LazyVStack {
+                ForEach(Array(presenter.list.enumerated()), id: \.offset) { _, item in
+                  SearchItemView(giphy: item, router: Injection.shared.resolve())
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 20)
+                }
+              }.padding(.top, 20)
+            }
+          } else {
+            SearchEmptyView()
+              .padding(.top, 30)
           }
-        } else if presenter.list.isEmpty {
-          SearchEmptyView()
-            .padding(.top, 30)
         } else {
           ActivityIndicator()
             .padding(.top, 10)
         }
-      }
-      .navigationTitle("search".localized())
+      }.navigationTitle("search".localized())
+      .navigationBarItems(
+        trailing: NavigationLink(destination: router.makeFavoriteView()) {
+          Image(systemName: "heart.fill")
+            .resizable()
+            .foregroundColor(.red)
+            .frame(width: 20, height: 18)
+        }
+      )
       .padding(.top, 10)
       .onAppear {
         presenter.getList(request: "Hello")
       }
+
     }.navigationViewStyle(StackNavigationViewStyle())
   }
 }
@@ -98,12 +110,14 @@ struct SearchEmptyView: View {
       LottieView(fileName: "search_empty", bundle: Common.loadBundle(), loopMode: .loop)
         .frame(width: 200, height: 200)
         .padding(.bottom, 5)
+
+      Text("searching_giphy".localized())
     }
   }
 }
 
 struct SearchView_Previews: PreviewProvider {
   static var previews: some View {
-    SearchView(presenter: Injection.shared.resolve())
+    SearchView(presenter: Injection.shared.resolve(), router: Injection.shared.resolve())
   }
 }

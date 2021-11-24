@@ -35,7 +35,7 @@ struct HomeItemView: View {
         .cornerRadius(20)
         .padding(.top, 10)
         .sheet(isPresented: $showDetail) {
-          router.makeDetailView(giphy: giphy)
+          router.makeDetailView(giphy: giphy, isFavorite: false)
         }
         .onTapGesture {
           showDetail.toggle()

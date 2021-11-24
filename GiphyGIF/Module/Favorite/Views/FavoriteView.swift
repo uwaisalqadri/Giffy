@@ -28,6 +28,7 @@ struct FavoriteView: View {
 
   var body: some View {
     ScrollView {
+
       SearchInput { query in
         presenter.getList(request: query)
       }.padding(.top, 30)
@@ -45,6 +46,7 @@ struct FavoriteView: View {
       } else {
         isFavoriteEmpty.padding(.top, 50)
       }
+
     }.navigationTitle("favorite".localized())
     .gridStyle(self.style)
     .onAppear {
@@ -59,9 +61,10 @@ struct FavoriteView: View {
     VStack {
       LottieView(fileName: "add_to_favorite", bundle: Common.loadBundle(), loopMode: .loop)
         .frame(width: 220, height: 220)
-      Text("Favorite is Empty!")
+      Text("favorite_empty".localized())
     }
   }
+
 }
 
 struct FavoriteView_Previews: PreviewProvider {

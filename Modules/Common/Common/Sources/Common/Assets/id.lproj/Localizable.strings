@@ -14,3 +14,5 @@
 "about_me" = "Tentang";
 "search_desc" = "Telusuri Giphy...";
 "about_me_desc" = "Siswa SMK jurusan Rekayasa Perangkat Lunak, mempelajari kode dari sekolah, namun lebih banyak dari Internet dan sangat menyukai bidang Pengembangan Mobile dari sisi Native. Asal dari Makassar dan Sekarang menetap di Jakarta. memulai kode sejak umur 15 tahun, dan berspesialisasi di Android Kotlin dan iOS Swift";
+"searching_giphy" = "Mencari Giphy... Atau Coba Keyword Yang Berbeda";
+"favorite_empty" = "Favorit Kosong!";

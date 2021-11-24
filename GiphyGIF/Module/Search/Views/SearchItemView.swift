@@ -34,7 +34,9 @@ struct SearchItemView: View {
           router.makeDetailView(giphy: giphy)
         }
         .onTapGesture {
-          showDetail.toggle()
+          if !isFavorite {
+            showDetail.toggle()
+          }
         }
         .overlay(
           ZStack {
@@ -50,8 +52,7 @@ struct SearchItemView: View {
             } else {
               EmptyView()
             }
-          }, alignment: .topTrailing
-        )
+          }, alignment: .topTrailing)
 
       footer
         .padding(.top, 250)

@@ -52,9 +52,9 @@ class Injection {
       DetailRouter()
     }
 
-    container.register(CheckFavoritePresenter.self) { [unowned self] _ in
-      CheckFavoritePresenter(useCase: self.resolve())
-    }
+//    container.register(CheckFavoritePresenter.self) { [unowned self] _ in
+//      CheckFavoritePresenter(useCase: self.resolve())
+//    }
 
     container.register(AddFavoritePresenter.self) { [unowned self] _ in
       AddFavoritePresenter(useCase: self.resolve())
@@ -106,7 +106,7 @@ class Injection {
 
   private func registerSearchFeature() {
     container.register(SearchView.self) { [unowned self] _ in
-      SearchView(presenter: self.resolve())
+      SearchView(presenter: self.resolve(), router: self.resolve())
     }
     container.register(SearchPresenter.self) { [unowned self] _ in
       GetListPresenter(useCase: self.resolve())
