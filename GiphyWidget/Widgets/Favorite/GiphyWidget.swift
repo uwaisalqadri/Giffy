@@ -9,7 +9,6 @@ import WidgetKit
 import SwiftUI
 import Core
 import Giphy
-import Grid
 
 struct GiphyEntry: TimelineEntry {
   var date = Date()
@@ -51,19 +50,18 @@ struct GiphyProvider: TimelineProvider {
 
 struct GiphyEntryView: View {
   let entry: GiphyProvider.Entry
-  let style = StaggeredGridStyle(.vertical, tracks: .min(50), spacing: 5)
 
   var body: some View {
     ScrollView(.vertical, showsIndicators: false) {
       LazyVStack(alignment: .leading) {
 
-        Grid(Array(entry.giphy.enumerated()), id: \.offset) { _, item in
+        ForEach(Array(entry.giphy.enumerated()), id: \.offset) { _, item in
           GiphyWidgetItem(giphy: item)
             .padding(.horizontal, 5)
         }
       }.padding(.bottom, 60)
       .padding(.horizontal, 10)
-    }.gridStyle(style)
+    }
   }
 }
 

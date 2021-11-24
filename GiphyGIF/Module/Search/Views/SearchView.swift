@@ -112,6 +112,7 @@ struct SearchEmptyView: View {
         .padding(.bottom, 5)
 
       Text("searching_giphy".localized())
+        .padding(.horizontal, 40)
     }
   }
 }
