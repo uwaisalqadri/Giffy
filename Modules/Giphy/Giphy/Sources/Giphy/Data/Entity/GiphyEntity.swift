@@ -7,25 +7,19 @@
 
 import Foundation
 import RealmSwift
-import ObjectMapper
-import ObjectMapperAdditions
 
-public class GiphyResponse: Mappable {
-  public var data: [Giphy]? {
-    _data
-  }
-  public var _data: [GiphyEntity]?
-
-  required public init?(map: ObjectMapper.Map) {
-    mapping(map: map)
+public class GiphyResponse: Object, Codable {
+  dynamic public var _data = List<GiphyEntity>()
+  public var data: [Giphy] {
+    listToArray(values: _data)
   }
 
-  public func mapping(map: ObjectMapper.Map) {
-    _data <- map["data"]
+  public enum CodingKeys: String, CodingKey {
+    case _data = "data"
   }
 }
 
-public class GiphyEntity: Object, Mappable, Giphy {
+public class GiphyEntity: Object, Giphy, Codable {
   @objc dynamic public var type: String = ""
   @objc dynamic public var identifier: String = ""
   @objc dynamic public var url: String = ""
@@ -37,32 +31,31 @@ public class GiphyEntity: Object, Mappable, Giphy {
   public var isFavorite: Bool = false
 
   @objc dynamic public var _images: ImageGIFEntity?
-  public var images: ImageGIF? {
-    _images
+  public var images: ImageGIF {
+    _images ?? .init()
   }
 
   public override class func primaryKey() -> String? {
     "identifier"
   }
 
-  public override init() {
-    super.init()
+  public enum CodingKeys: String, CodingKey {
+    case type = "type"
+    case identifier = "id"
+    case url = "url"
+    case embedUrl = "embed_url"
+    case rating = "rating"
+    case username = "username"
+    case title = "title"
+    case trendingDateTime = "trending_datetime"
+    case _images = "images"
   }
+}
 
-  public required init?(map: ObjectMapper.Map) {
-    super.init()
-    mapping(map: map)
+func listToArray(values: List<GiphyEntity>) -> [Giphy] {
+  var results = [Giphy]()
+  for value in values {
+    results.append(value)
   }
-
-  public func mapping(map: ObjectMapper.Map) {
-    type <- (map["type"], StringTransform())
-    identifier <- (map["id"], StringTransform())
-    url <- (map["url"], StringTransform())
-    embedUrl <- (map["embed_url"], StringTransform())
-    rating <- (map["rating"], StringTransform())
-    username <- (map["username"], StringTransform())
-    title <- (map["title"], StringTransform())
-    trendingDateTime <- (map["trending_datetime"], StringTransform())
-    _images <- map["images"]
-  }
+  return results
 }

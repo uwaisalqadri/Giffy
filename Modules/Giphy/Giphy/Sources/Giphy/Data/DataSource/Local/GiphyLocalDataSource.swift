@@ -80,9 +80,12 @@ public struct GiphyLocalDataSource: LocalDataSource {
     }.eraseToAnyPublisher()
   }
 
-  public func get(entityId: Int) -> Giphy? {
-    print(savedMovie(with: String(entityId)) as Any)
-    return savedMovie(with: String(entityId))
+  public func get(entityId: String) -> AnyPublisher<Giphy, Error> {
+    return Future<Giphy, Error> { completion in
+      if let object = savedMovie(with: String(entityId)) {
+        completion(.success(object))
+      }
+    }.eraseToAnyPublisher()
   }
 
   private func savedMovie(with giphyId: String) -> GiphyEntity? {

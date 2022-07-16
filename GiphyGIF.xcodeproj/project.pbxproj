@@ -17,7 +17,6 @@
 		5227688C265A02D500E7454C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5227688B265A02D500E7454C /* ContentView.swift */; };
 		5231E3192665B6DF00147EE6 /* Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5231E3152665B6DF00147EE6 /* Injection.swift */; };
 		523AFC34265BDB3F00C052A5 /* HomeItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523AFC33265BDB3F00C052A5 /* HomeItemView.swift */; };
-		523AFC38265BDE9800C052A5 /* Grid in Frameworks */ = {isa = PBXBuildFile; productRef = 523AFC37265BDE9800C052A5 /* Grid */; };
 		52E2BAF4265CF28B00E2F670 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 52E2BAF3265CF28B00E2F670 /* SDWebImageSwiftUI */; };
 		52E93D032661F20B00DBFDDD /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E93D022661F20B00DBFDDD /* AboutView.swift */; };
 		52E93D0C2661F27A00DBFDDD /* SocialMediaItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E93D0B2661F27A00DBFDDD /* SocialMediaItemView.swift */; };
@@ -27,16 +26,13 @@
 		52ECB3C4265B34000075082C /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ECB3C3265B34000075082C /* SearchView.swift */; };
 		52ECB3D7265B6CA00075082C /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ECB3D6265B6CA00075082C /* ActivityIndicator.swift */; };
 		916AECFB271BD67300C21275 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 916AECFA271BD67300C21275 /* Swinject */; };
-		916B8C44271F05BD00E13DF4 /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = 916B8C43271F05BD00E13DF4 /* Core */; };
 		919F5658271C1C5D008758E3 /* Common in Frameworks */ = {isa = PBXBuildFile; productRef = 919F5657271C1C5D008758E3 /* Common */; };
 		919F565A271C1C5D008758E3 /* Giphy in Frameworks */ = {isa = PBXBuildFile; productRef = 919F5659271C1C5D008758E3 /* Giphy */; };
 		91C3B8512749FAFA0060C7AD /* Common in Frameworks */ = {isa = PBXBuildFile; productRef = 91C3B8502749FAFA0060C7AD /* Common */; };
 		91C3B8532749FAFA0060C7AD /* Giphy in Frameworks */ = {isa = PBXBuildFile; productRef = 91C3B8522749FAFA0060C7AD /* Giphy */; };
-		91C3B8552749FAFA0060C7AD /* Grid in Frameworks */ = {isa = PBXBuildFile; productRef = 91C3B8542749FAFA0060C7AD /* Grid */; };
 		91C3B8572749FAFA0060C7AD /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 91C3B8562749FAFA0060C7AD /* SDWebImageSwiftUI */; };
 		91C3B8592749FAFA0060C7AD /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 91C3B8582749FAFA0060C7AD /* Lottie */; };
 		91C3B85B2749FAFA0060C7AD /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 91C3B85A2749FAFA0060C7AD /* Swinject */; };
-		91C3B85D2749FAFA0060C7AD /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = 91C3B85C2749FAFA0060C7AD /* Core */; };
 		91C3B8622749FB910060C7AD /* WidgetInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3B8612749FB910060C7AD /* WidgetInjection.swift */; };
 		91C3B863274A01FC0060C7AD /* WidgetInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3B8612749FB910060C7AD /* WidgetInjection.swift */; };
 		91C3B866274A16970060C7AD /* GiphyWidgetItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3B865274A16970060C7AD /* GiphyWidgetItem.swift */; };
@@ -144,9 +140,7 @@
 				52E2BAF4265CF28B00E2F670 /* SDWebImageSwiftUI in Frameworks */,
 				52243558266CFE080078E6F5 /* Lottie in Frameworks */,
 				916AECFB271BD67300C21275 /* Swinject in Frameworks */,
-				523AFC38265BDE9800C052A5 /* Grid in Frameworks */,
 				919F565A271C1C5D008758E3 /* Giphy in Frameworks */,
-				916B8C44271F05BD00E13DF4 /* Core in Frameworks */,
 				919F5658271C1C5D008758E3 /* Common in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -160,8 +154,6 @@
 				91D429242732E8DA004D7305 /* SwiftUI.framework in Frameworks */,
 				91D429222732E8DA004D7305 /* WidgetKit.framework in Frameworks */,
 				91C3B8532749FAFA0060C7AD /* Giphy in Frameworks */,
-				91C3B85D2749FAFA0060C7AD /* Core in Frameworks */,
-				91C3B8552749FAFA0060C7AD /* Grid in Frameworks */,
 				91C3B8512749FAFA0060C7AD /* Common in Frameworks */,
 				91C3B85B2749FAFA0060C7AD /* Swinject in Frameworks */,
 			);
@@ -461,13 +453,11 @@
 			);
 			name = GiphyGIF;
 			packageProductDependencies = (
-				523AFC37265BDE9800C052A5 /* Grid */,
 				52E2BAF3265CF28B00E2F670 /* SDWebImageSwiftUI */,
 				52243557266CFE080078E6F5 /* Lottie */,
 				916AECFA271BD67300C21275 /* Swinject */,
 				919F5657271C1C5D008758E3 /* Common */,
 				919F5659271C1C5D008758E3 /* Giphy */,
-				916B8C43271F05BD00E13DF4 /* Core */,
 			);
 			productName = GiphyGIF;
 			productReference = 52276886265A02D500E7454C /* GiphyGIF.app */;
@@ -489,11 +479,9 @@
 			packageProductDependencies = (
 				91C3B8502749FAFA0060C7AD /* Common */,
 				91C3B8522749FAFA0060C7AD /* Giphy */,
-				91C3B8542749FAFA0060C7AD /* Grid */,
 				91C3B8562749FAFA0060C7AD /* SDWebImageSwiftUI */,
 				91C3B8582749FAFA0060C7AD /* Lottie */,
 				91C3B85A2749FAFA0060C7AD /* Swinject */,
-				91C3B85C2749FAFA0060C7AD /* Core */,
 			);
 			productName = GiphyWidgetExtension;
 			productReference = 91D429202732E8DA004D7305 /* GiphyWidgetExtension.appex */;
@@ -531,11 +519,9 @@
 			);
 			mainGroup = 5227687D265A02D500E7454C;
 			packageReferences = (
-				523AFC36265BDE9700C052A5 /* XCRemoteSwiftPackageReference "swiftui-grid" */,
 				52E2BAF2265CF28B00E2F670 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				52243556266CFE080078E6F5 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				916AECF9271BD67300C21275 /* XCRemoteSwiftPackageReference "Swinject" */,
-				916B8C42271F05BD00E13DF4 /* XCRemoteSwiftPackageReference "CoreModule" */,
 			);
 			productRefGroup = 52276887265A02D500E7454C /* Products */;
 			projectDirPath = "";
@@ -962,14 +948,6 @@
 				minimumVersion = 3.2.3;
 			};
 		};
-		523AFC36265BDE9700C052A5 /* XCRemoteSwiftPackageReference "swiftui-grid" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/spacenation/swiftui-grid.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.0;
-			};
-		};
 		52E2BAF2265CF28B00E2F670 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
@@ -986,14 +964,6 @@
 				minimumVersion = 2.8.0;
 			};
 		};
-		916B8C42271F05BD00E13DF4 /* XCRemoteSwiftPackageReference "CoreModule" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/uwaisalqadri/CoreModule.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1001,11 +971,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 52243556266CFE080078E6F5 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
-		};
-		523AFC37265BDE9800C052A5 /* Grid */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 523AFC36265BDE9700C052A5 /* XCRemoteSwiftPackageReference "swiftui-grid" */;
-			productName = Grid;
 		};
 		52E2BAF3265CF28B00E2F670 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1016,11 +981,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 916AECF9271BD67300C21275 /* XCRemoteSwiftPackageReference "Swinject" */;
 			productName = Swinject;
-		};
-		916B8C43271F05BD00E13DF4 /* Core */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 916B8C42271F05BD00E13DF4 /* XCRemoteSwiftPackageReference "CoreModule" */;
-			productName = Core;
 		};
 		919F5657271C1C5D008758E3 /* Common */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1038,11 +998,6 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = Giphy;
 		};
-		91C3B8542749FAFA0060C7AD /* Grid */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 523AFC36265BDE9700C052A5 /* XCRemoteSwiftPackageReference "swiftui-grid" */;
-			productName = Grid;
-		};
 		91C3B8562749FAFA0060C7AD /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 52E2BAF2265CF28B00E2F670 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
@@ -1057,11 +1012,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 916AECF9271BD67300C21275 /* XCRemoteSwiftPackageReference "Swinject" */;
 			productName = Swinject;
-		};
-		91C3B85C2749FAFA0060C7AD /* Core */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 916B8C42271F05BD00E13DF4 /* XCRemoteSwiftPackageReference "CoreModule" */;
-			productName = Core;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -53,7 +53,7 @@ struct SearchView: View {
         }
       }.navigationTitle("search".localized())
       .navigationBarItems(
-        trailing: NavigationLink(destination: router.makeFavoriteView()) {
+        trailing: NavigationLink(destination: router.routeFavorite()) {
           Image(systemName: "heart.fill")
             .resizable()
             .foregroundColor(.red)

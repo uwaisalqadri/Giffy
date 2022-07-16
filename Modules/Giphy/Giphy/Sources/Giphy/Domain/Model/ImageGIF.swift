@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol ImageGIF {
-  var original: Original? { get }
+  var original: Original { get }
 }
 
 public protocol Original {

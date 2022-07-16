@@ -15,10 +15,9 @@ let package = Package(
   ],
   dependencies: [
     // Dependencies declare other packages that this package depends on.
-    .package(name: "Realm", url: "https://github.com/realm/realm-cocoa.git", .exact("10.7.6")),
+    .package(name: "Realm", url: "https://github.com/realm/realm-cocoa.git", .exact("10.15.1")),
     .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.4.3")),
-    .package(url: "https://github.com/tristanhimmelman/ObjectMapper.git", .upToNextMajor(from: "4.2.0")),
-    .package(url: "https://github.com/APUtils/ObjectMapperAdditions.git", .upToNextMajor(from: "8.0.0"))
+    .package(name: "Core", url: "https://github.com/uwaisalqadri/CoreModule.git", .branch("main")),
   ],
   targets: [
     // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -28,8 +27,7 @@ let package = Package(
       dependencies: [
         .product(name: "RealmSwift", package: "Realm"),
         "Alamofire",
-        "ObjectMapper",
-        "ObjectMapperAdditions"
+        "Core"
       ]),
     .testTarget(
       name: "GiphyTests",

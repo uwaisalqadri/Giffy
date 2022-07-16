@@ -22,7 +22,7 @@ struct SearchItemView: View {
 
   var body: some View {
     ZStack {
-      AnimatedImage(url: URL(string: giphy.images?.original?.url ?? ""), isAnimating: $isAnimating)
+      AnimatedImage(url: URL(string: giphy.images.original.url), isAnimating: $isAnimating)
         .placeholder(content: {
           Color(Common.loadRandomColor())
         })
@@ -31,7 +31,7 @@ struct SearchItemView: View {
         .frame(maxHeight: 350, alignment: .center)
         .cornerRadius(20)
         .sheet(isPresented: $showDetail) {
-          router.makeDetailView(giphy: giphy)
+          router.routeDetail(giphy: giphy)
         }
         .onTapGesture {
           if !isFavorite {

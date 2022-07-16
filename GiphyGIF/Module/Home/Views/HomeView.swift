@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Grid
 import Core
 import Giphy
 import Common
@@ -22,9 +21,32 @@ typealias HomePresenter = GetListPresenter<
 struct HomeView: View {
 
   @ObservedObject var presenter: HomePresenter
+  @State var giphys = [Giphy]()
   let router: FavoriteRouter
-  let style = StaggeredGridStyle(.vertical, tracks: .min(150), spacing: 5)
-  let ipadStyle = StaggeredGridStyle(.vertical, tracks: .min(250), spacing: 5)
+
+  private var splittedGiphys: [[Giphy]] {
+    var result: [[Giphy]] = []
+
+    var firstGiphys: [Giphy] = []
+    var secondGiphys: [Giphy] = []
+
+    giphys.forEach { giphy in
+      let index = giphys.firstIndex {$0.identifier == giphy.identifier }
+
+      if let index = index {
+        if index % 2 == 0 {
+          firstGiphys.append(giphy)
+        } else {
+          secondGiphys.append(giphy)
+        }
+      }
+    }
+
+    result.append(firstGiphys)
+    result.append(secondGiphys)
+
+    return result
+  }
 
   var body: some View {
     NavigationView {
@@ -35,10 +57,22 @@ struct HomeView: View {
             .padding(.leading, 15)
 
           if !presenter.isLoading {
-            Grid(Array(presenter.list.enumerated()), id: \.offset) { _, item in
-              HomeItemView(giphy: item, router: Injection.shared.resolve())
-                .padding(.horizontal, 5)
+            HStack(alignment: .top) {
+              LazyVStack(spacing: 8) {
+                ForEach(Array(splittedGiphys[0].enumerated()), id: \.offset) { _, item in
+                  HomeItemView(giphy: item, router: Injection.shared.resolve())
+                    .padding(.horizontal, 5)
+                }
+              }
+
+              LazyVStack(spacing: 8) {
+                ForEach(Array(splittedGiphys[1].enumerated()), id: \.offset) { _, item in
+                  HomeItemView(giphy: item, router: Injection.shared.resolve())
+                    .padding(.horizontal, 5)
+                }
+              }
             }
+
           } else {
             HStack {
               Spacer()
@@ -51,9 +85,8 @@ struct HomeView: View {
         }.padding(.bottom, 60)
         .padding(.horizontal, 10)
       }.navigationTitle("trending".localized())
-      .gridStyle(Common.isIpad ? ipadStyle : style)
       .navigationBarItems(
-        trailing: NavigationLink(destination: router.makeFavoriteView()) {
+        trailing: NavigationLink(destination: router.routeFavorite()) {
           Image(systemName: "heart.fill")
             .resizable()
             .foregroundColor(.red)
@@ -63,6 +96,9 @@ struct HomeView: View {
     }.navigationViewStyle(StackNavigationViewStyle())
     .onAppear {
       presenter.getList(request: 0)
+    }
+    .onReceive(presenter.$list) { list in
+      giphys = list
     }
   }
 }

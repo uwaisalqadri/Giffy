@@ -25,10 +25,7 @@ where
   }
 
   public func execute(request: String?) -> AnyPublisher<Giphy, Error> {
-    return Future<Giphy, Error> { completion in
-      if let object = localDataSource.get(entityId: Int(request ?? "") ?? 0) {
-        completion(.success(object))
-      }
-    }.eraseToAnyPublisher()
+    return localDataSource.get(entityId: request ?? "")
+      .eraseToAnyPublisher()
   }
 }

@@ -49,12 +49,8 @@ class Injection {
 
   private func registerDetailFeature() {
     container.register(DetailRouter.self) { _ in
-      DetailRouter()
+      DetailRouter(injection: self)
     }
-
-//    container.register(CheckFavoritePresenter.self) { [unowned self] _ in
-//      CheckFavoritePresenter(useCase: self.resolve())
-//    }
 
     container.register(AddFavoritePresenter.self) { [unowned self] _ in
       AddFavoritePresenter(useCase: self.resolve())
@@ -133,7 +129,7 @@ class Injection {
     }
 
     container.register(FavoriteRouter.self) { _ in
-      FavoriteRouter()
+      FavoriteRouter(injection: self)
     }
 
     container.register(FavoritePresenter.self) { [unowned self] _ in

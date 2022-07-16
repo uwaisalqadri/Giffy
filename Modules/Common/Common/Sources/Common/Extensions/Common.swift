@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 public struct Common {
-
   public static let isIpad = UIDevice.current.userInterfaceIdiom == .pad
 
   public static func loadBundle() -> Bundle {

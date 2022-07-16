@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Grid
 import Lottie
 import Core
 import Giphy
@@ -24,7 +23,6 @@ struct FavoriteView: View {
 
   @ObservedObject var presenter: FavoritePresenter
   @ObservedObject var removeFavoritePresenter: RemoveFavoritePresenter
-  let style = StaggeredGridStyle(.vertical, tracks: .min(150), spacing: 5)
 
   var body: some View {
     ScrollView {
@@ -48,7 +46,6 @@ struct FavoriteView: View {
       }
 
     }.navigationTitle("favorite".localized())
-    .gridStyle(self.style)
     .onAppear {
       presenter.getList(request: "")
     }

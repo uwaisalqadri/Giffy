@@ -17,17 +17,12 @@ public struct GiphyRemoteDataSource: DataSource {
   public init() {}
 
   public func execute(request: Int?) -> AnyPublisher<[Giphy], Error> {
-    let api: APIFactory
-    if request == 0 {
-      api = APIFactory.trending
-    } else {
-      api = APIFactory.random
-    }
-
+    let api = request == 0 ? APIFactory.trending : APIFactory.random
     let result = NetworkService.shared.connect(
       api: api.url,
       responseType: GiphyResponse.self
-    ).compactMap { $0.data ?? [] }
+    )
+    .compactMap { $0.data }
     .eraseToAnyPublisher()
 
     return result

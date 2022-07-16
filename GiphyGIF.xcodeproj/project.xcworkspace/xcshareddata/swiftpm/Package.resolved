@@ -15,7 +15,7 @@
         "repositoryURL": "https://github.com/uwaisalqadri/CoreModule.git",
         "state": {
           "branch": "main",
-          "revision": "5c29f32bb24ab1ccf47f8dbd706a7d64e04c653b",
+          "revision": "f8696cc919033c72e6152961099a9c5f11abb447",
           "version": null
         }
       },
@@ -29,30 +29,12 @@
         }
       },
       {
-        "package": "ObjectMapper",
-        "repositoryURL": "https://github.com/tristanhimmelman/ObjectMapper.git",
-        "state": {
-          "branch": null,
-          "revision": "0b96a734de3ea1c87374ae677064f86adb0716ec",
-          "version": "4.2.0"
-        }
-      },
-      {
-        "package": "ObjectMapperAdditions",
-        "repositoryURL": "https://github.com/APUtils/ObjectMapperAdditions.git",
-        "state": {
-          "branch": null,
-          "revision": "57dedd298c8bb74e7e6dee982775690161dbcd2d",
-          "version": "8.0.0"
-        }
-      },
-      {
         "package": "Realm",
         "repositoryURL": "https://github.com/realm/realm-cocoa.git",
         "state": {
           "branch": null,
-          "revision": "7e5c77fd7fbb30259e8e6e6a41f32289f72e0812",
-          "version": "10.7.6"
+          "revision": "4cbe20f31b1bcc20190c724632143b4f9b8ac3e3",
+          "version": "10.15.1"
         }
       },
       {
@@ -60,8 +42,8 @@
         "repositoryURL": "https://github.com/realm/realm-core",
         "state": {
           "branch": null,
-          "revision": "018adb3469c2882904febca251778129ef4a9b70",
-          "version": "10.7.2"
+          "revision": "23f60515a00f076a9e3f2dc672fe1ae07601ee90",
+          "version": "11.4.1"
         }
       },
       {
@@ -80,15 +62,6 @@
           "branch": null,
           "revision": "cd8625b7cf11a97698e180d28bb7d5d357196678",
           "version": "2.0.2"
-        }
-      },
-      {
-        "package": "Grid",
-        "repositoryURL": "https://github.com/spacenation/swiftui-grid.git",
-        "state": {
-          "branch": null,
-          "revision": "623f995c6ee0e5a5ed0e104d142daeae67b0ec92",
-          "version": "1.1.0"
         }
       },
       {
