@@ -15,7 +15,7 @@ struct GiphyProvider: IntentTimelineProvider {
 
   private var giphyEntry: GiphyEntry = {
     let giphy = GiphyEntity()
-//    giphy.images.original.url = "https://giphy.com/explore/cuqi"
+    giphy._images?._original?.url = "https://media4.giphy.com/media/loLO30j5PEbLgAqt63/giphy.gif"
     return GiphyEntry(giphy: giphy)
   }()
 
@@ -49,6 +49,20 @@ struct GiphyEntry: TimelineEntry {
   let giphy: GiphyEntity
 }
 
+struct GiphyEntryView: View {
+  let entry: GiphyProvider.Entry
+
+  var body: some View {
+    VStack(alignment: .leading) {
+      AnimatedImage(url: URL(string: entry.giphy._images?._original?.url ?? ""), isAnimating: .constant(true))
+        .indicator(SDWebImageActivityIndicator.medium)
+        .resizable()
+        .scaledToFit()
+        .cornerRadius(20)
+    }
+  }
+}
+
 @main
 struct GiphyWidget: Widget {
   private let kind = "GiphyWidget"
@@ -56,26 +70,11 @@ struct GiphyWidget: Widget {
   var body: some WidgetConfiguration {
     IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: GiphyProvider()) { entry in
       GiphyEntryView(entry: entry)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.black)
     }
     .configurationDisplayName("Giphy Widget")
     .description("Show Your Favorites Giphy!")
-  }
-}
-
-struct GiphyEntryView: View {
-  let entry: GiphyProvider.Entry
-
-  var body: some View {
-    VStack(alignment: .leading) {
-
-      AnimatedImage(url: URL(string: entry.giphy.images.original.url), isAnimating: .constant(true))
-        .indicator(SDWebImageActivityIndicator.medium)
-        .resizable()
-        .frame(width: 40, height: 40)
-        .scaledToFit()
-        .cornerRadius(20)
-        .padding(.top, 10)
-
-    }.background(Color.black)
+    .supportedFamilies([.systemSmall])
   }
 }
