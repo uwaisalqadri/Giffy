@@ -1,5 +1,5 @@
 //
-//  SearchItemView.swift
+//  SearchRow.swift
 //  GiphyGIF
 //
 //  Created by Uwais Alqadri on 25/05/21.
@@ -10,7 +10,7 @@ import SDWebImageSwiftUI
 import Giphy
 import Common
 
-struct SearchItemView: View {
+struct SearchRow: View {
 
   @State var isAnimating = true
   @State var showDetail = false
@@ -48,7 +48,7 @@ struct SearchItemView: View {
                   .resizable()
                   .foregroundColor(.red)
                   .frame(width: 27, height: 25)
-              }).padding([.top, .trailing], 30)
+              }).padding([.top, .trailing], 20)
             } else {
               EmptyView()
             }

@@ -1,5 +1,5 @@
 //
-//  HomeItemView.swift
+//  HomeRow.swift
 //  GiphyGIF
 //
 //  Created by Uwais Alqadri on 24/05/21.
@@ -11,7 +11,7 @@ import Core
 import Giphy
 import Common
 
-struct HomeItemView: View {
+struct HomeRow: View {
 
   @State var isAnimating = true
   @State var showDetail = false

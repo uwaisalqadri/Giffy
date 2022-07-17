@@ -9,60 +9,44 @@ import WidgetKit
 import SwiftUI
 import Core
 import Giphy
+import SDWebImageSwiftUI
 
-struct GiphyEntry: TimelineEntry {
-  var date = Date()
-  let giphy: [Giphy]
+struct GiphyProvider: IntentTimelineProvider {
 
-}
-
-struct GiphyProvider: TimelineProvider {
-
-  @ObservedObject var presenter: WidgetPresenter
+  private var giphyEntry: GiphyEntry = {
+    let giphy = GiphyEntity()
+//    giphy.images.original.url = "https://giphy.com/explore/cuqi"
+    return GiphyEntry(giphy: giphy)
+  }()
 
   func placeholder(in context: Context) -> GiphyEntry {
-    GiphyEntry(giphy: [])
+    giphyEntry
   }
 
-  func getSnapshot(in context: Context, completion: @escaping (GiphyEntry) -> Void) {
-    var giphys = [Giphy]()
-
-    if !presenter.isLoading {
-      giphys = presenter.list
-    }
-
-    let entry = GiphyEntry(giphy: giphys)
-    completion(entry)
+  func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (GiphyEntry) -> Void) {
+    completion(giphyEntry)
   }
 
-  func getTimeline(in context: Context, completion: @escaping (Timeline<GiphyEntry>) -> Void) {
-    var giphys = [Giphy]()
+  func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<GiphyEntry>) -> Void) {
+    let presenter: WidgetPresenter = WidgetInjection.shared.resolve()
+    var entries = [GiphyEntry]()
 
-    if !presenter.isLoading {
-      giphys = presenter.list
-    }
+    presenter.getList(request: "")
 
-    let entry = GiphyEntry(giphy: giphys)
-    let timeline = Timeline(entries: [entry], policy: .never)
+    presenter.list
+      .forEach { giphy in
+        let entry = GiphyEntry(giphy: giphy as? GiphyEntity ?? .init())
+        entries.append(entry)
+      }
+
+    let timeline = Timeline(entries: entries, policy: .atEnd)
     completion(timeline)
   }
 }
 
-struct GiphyEntryView: View {
-  let entry: GiphyProvider.Entry
-
-  var body: some View {
-    ScrollView(.vertical, showsIndicators: false) {
-      LazyVStack(alignment: .leading) {
-
-        ForEach(Array(entry.giphy.enumerated()), id: \.offset) { _, item in
-          GiphyWidgetItem(giphy: item)
-            .padding(.horizontal, 5)
-        }
-      }.padding(.bottom, 60)
-      .padding(.horizontal, 10)
-    }
-  }
+struct GiphyEntry: TimelineEntry {
+  var date = Date()
+  let giphy: GiphyEntity
 }
 
 @main
@@ -70,10 +54,7 @@ struct GiphyWidget: Widget {
   private let kind = "GiphyWidget"
 
   var body: some WidgetConfiguration {
-    StaticConfiguration(
-      kind: kind,
-      provider: GiphyProvider(presenter: WidgetInjection.shared.resolve())
-    ) { entry in
+    IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: GiphyProvider()) { entry in
       GiphyEntryView(entry: entry)
     }
     .configurationDisplayName("Giphy Widget")
@@ -81,9 +62,20 @@ struct GiphyWidget: Widget {
   }
 }
 
-struct GiphyWidget_Previews: PreviewProvider {
-  static var previews: some View {
-    GiphyEntryView(entry: GiphyEntry(giphy: []))
-      .previewContext(WidgetPreviewContext(family: .systemSmall))
+struct GiphyEntryView: View {
+  let entry: GiphyProvider.Entry
+
+  var body: some View {
+    VStack(alignment: .leading) {
+
+      AnimatedImage(url: URL(string: entry.giphy.images.original.url), isAnimating: .constant(true))
+        .indicator(SDWebImageActivityIndicator.medium)
+        .resizable()
+        .frame(width: 40, height: 40)
+        .scaledToFit()
+        .cornerRadius(20)
+        .padding(.top, 10)
+
+    }.background(Color.black)
   }
 }

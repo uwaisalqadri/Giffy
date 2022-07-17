@@ -17,6 +17,7 @@ typealias DummyInteractor = Interactor<
   >
 >
 
+// TODO: Write some unit test
 class GiphyGIFTests: XCTestCase {
 
   override func setUpWithError() throws {

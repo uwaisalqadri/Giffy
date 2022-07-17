@@ -1,5 +1,5 @@
 //
-//  SocialMediaItemView.swift
+//  SocialMediaRow.swift
 //  GiphyGIF
 //
 //  Created by Uwais Alqadri on 29/05/21.
@@ -8,7 +8,7 @@
 import SwiftUI
 import Common
 
-struct SocialMediaItemView: View {
+struct SocialMediaRow: View {
   var image: String
   var name: String
 

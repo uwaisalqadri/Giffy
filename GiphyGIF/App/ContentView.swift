@@ -13,18 +13,20 @@ struct ContentView: View {
   @State var selectedIndex = 0
 
   var body: some View {
-    ZStack {
-      if selectedIndex == 0 {
-        HomeView(presenter: Injection.shared.resolve(), router: Injection.shared.resolve())
-      } else if selectedIndex == 1 {
-        SearchView(presenter: Injection.shared.resolve(), router: Injection.shared.resolve())
-      } else if selectedIndex == 2 {
-        AboutView()
-      }
+    NavigationView {
+      ZStack {
+        if selectedIndex == 0 {
+          HomeView(presenter: Injection.shared.resolve(), router: Injection.shared.resolve())
+        } else if selectedIndex == 1 {
+          SearchView(presenter: Injection.shared.resolve(), router: Injection.shared.resolve())
+        } else if selectedIndex == 2 {
+          AboutView()
+        }
 
-      VStack {
-        Spacer()
-        tabView.padding(.bottom, 20)
+        VStack {
+          Spacer()
+          tabView.padding(.bottom, 20)
+        }
       }
     }
   }

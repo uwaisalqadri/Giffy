@@ -10,54 +10,53 @@ import Common
 
 struct AboutView: View {
   var body: some View {
-    NavigationView {
-      ScrollView {
-        VStack(alignment: .leading) {
-          HStack {
-            Image("tampandanberani", bundle: Common.loadBundle())
-              .resizable()
-              .aspectRatio(contentMode: .fill)
-              .frame(width: 80, height: 80)
-              .cornerRadius(20)
-
-            VStack(alignment: .leading) {
-              Text("Uwais Alqadri")
-                .font(.system(size: 24))
-                .bold()
-
-              SocialMediaItemView(image: "apple", name: "iOS Developer")
-            }
-            .padding(.leading)
-
-            Spacer()
-          }
-          .padding(24)
+    ScrollView {
+      VStack(alignment: .leading) {
+        HStack {
+          Image("tampandanberani", bundle: Common.loadBundle())
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .frame(width: 80, height: 80)
+            .cornerRadius(20)
 
           VStack(alignment: .leading) {
-            SocialMediaItemView(image: "instagram", name: "@uwais.__alqadri")
-            SocialMediaItemView(image: "gmail", name: "uwaisalqadri654321@gmail.com")
-            SocialMediaItemView(image: "linkedin", name: "Uwais Alqadri")
-            Divider()
-              .padding(.top, 16)
-          }
-          .padding([.leading, .trailing], 24)
-
-          VStack(alignment: .leading) {
-            Text("about_me".localized())
-              .font(.system(size: 18, weight: .medium, design: .rounded))
+            Text("Uwais Alqadri")
+              .font(.system(size: 24))
               .bold()
 
-            Text("about_me_desc".localized())
-              .padding(.top, 16)
+            SocialMediaRow(image: "apple", name: "iOS Developer")
           }
-          .padding([.leading, .trailing], 24)
+          .padding(.leading)
 
           Spacer()
         }
+        .padding(24)
+
+        VStack(alignment: .leading) {
+          SocialMediaRow(image: "instagram", name: "@uwais.__alqadri")
+          SocialMediaRow(image: "gmail", name: "uwaisalqadri654321@gmail.com")
+          SocialMediaRow(image: "linkedin", name: "Uwais Alqadri")
+          Divider()
+            .padding(.top, 16)
+        }
+        .padding([.leading, .trailing], 24)
+
+        VStack(alignment: .leading) {
+          Text("about_me".localized())
+            .font(.system(size: 18, weight: .medium, design: .rounded))
+            .bold()
+
+          Text("about_me_desc".localized())
+            .padding(.top, 16)
+        }
+        .padding([.leading, .trailing], 24)
+
+        Spacer()
       }
-      .padding(.bottom, 100)
-      .navigationTitle("profile".localized())
-    }.navigationViewStyle(StackNavigationViewStyle())
+    }
+    .padding(.bottom, 100)
+    .navigationTitle("profile".localized())
+    .navigationViewStyle(StackNavigationViewStyle())
   }
 }
 
