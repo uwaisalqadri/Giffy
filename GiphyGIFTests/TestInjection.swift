@@ -1,5 +1,5 @@
 //
-//  DummyInjection.swift
+//  TestInjection.swift
 //  GiphyGIFTests
 //
 //  Created by Uwais Alqadri on 11/3/21.
@@ -10,23 +10,23 @@
 @testable import Core
 import Swinject
 
-class DummyInjection: Injection {
+class TestInjection: Injection {
   private let container = Container()
 
   override init() {
     super.init()
-    registerDummyDataSource()
+    registerTrendingRemoteDataSource()
   }
 
-  private func registerDummyDataSource() {
-    container.register(DummyInteractor.self) { [unowned self] _ in
+  private func registerTrendingRemoteDataSource() {
+    container.register(DummyTrendingInteractor.self) { [unowned self] _ in
       Interactor(repository: self.resolve())
     }
-    container.register(GetGiphyRepository<DummyRemoteDataSource>.self) { [unowned self] _ in
+    container.register(GetGiphyRepository<DummyTrendingRemoteDataSource>.self) { [unowned self] _ in
       GetGiphyRepository(remoteDataSource: self.resolve())
     }
-    container.register(DummyRemoteDataSource.self) { _ in
-      DummyRemoteDataSource()
+    container.register(DummyTrendingRemoteDataSource.self) { _ in
+      DummyTrendingRemoteDataSource()
     }
   }
 

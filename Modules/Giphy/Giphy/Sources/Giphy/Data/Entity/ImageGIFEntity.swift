@@ -25,8 +25,6 @@ public class OriginalEntity: Object, Original, Codable {
   @objc dynamic public var width: String = ""
 
   public enum CodingKeys: String, CodingKey {
-    case url
-    case height
-    case width
+    case url, height, width
   }
 }

@@ -15,6 +15,7 @@ public class NetworkService {
   public func connect<T: Codable>(api: URL, responseType: T.Type) -> AnyPublisher<T, Error> {
     return Future<T, Error> { completion in
       AF.request(api.absoluteString)
+        .prettyPrintedJsonResponse()
         .responseDecodable(of: responseType) { response in
           switch response.result {
           case .success(let data):
@@ -28,5 +29,22 @@ public class NetworkService {
           }
         }
     }.eraseToAnyPublisher()
+  }
+}
+
+extension DataRequest {
+
+  @discardableResult
+  func prettyPrintedJsonResponse() -> Self {
+    return responseJSON { (response) in
+      switch response.result {
+      case .success(let result):
+        if let data = try? JSONSerialization.data(withJSONObject: result, options: .prettyPrinted),
+           let text = String(data: data, encoding: .utf8) {
+          print("📗 prettyPrinted JSON response: \n \(text)")
+        }
+      case .failure: break
+      }
+    }
   }
 }
