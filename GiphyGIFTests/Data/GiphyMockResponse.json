@@ -194,7 +194,7 @@
      "embed_url" : "https:\/\/giphy.com\/embed\/gh5cGItobveQAEPw5B",
      "rating" : "g",
      "username" : ""
-   }, // 0
+   },
    {
      "is_sticker" : 0,
      "slug" : "studiosoriginals-sunday-bless-you-blessings-sjVsQih0n1NPQkLQaG",
@@ -407,7 +407,7 @@
      "embed_url" : "https:\/\/giphy.com\/embed\/sjVsQih0n1NPQkLQaG",
      "rating" : "g",
      "username" : "studiosoriginals"
-   }, // 1
+   },
    {
      "is_sticker" : 0,
      "slug" : "morning-perfect-loops-bbshzgyFQDqPHXBo4c",
@@ -608,7 +608,7 @@
      "embed_url" : "https:\/\/giphy.com\/embed\/bbshzgyFQDqPHXBo4c",
      "rating" : "g",
      "username" : ""
-   }, // 2
+   },
    {
      "is_sticker" : 0,
      "slug" : "happy-birthday-cat-kitty-kitten-UpjIK0dWuIYMX66bF8",
@@ -815,7 +815,7 @@
      "embed_url" : "https:\/\/giphy.com\/embed\/UpjIK0dWuIYMX66bF8",
      "rating" : "g",
      "username" : "dotdave"
-   }, // 3
+   },
    {
      "is_sticker" : 0,
      "slug" : "warnerbrosde-R6gvnAxj2ISzJdbA63",
@@ -1022,7 +1022,7 @@
      "embed_url" : "https:\/\/giphy.com\/embed\/R6gvnAxj2ISzJdbA63",
      "rating" : "g",
      "username" : "warnerbrosde"
-   }, // 4
+   },
    {
      "is_sticker" : 0,
      "slug" : "volleyballworld-brasil-brazil-alan-souza-A8bmiaFRwUsYFePgH9",
@@ -1229,7 +1229,7 @@
      "embed_url" : "https:\/\/giphy.com\/embed\/A8bmiaFRwUsYFePgH9",
      "rating" : "g",
      "username" : "volleyballworld"
-   }, // 5
+   },
    {
      "is_sticker" : 0,
      "slug" : "helloall-ToWn2KPbMXX6X0J1Kv",
@@ -1436,7 +1436,7 @@
      "embed_url" : "https:\/\/giphy.com\/embed\/ToWn2KPbMXX6X0J1Kv",
      "rating" : "g",
      "username" : "helloall"
-   }, // 6
+   },
    {
      "is_sticker" : 0,
      "slug" : "FormulaSantander-walking-open-door-carlos-sainz-XuGSqeRm7VfSl8D9dL",
@@ -1649,7 +1649,7 @@
      "embed_url" : "https:\/\/giphy.com\/embed\/XuGSqeRm7VfSl8D9dL",
      "rating" : "g",
      "username" : "FormulaSantander"
-   }, // 7
+   },
    {
      "is_sticker" : 0,
      "slug" : "birthday-image-candles-10Uc8CJKdfnPvq",
@@ -1844,7 +1844,7 @@
      "embed_url" : "https:\/\/giphy.com\/embed\/10Uc8CJKdfnPvq",
      "rating" : "pg",
      "username" : ""
-   }, // 8
+   },
    {
      "is_sticker" : 0,
      "slug" : "storyful-animals-gorilla-funny-IIIg3ZHcOqYtW0wEIB",
@@ -2057,7 +2057,7 @@
      "embed_url" : "https:\/\/giphy.com\/embed\/IIIg3ZHcOqYtW0wEIB",
      "rating" : "g",
      "username" : "storyful"
-   }, // 9
+   },
    {
      "is_sticker" : 0,
      "slug" : "rnshwCdGdDyg0",
@@ -2252,7 +2252,7 @@
      "embed_url" : "https:\/\/giphy.com\/embed\/rnshwCdGdDyg0",
      "rating" : "pg",
      "username" : ""
-   }, // 10
+   },
    {
      "is_sticker" : 0,
      "slug" : "sesamestreet-sesame-street-50th-anniversary-kyLYXonQYYfwYDIeZl",
@@ -2459,7 +2459,7 @@
      "embed_url" : "https:\/\/giphy.com\/embed\/kyLYXonQYYfwYDIeZl",
      "rating" : "g",
      "username" : "sesamestreet"
-   }, // 11
+   },
    {
      "is_sticker" : 0,
      "slug" : "titounis-day-week-touni-R6nTdDGPiaKuZhlYbV",
@@ -2672,7 +2672,7 @@
      "embed_url" : "https:\/\/giphy.com\/embed\/R6nTdDGPiaKuZhlYbV",
      "rating" : "g",
      "username" : "titounis"
-   }, // 12
+   },
    {
      "is_sticker" : 0,
      "slug" : "morning-good-sunshine-K1MmPRUOWfkmRAtwuR",
@@ -2885,7 +2885,7 @@
      "embed_url" : "https:\/\/giphy.com\/embed\/K1MmPRUOWfkmRAtwuR",
      "rating" : "g",
      "username" : "michellekirsch"
-   }, // 13
+   },
    {
      "is_sticker" : 0,
      "slug" : "birthday-movie-happy-qxlb0qNuJKj7y",
@@ -3080,7 +3080,7 @@
      "embed_url" : "https:\/\/giphy.com\/embed\/qxlb0qNuJKj7y",
      "rating" : "g",
      "username" : ""
-   }, // 14
+   },
    {
      "is_sticker" : 0,
      "slug" : "dazn-happy-boxing-ryan-garcia-ch77YPpkNANWgo2iIn",
@@ -3293,6 +3293,6 @@
      "embed_url" : "https:\/\/giphy.com\/embed\/ch77YPpkNANWgo2iIn",
      "rating" : "g",
      "username" : "dazn"
-   }  // 15
+   }
  ],
 }

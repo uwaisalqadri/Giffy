@@ -9,7 +9,7 @@ import Combine
 import XCTest
 
 extension AnyPublisher {
-  func waitForCompletion(timeout: TimeInterval = 1.0, file: StaticString = #file, line: UInt = #line) throws -> [Output] {
+  func waitForCompletion(timeout: TimeInterval = 3.0, file: StaticString = #filePath, line: UInt = #line) throws -> [Output] {
     let expectation = XCTestExpectation(description: "wait for completion")
     var completion: Subscribers.Completion<Failure>?
     var output = [Output]()
