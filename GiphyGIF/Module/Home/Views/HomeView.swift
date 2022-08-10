@@ -13,7 +13,7 @@ import Common
 typealias HomePresenter = GetListPresenter<
   Int, Giphy, Interactor<
     Int, [Giphy], GetGiphyRepository<
-      GiphyRemoteDataSource
+      TrendingRemoteDataSource
     >
   >
 >

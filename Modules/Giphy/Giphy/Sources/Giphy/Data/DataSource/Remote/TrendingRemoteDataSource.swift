@@ -1,25 +1,22 @@
 //
-//  File.swift
+//  TrendingRemoteDataSource.swift
 //  
 //
 //  Created by Uwais Alqadri on 10/17/21.
 //
 
-import Foundation
 import Core
 import Combine
 
-public struct GiphyRemoteDataSource: DataSource {
-
+public struct TrendingRemoteDataSource: DataSource {
   public typealias Request = Int
   public typealias Response = [Giphy]
 
   public init() {}
 
   public func execute(request: Int?) -> AnyPublisher<[Giphy], Error> {
-    let api = request == 0 ? APIFactory.trending : APIFactory.random
     let result = NetworkService.shared.connect(
-      api: api.url,
+      api: APIFactory.trending.url,
       responseType: GiphyResponse.self
     )
     .compactMap { $0.data }

@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  RealmList+Codable.swift
 //  
 //
 //  Created by Uwais Alqadri on 7/16/22.

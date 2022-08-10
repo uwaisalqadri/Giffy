@@ -11,7 +11,7 @@ import RealmSwift
 public class GiphyResponse: Object, Codable {
   dynamic public var _data = List<GiphyEntity>()
   public var data: [Giphy] {
-    realmListToArray(values: _data)
+    _data.map()
   }
 
   public enum CodingKeys: String, CodingKey {
@@ -52,10 +52,12 @@ public class GiphyEntity: Object, Giphy, Codable {
   }
 }
 
-func realmListToArray(values: List<GiphyEntity>) -> [Giphy] {
-  var results = [Giphy]()
-  for value in values {
-    results.append(value)
+extension List where Element == GiphyEntity {
+  func map() -> [Giphy] {
+    var results = [Giphy]()
+    for value in self {
+      results.append(value)
+    }
+    return results
   }
-  return results
 }

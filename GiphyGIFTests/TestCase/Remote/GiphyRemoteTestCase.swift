@@ -19,7 +19,7 @@ typealias DummyInteractor = Interactor<
 
 typealias ActualTrendingInteractor = Interactor<
   Int, [Giphy], GetGiphyRepository<
-    GiphyRemoteDataSource
+    TrendingRemoteDataSource
   >
 >
 
@@ -45,9 +45,9 @@ class GiphyRemoteTestCase: XCTestCase {
 
     // when
     let response = useCase.execute(request: 0)
+    let result = try response.waitForCompletion()
 
     // then
-    let result = try response.waitForCompletion()
     XCTAssertEqual(result.compactMap({ $0[0].title }), ["Happy Anniversary Love GIF by Hallmark Gold Crown"])
   }
 
@@ -57,22 +57,9 @@ class GiphyRemoteTestCase: XCTestCase {
 
     // when
     let response = useCase.execute(request: 0) // and
+    let result = try response.waitForCompletion()
 
     // then
-    let result = try response.waitForCompletion()
-    XCTAssertFalse(result.isEmpty, "Data Fetched from network")
-  }
-
-  // TODO: testActualGetRandomUseCase() Need Refactor
-  func testActualGetRandomUseCase() throws {
-    // given
-    let useCase: ActualTrendingInteractor = TestInjection().resolve()
-
-    // when
-    let response = useCase.execute(request: 1) // and
-
-    // then
-    let result = try response.waitForCompletion()
     XCTAssertFalse(result.isEmpty, "Data Fetched from network")
   }
 
@@ -82,9 +69,9 @@ class GiphyRemoteTestCase: XCTestCase {
 
     // when
     let response = useCase.execute(request: "Hello") // and
+    let result = try response.waitForCompletion()
 
     // then
-    let result = try response.waitForCompletion()
     XCTAssertTrue(result[0][0].title.contains("Hello"))
   }
 }

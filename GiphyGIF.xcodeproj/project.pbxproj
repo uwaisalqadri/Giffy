@@ -25,8 +25,8 @@
 		52ECB3BF265B19710075082C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ECB3BE265B19710075082C /* HomeView.swift */; };
 		52ECB3C4265B34000075082C /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ECB3C3265B34000075082C /* SearchView.swift */; };
 		52ECB3D7265B6CA00075082C /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ECB3D6265B6CA00075082C /* ActivityIndicator.swift */; };
+		911C106328A382A300EBB1C3 /* GiphyLocalTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911C106228A382A300EBB1C3 /* GiphyLocalTestCase.swift */; };
 		911D1CB628A2081E00B42313 /* DummyRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911D1CB528A2081D00B42313 /* DummyRemoteDataSource.swift */; };
-		911D1CBA28A2099E00B42313 /* GiphyLocalTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911D1CB928A2099E00B42313 /* GiphyLocalTestCase.swift */; };
 		916AECFB271BD67300C21275 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 916AECFA271BD67300C21275 /* Swinject */; };
 		91906760288448AF005DCDFE /* JSONLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9190675F288448AF005DCDFE /* JSONLoader.swift */; };
 		91906762288449E3005DCDFE /* GiphyMockResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 91906761288449E3005DCDFE /* GiphyMockResponse.json */; };
@@ -109,8 +109,8 @@
 		52ECB3BE265B19710075082C /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		52ECB3C3265B34000075082C /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		52ECB3D6265B6CA00075082C /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		911C106228A382A300EBB1C3 /* GiphyLocalTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiphyLocalTestCase.swift; sourceTree = "<group>"; };
 		911D1CB528A2081D00B42313 /* DummyRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyRemoteDataSource.swift; sourceTree = "<group>"; };
-		911D1CB928A2099E00B42313 /* GiphyLocalTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiphyLocalTestCase.swift; sourceTree = "<group>"; };
 		9190675F288448AF005DCDFE /* JSONLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONLoader.swift; sourceTree = "<group>"; };
 		91906761288449E3005DCDFE /* GiphyMockResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = GiphyMockResponse.json; sourceTree = "<group>"; };
 		919F5649271BFD4E008758E3 /* Giphy */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Giphy; path = Modules/Giphy/Giphy; sourceTree = "<group>"; };
@@ -390,7 +390,7 @@
 		911D1CB828A2098800B42313 /* Local */ = {
 			isa = PBXGroup;
 			children = (
-				911D1CB928A2099E00B42313 /* GiphyLocalTestCase.swift */,
+				911C106228A382A300EBB1C3 /* GiphyLocalTestCase.swift */,
 			);
 			path = Local;
 			sourceTree = "<group>";
@@ -651,7 +651,7 @@
 				91D4291B2732E25C004D7305 /* AnyPublisher+Wait.swift in Sources */,
 				91D429192732DF31004D7305 /* NetworkError.swift in Sources */,
 				911D1CB628A2081E00B42313 /* DummyRemoteDataSource.swift in Sources */,
-				911D1CBA28A2099E00B42313 /* GiphyLocalTestCase.swift in Sources */,
+				911C106328A382A300EBB1C3 /* GiphyLocalTestCase.swift in Sources */,
 				5224358B266D29220078E6F5 /* GiphyRemoteTestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

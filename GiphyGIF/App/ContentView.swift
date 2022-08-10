@@ -10,17 +10,20 @@ import Common
 
 struct ContentView: View {
 
-  @State var selectedIndex = 0
+  @State var currentTab = 0
 
   var body: some View {
     NavigationView {
       ZStack {
-        if selectedIndex == 0 {
+        switch currentTab {
+        case 0:
           HomeView(presenter: Injection.shared.resolve(), router: Injection.shared.resolve())
-        } else if selectedIndex == 1 {
+        case 1:
           SearchView(presenter: Injection.shared.resolve(), router: Injection.shared.resolve())
-        } else if selectedIndex == 2 {
+        case 2:
           AboutView()
+        default:
+          EmptyView()
         }
 
         VStack {
@@ -32,39 +35,42 @@ struct ContentView: View {
   }
 
   var tabView: some View {
-    HStack {
+    HStack(spacing: 30) {
       Button(action: {
-        selectedIndex = 0
-      }, label: {
+        currentTab = 0
+      }) {
         VStack {
           Image(systemName: "rectangle.3.offgrid")
             .resizable()
             .foregroundColor(.green)
             .frame(width: 25, height: 25, alignment: .center)
+            .padding(5)
         }
-      }).padding(.leading, 40)
+      }
 
       Button(action: {
-        selectedIndex = 1
-      }, label: {
+        currentTab = 1
+      }) {
         VStack {
           Image(systemName: "rectangle.stack")
             .resizable()
             .foregroundColor(.yellow)
             .frame(width: 25, height: 25, alignment: .center)
+            .padding(5)
         }
-      }).padding(.leading, 40)
+      }
 
       Button(action: {
-        selectedIndex = 2
-      }, label: {
+        currentTab = 2
+      }) {
         VStack {
           Image(systemName: "person")
             .resizable()
             .foregroundColor(.purple)
             .frame(width: 25, height: 25, alignment: .center)
+            .padding(5)
         }
-      }).padding(.horizontal, 40)
+      }
     }
     .frame(maxWidth: Common.isIpad ? 300 : .infinity, minHeight: 80)
     .background(

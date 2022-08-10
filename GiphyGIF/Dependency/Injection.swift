@@ -32,18 +32,18 @@ class Injection {
     container.register(
       Interactor<
         Int, [Giphy], GetGiphyRepository<
-          GiphyRemoteDataSource
+          TrendingRemoteDataSource
       >
     >.self) { [unowned self] _ in
       Interactor(repository: self.resolve())
     }
 
-    container.register(GetGiphyRepository<GiphyRemoteDataSource>.self) { [unowned self] _ in
+    container.register(GetGiphyRepository<TrendingRemoteDataSource>.self) { [unowned self] _ in
       GetGiphyRepository(remoteDataSource: self.resolve())
     }
 
-    container.register(GiphyRemoteDataSource.self) { _ in
-      GiphyRemoteDataSource()
+    container.register(TrendingRemoteDataSource.self) { _ in
+      TrendingRemoteDataSource()
     }
   }
 

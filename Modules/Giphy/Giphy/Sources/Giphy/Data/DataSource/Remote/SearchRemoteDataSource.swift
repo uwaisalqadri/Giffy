@@ -18,7 +18,8 @@ public struct SearchRemoteDataSource: DataSource {
     let result = NetworkService.shared.connect(
       api: APIFactory.search(query: request ?? "").url,
       responseType: GiphyResponse.self
-    ).map { $0.data }
+    )
+    .compactMap { $0.data }
     .eraseToAnyPublisher()
 
     return result
