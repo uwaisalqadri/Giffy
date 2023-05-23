@@ -13,7 +13,7 @@ import Common
 
 struct GiphyWidgetItem: View {
 
-  @State var isAnimating = true
+  @State private var isAnimating = true
   let giphy: Giphy
 
   var body: some View {

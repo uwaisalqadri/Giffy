@@ -14,7 +14,7 @@ struct SocialMediaRow: View {
 
   var body: some View {
     HStack {
-      Image(image, bundle: Common.loadBundle())
+      Image(image, bundle: Bundle.common)
         .resizable()
         .frame(width: 27, height: 27)
       Text(name)

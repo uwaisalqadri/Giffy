@@ -12,37 +12,33 @@ import Common
 
 struct SearchRow: View {
 
-  @State var isAnimating = true
-  @State var showDetail = false
+  @State private var isAnimating = true
   @State var isFavorite = false
   let giphy: Giphy
-  let router: DetailRouter
 
-  var removeFavoriteHandler: ((Giphy) -> Void)?
+  var onTapRow: ((Giphy) -> Void)?
+  var onRemoveFavorite: ((Giphy) -> Void)?
 
   var body: some View {
     ZStack {
       AnimatedImage(url: URL(string: giphy.images.original.url), isAnimating: $isAnimating)
         .placeholder(content: {
-          Color(Common.loadRandomColor())
+          Color(CommonUI.randomColor)
         })
         .resizable()
         .scaledToFill()
         .frame(maxHeight: 350, alignment: .center)
         .cornerRadius(20)
-        .sheet(isPresented: $showDetail) {
-          router.routeDetail(giphy: giphy)
-        }
         .onTapGesture {
           if !isFavorite {
-            showDetail.toggle()
+            onTapRow?(giphy)
           }
         }
         .overlay(
           ZStack {
             if isFavorite {
               Button(action: {
-                removeFavoriteHandler?(giphy)
+                onRemoveFavorite?(giphy)
               }, label: {
                 Image(systemName: isFavorite ? "heart.fill" : "heart")
                   .resizable()

@@ -8,6 +8,7 @@
 import Swinject
 import Core
 import Giphy
+import Common
 
 class Injection {
   static let shared = Injection()
@@ -22,7 +23,15 @@ class Injection {
 
   private func registerHomeFeature() {
     container.register(HomeView.self) { [unowned self] _ in
-      HomeView(presenter: self.resolve(), router: self.resolve())
+      HomeView(holder: self.resolve(), presenter: self.resolve(), router: self.resolve())
+    }
+    
+    container.register(AboutView.self) { [unowned self] _ in
+      AboutView(holder: self.resolve())
+    }
+    
+    container.register(HomeRouter.self) { _ in
+      HomeRouter(injector: self)
     }
 
     container.register(HomePresenter.self) { [unowned self] _ in
@@ -49,7 +58,7 @@ class Injection {
 
   private func registerDetailFeature() {
     container.register(DetailRouter.self) { _ in
-      DetailRouter(injection: self)
+      DetailRouter(injector: self)
     }
 
     container.register(AddFavoritePresenter.self) { [unowned self] _ in
@@ -102,7 +111,10 @@ class Injection {
 
   private func registerSearchFeature() {
     container.register(SearchView.self) { [unowned self] _ in
-      SearchView(presenter: self.resolve(), router: self.resolve())
+      SearchView(holder: self.resolve(), router: self.resolve(), presenter: self.resolve())
+    }
+    container.register(SearchRouter.self) { _ in
+      SearchRouter(injector: self)
     }
     container.register(SearchPresenter.self) { [unowned self] _ in
       GetListPresenter(useCase: self.resolve())
@@ -125,11 +137,11 @@ class Injection {
 
   private func registerFavoriteFeature() {
     container.register(FavoriteView.self) { [unowned self] _ in
-      FavoriteView(presenter: self.resolve(), removeFavoritePresenter: self.resolve())
+      FavoriteView(holder: self.resolve(), router: self.resolve(), presenter: self.resolve(), removeFavoritePresenter: self.resolve())
     }
 
     container.register(FavoriteRouter.self) { _ in
-      FavoriteRouter(injection: self)
+      FavoriteRouter(injector: self)
     }
 
     container.register(FavoritePresenter.self) { [unowned self] _ in
@@ -151,6 +163,10 @@ class Injection {
 
     container.register(GiphyLocalDataSource.self) { _ in
       GiphyLocalDataSource()
+    }
+    
+    container.register(NavStackHolder.self) { _ in
+      Common.NavStackHolder()
     }
   }
 

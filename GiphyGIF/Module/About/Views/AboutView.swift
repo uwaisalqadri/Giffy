@@ -8,12 +8,14 @@
 import SwiftUI
 import Common
 
-struct AboutView: View {
+struct AboutView: ViewControllable {
+  var holder: Common.NavStackHolder
+  
   var body: some View {
     ScrollView {
       VStack(alignment: .leading) {
         HStack {
-          Image("tampandanberani", bundle: Common.loadBundle())
+          Image("tampandanberani", bundle: Bundle.common)
             .resizable()
             .aspectRatio(contentMode: .fill)
             .frame(width: 80, height: 80)
@@ -62,6 +64,6 @@ struct AboutView: View {
 
 struct AboutView_Previews: PreviewProvider {
   static var previews: some View {
-    AboutView()
+    AboutView(holder: Injection.shared.resolve())
   }
 }

@@ -8,14 +8,10 @@
 import Foundation
 import UIKit
 
-public struct Common {
+public struct CommonUI {
   public static let isIpad = UIDevice.current.userInterfaceIdiom == .pad
-
-  public static func loadBundle() -> Bundle {
-    Bundle.module
-  }
-
-  public static func loadRandomColor() -> UIColor {
+  
+  public static var randomColor: UIColor {
     return UIColor(
       red: .random(in: 0...1),
       green: .random(in: 0...1),
@@ -23,5 +19,4 @@ public struct Common {
       alpha: 1.0
     )
   }
-
 }

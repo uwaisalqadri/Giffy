@@ -9,9 +9,10 @@ import SwiftUI
 import Giphy
 
 struct DetailRouter {
-  let injection: Injection
+  let injector: Injection
 
-  func routeDetail(giphy: Giphy, isFavorite: Bool = false) -> some View {
-    return DetailView(addFavoritePresenter: injection.resolve(), giphy: giphy)
+  func routeToDetail(from viewController: UIViewController, giphy: Giphy, isFavorite: Bool = false) {
+    let view = DetailView(holder: injector.resolve(), addFavoritePresenter: injector.resolve(), giphy: giphy)
+    viewController.present(view.viewController, animated: true)
   }
 }

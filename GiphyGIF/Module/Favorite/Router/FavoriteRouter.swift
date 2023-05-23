@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct FavoriteRouter {
-  let injection: Injection
+  let injector: Injection
 
-  func routeFavorite() -> some View {
-    return FavoriteView(presenter: injection.resolve(), removeFavoritePresenter: injection.resolve())
+  func routeToFavorite(from viewController: UIViewController) {
+    let view = FavoriteView(holder: injector.resolve(), router: injector.resolve(), presenter: injector.resolve(), removeFavoritePresenter: injector.resolve())
+    viewController.navigationController?.pushViewController(view.viewController, animated: true)
   }
 }

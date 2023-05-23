@@ -13,17 +13,17 @@ import Common
 
 struct HomeRow: View {
 
-  @State var isAnimating = true
-  @State var showDetail = false
+  @State private var isAnimating = true
   let giphy: Giphy
-  let router: DetailRouter
+  
+  var onTapRow: ((Giphy) -> Void)?
 
   var body: some View {
     VStack(alignment: .leading) {
 
       AnimatedImage(url: URL(string: giphy.images.original.url), isAnimating: $isAnimating)
         .placeholder(content: {
-          Color(Common.loadRandomColor())
+          Color(CommonUI.randomColor)
         })
         .resizable()
         .frame(
@@ -34,11 +34,8 @@ struct HomeRow: View {
         .scaledToFit()
         .cornerRadius(20)
         .padding(.top, 10)
-        .sheet(isPresented: $showDetail) {
-          router.routeDetail(giphy: giphy, isFavorite: false)
-        }
         .onTapGesture {
-          showDetail.toggle()
+          onTapRow?(giphy)
         }
     }
   }

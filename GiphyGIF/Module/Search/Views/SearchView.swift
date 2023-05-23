@@ -19,11 +19,13 @@ typealias SearchPresenter = GetListPresenter<
   >
 >
 
-struct SearchView: View {
+struct SearchView: ViewControllable {
+  
+  var holder: Common.NavStackHolder
+  let router: SearchRouter
 
   @ObservedObject var presenter: SearchPresenter
-  @State var searchText = ""
-  var router: FavoriteRouter
+  @State private var searchText = ""
 
   var body: some View {
     ScrollView(.vertical, showsIndicators: false) {
@@ -36,9 +38,12 @@ struct SearchView: View {
           ZStack {
             LazyVStack {
               ForEach(Array(presenter.list.enumerated()), id: \.offset) { _, item in
-                SearchRow(giphy: item, router: Injection.shared.resolve())
-                  .padding(.horizontal, 20)
-                  .padding(.bottom, 20)
+                SearchRow(giphy: item, onTapRow: { giphy in
+                  guard let viewController = holder.viewController else { return }
+                  router.routeToDetail(from: viewController, giphy: giphy)
+                })
+                .padding(.horizontal, 20)
+                .padding(.bottom, 20)
               }
             }.padding(.top, 20)
           }
@@ -52,7 +57,10 @@ struct SearchView: View {
       }
     }.navigationTitle("search".localized())
       .navigationBarItems(
-        trailing: NavigationLink(destination: router.routeFavorite()) {
+        trailing: Button(action: {
+          guard let viewController = holder.viewController else { return }
+          router.routeToFavorite(from: viewController)
+        }) {
           Image(systemName: "heart.fill")
             .resizable()
             .foregroundColor(.red)
@@ -69,7 +77,7 @@ struct SearchView: View {
 
 struct SearchInput: View {
 
-  @State var query = ""
+  @State private var query = ""
   var onQueryChange: ((String) -> Void)?
 
   var body: some View {
@@ -85,8 +93,8 @@ struct SearchInput: View {
           onQueryChange?(query)
         })
           .foregroundColor(.white)
-          .font(.system(size: Common.isIpad ? 20 : 16))
-          .frame(height: Common.isIpad ? 60 : 40)
+          .font(.system(size: CommonUI.isIpad ? 20 : 16))
+          .frame(height: CommonUI.isIpad ? 60 : 40)
           .autocapitalization(.none)
           .disableAutocorrection(true)
           .padding(.leading, 13)
@@ -105,7 +113,7 @@ struct SearchInput: View {
 struct SearchEmptyView: View {
   var body: some View {
     VStack {
-      LottieView(fileName: "search_empty", bundle: Common.loadBundle(), loopMode: .loop)
+      LottieView(fileName: "search_empty", bundle: Bundle.common, loopMode: .loop)
         .frame(width: 200, height: 200)
         .padding(.bottom, 5)
 
@@ -117,6 +125,6 @@ struct SearchEmptyView: View {
 
 struct SearchView_Previews: PreviewProvider {
   static var previews: some View {
-    SearchView(presenter: Injection.shared.resolve(), router: Injection.shared.resolve())
+    SearchView(holder: Injection.shared.resolve(), router: Injection.shared.resolve(), presenter: Injection.shared.resolve())
   }
 }

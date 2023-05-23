@@ -18,11 +18,12 @@ typealias HomePresenter = GetListPresenter<
   >
 >
 
-struct HomeView: View {
-
+struct HomeView: ViewControllable {
+  var holder: Common.NavStackHolder
+  
   @ObservedObject var presenter: HomePresenter
-  @State var giphys = [Giphy]()
-  let router: FavoriteRouter
+  @State private var giphys = [Giphy]()
+  let router: HomeRouter
 
   private var splittedGiphys: [[Giphy]] {
     var result: [[Giphy]] = []
@@ -59,15 +60,21 @@ struct HomeView: View {
           HStack(alignment: .top) {
             LazyVStack(spacing: 8) {
               ForEach(Array(splittedGiphys[0].enumerated()), id: \.offset) { _, item in
-                HomeRow(giphy: item, router: Injection.shared.resolve())
-                  .padding(.horizontal, 5)
+                HomeRow(giphy: item) { selectedItem in
+                  guard let viewController = holder.viewController else { return }
+                  router.routeToDetail(from: viewController, giphy: selectedItem)
+                }
+                .padding(.horizontal, 5)
               }
             }
 
             LazyVStack(spacing: 8) {
               ForEach(Array(splittedGiphys[1].enumerated()), id: \.offset) { _, item in
-                HomeRow(giphy: item, router: Injection.shared.resolve())
-                  .padding(.horizontal, 5)
+                HomeRow(giphy: item) { selectedItem in
+                  guard let viewController = holder.viewController else { return }
+                  router.routeToDetail(from: viewController, giphy: selectedItem)
+                }
+                .padding(.horizontal, 5)
               }
             }
           }
@@ -83,27 +90,31 @@ struct HomeView: View {
 
       }.padding(.bottom, 60)
         .padding(.horizontal, 10)
-    }.navigationTitle("trending".localized())
-      .navigationBarItems(
-        trailing: NavigationLink(destination: router.routeFavorite()) {
-          Image(systemName: "heart.fill")
-            .resizable()
-            .foregroundColor(.red)
-            .frame(width: 20, height: 18)
-        }
-      )
-      .navigationViewStyle(StackNavigationViewStyle())
-      .onAppear {
-        presenter.getList(request: 0)
+    }
+    .navigationTitle("trending".localized())
+    .navigationViewStyle(.stack)
+    .navigationBarItems(
+      trailing: Button(action: {
+        guard let viewController = holder.viewController else { return }
+        router.routeToFavorite(from: viewController)
+      }) {
+        Image(systemName: "heart.fill")
+          .resizable()
+          .foregroundColor(.red)
+          .frame(width: 20, height: 18)
       }
-      .onReceive(presenter.$list) { list in
-        giphys = list
-      }
+    )
+    .onAppear {
+      presenter.getList(request: 0)
+    }
+    .onReceive(presenter.$list) { list in
+      giphys = list
+    }
   }
 }
 
 struct HomeView_Previews: PreviewProvider {
   static var previews: some View {
-    HomeView(presenter: Injection.shared.resolve(), router: Injection.shared.resolve())
+    HomeView(holder: Injection.shared.resolve(), presenter: Injection.shared.resolve(), router: Injection.shared.resolve())
   }
 }

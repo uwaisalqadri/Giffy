@@ -19,8 +19,10 @@ typealias FavoritePresenter = GetListPresenter<
   >
 >
 
-struct FavoriteView: View {
-
+struct FavoriteView: ViewControllable {
+  var holder: Common.NavStackHolder
+  let router: DetailRouter
+  
   @ObservedObject var presenter: FavoritePresenter
   @ObservedObject var removeFavoritePresenter: RemoveFavoritePresenter
 
@@ -34,10 +36,14 @@ struct FavoriteView: View {
       if !presenter.list.isEmpty {
         LazyVStack {
           ForEach(Array(presenter.list.enumerated()), id: \.offset) { _, item in
-            SearchRow(isFavorite: true, giphy: item, router: Injection.shared.resolve()) { giphy in
+            SearchRow(isFavorite: true, giphy: item, onTapRow: { giphy in
+              guard let viewController = holder.viewController else { return }
+              router.routeToDetail(from: viewController, giphy: giphy)
+            }, onRemoveFavorite: { giphy in
               removeFavoritePresenter.execute(request: giphy)
               presenter.getList(request: "")
-            }.padding(.vertical, 20)
+            })
+            .padding(.vertical, 20)
             .padding(.horizontal, 20)
           }
         }
@@ -56,7 +62,7 @@ struct FavoriteView: View {
 
   var isFavoriteEmpty: some View {
     VStack {
-      LottieView(fileName: "add_to_favorite", bundle: Common.loadBundle(), loopMode: .loop)
+      LottieView(fileName: "add_to_favorite", bundle: Bundle.common, loopMode: .loop)
         .frame(width: 220, height: 220)
       Text("favorite_empty".localized())
     }
@@ -66,6 +72,6 @@ struct FavoriteView: View {
 
 struct FavoriteView_Previews: PreviewProvider {
   static var previews: some View {
-    FavoriteView(presenter: Injection.shared.resolve(), removeFavoritePresenter: Injection.shared.resolve())
+    FavoriteView(holder: Injection.shared.resolve(), router: Injection.shared.resolve(), presenter: Injection.shared.resolve(), removeFavoritePresenter: Injection.shared.resolve())
   }
 }

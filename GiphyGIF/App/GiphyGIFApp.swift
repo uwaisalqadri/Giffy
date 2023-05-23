@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-@main
-struct GiphyGIFApp: App {
-  var body: some Scene {
-    WindowGroup {
-      ContentView()
-    }
-  }
-}
+//@main
+//struct GiphyGIFApp: App {
+//  var body: some Scene {
+//    WindowGroup {
+//      ContentView()
+//    }
+//  }
+//}

@@ -8,22 +8,26 @@
 import SwiftUI
 import Common
 
-struct ContentView: View {
+struct ContentView: ViewControllable {
 
+  var holder: Common.NavStackHolder
+  
   @State var currentTab = 0
 
   var body: some View {
     NavigationView {
       ZStack {
-        switch currentTab {
-        case 0:
-          HomeView(presenter: Injection.shared.resolve(), router: Injection.shared.resolve())
-        case 1:
-          SearchView(presenter: Injection.shared.resolve(), router: Injection.shared.resolve())
-        case 2:
-          AboutView()
-        default:
-          EmptyView()
+        if let viewController = holder.viewController {
+          switch currentTab {
+          case 0:
+            initiateHomeView(viewController: viewController)
+          case 1:
+            initiateSearchView(viewController: viewController)
+          case 2:
+            initiateAboutView(viewController: viewController)
+          default:
+            EmptyView()
+          }
         }
 
         VStack {
@@ -72,7 +76,7 @@ struct ContentView: View {
         }
       }
     }
-    .frame(maxWidth: Common.isIpad ? 300 : .infinity, minHeight: 80)
+    .frame(maxWidth: CommonUI.isIpad ? 300 : .infinity, minHeight: 80)
     .background(
       Blur(style: .systemUltraThinMaterialDark)
         .cornerRadius(15, corners: [.allCorners])
@@ -81,8 +85,28 @@ struct ContentView: View {
   }
 }
 
+extension ContentView {
+  func initiateHomeView(viewController: UIViewController) -> HomeView {
+    let view: HomeView = Injection.shared.resolve()
+    view.holder.viewController = viewController
+    return view
+  }
+  
+  func initiateSearchView(viewController: UIViewController) -> SearchView {
+    let view: SearchView = Injection.shared.resolve()
+    view.holder.viewController = viewController
+    return view
+  }
+  
+  func initiateAboutView(viewController: UIViewController) -> AboutView {
+    let view: AboutView = Injection.shared.resolve()
+    view.holder.viewController = viewController
+    return view
+  }
+}
+
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    ContentView()
+    ContentView(holder: Injection.shared.resolve())
   }
 }
