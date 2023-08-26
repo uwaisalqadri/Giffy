@@ -21,11 +21,11 @@
       },
       {
         "package": "Lottie",
-        "repositoryURL": "https://github.com/airbnb/lottie-ios.git",
+        "repositoryURL": "https://github.com/airbnb/lottie-spm",
         "state": {
           "branch": null,
-          "revision": "79a0b70547f7c40ea54c67487f935fa2f2eaaadc",
-          "version": "3.2.3"
+          "revision": "2ae19d3c4f1603b45e551e6bebf02f523ca22a2e",
+          "version": "4.3.0"
         }
       },
       {
@@ -51,26 +51,26 @@
         "repositoryURL": "https://github.com/SDWebImage/SDWebImage.git",
         "state": {
           "branch": null,
-          "revision": "a72df4849408da7e5d3c1b586797b7c601c41d1b",
-          "version": "5.12.1"
+          "revision": "36e484b317522667a4b2de9b50daaa01dfa30809",
+          "version": "5.18.0"
         }
       },
       {
         "package": "SDWebImageSwiftUI",
-        "repositoryURL": "https://github.com/SDWebImage/SDWebImageSwiftUI.git",
+        "repositoryURL": "https://github.com/SDWebImage/SDWebImageSwiftUI",
         "state": {
           "branch": null,
-          "revision": "cd8625b7cf11a97698e180d28bb7d5d357196678",
-          "version": "2.0.2"
+          "revision": "6fcaa47f450f8696b19d6f037dcb582ff4deb544",
+          "version": "2.0.0"
         }
       },
       {
         "package": "Swinject",
-        "repositoryURL": "https://github.com/Swinject/Swinject.git",
+        "repositoryURL": "https://github.com/Swinject/Swinject",
         "state": {
           "branch": null,
-          "revision": "f10b6e9ebff440f985c43008f7c2d097639fcb81",
-          "version": "2.8.1"
+          "revision": "b1d92a53159fe45e162c307183aec9be15e4e7ae",
+          "version": "2.8.0"
         }
       }
     ]

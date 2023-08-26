@@ -15,9 +15,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7FBF0A3B760480643177202C"
-               BuildableName = "GiphyGIF.app"
-               BlueprintName = "GiphyGIF"
+               BlueprintIdentifier = "67995534B460A622F45EA7E6"
+               BuildableName = "GiphyGIFTests.xctest"
+               BlueprintName = "GiphyGIFTests"
                ReferencedContainer = "container:GiphyGIF.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,14 +28,13 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
-      codeCoverageEnabled = "YES"
       onlyGenerateCoverageForSpecifiedTargets = "NO">
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7FBF0A3B760480643177202C"
-            BuildableName = "GiphyGIF.app"
-            BlueprintName = "GiphyGIF"
+            BlueprintIdentifier = "67995534B460A622F45EA7E6"
+            BuildableName = "GiphyGIFTests.xctest"
+            BlueprintName = "GiphyGIFTests"
             ReferencedContainer = "container:GiphyGIF.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -64,16 +63,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7FBF0A3B760480643177202C"
-            BuildableName = "GiphyGIF.app"
-            BlueprintName = "GiphyGIF"
+            BlueprintIdentifier = "67995534B460A622F45EA7E6"
+            BuildableName = "GiphyGIFTests.xctest"
+            BlueprintName = "GiphyGIFTests"
             ReferencedContainer = "container:GiphyGIF.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <CommandLineArguments>
       </CommandLineArguments>
    </LaunchAction>
@@ -83,18 +81,17 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7FBF0A3B760480643177202C"
-            BuildableName = "GiphyGIF.app"
-            BlueprintName = "GiphyGIF"
-            ReferencedContainer = "container:GiphyGIF.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
       <CommandLineArguments>
       </CommandLineArguments>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "67995534B460A622F45EA7E6"
+            BuildableName = "GiphyGIFTests.xctest"
+            BlueprintName = "GiphyGIFTests"
+            ReferencedContainer = "container:GiphyGIF.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
