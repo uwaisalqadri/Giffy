@@ -221,3 +221,5 @@ Framework
 .Cartfile
 .Cartfile.resolved
 Pods/*
+*.xcodeproj/
+*.xcworkspace/
