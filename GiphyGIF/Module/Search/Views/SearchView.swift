@@ -55,7 +55,7 @@ struct SearchView: ViewControllable {
         ActivityIndicator()
           .padding(.top, 10)
       }
-    }.navigationTitle("search".localized())
+    }.navigationTitle(SearchString.titleSearch.localized)
       .navigationBarItems(
         trailing: Button(action: {
           guard let viewController = holder.viewController else { return }
@@ -89,12 +89,12 @@ struct SearchInput: View {
           .frame(width: 20, height: 20)
           .padding(.leading, 30)
 
-        TextField("search_desc".localized(), text: $query, onCommit: {
+        TextField(SearchString.labelSearchDesc.localized, text: $query, onCommit: {
           onQueryChange?(query)
         })
           .foregroundColor(.white)
-          .font(.system(size: CommonUI.isIpad ? 20 : 16))
-          .frame(height: CommonUI.isIpad ? 60 : 40)
+          .font(.system(size: UIDevice.isIpad ? 20 : 16))
+          .frame(height: UIDevice.isIpad ? 60 : 40)
           .autocapitalization(.none)
           .disableAutocorrection(true)
           .padding(.leading, 13)
@@ -117,7 +117,7 @@ struct SearchEmptyView: View {
         .frame(width: 200, height: 200)
         .padding(.bottom, 5)
 
-      Text("searching_giphy".localized())
+      Text(SearchString.labelSearching.localized)
         .padding(.horizontal, 40)
     }
   }

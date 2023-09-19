@@ -23,7 +23,7 @@ struct SearchRow: View {
     ZStack {
       AnimatedImage(url: URL(string: giphy.images.original.url), isAnimating: $isAnimating)
         .placeholder(content: {
-          Color(CommonUI.randomColor)
+          Color(.randomColor)
         })
         .resizable()
         .scaledToFill()

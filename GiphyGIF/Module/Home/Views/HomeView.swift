@@ -52,7 +52,7 @@ struct HomeView: ViewControllable {
   var body: some View {
     ScrollView(.vertical, showsIndicators: false) {
       LazyVStack(alignment: .leading) {
-        Text("today_popular".localized())
+        Text(HomeString.labelTodayPopular.localized)
           .font(.system(size: 20, weight: .medium))
           .padding(.leading, 15)
 
@@ -91,7 +91,7 @@ struct HomeView: ViewControllable {
       }.padding(.bottom, 60)
         .padding(.horizontal, 10)
     }
-    .navigationTitle("trending".localized())
+    .navigationTitle(HomeString.titleTrending.localized)
     .navigationViewStyle(.stack)
     .navigationBarItems(
       trailing: Button(action: {

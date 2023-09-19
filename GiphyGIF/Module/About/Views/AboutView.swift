@@ -44,11 +44,11 @@ struct AboutView: ViewControllable {
         .padding([.leading, .trailing], 24)
 
         VStack(alignment: .leading) {
-          Text("about_me".localized())
+          Text(AboutString.labelAboutMe.localized)
             .font(.system(size: 18, weight: .medium, design: .rounded))
             .bold()
 
-          Text("about_me_desc".localized())
+          Text(AboutString.labelAboutMeDesc.localized)
             .padding(.top, 16)
         }
         .padding([.leading, .trailing], 24)
@@ -57,7 +57,7 @@ struct AboutView: ViewControllable {
       }
     }
     .padding(.bottom, 100)
-    .navigationTitle("profile".localized())
+    .navigationTitle(AboutString.titleProfile.localized)
     .navigationViewStyle(StackNavigationViewStyle())
   }
 }

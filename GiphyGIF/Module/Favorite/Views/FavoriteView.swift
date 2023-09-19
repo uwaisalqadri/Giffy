@@ -51,7 +51,7 @@ struct FavoriteView: ViewControllable {
         isFavoriteEmpty.padding(.top, 50)
       }
 
-    }.navigationTitle("favorite".localized())
+    }.navigationTitle(FavoriteString.titleFavorite.localized)
     .onAppear {
       presenter.getList(request: "")
     }
@@ -64,7 +64,7 @@ struct FavoriteView: ViewControllable {
     VStack {
       LottieView(fileName: "add_to_favorite", bundle: Bundle.common, loopMode: .loop)
         .frame(width: 220, height: 220)
-      Text("favorite_empty".localized())
+      Text(FavoriteString.labelFavoriteEmpty.localized)
     }
   }
 

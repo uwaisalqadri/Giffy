@@ -76,7 +76,7 @@ struct ContentView: ViewControllable {
         }
       }
     }
-    .frame(maxWidth: CommonUI.isIpad ? 300 : .infinity, minHeight: 80)
+    .frame(maxWidth: UIDevice.isIpad ? 300 : .infinity, minHeight: 80)
     .background(
       Blur(style: .systemUltraThinMaterialDark)
         .cornerRadius(15, corners: [.allCorners])

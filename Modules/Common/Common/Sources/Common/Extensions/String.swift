@@ -8,15 +8,10 @@
 import Foundation
 import SwiftUI
 
-extension String {
-  public func localized() -> String {
-    let result = Bundle.module.localizedString(forKey: self, value: nil, table: nil)
-    return result
-  }
-
-  public func cgFloatValue() -> CGFloat? {
+extension String {  
+  public var cgFloat: CGFloat {
     guard let doubleValue = Double(self) else {
-      return nil
+      return 0.0
     }
     return CGFloat(doubleValue/2)
   }

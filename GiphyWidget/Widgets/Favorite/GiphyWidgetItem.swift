@@ -18,11 +18,15 @@ struct GiphyWidgetItem: View {
 
   var body: some View {
     VStack(alignment: .leading) {
-
+      
       AnimatedImage(url: URL(string: giphy.images.original.url), isAnimating: $isAnimating)
         .indicator(SDWebImageActivityIndicator.medium)
         .resizable()
-        .frame(idealWidth: (giphy.images.original.width).cgFloatValue(), idealHeight: (giphy.images.original.height).cgFloatValue(), alignment: .center)
+        .frame(
+          idealWidth: (giphy.images.original.width).cgFloat,
+          idealHeight: (giphy.images.original.height).cgFloat,
+          alignment: .center
+        )
         .scaledToFit()
         .cornerRadius(20)
         .padding(.top, 10)

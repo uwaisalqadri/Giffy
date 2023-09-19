@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -50,7 +50,6 @@
 		EB085884A5CCE90FB303FD16 /* GiphyWidgetItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797DC395863B7E816E1459B0 /* GiphyWidgetItem.swift */; };
 		F27B1AB4448E900CFC6C2500 /* DummyRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B27C3BAB096009053B567D /* DummyRemoteDataSource.swift */; };
 		F4173D35B125DC7C6B123076 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F839EAEA4678323D86C344A3 /* SwiftUI.framework */; };
-		F495D40A367BDC7DBFF89DA8 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE363973D5536AA9E247E70B /* String+Ext.swift */; };
 		F635A1BE5E3E7A61A6AF9789 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4468B945CB3A8C0C90AC413A /* WidgetKit.framework */; };
 		FAD45BF2075B99DA52BD3DB7 /* SocialMediaRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B0B279487F297675458F88 /* SocialMediaRow.swift */; };
 		FB19B8590477E44610E94632 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E342058E89C33D11BB48C40D /* NetworkError.swift */; };
@@ -124,7 +123,6 @@
 		A1FCA110D56C7AFD8179B434 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		A3586F9040BD334CDA4D37FB /* GiphyWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = GiphyWidget.intentdefinition; sourceTree = "<group>"; };
 		AAEBCCD8D63D13A2D111630E /* GiphyMockResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = GiphyMockResponse.json; sourceTree = "<group>"; };
-		AE363973D5536AA9E247E70B /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		AE6CCBB97D3741BDB5DFCD4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		AEDAF930FF665AFC95E3823B /* GiphyGIFTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = GiphyGIFTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFEC36BB251563EE2AE18AF1 /* SearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRouter.swift; sourceTree = "<group>"; };
@@ -400,7 +398,6 @@
 			isa = PBXGroup;
 			children = (
 				10EA95BE6A0BD2F7026183B6 /* Date.swift */,
-				AE363973D5536AA9E247E70B /* String+Ext.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -706,7 +703,6 @@
 				BFAA6A666E5F26C3842D56B5 /* SearchRow.swift in Sources */,
 				6C8F092E8FA3E795CEBB52D4 /* SearchView.swift in Sources */,
 				FAD45BF2075B99DA52BD3DB7 /* SocialMediaRow.swift in Sources */,
-				F495D40A367BDC7DBFF89DA8 /* String+Ext.swift in Sources */,
 				FB68FC3E26326D11EA23FC0B /* WebView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -874,6 +870,7 @@
 		5C7EBEA5FAE90D4DC3DBE20B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				API_KEY = EEx8BY3HX9JrYdFZ4Hdcx4Trbj35k5Ic;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -954,6 +951,7 @@
 		D1BB769053F5AC952DC992EF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				API_KEY = EEx8BY3HX9JrYdFZ4Hdcx4Trbj35k5Ic;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;

@@ -23,12 +23,12 @@ struct HomeRow: View {
 
       AnimatedImage(url: URL(string: giphy.images.original.url), isAnimating: $isAnimating)
         .placeholder(content: {
-          Color(CommonUI.randomColor)
+          Color(.randomColor)
         })
         .resizable()
         .frame(
-          idealWidth: (giphy.images.original.width).cgFloatValue(),
-          idealHeight: (giphy.images.original.height).cgFloatValue(),
+          idealWidth: (giphy.images.original.width).cgFloat,
+          idealHeight: (giphy.images.original.height).cgFloat,
           alignment: .center
         )
         .scaledToFit()

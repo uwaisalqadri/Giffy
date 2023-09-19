@@ -55,7 +55,7 @@ struct DetailView: ViewControllable {
               .foregroundColor(.red)
           }
         )
-        .navigationTitle("detail".localized())
+        .navigationTitle(DetailString.titleDetail.localized)
         .navigationBarTitleDisplayMode(.inline)
     }
   }

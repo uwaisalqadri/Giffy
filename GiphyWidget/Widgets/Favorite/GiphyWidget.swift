@@ -15,7 +15,8 @@ struct GiphyProvider: IntentTimelineProvider {
 
   private var giphyEntry: GiphyEntry = {
     let giphy = GiphyEntity()
-    giphy._images?._original?.url = "https://media4.giphy.com/media/loLO30j5PEbLgAqt63/giphy.gif"
+    let placeholder = "https://media4.giphy.com/media/loLO30j5PEbLgAqt63/giphy.gif"
+    giphy._images?._original?.url = placeholder
     return GiphyEntry(giphy: giphy)
   }()
 
