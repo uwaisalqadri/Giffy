@@ -16,7 +16,7 @@ where
   GiphyDataSource.Request == String {
 
   public typealias Request = Giphy
-  public typealias Response = Giphy
+  public typealias Response = Bool
 
   private let localDataSource: GiphyDataSource
 
@@ -24,12 +24,8 @@ where
     self.localDataSource = localDataSource
   }
 
-  public func execute(request: Giphy?) -> AnyPublisher<Giphy, Error> {
-    return Future<Giphy, Error> { completion in
-      if let giphy = request {
-        _ = localDataSource.delete(entity: giphy)
-        completion(.success(giphy))
-      }
-    }.eraseToAnyPublisher()
+  public func execute(request: Giphy?) -> AnyPublisher<Bool, Error> {
+    return localDataSource.delete(id: request?.id ?? "")
+      .eraseToAnyPublisher()
   }
 }

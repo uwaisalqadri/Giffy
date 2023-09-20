@@ -21,14 +21,14 @@ struct HomeRow: View {
   var body: some View {
     VStack(alignment: .leading) {
 
-      AnimatedImage(url: URL(string: giphy.images.original.url), isAnimating: $isAnimating)
+      AnimatedImage(url: URL(string: giphy.image.url), isAnimating: $isAnimating)
         .placeholder(content: {
           Color(.randomColor)
         })
         .resizable()
         .frame(
-          idealWidth: (giphy.images.original.width).cgFloat,
-          idealHeight: (giphy.images.original.height).cgFloat,
+          idealWidth: (giphy.image.width).cgFloat,
+          idealHeight: (giphy.image.height).cgFloat,
           alignment: .center
         )
         .scaledToFit()

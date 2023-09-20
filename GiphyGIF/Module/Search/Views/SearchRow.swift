@@ -21,7 +21,7 @@ struct SearchRow: View {
 
   var body: some View {
     ZStack {
-      AnimatedImage(url: URL(string: giphy.images.original.url), isAnimating: $isAnimating)
+      AnimatedImage(url: URL(string: giphy.image.url), isAnimating: $isAnimating)
         .placeholder(content: {
           Color(.randomColor)
         })

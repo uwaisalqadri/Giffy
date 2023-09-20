@@ -32,7 +32,7 @@ struct HomeView: ViewControllable {
     var secondGiphys: [Giphy] = []
 
     giphys.forEach { giphy in
-      let index = giphys.firstIndex {$0.identifier == giphy.identifier }
+      let index = giphys.firstIndex {$0.id == giphy.id }
 
       if let index = index {
         if index % 2 == 0 {

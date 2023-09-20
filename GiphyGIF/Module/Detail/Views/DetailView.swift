@@ -19,8 +19,16 @@ typealias AddFavoritePresenter = GetItemPresenter<
 >
 
 typealias RemoveFavoritePresenter = GetItemPresenter<
-  Giphy, Giphy, Interactor<
-    Giphy, Giphy, RemoveFavoriteRepository<
+  Giphy, Bool, Interactor<
+    Giphy, Bool, RemoveFavoriteRepository<
+      GiphyLocalDataSource
+    >
+  >
+>
+
+typealias CheckFavoritePresenter = GetItemPresenter<
+  Giphy, Bool, Interactor<
+    Giphy, Bool, RemoveFavoriteRepository<
       GiphyLocalDataSource
     >
   >
@@ -30,6 +38,7 @@ struct DetailView: ViewControllable {
   var holder: Common.NavStackHolder
 
   @ObservedObject var addFavoritePresenter: AddFavoritePresenter
+  @ObservedObject var checkFavoritePresenter: CheckFavoritePresenter
   let giphy: Giphy
 
   var body: some View {
@@ -49,14 +58,19 @@ struct DetailView: ViewControllable {
           trailing: Button(action: {
             addFavoritePresenter.execute(request: giphy)
           }) {
-            Image(giphy.isFavorite ? "heart.fill" : "heart", bundle: Bundle.common)
-              .resizable()
-              .frame(width: 23, height: 20)
-              .foregroundColor(.red)
+            if let isFavorite = checkFavoritePresenter.item {
+              Image(isFavorite ? "heart.fill" : "heart", bundle: Bundle.common)
+                .resizable()
+                .frame(width: 23, height: 20)
+                .foregroundColor(.red)
+            }
           }
         )
         .navigationTitle(DetailString.titleDetail.localized)
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+          checkFavoritePresenter.execute(request: giphy)
+        }
     }
   }
 }

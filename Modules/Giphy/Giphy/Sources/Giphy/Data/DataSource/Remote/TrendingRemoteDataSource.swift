@@ -17,9 +17,10 @@ public struct TrendingRemoteDataSource: DataSource {
   public func execute(request: Int?) -> AnyPublisher<[Giphy], Error> {
     let result = NetworkService.shared.connect(
       api: APIFactory.trending.url,
-      responseType: GiphyResponse.self
+      responseType: GiphyDataResponse.self
     )
     .compactMap { $0.data }
+    .compactMap { $0.map { $0.map() } }
     .eraseToAnyPublisher()
 
     return result

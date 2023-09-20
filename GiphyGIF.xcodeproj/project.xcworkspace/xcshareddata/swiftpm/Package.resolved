@@ -6,8 +6,17 @@
         "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
         "state": {
           "branch": null,
-          "revision": "d120af1e8638c7da36c8481fd61a66c0c08dc4fc",
-          "version": "5.4.4"
+          "revision": "b2fa556e4e48cbf06cf8c63def138c98f4b811fa",
+          "version": "5.8.0"
+        }
+      },
+      {
+        "package": "combine-schedulers",
+        "repositoryURL": "https://github.com/pointfreeco/combine-schedulers",
+        "state": {
+          "branch": null,
+          "revision": "9dc9cbe4bc45c65164fa653a563d8d8db61b09bb",
+          "version": "1.0.0"
         }
       },
       {
@@ -15,7 +24,7 @@
         "repositoryURL": "https://github.com/uwaisalqadri/CoreModule.git",
         "state": {
           "branch": "main",
-          "revision": "f8696cc919033c72e6152961099a9c5f11abb447",
+          "revision": "7059ca285c1a29669ccdc7c682a72686b6df7dd5",
           "version": null
         }
       },
@@ -29,30 +38,12 @@
         }
       },
       {
-        "package": "Realm",
-        "repositoryURL": "https://github.com/realm/realm-cocoa.git",
-        "state": {
-          "branch": null,
-          "revision": "4cbe20f31b1bcc20190c724632143b4f9b8ac3e3",
-          "version": "10.15.1"
-        }
-      },
-      {
-        "package": "RealmDatabase",
-        "repositoryURL": "https://github.com/realm/realm-core",
-        "state": {
-          "branch": null,
-          "revision": "23f60515a00f076a9e3f2dc672fe1ae07601ee90",
-          "version": "11.4.1"
-        }
-      },
-      {
         "package": "SDWebImage",
         "repositoryURL": "https://github.com/SDWebImage/SDWebImage.git",
         "state": {
           "branch": null,
-          "revision": "36e484b317522667a4b2de9b50daaa01dfa30809",
-          "version": "5.18.0"
+          "revision": "6e844d19679c9e0833ccc363d7f5a7c5f0c5f5d7",
+          "version": "5.18.1"
         }
       },
       {
@@ -65,12 +56,102 @@
         }
       },
       {
+        "package": "swift-case-paths",
+        "repositoryURL": "https://github.com/pointfreeco/swift-case-paths",
+        "state": {
+          "branch": null,
+          "revision": "5da6989aae464f324eef5c5b52bdb7974725ab81",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "swift-clocks",
+        "repositoryURL": "https://github.com/pointfreeco/swift-clocks",
+        "state": {
+          "branch": null,
+          "revision": "d1fd837326aa719bee979bdde1f53cd5797443eb",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "swift-collections",
+        "repositoryURL": "https://github.com/apple/swift-collections",
+        "state": {
+          "branch": null,
+          "revision": "937e904258d22af6e447a0b72c0bc67583ef64a2",
+          "version": "1.0.4"
+        }
+      },
+      {
+        "package": "swift-composable-architecture",
+        "repositoryURL": "https://github.com/pointfreeco/swift-composable-architecture.git",
+        "state": {
+          "branch": "main",
+          "revision": "3caca5c11a2770392d17b01fc86437b6b7dee451",
+          "version": null
+        }
+      },
+      {
+        "package": "swift-concurrency-extras",
+        "repositoryURL": "https://github.com/pointfreeco/swift-concurrency-extras",
+        "state": {
+          "branch": null,
+          "revision": "ea631ce892687f5432a833312292b80db238186a",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "swift-custom-dump",
+        "repositoryURL": "https://github.com/pointfreeco/swift-custom-dump",
+        "state": {
+          "branch": null,
+          "revision": "3efbfba0e4e56c7187cc19137ee16b7c95346b79",
+          "version": "1.1.0"
+        }
+      },
+      {
+        "package": "swift-dependencies",
+        "repositoryURL": "https://github.com/pointfreeco/swift-dependencies",
+        "state": {
+          "branch": null,
+          "revision": "4e1eb6e28afe723286d8cc60611237ffbddba7c5",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "swift-identified-collections",
+        "repositoryURL": "https://github.com/pointfreeco/swift-identified-collections",
+        "state": {
+          "branch": null,
+          "revision": "d1e45f3e1eee2c9193f5369fa9d70a6ddad635e8",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "swiftui-navigation",
+        "repositoryURL": "https://github.com/pointfreeco/swiftui-navigation",
+        "state": {
+          "branch": null,
+          "revision": "6eb293c49505d86e9e24232cb6af6be7fff93bd5",
+          "version": "1.0.2"
+        }
+      },
+      {
         "package": "Swinject",
         "repositoryURL": "https://github.com/Swinject/Swinject",
         "state": {
           "branch": null,
           "revision": "b1d92a53159fe45e162c307183aec9be15e4e7ae",
           "version": "2.8.0"
+        }
+      },
+      {
+        "package": "xctest-dynamic-overlay",
+        "repositoryURL": "https://github.com/pointfreeco/xctest-dynamic-overlay",
+        "state": {
+          "branch": null,
+          "revision": "23cbf2294e350076ea4dbd7d5d047c1e76b03631",
+          "version": "1.0.2"
         }
       }
     ]

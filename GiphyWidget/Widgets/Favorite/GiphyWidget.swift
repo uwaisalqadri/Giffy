@@ -11,12 +11,16 @@ import Core
 import Giphy
 import SDWebImageSwiftUI
 
+struct GiphyEntity {
+  
+}
+
 struct GiphyProvider: IntentTimelineProvider {
 
   private var giphyEntry: GiphyEntry = {
     let giphy = GiphyEntity()
     let placeholder = "https://media4.giphy.com/media/loLO30j5PEbLgAqt63/giphy.gif"
-    giphy._images?._original?.url = placeholder
+//    giphy._images?._original?.url = placeholder
     return GiphyEntry(giphy: giphy)
   }()
 
@@ -55,7 +59,7 @@ struct GiphyEntryView: View {
 
   var body: some View {
     VStack(alignment: .leading) {
-      AnimatedImage(url: URL(string: entry.giphy._images?._original?.url ?? ""), isAnimating: .constant(true))
+      AnimatedImage(url: URL(string: ""), isAnimating: .constant(true))
         .indicator(SDWebImageActivityIndicator.medium)
         .resizable()
         .scaledToFit()

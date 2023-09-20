@@ -1,22 +1,22 @@
 //
-//  FavoriteGiphyRepository.swift
+//  CheckFavoriteRepository.swift
 //  
 //
-//  Created by Uwais Alqadri on 10/20/21.
+//  Created by Uwais Alqadri on 21/9/23.
 //
 
 import Foundation
 import Core
 import Combine
 
-public struct FavoriteGiphysRepository<
+public struct CheckFavoriteRepository<
   GiphyDataSource: LocalDataSource>: Repository
 where
   GiphyDataSource.Response == Giphy,
   GiphyDataSource.Request == String {
 
   public typealias Request = String
-  public typealias Response = [Giphy]
+  public typealias Response = Bool
 
   private let localDataSource: GiphyDataSource
 
@@ -24,9 +24,8 @@ where
     self.localDataSource = localDataSource
   }
 
-  public func execute(request: String?) -> AnyPublisher<[Giphy], Error> {
-    return localDataSource.list(request: request)
-      .map { $0 }
+  public func execute(request: String?) -> AnyPublisher<Bool, Error> {
+    return localDataSource.isFavorited(id: request ?? "")
       .eraseToAnyPublisher()
   }
 }

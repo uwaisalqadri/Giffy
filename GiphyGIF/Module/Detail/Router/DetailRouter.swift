@@ -12,7 +12,7 @@ struct DetailRouter {
   let injector: Injection
 
   func routeToDetail(from viewController: UIViewController, giphy: Giphy, isFavorite: Bool = false) {
-    let view = DetailView(holder: injector.resolve(), addFavoritePresenter: injector.resolve(), giphy: giphy)
+    let view = DetailView(holder: injector.resolve(), addFavoritePresenter: injector.resolve(), checkFavoritePresenter: injector.resolve(), giphy: giphy)
     viewController.present(view.viewController, animated: true)
   }
 }

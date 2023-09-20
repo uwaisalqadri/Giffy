@@ -71,7 +71,7 @@ class Injection {
 
     container.register(
       Interactor<
-        String, Giphy, FavoriteGiphyRepository<
+        String, Bool, CheckFavoriteRepository<
           GiphyLocalDataSource
       >
     >.self) { [unowned self] _ in
@@ -89,15 +89,15 @@ class Injection {
 
     container.register(
       Interactor<
-        Giphy, Giphy, RemoveFavoriteRepository<
+        Giphy, Bool, RemoveFavoriteRepository<
           GiphyLocalDataSource
       >
     >.self) { [unowned self] _ in
       Interactor(repository: self.resolve())
     }
 
-    container.register(FavoriteGiphyRepository<GiphyLocalDataSource>.self) { [unowned self] _ in
-      FavoriteGiphyRepository(localDataSource: self.resolve())
+    container.register(CheckFavoriteRepository<GiphyLocalDataSource>.self) { [unowned self] _ in
+      CheckFavoriteRepository(localDataSource: self.resolve())
     }
 
     container.register(AddFavoriteRepository<GiphyLocalDataSource>.self) { [unowned self] _ in

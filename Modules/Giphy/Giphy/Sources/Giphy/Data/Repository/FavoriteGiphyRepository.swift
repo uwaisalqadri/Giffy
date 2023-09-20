@@ -9,14 +9,14 @@ import Foundation
 import Core
 import Combine
 
-public struct FavoriteGiphyRepository<
+public struct FavoriteGiphysRepository<
   GiphyDataSource: LocalDataSource>: Repository
 where
   GiphyDataSource.Response == Giphy,
   GiphyDataSource.Request == String {
 
   public typealias Request = String
-  public typealias Response = Giphy
+  public typealias Response = [Giphy]
 
   private let localDataSource: GiphyDataSource
 
@@ -24,8 +24,9 @@ where
     self.localDataSource = localDataSource
   }
 
-  public func execute(request: String?) -> AnyPublisher<Giphy, Error> {
-    return localDataSource.get(entityId: request ?? "")
+  public func execute(request: String?) -> AnyPublisher<[Giphy], Error> {
+    return localDataSource.list(request: request)
+      .map { $0 }
       .eraseToAnyPublisher()
   }
 }
