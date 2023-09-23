@@ -7,7 +7,11 @@
 
 import Foundation
 
-public struct Giphy {
+public struct Giphy: Equatable {
+  public static func == (lhs: Giphy, rhs: Giphy) -> Bool {
+    lhs.id == rhs.id
+  }
+  
   public var type: String
   public var id: String
   public var url: String

@@ -24,9 +24,7 @@ where
     self.localDataSource = localDataSource
   }
 
-  public func execute(request: String?) -> AnyPublisher<[Giphy], Error> {
-    return localDataSource.list(request: request)
-      .map { $0 }
-      .eraseToAnyPublisher()
+  public func execute(request: String?) async throws -> [Giphy] {
+    return try await localDataSource.list(request: request)
   }
 }

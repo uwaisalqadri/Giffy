@@ -24,8 +24,7 @@ where
     self.localDataSource = localDataSource
   }
 
-  public func execute(request: Giphy?) -> AnyPublisher<Bool, Error> {
-    return localDataSource.delete(id: request?.id ?? "")
-      .eraseToAnyPublisher()
+  public func execute(request: Giphy?) async throws -> Bool {
+    return try await localDataSource.delete(id: request?.id ?? "")
   }
 }

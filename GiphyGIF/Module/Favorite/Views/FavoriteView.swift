@@ -10,56 +10,52 @@ import Lottie
 import Core
 import Giphy
 import Common
-
-typealias FavoritePresenter = GetListPresenter<
-  String, Giphy, Interactor<
-    String, [Giphy], FavoriteGiphysRepository<
-      GiphyLocalDataSource
-    >
-  >
->
+import ComposableArchitecture
 
 struct FavoriteView: ViewControllable {
   var holder: Common.NavStackHolder
   let router: DetailRouter
   
-  @ObservedObject var presenter: FavoritePresenter
-  @ObservedObject var removeFavoritePresenter: RemoveFavoritePresenter
+  var store: StoreOf<FavoriteReducer>
 
   var body: some View {
-    ScrollView {
+    WithViewStore(store, observe: { $0 }) { viewStore in
+      ScrollView {
+        SearchInput { query in
+          viewStore.send(.fetch(request: query))
+        }.padding(.top, 30)
 
-      SearchInput { query in
-        presenter.getList(request: query)
-      }.padding(.top, 30)
-
-      if !presenter.list.isEmpty {
-        LazyVStack {
-          ForEach(Array(presenter.list.enumerated()), id: \.offset) { _, item in
-            SearchRow(isFavorite: true, giphy: item, onTapRow: { giphy in
-              guard let viewController = holder.viewController else { return }
-              router.routeToDetail(from: viewController, giphy: giphy)
-            }, onRemoveFavorite: { giphy in
-              removeFavoritePresenter.execute(request: giphy)
-              presenter.getList(request: "")
-            })
-            .padding(.vertical, 20)
-            .padding(.horizontal, 20)
+        if !viewStore.state.list.isEmpty {
+          LazyVStack {
+            ForEach(
+              Array(viewStore.state.list.enumerated()),
+              id: \.offset
+            ) { _, item in
+              SearchRow(isFavorite: true, giphy: item, onTapRow: { giphy in
+                guard let viewController = holder.viewController else { return }
+                router.routeToDetail(from: viewController, giphy: giphy)
+              }, onRemoveFavorite: { giphy in
+                viewStore.send(.removeFavorite(item: giphy, request: ""))
+              })
+              .padding(.vertical, 20)
+              .padding(.horizontal, 20)
+            }
           }
+        } else {
+          isFavoriteEmpty.padding(.top, 50)
         }
-      } else {
-        isFavoriteEmpty.padding(.top, 50)
-      }
 
-    }.navigationTitle(FavoriteString.titleFavorite.localized)
-    .onAppear {
-      presenter.getList(request: "")
-    }
-    .onDisappear {
-      presenter.getList(request: "")
+      }
+      .navigationTitle(FavoriteString.titleFavorite.localized)
+      .onAppear {
+        viewStore.send(.fetch(request: ""))
+      }
+      .onDisappear {
+        viewStore.send(.fetch(request: ""))
+      }
     }
   }
-
+  
   var isFavoriteEmpty: some View {
     VStack {
       LottieView(fileName: "add_to_favorite", bundle: Bundle.common, loopMode: .loop)
@@ -72,6 +68,6 @@ struct FavoriteView: ViewControllable {
 
 struct FavoriteView_Previews: PreviewProvider {
   static var previews: some View {
-    FavoriteView(holder: Injection.shared.resolve(), router: Injection.shared.resolve(), presenter: Injection.shared.resolve(), removeFavoritePresenter: Injection.shared.resolve())
+    FavoriteView(holder: Injection.shared.resolve(), router: Injection.shared.resolve(), store: Injection.shared.resolve())
   }
 }

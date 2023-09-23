@@ -14,14 +14,11 @@ public struct SearchRemoteDataSource: DataSource {
 
   public init() {}
 
-  public func execute(request: String?) -> AnyPublisher<[Giphy], Error> {
-    let result = NetworkService.shared.connect(
+  public func execute(request: String?) async throws -> [Giphy] {
+    let result = try await NetworkService.shared.connect(
       api: APIFactory.search(query: request ?? "").url,
       responseType: GiphyDataResponse.self
-    )
-    .compactMap { $0.data }
-    .compactMap { $0.map { $0.map() } }
-    .eraseToAnyPublisher()
+    ).data?.compactMap { $0.map() } ?? []
 
     return result
   }

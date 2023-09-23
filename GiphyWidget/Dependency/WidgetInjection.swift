@@ -10,13 +10,13 @@ import Core
 import Giphy
 import WidgetKit
 
-typealias WidgetPresenter = GetListPresenter<
-  String, Giphy, Interactor<
-    String, [Giphy], FavoriteGiphysRepository<
-      GiphyLocalDataSource
-    >
-  >
->
+//typealias WidgetPresenter = GetListPresenter<
+//  String, Giphy, Interactor<
+//    String, [Giphy], FavoriteGiphysRepository<
+//      GiphyLocalDataSource
+//    >
+//  >
+//>
 
 class WidgetInjection {
   static let shared = WidgetInjection()
@@ -28,9 +28,9 @@ class WidgetInjection {
 
   private func registerFavoriteWidget() {
 
-    container.register(WidgetPresenter.self) { [unowned self] _ in
-      GetListPresenter(useCase: self.resolve())
-    }
+//    container.register(WidgetPresenter.self) { [unowned self] _ in
+//      GetListPresenter(useCase: self.resolve())
+//    }
 
     container.register(
       Interactor<

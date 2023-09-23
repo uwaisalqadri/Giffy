@@ -24,12 +24,17 @@ where
     self.localDataSource = localDataSource
   }
 
-  public func execute(request: Giphy?) -> AnyPublisher<Giphy, Error> {
-    return Future<Giphy, Error> { completion in
-      if let giphy = request {
-        _ = localDataSource.add(entity: giphy)
-        completion(.success(giphy))
+  public func execute(request: Giphy?) async throws -> Giphy {
+    return try await withCheckedThrowingContinuation { continuation in
+      Task {
+        do {
+          let result = try await localDataSource.add(entity: request!)
+          continuation.resume(returning: request!)
+        } catch {
+          continuation.resume(throwing: error)
+        }
       }
-    }.eraseToAnyPublisher()
+    }
   }
+
 }

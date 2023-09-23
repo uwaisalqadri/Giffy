@@ -12,8 +12,8 @@ import Alamofire
 public class NetworkService {
   public static let shared = NetworkService()
 
-  public func connect<T: Codable>(api: URL, responseType: T.Type) -> AnyPublisher<T, Error> {
-    return Future<T, Error> { completion in
+  public func connect<T: Codable>(api: URL, responseType: T.Type) async throws -> T {
+    return try await withCheckedThrowingContinuation { continuation in
       AF.request(api.absoluteString)
         .prettyPrintedJsonResponse()
         .responseDecodable(of: responseType) { response in
@@ -21,14 +21,14 @@ public class NetworkService {
           case .success(let data):
 
             print("[NETWORK][\(response.response?.statusCode ?? 0)] \(api)")
-            completion(.success(data))
+            continuation.resume(with: .success(data))
 
           case .failure(let error):
-            completion(.failure(error))
+            continuation.resume(with: .failure(error))
             print("[NETWORK][\(response.response?.statusCode ?? 0)] \(error)")
           }
         }
-    }.eraseToAnyPublisher()
+    }
   }
 }
 
