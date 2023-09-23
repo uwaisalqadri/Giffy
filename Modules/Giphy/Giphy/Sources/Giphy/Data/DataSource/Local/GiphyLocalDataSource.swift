@@ -14,24 +14,34 @@ public struct GiphyLocalDataSource: LocalDataSource {
 
   public init() {}
 
-  public func list(request: String?) -> AnyPublisher<[Giphy], Error> {
-    return CoreDataHelper.shared.getFavoriteGiphys()
-      .compactMap { $0.map { $0.map() } }
-      .eraseToAnyPublisher()
+  public func list(request: String?) async throws -> [Giphy] {
+    var favoriteGiphys = try await CoreDataHelper.shared.getFavoriteGiphys().map { $0.map() }
+    
+    if let searchRequest = request, !searchRequest.isEmpty {
+      favoriteGiphys = favoriteGiphys.filter { giphy in
+        let contains = giphy.title.contains(searchRequest) ||
+        giphy.username.contains(searchRequest) ||
+        giphy.embedUrl.contains(searchRequest) ||
+        giphy.type.contains(searchRequest) ||
+        giphy.url.contains(searchRequest)
+        
+        return contains
+      }
+    }
+    
+    return favoriteGiphys
+  }
+
+  
+  public func add(entity: Giphy) async throws -> Bool {
+    return try await CoreDataHelper.shared.addFavoriteGiphy(item: entity)
   }
   
-  public func add(entity: Giphy) -> AnyPublisher<Bool, Error> {
-    return CoreDataHelper.shared.addFavoriteGiphy(item: entity)
-      .eraseToAnyPublisher()
+  public func delete(id: String) async throws -> Bool {
+    return try await CoreDataHelper.shared.deleteFavoriteGiphy(with: id)
   }
   
-  public func delete(id: String) -> AnyPublisher<Bool, Error> {
-    return CoreDataHelper.shared.deleteFavoriteGiphy(with: id)
-      .eraseToAnyPublisher()
-  }
-  
-  public func isFavorited(id: String) -> AnyPublisher<Bool, Error> {
-    return CoreDataHelper.shared.isGiphyFavorited(with: id)
-      .eraseToAnyPublisher()
+  public func isFavorited(id: String) async throws -> Bool {
+    return try await CoreDataHelper.shared.isGiphyFavorited(with: id)
   }
 }

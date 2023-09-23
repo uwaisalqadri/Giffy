@@ -11,7 +11,7 @@ struct FavoriteRouter {
   let injector: Injection
 
   func routeToFavorite(from viewController: UIViewController) {
-    let view = FavoriteView(holder: injector.resolve(), router: injector.resolve(), presenter: injector.resolve(), removeFavoritePresenter: injector.resolve())
+    let view: FavoriteView = injector.resolve()
     viewController.navigationController?.pushViewController(view.viewController, animated: true)
   }
 }

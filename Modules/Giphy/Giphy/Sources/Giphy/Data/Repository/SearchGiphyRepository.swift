@@ -23,8 +23,7 @@ where
     self.remoteDataSource = remoteDataSource
   }
 
-  public func execute(request: String?) -> AnyPublisher<[Giphy], Error> {
-    return remoteDataSource.execute(request: request)
-      .eraseToAnyPublisher()
+  public func execute(request: String?) async throws -> [Giphy] {
+    return try await remoteDataSource.execute(request: request)
   }
 }

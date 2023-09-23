@@ -28,7 +28,7 @@ final class CoreDataHelper {
     return Self.persistentContainer.viewContext
   }
   
-  func isGiphyFavorited(with id: String) -> Future<Bool, Error> {
+  func isGiphyFavorited(with id: String) async throws -> Bool {
     let fetchRequest: NSFetchRequest<GiphyEntity>
     fetchRequest = GiphyEntity.fetchRequest()
     
@@ -36,14 +36,10 @@ final class CoreDataHelper {
       format: "id == %@", "\(id)"
     )
     
-    return Future { promise in
-      if let favoriteItems = try? self.context.fetch(fetchRequest) {
-        promise(.success(!favoriteItems.isEmpty))
-      }
-    }
+    return try await self.getFavoriteGiphys().map { $0.id }.contains(id)
   }
   
-  func addFavoriteGiphy(item: Giphy) -> Future<Bool, Error> {
+  func addFavoriteGiphy(item: Giphy) async throws -> Bool {
     let entity = GiphyEntity(context: context)
     entity.embedUrl = item.embedUrl
     entity.id = item.id
@@ -59,17 +55,17 @@ final class CoreDataHelper {
     imageEntity.width = item.image.width
     entity.image = imageEntity
     
-    return Future { promise in
+    return try await withCheckedThrowingContinuation { promise in
       do {
         try self.context.save()
-        promise(.success(true))
+        promise.resume(with: .success(true))
       } catch {
-        promise(.failure(error))
+        promise.resume(with: .failure(error))
       }
     }
   }
   
-  func deleteFavoriteGiphy(with id: String) -> Future<Bool, Error> {
+  func deleteFavoriteGiphy(with id: String) async throws -> Bool {
     let fetchRequest: NSFetchRequest<GiphyEntity>
     fetchRequest = GiphyEntity.fetchRequest()
     
@@ -85,26 +81,26 @@ final class CoreDataHelper {
       }
     }
     
-    return Future { promise in
+    return try await withCheckedThrowingContinuation { promise in
       do {
         try self.context.save()
-        promise(.success(true))
+        promise.resume(with: .success(true))
       } catch {
-        promise(.failure(error))
+        promise.resume(with: .failure(error))
       }
     }
   }
   
-  func getFavoriteGiphys() -> Future<[GiphyEntity], Error> {
+  func getFavoriteGiphys() async throws -> [GiphyEntity] {
     let fetchRequest: NSFetchRequest<GiphyEntity>
     fetchRequest = GiphyEntity.fetchRequest()
     
-    return Future { promise in
+    return try await withCheckedThrowingContinuation { promise in
       do {
         let items = try self.context.fetch(fetchRequest)
-        promise(.success(items))
+        promise.resume(with: .success(items))
       } catch {
-        promise(.failure(error))
+        promise.resume(with: .failure(error))
       }
     }
   }

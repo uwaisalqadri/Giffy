@@ -24,8 +24,7 @@ where
     self.localDataSource = localDataSource
   }
 
-  public func execute(request: String?) -> AnyPublisher<Bool, Error> {
-    return localDataSource.isFavorited(id: request ?? "")
-      .eraseToAnyPublisher()
+  public func execute(request: String?) async throws -> Bool {
+    return try await localDataSource.isFavorited(id: request ?? "")
   }
 }

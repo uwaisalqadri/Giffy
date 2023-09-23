@@ -24,7 +24,7 @@
         "repositoryURL": "https://github.com/uwaisalqadri/CoreModule.git",
         "state": {
           "branch": "main",
-          "revision": "7059ca285c1a29669ccdc7c682a72686b6df7dd5",
+          "revision": "4b38cb23fcf7fdf21efdf454185da8f5615fb1fc",
           "version": null
         }
       },
@@ -42,8 +42,8 @@
         "repositoryURL": "https://github.com/SDWebImage/SDWebImage.git",
         "state": {
           "branch": null,
-          "revision": "6e844d19679c9e0833ccc363d7f5a7c5f0c5f5d7",
-          "version": "5.18.1"
+          "revision": "936f1c7067728d16c362ba4fb93c17df78b5fd79",
+          "version": "5.18.2"
         }
       },
       {
@@ -87,7 +87,7 @@
         "repositoryURL": "https://github.com/pointfreeco/swift-composable-architecture.git",
         "state": {
           "branch": "main",
-          "revision": "3caca5c11a2770392d17b01fc86437b6b7dee451",
+          "revision": "c41906f85359c7765d9b1522e6b1bb8d4f3b4a6e",
           "version": null
         }
       },
