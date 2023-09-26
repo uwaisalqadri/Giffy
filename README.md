@@ -1,7 +1,7 @@
 <h1 align="center"> GiphyGIF</h1> <br>
 <p align="center">
   <a href="https://gitpoint.co/">
-    <img alt="Mangaku" title="Mangaku" src="https://cdn.dribbble.com/users/5027078/screenshots/12022789/media/3e928c7fa9ac0a4e0c320c81302917ea.png" width="500">
+    <img alt="Mangaku" title="Mangaku" src="https://github.com/uwaisalqadri/GiphyGIF/assets/55146646/4633702f-475b-469a-b75c-30ad1cbae8e5" width="500">
   </a>
 </p>
 
@@ -20,8 +20,6 @@ Giphy Client App with implementation of shiny tech such as **TCA (The Composable
 
 - [Introduction](#introduction)
 - [Features](#features)
-- [Installation](#installation)
-- [Screenshot](#screenshot)
 - [Libraries](#libraries)
 - [The Composable Architecture](#composable-architecture)
 - [Dependency Injection](#dependency-injection)
@@ -30,205 +28,213 @@ Giphy Client App with implementation of shiny tech such as **TCA (The Composable
 
 ## <a name="features"></a> 🦾 Features
 
-A few things you can do with MangaKu:
+![image](https://media.giphy.com/media/3o72FkiKGMGauydfyg/giphy.gif)
 
-* View Popular Manga
-* Easily search for any Manga
-* See Manga Detail
-* Save your favorite manga
-
-⚠️ **`This project have no concern about backward compatibility, and only support the very latest or experimental api's for both android and ios `** ⚠️
-
-## <a name="installation"></a> 🚗 Installation
-
-- Follow the [KMM Guide by Jetbrains](https://kotlinlang.org/docs/kmm-overview.html) for getting started building a project with KMM.
-- Install Kotlin Multiplatform Mobile plugin in Android Studio
-- Clone or download the repo
-- Rebuild Project
-- To run in iOS, Open Xcode and `pod install` inside `mangaku-ios` folder to install shared module and ios dependencies
-
-<!-- **Development Keys**: The `apiKey` in [`utils/Constants.kt`](https://code.nbs.dev/nbs-mobile/kmm-movie-db/-/blob/main/core/src/commonMain/kotlin/com/uwaisalqadri/moviecatalogue/utils/Constants.kt) are generated from [TMDB](https://www.themoviedb.org/), generate your own in [themoviedb.org/settings/api](https://www.themoviedb.org/settings/api). -->
+⚠️ **`This project have no concern about backward compatibility, and only support the very latest or experimental api`** ⚠️
 
 ## <a name="screenshot"></a> 📸 Screenshot
 
-<!-- <p align="center">
-  <img src = "https://i.ibb.co/K0fPv1s/Screen-Shot-2021-10-04-at-13-56-33.png" width=400>
-</p> -->
+![image](https://media.giphy.com/media/3o72FkiKGMGauydfyg/giphy.gif)
 
 ## <a name="libraries"></a> 💡 Libraries
 
 * [Swift's New Concurrency](https://developer.apple.com/news/?id=2o3euotz)
 * [SDWebImage](https://github.com/SDWebImage/SDWebImage)
 * [SwiftUI](https://developer.apple.com/documentation/swiftui)
+* [The Composabable Architecture](https://github.com/pointfreeco/swift-composable-architecture)
+* [XcodeGen](https://github.com/yonaskolb/XcodeGen)
+* [SwiftLint](https://github.com/realm/SwiftLint)
+* [Swinject](https://github.com/Swinject/Swinject)
+* [CoreData](https://developer.apple.com/documentation/coredata)
 
 ## <a name="composable-architecture"></a> 💨 TCA: Reducer, Action, State, and Store
 
 ![image](https://github.com/uwaisalqadri/GiphyGIF/assets/55146646/dfeee2c2-851f-4a49-aac0-f5effbd711e5)
 
+Define your screen's _**State**_ and _**Action**_
 
-In Android, Because both `shared` and `mangaku-android` written in Kotlin, we can simply collect flow :
-```
-private fun getTrendingManga() = viewModelScope.launch {
-  _trendingManga.value = Result.loading()
-  browseUseCase.getManga()
-   .catch { cause: Throwable ->
-     _trendingManga.value = Result.failed(cause)
-   }
-   .collect { result ->
-     if (result.isNotEmpty())
-     _trendingManga.value = Result.success(result)
-   }
- }
-
-```
-
-But in iOS, we have to deal with swift, here i'm using `createPublisher()` from `KMPNativeCoroutines` to collect flow as Publisher in `Combine` :
-
-```
-func fetchTrendingManga() {
-  trendingManga = .loading
-  createPublisher(for: browseUseCase.getTrendingMangaNative())
-   .receive(on: DispatchQueue.main)
-   .sink { completion in
-     switch completion {
-       case .finished: ()
-       case .failure(let error):
-         self.trendingManga = .error(error: error)
-       }
-    } receiveValue: { value in
-        self.trendingManga = .success(data: value)
-    }.store(in: &cancellables)
-}
-
+```swift
+ public struct State: Equatable {
+    public var list: [Giphy] = []
+    public var errorMessage: String = ""
+    public var isLoading: Bool = false
+    public var isError: Bool = false
+  }
+  
+  public enum Action {    
+    case fetch(request: String)
+    case removeFavorite(item: Giphy, request: String)
+    
+    case success(response: [Giphy])
+    case failed(error: Error)
+  }
 ```
 
-or even better, you can use `asyncFunction` / `asyncResult` / `asyncStream` function to collect coroutine flow as new swift's concurrency features, ~~checkout branch **feat/experimenting-swift-new concurrency** to see the example~~
+Setup the _**Reducer**_ 
 
-**combining two powerful concurrency feature from both native framework, how cool is that !?**
-
-```
-func fetchTrendingManga() {
-    Task {
-      trendingManga = .loading
-      do {
-        let nativeFlow = try await asyncFunction(for: browseUseCase.getTrendingMangaNative())
-        let stream = asyncStream(for: nativeFlow)
-        for try await data in stream {
-          trendingManga = .success(data: data)
+```swift
+public struct FavoriteReducer: Reducer {
+  
+  private let useCase: FavoriteInteractor
+  private let removeUseCase: RemoveFavoriteInteractor
+  
+  init(useCase: FavoriteInteractor, removeUseCase: RemoveFavoriteInteractor) {
+    self.useCase = useCase
+    self.removeUseCase = removeUseCase
+  }
+  
+  public var body: some ReducerOf<Self> {
+    Reduce<State, Action> { state, action in
+      switch action {
+      case .fetch(let request):
+        state.isLoading = true
+        return .run { send in
+          do {
+            let response = try await self.useCase.execute(request: request)
+            await send(.success(response: response))
+          } catch {
+            await send(.failed(error: error))
+          }
         }
-      } catch {
-        trendingManga = .error(error: error)
+        
+      case .success(let data):
+        state.list = data
+        state.isLoading = false
+        return .none
+        
+      case .failed:
+        state.isError = true
+        state.isLoading = false
+        return .none
+        
+      case .removeFavorite(let item, let request):
+        return .run { send in
+          do {
+            let response = try await self.removeUseCase.execute(request: item)
+            await send(.fetch(request: request))
+          } catch {
+            await send(.failed(error: error))
+          }
+        }
+        
       }
     }
   }
-
+}
 ```
 
-learn more: https://github.com/rickclephas/KMP-NativeCoroutines
+_"consistent and understandable"_ **- Pointfreeco**
+
+
+Let your _**Store**_(d) _**Reducer**_ update the View
+
+```swift
+struct FavoriteView: ViewControllable {
+  var holder: Common.NavStackHolder
+  let router: DetailRouter
+  
+  var store: StoreOf<FavoriteReducer>
+
+  var body: some View {
+    WithViewStore(store, observe: { $0 }) { viewStore in
+      ScrollView {
+        SearchInput { query in
+          viewStore.send(.fetch(request: query))
+        }.padding(.top, 30)
+
+        if !viewStore.state.list.isEmpty {
+          LazyVStack {
+            ForEach(
+              Array(viewStore.state.list.enumerated()),
+              id: \.offset
+            ) { _, item in
+              SearchRow(isFavorite: true, giphy: item, onTapRow: { giphy in
+                guard let viewController = holder.viewController else { return }
+                router.routeToDetail(from: viewController, giphy: giphy)
+              }, onRemoveFavorite: { giphy in
+                viewStore.send(.removeFavorite(item: giphy, request: ""))
+              })
+              .padding(.vertical, 20)
+              .padding(.horizontal, 20)
+            }
+          }
+        } else {
+          emptyFavoriteView.padding(.top, 50)
+        }
+
+      }
+      .navigationTitle(FavoriteString.titleFavorite.localized)
+      .onAppear {
+        viewStore.send(.fetch(request: ""))
+      }
+      .onDisappear {
+        viewStore.send(.fetch(request: ""))
+      }
+    }
+  }
+  
+  var emptyFavoriteView: some View {
+    VStack {
+      LottieView(fileName: "add_to_favorite", bundle: Bundle.common, loopMode: .loop)
+        .frame(width: 220, height: 220)
+      Text(FavoriteString.labelFavoriteEmpty.localized)
+    }
+  }
+
+}
+```
+
+Read more about [**The Composable Architecture**](https://github.com/pointfreeco/swift-composable-architecture)
 
 ## <a name="dependency-injection"></a> 🚀 Dependency Injection
-in KMM, there is a negative case when there's no support to share code for some feature in both ios and android, and it's expensive to write separately in each module
-
-so the solution is ✨`expect` and `actual`✨, we can write `expect` inside `commonMain` and write "actual" implementation with `actual` inside `androidMain` and `iosMain`
-and then each module will use `expect`
-
-example:
-
-[**`commonMain/utils/DateFormatter.kt`**](https://github.com/uwaisalqadri/MangaKu/blob/master/core/src/commonMain/kotlin/com/uwaisalqadri/mangaku/utils/DateFormatter.kt)
-```
-expect fun formatDate(dateString: String, format: String): String
-```
-
-[**`androidMain/utils/DateFormatter.kt`**](https://github.com/uwaisalqadri/MangaKu/blob/master/core/src/androidMain/kotlin/com/uwaisalqadri/mangaku/utils/DateFormatter.kt)
-
-SimpleDateFormat
-
-```
-actual fun formatDate(dateString: String, format: String): String {
-    val date = SimpleDateFormat(Constants.formatFromApi).parse(dateString)
-    val dateFormatter = SimpleDateFormat(format, Locale.getDefault())
-    return dateFormatter.format(date ?: Date())
-}
-
-```
-
-[**`iosMain/utils/DateFormatter.kt`**](https://github.com/uwaisalqadri/MangaKu/blob/master/core/src/iosMain/kotlin/com/uwaisalqadri/mangaku/utils/DateFormatter.kt)
-
-NSDateFormatter
-
-```
-actual fun formatDate(dateString: String, format: String): String {
-    val dateFormatter = NSDateFormatter().apply {
-	dateFormat = Constants.formatFromApi
-     }
-
-    val formatter = NSDateFormatter().apply {
-	dateFormat = format
-	locale = NSLocale(localeIdentifier = "id_ID")
-     }
-
-    return formatter.stringFromDate(dateFormatter.dateFromString(dateString) ?: NSDate())
-}
-
-```
-yes, we can use `Foundation` same as what we use in Xcode
+![image](https://media.giphy.com/media/3o72FkiKGMGauydfyg/giphy.gif)
 
 ## <a name="coordinator-pattern"></a> ⚙️ Coordinator Pattern with NavigationStack!
-in KMM, there is a negative case when there's no support to share code for some feature in both ios and android, and it's expensive to write separately in each module
-
-so the solution is ✨`expect` and `actual`✨, we can write `expect` inside `commonMain` and write "actual" implementation with `actual` inside `androidMain` and `iosMain`
-and then each module will use `expect`
-
-example:
+![image](https://media.giphy.com/media/3o72FkiKGMGauydfyg/giphy.gif)
 
 ## <a name="buy-me-coffee"></a> ☕️ Buy Me a Coffee
 If you like this project please support me by <a href="https://www.buymeacoffee.com/uwaisalqadri" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" height=32></a> ;-)
 
 ## <a name="project-structure"></a> 🏛 Project Structure
-**`shared`**:
 
-* `data`
-  - `mapper`
-  - `repository`
-  - `source`
-    - `local`
-    	- `entity`
-    - `remote`
-      - `response`
-* `di`
-* `domain`
-  - `model`
-  - `repository`
-  - `usecase`
-    - `browse`
-    - `detail`
-    - `mymanga`
-    - `search` 
-* `utils`
+**`GiphyGIF`**:
 
-**`mangaku-android`**:
- - `ui`
-    - `composables`
-    - `home`
-      - `composables`
-    - `favorite`
-    - `search`
-    - `detail` 
-- `di`
-- `utils`
-
-**`mangaku-ios`**: 
  - `Dependency`
  - `App`
- - `Main`
- - `Resources`
- - `ReusableView`
- - `Extensions`
- - `Utils`
- - `Features`
-    - `Browse`
-        - `Navigator`
+ - `Module`
+    - `Home`
+        - `Router`
         - `Views`
-    - `Search`
     - `Detail`
-    - `MyManga`
+    - `Favorite`
+    - `Search`
+
+
+ - `+ **GiphyWidget**`
+
+**`Modules`**:
+
+**`Giphy`**:
+ - `Data`
+    - `API`
+    - `DB`
+    - `DataSource`
+        - `Local`
+        - `Remote`
+    - `Entity`
+    - `Repository`
+- `Domain`
+    - `Model`
+    - `Mapper`
+
+**`Common`**: 
+ - `Assets`
+ - `Extensions`
+ - `Modifier`
+ - `Utils`
+
+[**`Core`**](https://github.com/uwaisalqadri/CoreModule): 
+ - `DataSource`
+ - `Extension`
+ - `Repository`
+ - `UseCase`
