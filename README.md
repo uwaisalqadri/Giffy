@@ -20,6 +20,7 @@ Giphy Client App with implementation of shiny tech such as **TCA (The Composable
 
 - [Introduction](#introduction)
 - [Features](#features)
+- [Installation](#installation)
 - [Libraries](#libraries)
 - [The Composable Architecture](#composable-architecture)
 - [Dependency Injection](#dependency-injection)
@@ -31,6 +32,16 @@ Giphy Client App with implementation of shiny tech such as **TCA (The Composable
 ![image](https://media.giphy.com/media/3o72FkiKGMGauydfyg/giphy.gif)
 
 ⚠️ **`This project have no concern about backward compatibility, and only support the very latest or experimental api`** ⚠️
+
+## <a name="installation"></a> 💿 Installation
+
+With the greatness of _**XcodeGen**_ :
+
+```
+xcodegen
+```
+
+Rate my [XcodeGen setup!](https://github.com/uwaisalqadri/GiphyGIF/blob/master/project.yml)
 
 ## <a name="screenshot"></a> 📸 Screenshot
 
@@ -187,7 +198,76 @@ struct FavoriteView: ViewControllable {
 Read more about [**The Composable Architecture**](https://github.com/pointfreeco/swift-composable-architecture)
 
 ## <a name="dependency-injection"></a> 🚀 Dependency Injection
-![image](https://media.giphy.com/media/3o72FkiKGMGauydfyg/giphy.gif)
+
+Here i'm using _**Swinject**_ for Dependency Injection
+
+```swift
+import Swinject
+
+class Injection {
+  static let shared = Injection()
+  private let container = Container()
+
+  init() {
+    registerFavoriteFeature()
+  }
+
+  . . . .
+
+  private func registerFavoriteFeature() {
+    container.register(FavoriteView.self) { [unowned self] _ in
+      FavoriteView(holder: self.resolve(), router: self.resolve(), store: self.resolve())
+    }
+    
+    container.register(StoreOf<FavoriteReducer>.self) { [unowned self] _ in
+      Store(initialState: FavoriteReducer.State()) {
+        FavoriteReducer(useCase: self.resolve(), removeUseCase: self.resolve())
+      }
+    }
+
+    container.register(FavoriteRouter.self) { _ in
+      FavoriteRouter(injector: self)
+    }
+    
+    container.register(FavoriteInteractor.self) { [unowned self] _ in
+      Interactor(repository: self.resolve())
+    }
+
+    container.register(FavoriteGiphysRepository<GiphyLocalDataSource>.self) { [unowned self] _ in
+      FavoriteGiphysRepository(localDataSource: self.resolve())
+    }
+
+    container.register(GiphyLocalDataSource.self) { _ in
+      GiphyLocalDataSource()
+    }
+    
+    container.register(NavStackHolder.self) { _ in
+      Common.NavStackHolder()
+    }
+  }
+
+  func resolve<T>() -> T {
+    guard let result = container.resolve(T.self) else {
+      fatalError("This type is not registered: \(T.self)")
+    }
+    return result
+  }
+
+  func resolve<T, A>(argument: A) -> T {
+    guard let result = container.resolve(T.self, argument: argument) else {
+      fatalError("This type is not registered: \(T.self)")
+    }
+    return result
+  }
+  func resolve<T>(name: String) -> T {
+    guard let result = container.resolve(T.self, name: name) else {
+      fatalError("This type is not registered: \(T.self)")
+    }
+    return result
+  }
+}
+```
+Read more about [**Swinject**](https://github.com/Swinject/Swinject)
 
 ## <a name="coordinator-pattern"></a> ⚙️ Coordinator Pattern with NavigationStack!
 ![image](https://media.giphy.com/media/3o72FkiKGMGauydfyg/giphy.gif)
