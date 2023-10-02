@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
-//@main
-//struct GiphyGIFApp: App {
-//  var body: some Scene {
-//    WindowGroup {
-//      ContentView()
-//    }
-//  }
-//}
+@main
+struct GiphyGIFApp: App {
+  var body: some Scene {
+    WindowGroup {
+      ContentView(store: Injection.shared.resolve())
+    }
+  }
+}

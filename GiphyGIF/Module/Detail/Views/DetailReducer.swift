@@ -36,16 +36,17 @@ public struct DetailReducer: Reducer {
   }
   
   public struct State: Equatable {
+    public init(item: Giphy) {
+      self.item = item
+    }
+    
+    public var item: Giphy = .init()
     public var isFavorited: Bool = false
     public var errorMessage: String = ""
     public var isError: Bool = false
   }
   
-  public enum Action: Equatable {
-    public static func == (lhs: DetailReducer.Action, rhs: DetailReducer.Action) -> Bool {
-      return true
-    }
-    
+  public enum Action {
     case checkFavorite(request: String)
     case addFavorite(item: Giphy)
     case removeFavorite(item: Giphy)

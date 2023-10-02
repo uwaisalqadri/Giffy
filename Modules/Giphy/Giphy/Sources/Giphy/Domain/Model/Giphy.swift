@@ -7,9 +7,13 @@
 
 import Foundation
 
-public struct Giphy: Equatable {
+public struct Giphy: Equatable, Hashable {
   public static func == (lhs: Giphy, rhs: Giphy) -> Bool {
     lhs.id == rhs.id
+  }
+  
+  public func hash(into hasher: inout Hasher) {
+    return hasher.combine(id)
   }
   
   public var type: String
@@ -23,7 +27,7 @@ public struct Giphy: Equatable {
   public var image: ImageOriginal
   public var isFavorite: Bool
   
-  public init(type: String, id: String, url: String, embedUrl: String, rating: String, username: String, title: String, trendingDateTime: String, image: ImageOriginal, isFavorite: Bool) {
+  public init(type: String = "", id: String = "", url: String = "", embedUrl: String = "", rating: String = "", username: String = "", title: String = "", trendingDateTime: String = "", image: ImageOriginal = .init(), isFavorite: Bool = false) {
     self.type = type
     self.id = id
     self.url = url
@@ -42,7 +46,7 @@ public struct ImageOriginal {
   public var height: String
   public var width: String
   
-  public init(url: String, height: String, width: String) {
+  public init(url: String = "", height: String = "", width: String = "") {
     self.url = url
     self.height = height
     self.width = width

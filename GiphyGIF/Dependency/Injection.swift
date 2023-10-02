@@ -24,11 +24,7 @@ class Injection {
 
   private func registerHomeFeature() {
     container.register(HomeView.self) { [unowned self] _ in
-      HomeView(holder: self.resolve(), store: self.resolve(), router: self.resolve())
-    }
-    
-    container.register(AboutView.self) { [unowned self] _ in
-      AboutView(holder: self.resolve())
+      HomeView(store: self.resolve())
     }
     
     container.register(StoreOf<HomeReducer>.self) { _ in
@@ -37,8 +33,10 @@ class Injection {
       })
     }
     
-    container.register(HomeRouter.self) { _ in
-      HomeRouter(injector: self)
+    container.register(StoreOf<AppReducer>.self) { _ in
+      Store(initialState: AppReducer.State(), reducer: {
+        AppReducer()
+      })
     }
 
     container.register(HomeInteractor.self) { [unowned self] _ in
@@ -55,12 +53,9 @@ class Injection {
   }
 
   private func registerDetailFeature() {
-    container.register(DetailRouter.self) { _ in
-      DetailRouter(injector: self)
-    }
     
     container.register(StoreOf<DetailReducer>.self) { _ in
-      Store(initialState: DetailReducer.State(), reducer: {
+      Store(initialState: DetailReducer.State(item: .init()), reducer: {
         DetailReducer(checkUseCase: self.resolve(), addUseCase: self.resolve(), removeUseCase: self.resolve())
       })
     }
@@ -92,17 +87,13 @@ class Injection {
 
   private func registerSearchFeature() {
     container.register(SearchView.self) { [unowned self] _ in
-      SearchView(holder: self.resolve(), router: self.resolve(), store: self.resolve())
+      SearchView(store: self.resolve())
     }
     
     container.register(StoreOf<SearchReducer>.self) { [unowned self] _ in
       Store(initialState: SearchReducer.State()) {
         SearchReducer(useCase: self.resolve())
       }
-    }
-    
-    container.register(SearchRouter.self) { _ in
-      SearchRouter(injector: self)
     }
     
     container.register(SearchInteractor.self) { [unowned self] _ in
@@ -120,17 +111,13 @@ class Injection {
 
   private func registerFavoriteFeature() {
     container.register(FavoriteView.self) { [unowned self] _ in
-      FavoriteView(holder: self.resolve(), router: self.resolve(), store: self.resolve())
+      FavoriteView(store: self.resolve())
     }
     
     container.register(StoreOf<FavoriteReducer>.self) { [unowned self] _ in
       Store(initialState: FavoriteReducer.State()) {
         FavoriteReducer(useCase: self.resolve(), removeUseCase: self.resolve())
       }
-    }
-
-    container.register(FavoriteRouter.self) { _ in
-      FavoriteRouter(injector: self)
     }
     
     container.register(FavoriteInteractor.self) { [unowned self] _ in

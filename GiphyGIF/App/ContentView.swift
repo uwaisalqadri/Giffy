@@ -7,41 +7,124 @@
 
 import SwiftUI
 import Common
+import ComposableArchitecture
+import TCACoordinators
 
-struct ContentView: ViewControllable {
+public enum Tabs: Int {
+  case home
+  case search
+}
 
-  var holder: Common.NavStackHolder
+struct AppReducer: Reducer {
+  struct State: Equatable {
+    var homeTab = AppCoordinator.State.rootHomeState
+    var searchTab = AppCoordinator.State.rootSearchState
+    var selectedTab: Tabs = .home
+  }
   
-  @State var currentTab = 0
+  enum Action {
+    case homeTab(AppCoordinator.Action)
+    case searchTab(AppCoordinator.Action)
+    case selectedTabChanged(Tabs)
+  }
+  
+  var body: some ReducerOf<Self> {
+    Reduce<State, Action> { state, action in
+      switch action {
+      case let .selectedTabChanged(tab):
+        state.selectedTab = tab
+        return .none
+        
+      case .homeTab, .searchTab:
+        return .none
+      }
+    }
+    Scope(state: \.homeTab, action: /Action.homeTab) {
+      AppCoordinator()
+    }
+    Scope(state: \.searchTab, action: /Action.searchTab) {
+      AppCoordinator()
+    }
+  }
+}
 
+struct ContentView: View {
+  let store: StoreOf<AppReducer>
+  
   var body: some View {
-    NavigationView {
+    WithViewStore(self.store, observe: \.selectedTab) { viewStore in
       ZStack {
-        if let viewController = holder.viewController {
-          switch currentTab {
-          case 0:
-            initiateHomeView(viewController: viewController)
-          case 1:
-            initiateSearchView(viewController: viewController)
-          case 2:
-            initiateAboutView(viewController: viewController)
-          default:
-            EmptyView()
-          }
+        switch viewStore.state {
+        case .home:
+          AppCoordinatorView(
+            coordinator: store.scope(
+              state: \.homeTab,
+              action: { .homeTab($0) }
+            )
+          )
+        case .search:
+          AppCoordinatorView(
+            coordinator: store.scope(
+              state: \.searchTab,
+              action: { .searchTab($0) }
+            )
+          )
         }
 
         VStack {
           Spacer()
-          tabView.padding(.bottom, 20)
+          TabView(currentTab: viewStore.binding(send: AppReducer.Action.selectedTabChanged))
+            .padding(.bottom, 20)
         }
       }
     }
   }
+}
 
-  var tabView: some View {
+struct AppCoordinatorView: View {
+  let coordinator: StoreOf<AppCoordinator>
+  
+  var body: some View {
+    TCARouter(coordinator) { screen in
+      SwitchStore(screen) { screen in
+        switch screen {
+        case .detail:
+          CaseLet(
+            /AppScreen.State.detail,
+             action: AppScreen.Action.detail,
+             then: DetailView.init
+          )
+        case .favorite:
+          CaseLet(
+            /AppScreen.State.favorite,
+             action: AppScreen.Action.favorite,
+             then: FavoriteView.init
+          )
+        case .home:
+          CaseLet(
+            /AppScreen.State.home,
+             action: AppScreen.Action.home,
+             then: HomeView.init
+          )
+        case .search:
+          CaseLet(
+            /AppScreen.State.search,
+             action: AppScreen.Action.search,
+             then: SearchView.init
+          )
+        }
+      }
+    }
+  }
+}
+
+struct TabView: View {
+  @Binding var currentTab: Tabs
+  
+  var body: some View {
     HStack(spacing: 30) {
       Button(action: {
-        currentTab = 0
+        currentTab = .home
       }) {
         VStack {
           Image(systemName: "rectangle.3.offgrid")
@@ -53,7 +136,7 @@ struct ContentView: ViewControllable {
       }
 
       Button(action: {
-        currentTab = 1
+        currentTab = .search
       }) {
         VStack {
           Image(systemName: "rectangle.stack")
@@ -64,17 +147,17 @@ struct ContentView: ViewControllable {
         }
       }
 
-      Button(action: {
-        currentTab = 2
-      }) {
-        VStack {
-          Image(systemName: "person")
-            .resizable()
-            .foregroundColor(.purple)
-            .frame(width: 25, height: 25, alignment: .center)
-            .padding(5)
-        }
-      }
+//      Button(action: {
+//        currentTab = 2
+//      }) {
+//        VStack {
+//          Image(systemName: "person")
+//            .resizable()
+//            .foregroundColor(.purple)
+//            .frame(width: 25, height: 25, alignment: .center)
+//            .padding(5)
+//        }
+//      }
     }
     .frame(maxWidth: UIDevice.isIpad ? 300 : .infinity, minHeight: 80)
     .background(
@@ -85,28 +168,8 @@ struct ContentView: ViewControllable {
   }
 }
 
-extension ContentView {
-  func initiateHomeView(viewController: UIViewController) -> HomeView {
-    let view: HomeView = Injection.shared.resolve()
-    view.holder.viewController = viewController
-    return view
-  }
-  
-  func initiateSearchView(viewController: UIViewController) -> SearchView {
-    let view: SearchView = Injection.shared.resolve()
-    view.holder.viewController = viewController
-    return view
-  }
-  
-  func initiateAboutView(viewController: UIViewController) -> AboutView {
-    let view: AboutView = Injection.shared.resolve()
-    view.holder.viewController = viewController
-    return view
-  }
-}
-
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    ContentView(holder: Injection.shared.resolve())
+    ContentView(store: Injection.shared.resolve())
   }
 }

@@ -18,6 +18,7 @@ let package = Package(
     .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.8.0")),
     .package(name: "Core", url: "https://github.com/uwaisalqadri/CoreModule.git", .branch("main")),
     .package(name: "ComposableArchitecture", url: "https://github.com/pointfreeco/swift-composable-architecture.git", .branch("main")),
+    .package(name: "TCACoordinators", url: "https://github.com/johnpatrickmorgan/TCACoordinators.git", .branch("main")),
   ],
   targets: [
     // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -27,7 +28,8 @@ let package = Package(
       dependencies: [
         "Alamofire",
         "Core",
-        "ComposableArchitecture"
+        "ComposableArchitecture",
+        "TCACoordinators"
       ]),
     .testTarget(
       name: "GiphyTests",

@@ -29,6 +29,15 @@
         }
       },
       {
+        "package": "FlowStacks",
+        "repositoryURL": "https://github.com/johnpatrickmorgan/FlowStacks",
+        "state": {
+          "branch": null,
+          "revision": "0c5414b018fac906ffce9c4aee7da2a599615c95",
+          "version": "0.3.4"
+        }
+      },
+      {
         "package": "Lottie",
         "repositoryURL": "https://github.com/airbnb/lottie-spm",
         "state": {
@@ -143,6 +152,15 @@
           "branch": null,
           "revision": "b1d92a53159fe45e162c307183aec9be15e4e7ae",
           "version": "2.8.0"
+        }
+      },
+      {
+        "package": "TCACoordinators",
+        "repositoryURL": "https://github.com/johnpatrickmorgan/TCACoordinators.git",
+        "state": {
+          "branch": "main",
+          "revision": "80a2d5eca6e9f46b2b653f6793556eea09d3390e",
+          "version": null
         }
       },
       {

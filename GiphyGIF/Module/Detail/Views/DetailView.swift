@@ -11,32 +11,20 @@ import Core
 import Common
 import ComposableArchitecture
 
-struct DetailView: ViewControllable {
-  var holder: Common.NavStackHolder
-  var store: StoreOf<DetailReducer>
-  
-  let giphy: Giphy
-  
+struct DetailView: View {
+  let store: StoreOf<DetailReducer>
+    
   var body: some View {
     WithViewStore(store, observe: { $0 }) { viewStore in
       NavigationView {
-        WebView(url: URL(string: giphy.url))
+        WebView(url: URL(string: viewStore.state.item.url))
           .edgesIgnoringSafeArea([.bottom, .horizontal])
           .navigationBarItems(
-            leading: Button(action: {
-              guard let viewController = holder.viewController else { return }
-              viewController.navigationController?.popViewController(animated: true)
-            }) {
-              Image("heart")
-                .resizable()
-                .frame(width: 23, height: 20)
-                .foregroundColor(.white)
-            },
             trailing: Button(action: {
               if viewStore.state.isFavorited {
-                viewStore.send(.removeFavorite(item: giphy))
+                viewStore.send(.removeFavorite(item: viewStore.state.item))
               } else {
-                viewStore.send(.addFavorite(item: giphy))
+                viewStore.send(.addFavorite(item: viewStore.state.item))
               }
             }) {
               Image(viewStore.state.isFavorited ? "heart.fill" : "heart", bundle: Bundle.common)
@@ -48,7 +36,7 @@ struct DetailView: ViewControllable {
           .navigationTitle(DetailString.titleDetail.localized)
           .navigationBarTitleDisplayMode(.inline)
           .onAppear {
-            viewStore.send(.checkFavorite(request: giphy.id))
+            viewStore.send(.checkFavorite(request: viewStore.state.item.id))
           }
       }
     }

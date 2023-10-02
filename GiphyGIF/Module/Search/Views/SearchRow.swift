@@ -23,10 +23,11 @@ struct SearchRow: View {
     ZStack {
       AnimatedImage(url: URL(string: giphy.image.url), isAnimating: $isAnimating)
         .placeholder(content: {
-          Color(.randomColor)
+          Color.randomColor
         })
         .resizable()
         .scaledToFill()
+        .background(Color.randomColor)
         .frame(maxHeight: 350, alignment: .center)
         .cornerRadius(20)
         .onTapGesture {

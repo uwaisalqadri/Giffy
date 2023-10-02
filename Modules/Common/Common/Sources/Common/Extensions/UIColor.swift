@@ -5,16 +5,23 @@
 //  Created by Uwais Alqadri on 19/9/23.
 //
 
-import Foundation
-import UIKit
+import SwiftUI
 
-public extension UIColor {
-  static var randomColor: UIColor {
-    return UIColor(
-      red: .random(in: 0...1),
-      green: .random(in: 0...1),
-      blue: .random(in: 0...1),
-      alpha: 1.0
-    )
+public extension Color {
+  static var randomColor: Color {
+    switch Int.random(in: 0...5) {
+    case 0:
+      return Color("Red", bundle: Bundle.common)
+    case 1:
+      return Color("Green", bundle: Bundle.common)
+    case 2:
+      return Color("Blue Sky", bundle: Bundle.common)
+    case 3:
+      return Color("Yellow", bundle: Bundle.common)
+    case 4:
+      return Color("Purple", bundle: Bundle.common)
+    default:
+      return .accentColor
+    }
   }
 }

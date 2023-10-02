@@ -11,12 +11,11 @@ import Giphy
 import Common
 import ComposableArchitecture
 
-struct HomeView: ViewControllable {
-  var holder: Common.NavStackHolder
+struct HomeView: View {
+  let store: StoreOf<HomeReducer>
   
-  var store: StoreOf<HomeReducer>
-  let router: HomeRouter
-
+  @State private var isFetched = false
+  
   var body: some View {
     WithViewStore(store, observe: { $0 }) { viewStore in
       ScrollView(.vertical, showsIndicators: false) {
@@ -24,7 +23,7 @@ struct HomeView: ViewControllable {
           Text(HomeString.labelTodayPopular.localized)
             .font(.system(size: 20, weight: .medium))
             .padding(.leading, 15)
-
+          
           if !viewStore.state.isLoading {
             HStack(alignment: .top) {
               LazyVStack(spacing: 8) {
@@ -33,8 +32,7 @@ struct HomeView: ViewControllable {
                   id: \.offset
                 ) { _, item in
                   HomeRow(giphy: item) { selectedItem in
-                    guard let viewController = holder.viewController else { return }
-                    router.routeToDetail(from: viewController, giphy: selectedItem)
+                    viewStore.send(.showDetail(item: selectedItem))
                   }
                   .padding(.horizontal, 5)
                 }
@@ -46,15 +44,15 @@ struct HomeView: ViewControllable {
                   id: \.offset
                 ) { _, item in
                   HomeRow(giphy: item) { selectedItem in
-                    guard let viewController = holder.viewController else { return }
-                    router.routeToDetail(from: viewController, giphy: selectedItem)
+                    viewStore.send(.showDetail(item: selectedItem))
                   }
                   .padding(.horizontal, 5)
                 }
               }
             }
-
+            
           } else {
+            // TODO: Shimmer List
             HStack {
               Spacer()
               ActivityIndicator()
@@ -62,7 +60,7 @@ struct HomeView: ViewControllable {
               Spacer()
             }
           }
-
+          
         }
         .padding(.bottom, 60)
         .padding(.horizontal, 10)
@@ -71,8 +69,7 @@ struct HomeView: ViewControllable {
       .navigationViewStyle(.stack)
       .navigationBarItems(
         trailing: Button(action: {
-          guard let viewController = holder.viewController else { return }
-          router.routeToFavorite(from: viewController)
+          viewStore.send(.openFavorite)
         }) {
           Image(systemName: "heart.fill")
             .resizable()
@@ -81,20 +78,23 @@ struct HomeView: ViewControllable {
         }
       )
       .onAppear {
-        viewStore.send(.fetch(request: 0))
+        if !isFetched {
+          isFetched = true
+          viewStore.send(.fetch(request: 0))
+        }
       }
     }
   }
   
   private func splitGiphys(items: [Giphy]) -> [[Giphy]] {
     var result: [[Giphy]] = []
-
+    
     var firstGiphys: [Giphy] = []
     var secondGiphys: [Giphy] = []
-
+    
     items.forEach { giphy in
       let index = items.firstIndex {$0.id == giphy.id }
-
+      
       if let index = index {
         if index % 2 == 0 {
           firstGiphys.append(giphy)
@@ -103,17 +103,17 @@ struct HomeView: ViewControllable {
         }
       }
     }
-
+    
     result.append(firstGiphys)
     result.append(secondGiphys)
-
+    
     return result
   }
-
+  
 }
 
 struct HomeView_Previews: PreviewProvider {
   static var previews: some View {
-    HomeView(holder: Injection.shared.resolve(), store: Injection.shared.resolve(), router: Injection.shared.resolve())
+    HomeView(store: Injection.shared.resolve())
   }
 }

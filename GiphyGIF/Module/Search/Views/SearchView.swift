@@ -12,12 +12,9 @@ import Giphy
 import Common
 import ComposableArchitecture
 
-struct SearchView: ViewControllable {
+struct SearchView: View {
+  let store: StoreOf<SearchReducer>
   
-  var holder: Common.NavStackHolder
-  let router: SearchRouter
-  
-  var store: StoreOf<SearchReducer>
   @State private var searchText = ""
   
   var body: some View {
@@ -33,8 +30,7 @@ struct SearchView: ViewControllable {
               LazyVStack {
                 ForEach(Array(viewStore.state.list.enumerated()), id: \.offset) { _, item in
                   SearchRow(giphy: item, onTapRow: { giphy in
-                    guard let viewController = holder.viewController else { return }
-                    router.routeToDetail(from: viewController, giphy: giphy)
+                    viewStore.send(.showDetail(item: giphy))
                   })
                   .padding(.horizontal, 20)
                   .padding(.bottom, 20)
@@ -52,8 +48,7 @@ struct SearchView: ViewControllable {
       }.navigationTitle(SearchString.titleSearch.localized)
         .navigationBarItems(
           trailing: Button(action: {
-            guard let viewController = holder.viewController else { return }
-            router.routeToFavorite(from: viewController)
+            viewStore.send(.openFavorite)
           }) {
             Image(systemName: "heart.fill")
               .resizable()
@@ -66,8 +61,7 @@ struct SearchView: ViewControllable {
         .onAppear {
           viewStore.send(.fetch(request: "Hello"))
         }
-    }
-  }
+    }  }
 }
 
 struct SearchInput: View {
@@ -121,6 +115,6 @@ struct SearchEmptyView: View {
 
 struct SearchView_Previews: PreviewProvider {
   static var previews: some View {
-    SearchView(holder: Injection.shared.resolve(), router: Injection.shared.resolve(), store: Injection.shared.resolve())
+    SearchView(store: Injection.shared.resolve())
   }
 }

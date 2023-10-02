@@ -40,11 +40,7 @@ public struct FavoriteReducer: Reducer {
     public var isError: Bool = false
   }
   
-  public enum Action: Equatable {
-    public static func == (lhs: FavoriteReducer.Action, rhs: FavoriteReducer.Action) -> Bool {
-      return true
-    }
-    
+  public enum Action {
     case fetch(request: String)
     case removeFavorite(item: Giphy, request: String)
     

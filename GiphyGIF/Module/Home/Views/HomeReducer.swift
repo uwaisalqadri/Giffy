@@ -32,14 +32,13 @@ public struct HomeReducer: Reducer {
     public var isError: Bool = false
   }
   
-  public enum Action: Equatable {
-    public static func == (lhs: HomeReducer.Action, rhs: HomeReducer.Action) -> Bool {
-      return true
-    }
-    
+  public enum Action {    
     case fetch(request: Int)
     case success(response: [Giphy])
     case failed(error: Error)
+    
+    case showDetail(item: Giphy)
+    case openFavorite
   }
   
   public var body: some ReducerOf<Self> {
@@ -62,6 +61,8 @@ public struct HomeReducer: Reducer {
       case .failed:
         state.isError = true
         state.isLoading = false
+        return .none
+      case .showDetail, .openFavorite:
         return .none
       }
     }
