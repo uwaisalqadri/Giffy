@@ -9,7 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 @main
-struct GiphyGIFApp: App {
+struct GiphyApp: App {
   var body: some Scene {
     WindowGroup {
       MainTabView(store: Injection.shared.resolve())

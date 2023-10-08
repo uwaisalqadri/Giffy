@@ -76,7 +76,7 @@ public struct FavoriteReducer: Reducer {
       case .removeFavorite(let item, let request):
         return .run { send in
           do {
-            let _ = try await self.removeUseCase.execute(request: item)
+            _ = try await self.removeUseCase.execute(request: item)
             await send(.fetch(request: request))
           } catch {
             await send(.failed(error: error))

@@ -31,14 +31,6 @@ typealias ActualSearchInteractor = Interactor<
 
 class GiphyRemoteTestCase: XCTestCase {
 
-  override func setUp() {
-    super.setUp()
-  }
-
-  override func tearDown() {
-    super.tearDown()
-  }
-
   func testMockGetTrendingUseCase() throws {
     // given
     let useCase: DummyInteractor = TestInjection().resolve()

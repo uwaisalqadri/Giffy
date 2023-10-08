@@ -13,7 +13,7 @@ public struct ImageGIFResponse: Codable {
   public init() {}
   
   public enum CodingKeys: String, CodingKey {
-    case original = "original"
+    case original
   }
 }
 

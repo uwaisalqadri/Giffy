@@ -31,7 +31,6 @@ public struct GiphyLocalDataSource: LocalDataSource {
     
     return favoriteGiphys
   }
-
   
   public func add(entity: Giphy) async throws -> Bool {
     return try await CoreDataHelper.shared.addFavoriteGiphy(item: entity)

@@ -15,7 +15,7 @@ public class NetworkService {
   public func connect<T: Codable>(api: URL, responseType: T.Type) async throws -> T {
     return try await withCheckedThrowingContinuation { continuation in
       AF.request(api.absoluteString)
-        .prettyPrintedJsonResponse()
+        .prettyPrintedJsonResponse(of: responseType)
         .responseDecodable(of: responseType) { response in
           switch response.result {
           case .success(let data):
@@ -35,11 +35,11 @@ public class NetworkService {
 extension DataRequest {
 
   @discardableResult
-  func prettyPrintedJsonResponse() -> Self {
-    return responseJSON { (response) in
+  func prettyPrintedJsonResponse<T: Codable>(of responseType: T.Type) -> Self {
+    return responseDecodable(of: responseType) { (response) in
       switch response.result {
       case .success(let result):
-        if let data = try? JSONSerialization.data(withJSONObject: result, options: .prettyPrinted),
+        if let data = try? JSONEncoder().encode(result),
            let text = String(data: data, encoding: .utf8) {
           print("📗 prettyPrinted JSON response: \n \(text)")
         }

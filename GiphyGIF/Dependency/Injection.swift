@@ -131,10 +131,6 @@ class Injection {
     container.register(GiphyLocalDataSource.self) { _ in
       GiphyLocalDataSource()
     }
-    
-    container.register(NavStackHolder.self) { _ in
-      Common.NavStackHolder()
-    }
   }
 
   func resolve<T>() -> T {

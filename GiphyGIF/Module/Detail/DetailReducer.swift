@@ -80,7 +80,7 @@ public struct DetailReducer: Reducer {
       case .addFavorite(let item):
         return .run { send in
           do {
-            let response = try await self.addUseCase.execute(request: item)
+            _ = try await self.addUseCase.execute(request: item)
             await send(.success(isFavorited: true))
           } catch {
             await send(.failed(error: error))
@@ -90,7 +90,7 @@ public struct DetailReducer: Reducer {
       case .removeFavorite(let item):
         return .run { send in
           do {
-            let response = try await self.removeUseCase.execute(request: item)
+            _ = try await self.removeUseCase.execute(request: item)
             await send(.success(isFavorited: false))
           } catch {
             await send(.failed(error: error))

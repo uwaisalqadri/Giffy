@@ -11,7 +11,7 @@ public class GiphyDataResponse: Codable {
   public var data: [GiphyResponse]?
 
   public enum CodingKeys: String, CodingKey {
-    case data = "data"
+    case data
   }
 }
 
@@ -27,14 +27,14 @@ public class GiphyResponse: Codable {
   public var images: ImageGIFResponse?
   
   public enum CodingKeys: String, CodingKey {
-    case type = "type"
-    case id = "id"
-    case url = "url"
+    case type
+    case id
+    case url
     case embedUrl = "embed_url"
-    case rating = "rating"
-    case username = "username"
-    case title = "title"
+    case rating
+    case username
+    case title
     case trendingDateTime = "trending_datetime"
-    case images = "images"
+    case images
   }
 }

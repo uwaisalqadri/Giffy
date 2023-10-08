@@ -28,7 +28,7 @@ where
     return try await withCheckedThrowingContinuation { continuation in
       Task {
         do {
-          let result = try await localDataSource.add(entity: request!)
+          _ = try await localDataSource.add(entity: request!)
           continuation.resume(returning: request!)
         } catch {
           continuation.resume(throwing: error)

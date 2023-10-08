@@ -25,7 +25,7 @@ struct FavoriteView: View {
         if !viewStore.state.list.isEmpty {
           LazyVStack {
             ForEach(
-              Array(viewStore.state.list.enumerated()),
+              Array(viewStore.state.list.enumerated()).reversed(),
               id: \.offset
             ) { _, item in
               SearchRow(isFavorite: true, giphy: item, onTapRow: { giphy in
@@ -38,7 +38,8 @@ struct FavoriteView: View {
             }
           }
         } else {
-          isFavoriteEmpty.padding(.top, 50)
+          FavoriteEmptyView()
+            .padding(.top, 50)
         }
         
       }
@@ -51,15 +52,17 @@ struct FavoriteView: View {
       }
     }
   }
+}
+
+struct FavoriteEmptyView: View {
   
-  var isFavoriteEmpty: some View {
+  var body: some View {
     VStack {
       LottieView(fileName: "add_to_favorite", bundle: Bundle.common, loopMode: .loop)
         .frame(width: 220, height: 220)
       Text(FavoriteString.labelFavoriteEmpty.localized)
     }
   }
-  
 }
 
 struct FavoriteView_Previews: PreviewProvider {
