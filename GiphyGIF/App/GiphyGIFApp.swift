@@ -12,7 +12,7 @@ import ComposableArchitecture
 struct GiphyGIFApp: App {
   var body: some Scene {
     WindowGroup {
-      ContentView(store: Injection.shared.resolve())
+      MainTabView(store: Injection.shared.resolve())
     }
   }
 }

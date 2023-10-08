@@ -42,10 +42,11 @@ public struct FavoriteReducer: Reducer {
   
   public enum Action {
     case fetch(request: String)
-    case removeFavorite(item: Giphy, request: String)
-    
     case success(response: [Giphy])
     case failed(error: Error)
+    
+    case removeFavorite(item: Giphy, request: String)
+    case showDetail(item: Giphy)
   }
   
   public var body: some ReducerOf<Self> {
@@ -75,12 +76,15 @@ public struct FavoriteReducer: Reducer {
       case .removeFavorite(let item, let request):
         return .run { send in
           do {
-            let response = try await self.removeUseCase.execute(request: item)
+            let _ = try await self.removeUseCase.execute(request: item)
             await send(.fetch(request: request))
           } catch {
             await send(.failed(error: error))
           }
         }
+        
+      case .showDetail:
+        return .none
         
       }
     }

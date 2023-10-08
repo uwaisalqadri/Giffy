@@ -29,7 +29,7 @@ struct FavoriteView: View {
               id: \.offset
             ) { _, item in
               SearchRow(isFavorite: true, giphy: item, onTapRow: { giphy in
-//                viewStore.send(.showDetail(item: giphy))
+                viewStore.send(.showDetail(item: giphy))
               }, onRemoveFavorite: { giphy in
                 viewStore.send(.removeFavorite(item: giphy, request: ""))
               })

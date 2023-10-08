@@ -11,6 +11,43 @@ import Giphy
 import ComposableArchitecture
 import TCACoordinators
 
+struct AppCoordinatorView: View {
+  let coordinator: StoreOf<AppCoordinator>
+  
+  var body: some View {
+    TCARouter(coordinator) { screen in
+      SwitchStore(screen) { screen in
+        switch screen {
+        case .detail:
+          CaseLet(
+            /AppScreen.State.detail,
+             action: AppScreen.Action.detail,
+             then: DetailView.init
+          )
+        case .favorite:
+          CaseLet(
+            /AppScreen.State.favorite,
+             action: AppScreen.Action.favorite,
+             then: FavoriteView.init
+          )
+        case .home:
+          CaseLet(
+            /AppScreen.State.home,
+             action: AppScreen.Action.home,
+             then: HomeView.init
+          )
+        case .search:
+          CaseLet(
+            /AppScreen.State.search,
+             action: AppScreen.Action.search,
+             then: SearchView.init
+          )
+        }
+      }
+    }
+  }
+}
+
 public struct AppScreen: Reducer {
   public enum State: Equatable {
     case detail(DetailReducer.State)
@@ -77,6 +114,9 @@ public struct AppCoordinator: Reducer {
         
       case .routeAction(_, action: .search(.openFavorite)):
         state.routes.push(.favorite(.init()))
+        
+      case let .routeAction(_, action: .favorite(.showDetail(item))):
+        state.routes.presentSheet(.detail(.init(item: item)))
         
       default:
         break

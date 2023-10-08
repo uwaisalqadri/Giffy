@@ -33,9 +33,9 @@ class Injection {
       })
     }
     
-    container.register(StoreOf<AppReducer>.self) { _ in
-      Store(initialState: AppReducer.State(), reducer: {
-        AppReducer()
+    container.register(StoreOf<MainTabReducer>.self) { _ in
+      Store(initialState: MainTabReducer.State(), reducer: {
+        MainTabReducer()
       })
     }
 

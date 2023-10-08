@@ -10,49 +10,11 @@ import Common
 import ComposableArchitecture
 import TCACoordinators
 
-public enum Tabs: Int {
-  case home
-  case search
-}
-
-struct AppReducer: Reducer {
-  struct State: Equatable {
-    var homeTab = AppCoordinator.State.rootHomeState
-    var searchTab = AppCoordinator.State.rootSearchState
-    var selectedTab: Tabs = .home
-  }
-  
-  enum Action {
-    case homeTab(AppCoordinator.Action)
-    case searchTab(AppCoordinator.Action)
-    case selectedTabChanged(Tabs)
-  }
-  
-  var body: some ReducerOf<Self> {
-    Reduce<State, Action> { state, action in
-      switch action {
-      case let .selectedTabChanged(tab):
-        state.selectedTab = tab
-        return .none
-        
-      case .homeTab, .searchTab:
-        return .none
-      }
-    }
-    Scope(state: \.homeTab, action: /Action.homeTab) {
-      AppCoordinator()
-    }
-    Scope(state: \.searchTab, action: /Action.searchTab) {
-      AppCoordinator()
-    }
-  }
-}
-
-struct ContentView: View {
-  let store: StoreOf<AppReducer>
+struct MainTabView: View {
+  let store: StoreOf<MainTabReducer>
   
   var body: some View {
-    WithViewStore(self.store, observe: \.selectedTab) { viewStore in
+    WithViewStore(store, observe: \.selectedTab) { viewStore in
       ZStack {
         switch viewStore.state {
         case .home:
@@ -73,45 +35,8 @@ struct ContentView: View {
 
         VStack {
           Spacer()
-          TabView(currentTab: viewStore.binding(send: AppReducer.Action.selectedTabChanged))
+          TabView(currentTab: viewStore.binding(send: MainTabReducer.Action.selectedTabChanged))
             .padding(.bottom, 20)
-        }
-      }
-    }
-  }
-}
-
-struct AppCoordinatorView: View {
-  let coordinator: StoreOf<AppCoordinator>
-  
-  var body: some View {
-    TCARouter(coordinator) { screen in
-      SwitchStore(screen) { screen in
-        switch screen {
-        case .detail:
-          CaseLet(
-            /AppScreen.State.detail,
-             action: AppScreen.Action.detail,
-             then: DetailView.init
-          )
-        case .favorite:
-          CaseLet(
-            /AppScreen.State.favorite,
-             action: AppScreen.Action.favorite,
-             then: FavoriteView.init
-          )
-        case .home:
-          CaseLet(
-            /AppScreen.State.home,
-             action: AppScreen.Action.home,
-             then: HomeView.init
-          )
-        case .search:
-          CaseLet(
-            /AppScreen.State.search,
-             action: AppScreen.Action.search,
-             then: SearchView.init
-          )
         }
       }
     }
@@ -170,6 +95,6 @@ struct TabView: View {
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    ContentView(store: Injection.shared.resolve())
+    MainTabView(store: Injection.shared.resolve())
   }
 }

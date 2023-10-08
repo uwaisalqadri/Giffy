@@ -31,9 +31,7 @@ struct SearchRow: View {
         .frame(maxHeight: 350, alignment: .center)
         .cornerRadius(20)
         .onTapGesture {
-          if !isFavorite {
-            onTapRow?(giphy)
-          }
+          onTapRow?(giphy)
         }
         .overlay(
           ZStack {
