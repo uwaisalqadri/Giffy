@@ -35,17 +35,13 @@ Giphy Client App with implementation of shiny tech such as **TCA (The Composable
 
 ## <a name="installation"></a> 💿 Installation
 
-With the greatness of _**XcodeGen**_ :
+With the greatness of _**XcodeGen**_ you can simply execute :
 
 ```
 xcodegen
 ```
 
 Rate my [XcodeGen setup!](https://github.com/uwaisalqadri/GiphyGIF/blob/master/project.yml)
-
-## <a name="screenshot"></a> 📸 Screenshot
-
-![image](https://media.giphy.com/media/3o72FkiKGMGauydfyg/giphy.gif)
 
 ## <a name="libraries"></a> 💡 Libraries
 
@@ -57,6 +53,7 @@ Rate my [XcodeGen setup!](https://github.com/uwaisalqadri/GiphyGIF/blob/master/p
 * [SwiftLint](https://github.com/realm/SwiftLint)
 * [Swinject](https://github.com/Swinject/Swinject)
 * [CoreData](https://developer.apple.com/documentation/coredata)
+* [TCACoordinators](https://github.com/johnpatrickmorgan/TCACoordinators)
 
 ## <a name="composable-architecture"></a> 💨 TCA: Reducer, Action, State, and Store
 
@@ -134,25 +131,58 @@ public struct FavoriteReducer: Reducer {
 }
 ```
 
+**Composing** the Reducer
+```swift
+struct MainTabView: View {
+  let store: StoreOf<MainTabReducer>
+  
+  var body: some View {
+    WithViewStore(store, observe: \.selectedTab) { viewStore in
+      ZStack {
+        switch viewStore.state {
+        case .home:
+          AppCoordinatorView(
+            coordinator: store.scope(
+              state: \.homeTab,
+              action: { .homeTab($0) }
+            )
+          )
+        case .search:
+          AppCoordinatorView(
+            coordinator: store.scope(
+              state: \.searchTab,
+              action: { .searchTab($0) }
+            )
+          )
+        }
+
+        VStack {
+          Spacer()
+          TabView(currentTab: viewStore.binding(send: MainTabReducer.Action.selectedTabChanged))
+            .padding(.bottom, 20)
+        }
+      }
+    }
+  }
+}
+```
+
 _"consistent and understandable"_ **- Pointfreeco**
 
 
 Let your _**Store**_(d) _**Reducer**_ update the View
 
 ```swift
-struct FavoriteView: ViewControllable {
-  var holder: Common.NavStackHolder
-  let router: DetailRouter
+struct FavoriteView: View {
+  let store: StoreOf<FavoriteReducer>
   
-  var store: StoreOf<FavoriteReducer>
-
   var body: some View {
     WithViewStore(store, observe: { $0 }) { viewStore in
       ScrollView {
         SearchInput { query in
           viewStore.send(.fetch(request: query))
         }.padding(.top, 30)
-
+        
         if !viewStore.state.list.isEmpty {
           LazyVStack {
             ForEach(
@@ -160,8 +190,7 @@ struct FavoriteView: ViewControllable {
               id: \.offset
             ) { _, item in
               SearchRow(isFavorite: true, giphy: item, onTapRow: { giphy in
-                guard let viewController = holder.viewController else { return }
-                router.routeToDetail(from: viewController, giphy: giphy)
+                viewStore.send(.showDetail(item: giphy))
               }, onRemoveFavorite: { giphy in
                 viewStore.send(.removeFavorite(item: giphy, request: ""))
               })
@@ -170,9 +199,10 @@ struct FavoriteView: ViewControllable {
             }
           }
         } else {
-          emptyFavoriteView.padding(.top, 50)
+          favoriteEmptyView()
+            .padding(.top, 50)
         }
-
+        
       }
       .navigationTitle(FavoriteString.titleFavorite.localized)
       .onAppear {
@@ -184,14 +214,14 @@ struct FavoriteView: ViewControllable {
     }
   }
   
-  var emptyFavoriteView: some View {
+@ViewBuilder func favoriteEmptyView() -> some View {
     VStack {
       LottieView(fileName: "add_to_favorite", bundle: Bundle.common, loopMode: .loop)
         .frame(width: 220, height: 220)
       Text(FavoriteString.labelFavoriteEmpty.localized)
     }
   }
-
+  
 }
 ```
 
@@ -225,25 +255,7 @@ class Injection {
       }
     }
 
-    container.register(FavoriteRouter.self) { _ in
-      FavoriteRouter(injector: self)
-    }
-    
-    container.register(FavoriteInteractor.self) { [unowned self] _ in
-      Interactor(repository: self.resolve())
-    }
-
-    container.register(FavoriteGiphysRepository<GiphyLocalDataSource>.self) { [unowned self] _ in
-      FavoriteGiphysRepository(localDataSource: self.resolve())
-    }
-
-    container.register(GiphyLocalDataSource.self) { _ in
-      GiphyLocalDataSource()
-    }
-    
-    container.register(NavStackHolder.self) { _ in
-      Common.NavStackHolder()
-    }
+    . . . .
   }
 
   func resolve<T>() -> T {
@@ -269,8 +281,96 @@ class Injection {
 ```
 Read more about [**Swinject**](https://github.com/Swinject/Swinject)
 
-## <a name="coordinator-pattern"></a> ⚙️ Coordinator Pattern with NavigationStack!
-![image](https://media.giphy.com/media/3o72FkiKGMGauydfyg/giphy.gif)
+## <a name="coordinator-pattern"></a> ⚙️ Coordinator Pattern for Composable Architecture with [TCACoodinators!](https://github.com/johnpatrickmorgan/TCACoordinators)
+```swift
+struct AppCoordinatorView: View {
+  let coordinator: StoreOf<AppCoordinator>
+  
+  var body: some View {
+    TCARouter(coordinator) { screen in
+      SwitchStore(screen) { screen in
+        switch screen {
+        case .detail:
+          CaseLet(
+            /AppScreen.State.detail,
+             action: AppScreen.Action.detail,
+             then: DetailView.init
+          )
+        case .favorite:
+          CaseLet(
+            /AppScreen.State.favorite,
+             action: AppScreen.Action.favorite,
+             then: FavoriteView.init
+          )
+        case .home:
+          CaseLet(
+            /AppScreen.State.home,
+             action: AppScreen.Action.home,
+             then: HomeView.init
+          )
+        case .search:
+          CaseLet(
+            /AppScreen.State.search,
+             action: AppScreen.Action.search,
+             then: SearchView.init
+          )
+        }
+      }
+    }
+  }
+}
+```
+
+```swift
+public struct AppCoordinator: Reducer {
+  public struct State: Equatable, IndexedRouterState {
+    public static let rootHomeState = AppCoordinator.State(
+      routes: [.root(.home(.init()), embedInNavigationView: true)]
+    )
+    
+    public static let rootSearchState = AppCoordinator.State(
+      routes: [.root(.search(.init()), embedInNavigationView: true)]
+    )
+    
+    public var routes: [Route<AppScreen.State>]
+  }
+  
+  public enum Action: IndexedRouterAction {
+    case routeAction(Int, action: AppScreen.Action)
+    case updateRoutes([Route<AppScreen.State>])
+  }
+  
+  public var body: some ReducerOf<Self> {
+    Reduce<State, Action> { state, action in
+      switch action {
+      case let .routeAction(_, action: .home(.showDetail(item))):
+        state.routes.presentSheet(.detail(.init(item: item)))
+        
+      case .routeAction(_, action: .home(.openFavorite)):
+        state.routes.push(.favorite(.init()))
+        
+      case let .routeAction(_, action: .search(.showDetail(item))):
+        state.routes.presentSheet(.detail(.init(item: item)))
+        
+      case .routeAction(_, action: .search(.openFavorite)):
+        state.routes.push(.favorite(.init()))
+        
+      case let .routeAction(_, action: .favorite(.showDetail(item))):
+        state.routes.presentSheet(.detail(.init(item: item)))
+        
+      default:
+        break
+      }
+      
+      return .none
+      
+    }.forEachRoute {
+      AppScreen()
+    }
+  }
+}
+
+```
 
 ## <a name="buy-me-coffee"></a> ☕️ Buy Me a Coffee
 If you like this project please support me by <a href="https://www.buymeacoffee.com/uwaisalqadri" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" height=32></a> ;-)
@@ -283,8 +383,6 @@ If you like this project please support me by <a href="https://www.buymeacoffee.
  - `App`
  - `Module`
     - `Home`
-        - `Router`
-        - `Views`
     - `Detail`
     - `Favorite`
     - `Search`
