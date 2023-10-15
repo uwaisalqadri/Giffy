@@ -20,15 +20,9 @@ typealias HomeInteractor = Interactor<
 public struct HomeReducer: Reducer {
   
   private let useCase: HomeInteractor
-  private let checkUseCase: CheckFavoriteInteractor
-  private let addUseCase: AddFavoriteInteractor
-  private let removeUseCase: RemoveFavoriteInteractor
   
-  init(useCase: HomeInteractor, checkUseCase: CheckFavoriteInteractor, addUseCase: AddFavoriteInteractor, removeUseCase: RemoveFavoriteInteractor) {
+  init(useCase: HomeInteractor) {
     self.useCase = useCase
-    self.checkUseCase = checkUseCase
-    self.addUseCase = addUseCase
-    self.removeUseCase = removeUseCase
   }
   
   public struct State: Equatable {
@@ -36,17 +30,11 @@ public struct HomeReducer: Reducer {
     public var errorMessage: String = ""
     public var isLoading: Bool = false
     public var isError: Bool = false
-    public var isFavorited: Bool = false
   }
   
   public enum Action {
-    case checkFavorite(request: String)
-    case addFavorite(item: Giphy)
-    case removeFavorite(item: Giphy)
-    
     case fetch(request: Int)
     case success(response: [Giphy])
-    case successCheckFavorite(Bool)
     case failed(error: Error)
     
     case showDetail(item: Giphy)
@@ -74,40 +62,6 @@ public struct HomeReducer: Reducer {
       case .failed:
         state.isError = true
         state.isLoading = false
-        return .none
-        
-      case .checkFavorite(let request):
-        return .run { send in
-          do {
-            let response = try await self.checkUseCase.execute(request: request)
-            await send(.successCheckFavorite(response))
-          } catch {
-            await send(.failed(error: error))
-          }
-        }
-        
-      case .addFavorite(let item):
-        return .run { send in
-          do {
-            _ = try await self.addUseCase.execute(request: item)
-            await send(.successCheckFavorite(true))
-          } catch {
-            await send(.failed(error: error))
-          }
-        }
-        
-      case .removeFavorite(let item):
-        return .run { send in
-          do {
-            _ = try await self.removeUseCase.execute(request: item)
-            await send(.successCheckFavorite(false))
-          } catch {
-            await send(.failed(error: error))
-          }
-        }
-        
-      case .successCheckFavorite(let isFavorited):
-        state.isFavorited = isFavorited
         return .none
         
       case .showDetail, .openFavorite:

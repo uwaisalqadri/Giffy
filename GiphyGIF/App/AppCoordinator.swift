@@ -73,7 +73,7 @@ public struct AppScreen: Reducer {
     }
     
     Scope(state: /State.home, action: /Action.home) {
-      HomeReducer(useCase: Injection.shared.resolve(), checkUseCase: Injection.shared.resolve(), addUseCase: Injection.shared.resolve(), removeUseCase: Injection.shared.resolve())
+      HomeReducer(useCase: Injection.shared.resolve())
     }
     
     Scope(state: /State.search, action: /Action.search) {
@@ -85,11 +85,11 @@ public struct AppScreen: Reducer {
 public struct AppCoordinator: Reducer {
   public struct State: Equatable, IndexedRouterState {
     public static let rootHomeState = AppCoordinator.State(
-      routes: [.root(.home(.init()), embedInNavigationView: true)]
+      routes: [.root(.home(.init()), embedInNavigationView: false)]
     )
     
     public static let rootSearchState = AppCoordinator.State(
-      routes: [.root(.search(.init()), embedInNavigationView: true)]
+      routes: [.root(.search(.init()), embedInNavigationView: false)]
     )
     
     public var routes: [Route<AppScreen.State>]

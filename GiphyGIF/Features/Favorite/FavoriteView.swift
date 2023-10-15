@@ -24,10 +24,7 @@ struct FavoriteView: View {
         
         if !viewStore.state.list.isEmpty {
           LazyVStack {
-            ForEach(
-              Array(viewStore.state.list.enumerated()).reversed(),
-              id: \.offset
-            ) { _, item in
+            ForEach(viewStore.state.list, id: \.id) { item in
               GiphyItemRow(
                 isFavorite: true,
                 giphy: item,
@@ -67,7 +64,8 @@ struct FavoriteEmptyView: View {
       LottieView(fileName: "add_to_favorite", bundle: Bundle.common, loopMode: .loop)
         .frame(width: 220, height: 220)
       Text(FavoriteString.labelFavoriteEmpty.localized)
-        .font(.HelveticaNeue.labelRegular)
+        .font(.HelveticaNeue.s1SubtitleSemibold)
+        .multilineTextAlignment(.center)
     }
   }
 }

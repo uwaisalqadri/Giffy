@@ -15,28 +15,30 @@ struct MainTabView: View {
   
   var body: some View {
     WithViewStore(store, observe: \.selectedTab) { viewStore in
-      ZStack {
-        switch viewStore.state {
-        case .home:
-          AppCoordinatorView(
-            coordinator: store.scope(
-              state: \.homeTab,
-              action: { .homeTab($0) }
+      NavigationView {
+        ZStack {
+          switch viewStore.state {
+          case .home:
+            AppCoordinatorView(
+              coordinator: store.scope(
+                state: \.homeTab,
+                action: { .homeTab($0) }
+              )
             )
-          )
-        case .search:
-          AppCoordinatorView(
-            coordinator: store.scope(
-              state: \.searchTab,
-              action: { .searchTab($0) }
+          case .search:
+            AppCoordinatorView(
+              coordinator: store.scope(
+                state: \.searchTab,
+                action: { .searchTab($0) }
+              )
             )
-          )
-        }
+          }
 
-        VStack {
-          Spacer()
-          CapsuleTabView(currentTab: viewStore.binding(send: MainTabReducer.Action.selectedTabChanged))
-            .padding(.bottom, 20)
+          VStack {
+            Spacer()
+            CapsuleTabView(currentTab: viewStore.binding(send: MainTabReducer.Action.selectedTabChanged))
+              .padding(.bottom, 20)
+          }
         }
       }
     }
@@ -54,9 +56,8 @@ struct CapsuleTabView: View {
         }) {
           VStack {
             Image(systemName: tab.iconName)
-              .resizable()
               .foregroundColor(tab.iconColor)
-              .frame(width: 28, height: 25, alignment: .center)
+              .font(.system(size: 20))
               .padding(5)
           }
           .background(
