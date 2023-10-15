@@ -25,7 +25,12 @@ let package = Package(
       dependencies: [],
       resources: [
         .process("Assets/LottieFiles/search_empty.json"),
-        .process("Assets/LottieFiles/add_to_favorite.json")
+        .process("Assets/LottieFiles/add_to_favorite.json"),
+        .process("Assets/LottieFiles/nyan_cat.json"),
+        
+//        .process("Assets/Fonts/HelveticaNeue-Bold.ttf"),
+//        .process("Assets/Fonts/HelveticaNeue-Light.ttf"),
+//        .process("Assets/Fonts/HelveticaNeue-Medium.ttf")
       ]
     ),
     .testTarget(

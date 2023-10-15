@@ -39,6 +39,10 @@ public struct Giphy: Equatable, Hashable {
     self.image = image
     self.isFavorite = isFavorite
   }
+  
+  public func setFavorite(_ state: Bool) -> Giphy {
+    return Giphy(type: type, id: id, url: url, embedUrl: embedUrl, rating: rating, username: username, title: title, trendingDateTime: trendingDateTime, image: image, isFavorite: state)
+  }
 }
 
 public struct ImageOriginal {

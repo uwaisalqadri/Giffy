@@ -73,7 +73,7 @@ public struct AppScreen: Reducer {
     }
     
     Scope(state: /State.home, action: /Action.home) {
-      HomeReducer(useCase: Injection.shared.resolve())
+      HomeReducer(useCase: Injection.shared.resolve(), checkUseCase: Injection.shared.resolve(), addUseCase: Injection.shared.resolve(), removeUseCase: Injection.shared.resolve())
     }
     
     Scope(state: /State.search, action: /Action.search) {
@@ -104,19 +104,19 @@ public struct AppCoordinator: Reducer {
     Reduce<State, Action> { state, action in
       switch action {
       case let .routeAction(_, action: .home(.showDetail(item))):
-        state.routes.presentSheet(.detail(.init(item: item)))
+        state.routes.presentCover(.detail(.init(item: item)))
         
       case .routeAction(_, action: .home(.openFavorite)):
         state.routes.push(.favorite(.init()))
         
       case let .routeAction(_, action: .search(.showDetail(item))):
-        state.routes.presentSheet(.detail(.init(item: item)))
+        state.routes.presentCover(.detail(.init(item: item)))
         
       case .routeAction(_, action: .search(.openFavorite)):
         state.routes.push(.favorite(.init()))
         
       case let .routeAction(_, action: .favorite(.showDetail(item))):
-        state.routes.presentSheet(.detail(.init(item: item)))
+        state.routes.presentCover(.detail(.init(item: item)))
         
       default:
         break

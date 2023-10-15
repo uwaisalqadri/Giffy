@@ -29,7 +29,7 @@ class Injection {
     
     container.register(StoreOf<HomeReducer>.self) { _ in
       Store(initialState: HomeReducer.State(), reducer: {
-        HomeReducer(useCase: self.resolve())
+        HomeReducer(useCase: self.resolve(), checkUseCase: self.resolve(), addUseCase: self.resolve(), removeUseCase: self.resolve())
       })
     }
     

@@ -35,7 +35,7 @@ struct MainTabView: View {
 
         VStack {
           Spacer()
-          TabView(currentTab: viewStore.binding(send: MainTabReducer.Action.selectedTabChanged))
+          CapsuleTabView(currentTab: viewStore.binding(send: MainTabReducer.Action.selectedTabChanged))
             .padding(.bottom, 20)
         }
       }
@@ -43,51 +43,40 @@ struct MainTabView: View {
   }
 }
 
-struct TabView: View {
+struct CapsuleTabView: View {
   @Binding var currentTab: Tabs
   
   var body: some View {
-    HStack(spacing: 30) {
-      Button(action: {
-        currentTab = .home
-      }) {
-        VStack {
-          Image(systemName: "rectangle.3.offgrid")
-            .resizable()
-            .foregroundColor(.green)
-            .frame(width: 25, height: 25, alignment: .center)
-            .padding(5)
+    HStack(spacing: 45) {
+      ForEach(Tabs.allCases, id: \.rawValue) { tab in
+        Button(action: {
+          currentTab = tab
+        }) {
+          VStack {
+            Image(systemName: tab.iconName)
+              .resizable()
+              .foregroundColor(tab.iconColor)
+              .frame(width: 28, height: 25, alignment: .center)
+              .padding(5)
+          }
+          .background(
+            ZStack {
+              if currentTab == tab {
+                Color.black.clipShape(Capsule())
+                  .frame(width: 90, height: 50)
+                  .padding(.horizontal, 30)
+                  .transition(currentTab == .home ? .backslide : .slide)
+              }
+            }
+          )
+          .animation(.easeInOut, value: tab)
         }
       }
-
-      Button(action: {
-        currentTab = .search
-      }) {
-        VStack {
-          Image(systemName: "rectangle.stack")
-            .resizable()
-            .foregroundColor(.yellow)
-            .frame(width: 25, height: 25, alignment: .center)
-            .padding(5)
-        }
-      }
-
-//      Button(action: {
-//        currentTab = 2
-//      }) {
-//        VStack {
-//          Image(systemName: "person")
-//            .resizable()
-//            .foregroundColor(.purple)
-//            .frame(width: 25, height: 25, alignment: .center)
-//            .padding(5)
-//        }
-//      }
     }
-    .frame(maxWidth: UIDevice.isIpad ? 300 : .infinity, minHeight: 80)
+    .frame(maxWidth: 190, minHeight: 65)
     .background(
       Blur(style: .systemUltraThinMaterialDark)
-        .cornerRadius(15, corners: [.allCorners])
+        .clipShape(Capsule())
     )
     .padding(.horizontal, 70)
   }
@@ -97,4 +86,11 @@ struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
     MainTabView(store: Injection.shared.resolve())
   }
+}
+
+extension AnyTransition {
+  static var backslide: AnyTransition {
+    AnyTransition.asymmetric(
+      insertion: .move(edge: .trailing),
+      removal: .move(edge: .leading))}
 }

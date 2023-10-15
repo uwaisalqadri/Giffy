@@ -18,9 +18,9 @@ struct FavoriteView: View {
   var body: some View {
     WithViewStore(store, observe: { $0 }) { viewStore in
       ScrollView {
-        SearchInput { query in
+        SearchField { query in
           viewStore.send(.fetch(request: query))
-        }.padding(.top, 30)
+        }.padding(.vertical, 20)
         
         if !viewStore.state.list.isEmpty {
           LazyVStack {
@@ -28,13 +28,18 @@ struct FavoriteView: View {
               Array(viewStore.state.list.enumerated()).reversed(),
               id: \.offset
             ) { _, item in
-              SearchRow(isFavorite: true, giphy: item, onTapRow: { giphy in
-                viewStore.send(.showDetail(item: giphy))
-              }, onRemoveFavorite: { giphy in
-                viewStore.send(.removeFavorite(item: giphy, request: ""))
-              })
-              .padding(.vertical, 20)
+              GiphyItemRow(
+                isFavorite: true,
+                giphy: item,
+                onTapRow: { giphy in
+                  viewStore.send(.showDetail(item: giphy))
+                },
+                onFavorite: { giphy in
+                  viewStore.send(.removeFavorite(item: giphy, request: ""))
+                }
+              )
               .padding(.horizontal, 20)
+              .padding(.bottom, 20)
             }
           }
         } else {
@@ -43,6 +48,7 @@ struct FavoriteView: View {
         }
         
       }
+      .padding(.horizontal, 10)
       .navigationTitle(FavoriteString.titleFavorite.localized)
       .onAppear {
         viewStore.send(.fetch(request: ""))
@@ -61,6 +67,7 @@ struct FavoriteEmptyView: View {
       LottieView(fileName: "add_to_favorite", bundle: Bundle.common, loopMode: .loop)
         .frame(width: 220, height: 220)
       Text(FavoriteString.labelFavoriteEmpty.localized)
+        .font(.HelveticaNeue.labelRegular)
     }
   }
 }

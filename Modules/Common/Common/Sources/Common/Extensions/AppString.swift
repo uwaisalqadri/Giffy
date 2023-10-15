@@ -13,7 +13,7 @@ public enum AboutString: String {
   case titleProfile = "profile"
   
   public var localized: String {
-    Bundle.module.localizedString(forKey: self.rawValue, value: nil, table: nil)
+    Bundle.common.localizedString(forKey: self.rawValue, value: nil, table: nil)
   }
 }
 
@@ -21,7 +21,7 @@ public enum DetailString: String {
   case titleDetail = "detail"
   
   public var localized: String {
-    Bundle.module.localizedString(forKey: self.rawValue, value: nil, table: nil)
+    Bundle.common.localizedString(forKey: self.rawValue, value: nil, table: nil)
   }
 }
 
@@ -30,7 +30,7 @@ public enum FavoriteString: String {
   case labelFavoriteEmpty = "favorite_empty"
   
   public var localized: String {
-    Bundle.module.localizedString(forKey: self.rawValue, value: nil, table: nil)
+    Bundle.common.localizedString(forKey: self.rawValue, value: nil, table: nil)
   }
 }
 
@@ -39,7 +39,7 @@ public enum HomeString: String {
   case titleTrending = "trending"
   
   public var localized: String {
-    Bundle.module.localizedString(forKey: self.rawValue, value: nil, table: nil)
+    Bundle.common.localizedString(forKey: self.rawValue, value: nil, table: nil)
   }
 }
 
@@ -49,6 +49,6 @@ public enum SearchString: String {
   case labelSearching = "searching_giphy"
   
   public var localized: String {
-    Bundle.module.localizedString(forKey: self.rawValue, value: nil, table: nil)
+    Bundle.common.localizedString(forKey: self.rawValue, value: nil, table: nil)
   }
 }

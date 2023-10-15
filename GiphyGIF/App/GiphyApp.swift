@@ -7,9 +7,15 @@
 
 import SwiftUI
 import ComposableArchitecture
+import Common
 
 @main
 struct GiphyApp: App {
+  
+  init() {
+    Font.loadCustomFont()
+  }
+  
   var body: some Scene {
     WindowGroup {
       MainTabView(store: Injection.shared.resolve())

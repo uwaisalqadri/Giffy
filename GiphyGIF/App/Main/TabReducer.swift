@@ -10,9 +10,27 @@ import Common
 import ComposableArchitecture
 import TCACoordinators
 
-public enum Tabs: Int {
+public enum Tabs: Int, CaseIterable {
   case home
   case search
+  
+  var iconName: String {
+    switch self {
+    case .home:
+      return "rectangle.3.offgrid"
+    case .search:
+      return "rectangle.stack"
+    }
+  }
+  
+  var iconColor: Color {
+    switch self {
+    case .home:
+      return .green
+    case .search:
+      return .orange
+    }
+  }
 }
 
 struct MainTabReducer: Reducer {

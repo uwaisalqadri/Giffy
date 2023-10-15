@@ -19,7 +19,7 @@ struct LottieView: UIViewRepresentable {
     
     let view = UIView(frame: .zero)
     let animationView = LottieAnimationView()
-    let animation = LottieAnimation.named(fileName)
+    let animation = LottieAnimation.named(fileName, bundle: bundle)
     animationView.animation = animation
     animationView.contentMode = .scaleAspectFill
     animationView.play()

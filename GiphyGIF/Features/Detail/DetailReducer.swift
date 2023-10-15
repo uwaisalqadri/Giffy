@@ -41,15 +41,17 @@ public struct DetailReducer: Reducer {
     }
     
     public var item: Giphy = .init()
-    public var isFavorited: Bool = false
+    @BindingState public var isFavorited: Bool = false
     public var errorMessage: String = ""
+    public var sharedData = [Data]()
     public var isError: Bool = false
   }
   
   public enum Action {
-    case checkFavorite(request: String)
+    case checkFavoriteAndDownloadGIF(item: Giphy)
     case addFavorite(item: Giphy)
     case removeFavorite(item: Giphy)
+    case downloadedGIF(sharedData: [Data])
     
     case success(isFavorited: Bool)
     case failed(error: Error)
@@ -58,15 +60,23 @@ public struct DetailReducer: Reducer {
   public var body: some ReducerOf<Self> {
     Reduce<State, Action> { state, action in
       switch action {
-      case .checkFavorite(let request):
+      case .checkFavoriteAndDownloadGIF(let item):
         return .run { send in
           do {
-            let response = try await self.checkUseCase.execute(request: request)
+            let response = try await self.checkUseCase.execute(request: item.id)
             await send(.success(isFavorited: response))
+            
+            let (data, _) = try await URLSession.shared.data(from: URL(string: item.image.url)!)
+            await send(.downloadedGIF(sharedData: [data]))
+            
           } catch {
             await send(.failed(error: error))
           }
         }
+        
+      case .downloadedGIF(let sharedData):
+        state.sharedData = sharedData
+        return .none
         
       case .success(let isFavorited):
         state.isFavorited = isFavorited
