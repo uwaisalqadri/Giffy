@@ -28,8 +28,8 @@ Giphy Client App with implementation of shiny tech such as **TCA (The Composable
 - [Installation](#installation)
 - [Libraries](#libraries)
 - [The Composable Architecture](#composable-architecture)
-- [Dependency Injection](#dependency-injection)
 - [Coordinator Pattern](#coordinator-pattern)
+- [Dependency Injection](#dependency-injection)
 - [Project Structure](#project-structure)
 
 ## <a name="features"></a> 🦾 Features
@@ -187,107 +187,43 @@ struct FavoriteView: View {
   var body: some View {
     WithViewStore(store, observe: { $0 }) { viewStore in
       ScrollView {
-        SearchInput { query in
+        SearchField { query in
           viewStore.send(.fetch(request: query))
-        }.padding(.top, 30)
+        }.padding(.vertical, 20)
         
-        if !viewStore.state.list.isEmpty {
-          LazyVStack {
-            ForEach(
-              Array(viewStore.state.list.enumerated()),
-              id: \.offset
-            ) { _, item in
-              SearchRow(isFavorite: true, giphy: item, onTapRow: { giphy in
-                viewStore.send(.showDetail(item: giphy))
-              }, onRemoveFavorite: { giphy in
-                viewStore.send(.removeFavorite(item: giphy, request: ""))
-              })
-              .padding(.vertical, 20)
-              .padding(.horizontal, 20)
-            }
-          }
-        } else {
-          favoriteEmptyView()
+        if viewStore.state.list.isEmpty {
+          FavoriteEmptyView()
             .padding(.top, 50)
         }
         
+        LazyVStack {
+          ForEach(viewStore.state.list, id: \.id) { item in
+            GiphyItemRow(
+              isFavorite: true,
+              giphy: item,
+              onTapRow: { giphy in
+                viewStore.send(.showDetail(item: giphy))
+              },
+              onFavorite: { giphy in
+                viewStore.send(.removeFavorite(item: giphy, request: ""))
+              }
+            )
+            .padding(.horizontal, 20)
+            .padding(.bottom, 20)
+          }
+        }
       }
+      .padding(.horizontal, 10)
       .navigationTitle(FavoriteString.titleFavorite.localized)
       .onAppear {
         viewStore.send(.fetch(request: ""))
       }
-      .onDisappear {
-        viewStore.send(.fetch(request: ""))
-      }
     }
   }
-  
-@ViewBuilder func favoriteEmptyView() -> some View {
-    VStack {
-      LottieView(fileName: "add_to_favorite", bundle: Bundle.common, loopMode: .loop)
-        .frame(width: 220, height: 220)
-      Text(FavoriteString.labelFavoriteEmpty.localized)
-    }
-  }
-  
 }
 ```
 
 Read more about [**The Composable Architecture**](https://github.com/pointfreeco/swift-composable-architecture)
-
-## <a name="dependency-injection"></a> 🚀 Dependency Injection
-
-Here i'm using _**Swinject**_ for Dependency Injection
-
-```swift
-import Swinject
-
-class Injection {
-  static let shared = Injection()
-  private let container = Container()
-
-  init() {
-    registerFavoriteFeature()
-  }
-
-  . . . .
-
-  private func registerFavoriteFeature() {
-    container.register(FavoriteView.self) { [unowned self] _ in
-      FavoriteView(holder: self.resolve(), router: self.resolve(), store: self.resolve())
-    }
-    
-    container.register(StoreOf<FavoriteReducer>.self) { [unowned self] _ in
-      Store(initialState: FavoriteReducer.State()) {
-        FavoriteReducer(useCase: self.resolve(), removeUseCase: self.resolve())
-      }
-    }
-
-    . . . .
-  }
-
-  func resolve<T>() -> T {
-    guard let result = container.resolve(T.self) else {
-      fatalError("This type is not registered: \(T.self)")
-    }
-    return result
-  }
-
-  func resolve<T, A>(argument: A) -> T {
-    guard let result = container.resolve(T.self, argument: argument) else {
-      fatalError("This type is not registered: \(T.self)")
-    }
-    return result
-  }
-  func resolve<T>(name: String) -> T {
-    guard let result = container.resolve(T.self, name: name) else {
-      fatalError("This type is not registered: \(T.self)")
-    }
-    return result
-  }
-}
-```
-Read more about [**Swinject**](https://github.com/Swinject/Swinject)
 
 ## <a name="coordinator-pattern"></a> ⚙️ Coordinator Pattern for Composable Architecture with [TCACoodinators!](https://github.com/johnpatrickmorgan/TCACoordinators)
 ```swift
@@ -324,6 +260,42 @@ struct AppCoordinatorView: View {
           )
         }
       }
+    }
+  }
+}
+```
+
+```swift
+public struct AppScreen: Reducer {
+  public enum State: Equatable {
+    case detail(DetailReducer.State)
+    case favorite(FavoriteReducer.State)
+    case home(HomeReducer.State)
+    case search(SearchReducer.State)
+  }
+  
+  public enum Action {
+    case detail(DetailReducer.Action)
+    case favorite(FavoriteReducer.Action)
+    case home(HomeReducer.Action)
+    case search(SearchReducer.Action)
+  }
+  
+  public var body: some ReducerOf<Self> {
+    Scope(state: /State.detail, action: /Action.detail) {
+      DetailReducer(checkUseCase: Injection.shared.resolve(), addUseCase: Injection.shared.resolve(), removeUseCase: Injection.shared.resolve())
+    }
+    
+    Scope(state: /State.favorite, action: /Action.favorite) {
+      FavoriteReducer(useCase: Injection.shared.resolve(), removeUseCase: Injection.shared.resolve())
+    }
+    
+    Scope(state: /State.home, action: /Action.home) {
+      HomeReducer(useCase: Injection.shared.resolve())
+    }
+    
+    Scope(state: /State.search, action: /Action.search) {
+      SearchReducer(useCase: Injection.shared.resolve())
     }
   }
 }
@@ -379,6 +351,60 @@ public struct AppCoordinator: Reducer {
 }
 
 ```
+
+## <a name="dependency-injection"></a> 🚀 Dependency Injection
+
+Here i'm using _**Swinject**_ for Dependency Injection
+
+```swift
+import Swinject
+
+class Injection {
+  static let shared = Injection()
+  private let container = Container()
+
+  init() {
+    registerFavoriteFeature()
+  }
+
+  . . . .
+
+  private func registerFavoriteFeature() {
+    container.register(FavoriteView.self) { [unowned self] _ in
+      FavoriteView(holder: self.resolve(), router: self.resolve(), store: self.resolve())
+    }
+    
+    container.register(StoreOf<FavoriteReducer>.self) { [unowned self] _ in
+      Store(initialState: FavoriteReducer.State()) {
+        FavoriteReducer(useCase: self.resolve(), removeUseCase: self.resolve())
+      }
+    }
+
+    . . . .
+  }
+
+  func resolve<T>() -> T {
+    guard let result = container.resolve(T.self) else {
+      fatalError("This type is not registered: \(T.self)")
+    }
+    return result
+  }
+
+  func resolve<T, A>(argument: A) -> T {
+    guard let result = container.resolve(T.self, argument: argument) else {
+      fatalError("This type is not registered: \(T.self)")
+    }
+    return result
+  }
+  func resolve<T>(name: String) -> T {
+    guard let result = container.resolve(T.self, name: name) else {
+      fatalError("This type is not registered: \(T.self)")
+    }
+    return result
+  }
+}
+```
+Read more about [**Swinject**](https://github.com/Swinject/Swinject)
 
 ## <a name="buy-me-coffee"></a> ☕️ Buy Me a Coffee
 If you like this project please support me by <a href="https://www.buymeacoffee.com/uwaisalqadri" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" height=32></a> ;-)
