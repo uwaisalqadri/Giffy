@@ -21,7 +21,8 @@ struct SearchView: View {
     WithViewStore(store, observe: { $0 }) { viewStore in
       ScrollView(.vertical, showsIndicators: false) {
         SearchField { query in
-          viewStore.send(.fetch(request: query))
+          searchText = query
+          viewStore.send(.fetch(request: searchText))
         }
         
         if !viewStore.state.isLoading {
@@ -62,8 +63,8 @@ struct SearchView: View {
             .padding(.top, 60)
         }
       }
-      
       .navigationTitle(SearchString.titleSearch.localized)
+      .navigationViewStyle(.stack)
       .navigationBarItems(
         trailing: Button(action: {
           viewStore.send(.openFavorite)
@@ -74,10 +75,9 @@ struct SearchView: View {
             .frame(width: 20, height: 18)
         }
       )
-      .navigationViewStyle(StackNavigationViewStyle())
       .padding(.top, 10)
       .onAppear {
-        viewStore.send(.fetch(request: "Hello"))
+        viewStore.send(.fetch(request: searchText.isEmpty ? "Hello" : searchText))
       }
     }
   }

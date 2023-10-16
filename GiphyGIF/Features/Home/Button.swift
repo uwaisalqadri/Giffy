@@ -33,7 +33,7 @@ struct RedirectButton: View {
       .foregroundColor(.Theme.yellow)
       .frame(width: 17, height: 17)
       .background(
-        Color.black.clipShape(Circle())
+        Color.Theme.background.clipShape(Circle())
           .frame(width: 47, height: 47)
       )
       .onTapGesture {
@@ -55,7 +55,7 @@ struct FavoriteButton: View {
       .foregroundColor(!isInverted ? Color.Theme.red : Color.white)
       .frame(width: size.width - margin, height: size.height - margin - 4)
       .background(
-        (!isInverted ? Color.black : Color.Theme.red)
+        (!isInverted ? Color.Theme.background : Color.Theme.red)
           .clipShape(Circle())
           .frame(width: size.width, height: size.height)
       )

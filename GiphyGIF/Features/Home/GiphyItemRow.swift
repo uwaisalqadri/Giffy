@@ -51,14 +51,9 @@ struct GiphyItemRow: View {
               }.padding(.trailing, 10)
             }
             
-          }
-            .frame(height: 40)
-            .padding([.horizontal, .top], 15)
+          }.frame(height: 40).padding([.horizontal, .top], 15)
           , alignment: .top
         )
-      //        .onLongPressGesture(perform: {}, onPressingChanged: { pressed in
-      //          isSelected = pressed
-      //        })
       
       footer
         .padding(.top, 250)
@@ -77,7 +72,6 @@ struct GiphyItemRow: View {
         Text(giphy.username.isEmpty ? "Unnamed" : giphy.username)
           .foregroundColor(.white)
           .font(.HelveticaNeue.s1SubtitleRegular)
-        
       }
       
       Spacer()
@@ -85,8 +79,7 @@ struct GiphyItemRow: View {
       RedirectButton(onClick: {
         onTapRow?(giphy)
       })
-      .padding(.trailing, 6)
-      .padding(.leading, 8)
+      .padding(.horizontal, 10)
     }
     .padding(.horizontal, 20)
     .frame(maxHeight: 160)

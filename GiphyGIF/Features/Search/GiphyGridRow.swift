@@ -31,7 +31,7 @@ struct GiphyGridRow: View {
           alignment: .center
         )
         .scaledToFit()
-        .cornerRadius(20)
+        .cornerRadius(10)
         .padding(.top, 10)
         .onTapGesture {
           onTapRow?(giphy)

@@ -11,19 +11,29 @@ import Combine
 public struct GiphyLocalDataSource: LocalDataSource {
   public typealias Request = String
   public typealias Response = Giphy
-
+  
   public init() {}
-
+  
   public func list(request: String?) async throws -> [Giphy] {
     var favoriteGiphys = try await CoreDataHelper.shared.getFavoriteGiphys().map { $0.map() }
     
     if let searchRequest = request, !searchRequest.isEmpty {
+      let lowercaseSearchRequest = searchRequest.lowercased()
+      
       favoriteGiphys = favoriteGiphys.filter { giphy in
-        let contains = giphy.title.contains(searchRequest) ||
-        giphy.username.contains(searchRequest) ||
-        giphy.embedUrl.contains(searchRequest) ||
-        giphy.type.contains(searchRequest) ||
-        giphy.url.contains(searchRequest)
+        // Convert all properties to lowercase for case-insensitive search
+        let title = giphy.title.lowercased()
+        let username = giphy.username.lowercased()
+        let embedUrl = giphy.embedUrl.lowercased()
+        let type = giphy.type.lowercased()
+        let url = giphy.url.lowercased()
+        
+        // Check if any property contains the search request
+        let contains = title.contains(lowercaseSearchRequest) ||
+        username.contains(lowercaseSearchRequest) ||
+        embedUrl.contains(lowercaseSearchRequest) ||
+        type.contains(lowercaseSearchRequest) ||
+        url.contains(lowercaseSearchRequest)
         
         return contains
       }

@@ -26,9 +26,9 @@ public enum Tabs: Int, CaseIterable {
   var iconColor: Color {
     switch self {
     case .home:
-      return .green
+      return .Theme.green
     case .search:
-      return .orange
+      return .Theme.blueSky
     }
   }
 }

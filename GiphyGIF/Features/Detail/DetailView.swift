@@ -19,7 +19,6 @@ struct DetailView: View {
   @State private var isFavorite = false
   @State private var isShareGIF = false
   @State private var isAnimating = true
-  @State private var animateGradient = false
   
   private let screenWidth = UIScreen.main.bounds.width
   
@@ -28,15 +27,10 @@ struct DetailView: View {
       NavigationView {
         ZStack(alignment: .bottomTrailing) {
           TabView {
-            ForEach([viewStore.state.item, viewStore.state.item, viewStore.state.item], id: \.id) { item in
+            ForEach(Array([viewStore.state.item, viewStore.state.item, viewStore.state.item].enumerated()), id: \.offset) { _, item in
               GeometryReader { geometry in
                 ZStack {
-                  LinearGradient(colors: [.Theme.purple, .Theme.red], startPoint: animateGradient ? .topLeading : .bottomTrailing, endPoint: animateGradient ? .bottomTrailing : .topLeading)
-                  //                    .onAppear {
-                  //                      withAnimation(.easeIn(duration: 2.0).repeatForever(autoreverses: true)) {
-                  //                        animateGradient.toggle()
-                  //                      }
-                  //                    }
+                  AnimatedGradientBackground()
                   
                   AnimatedImage(url: URL(string: item.image.url), isAnimating: $isAnimating)
                     .placeholder(content: { Color.randomColor })
@@ -59,6 +53,12 @@ struct DetailView: View {
         }
         .padding(.top, -40)
         .edgesIgnoringSafeArea(.all)
+        .sheet(isPresented: $isShareGIF) {
+          ShareSheetView(activityItems: viewStore.state.sharedData)
+        }
+        .onAppear {
+          viewStore.send(.checkFavoriteAndDownloadGIF(item: viewStore.state.item))
+        }
         .toolbar {
           ToolbarItem(placement: .navigationBarLeading) {
             IconButton(
@@ -93,14 +93,8 @@ struct DetailView: View {
               }
             )
           }
-          
         }
-        .sheet(isPresented: $isShareGIF) {
-          ShareSheetView(activityItems: viewStore.state.sharedData)
-        }
-        .onAppear {
-          viewStore.send(.checkFavoriteAndDownloadGIF(item: viewStore.state.item))
-        }
+
       }
     }
   }
@@ -109,6 +103,31 @@ struct DetailView: View {
     let angle = xOffset / (screenWidth / 2)
     let rotationDegree: CGFloat = 25
     return Double(angle * rotationDegree)
+  }
+}
+
+struct AnimatedGradientBackground: View {
+  
+  @State private var shouldAnimate = false
+  
+  var body: some View {
+    LinearGradient(
+      colors: [.Theme.purple, .Theme.red],
+      startPoint: shouldAnimate ? .topLeading : .bottomTrailing,
+      endPoint: shouldAnimate ? .bottomTrailing : .topLeading
+    )
+    .onAppear {
+      let animation = Animation.easeOut(duration: 2.0).repeatForever(autoreverses: true)
+      withAnimation(animation) {
+        shouldAnimate.toggle()
+      }
+      
+      DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        withAnimation(animation) {
+          self.shouldAnimate.toggle()
+        }
+      }
+    }
   }
 }
 

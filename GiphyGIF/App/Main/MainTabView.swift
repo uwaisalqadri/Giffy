@@ -33,7 +33,7 @@ struct MainTabView: View {
               )
             )
           }
-
+          
           VStack {
             Spacer()
             CapsuleTabView(currentTab: viewStore.binding(send: MainTabReducer.Action.selectedTabChanged))
