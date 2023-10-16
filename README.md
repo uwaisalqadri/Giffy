@@ -1,9 +1,14 @@
 <h1 align="center"> GiphyGIF</h1> <br>
 <p align="center">
   <a href="https://gitpoint.co/">
-    <img alt="Mangaku" title="Mangaku" src="https://github.com/uwaisalqadri/GiphyGIF/assets/55146646/4633702f-475b-469a-b75c-30ad1cbae8e5" width="500">
+    <img alt="A" title="A" src="https://github.com/uwaisalqadri/GiphyGIF/assets/55146646/2d216304-130c-4007-8308-efbf85f0732d" width="400">
+     <img alt="A" title="A" src="https://github.com/uwaisalqadri/GiphyGIF/assets/55146646/2d216304-130c-4007-8308-efbf85f0732d" width="400">
+    <img alt="B" title="B" src="https://github.com/uwaisalqadri/GiphyGIF/assets/55146646/cb299bd3-6aff-4dd4-9ed8-990a55a098b6" width="400">
+    <img alt="C" title="C" src="https://github.com/uwaisalqadri/GiphyGIF/assets/55146646/b7eb36c1-7e7b-42f9-a2f9-cbd090b7659b" width="400">
   </a>
 </p>
+
+
 
 ## <a name="introduction"></a> 🤖 Introduction
 
@@ -29,7 +34,10 @@ Giphy Client App with implementation of shiny tech such as **TCA (The Composable
 
 ## <a name="features"></a> 🦾 Features
 
-![image](https://media.giphy.com/media/3o72FkiKGMGauydfyg/giphy.gif)
+- Sharing, Copy-Pasting, and AirDropping GIFs and Stickers
+- Search GIFs
+- Save and Favorite GIFs
+- Animations!
 
 ⚠️ **`This project have no concern about backward compatibility, and only support the very latest or experimental api`** ⚠️
 
