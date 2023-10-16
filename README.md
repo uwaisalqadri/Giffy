@@ -1,11 +1,8 @@
 <h1 align="center"> GiphyGIF</h1> <br>
 <p align="center">
-  <a href="https://gitpoint.co/">
-    <img alt="A" title="A" src="https://github.com/uwaisalqadri/GiphyGIF/assets/55146646/2d216304-130c-4007-8308-efbf85f0732d" width="400">
-     <img alt="A" title="A" src="https://github.com/uwaisalqadri/GiphyGIF/assets/55146646/2d216304-130c-4007-8308-efbf85f0732d" width="400">
-    <img alt="B" title="B" src="https://github.com/uwaisalqadri/GiphyGIF/assets/55146646/cb299bd3-6aff-4dd4-9ed8-990a55a098b6" width="400">
-    <img alt="C" title="C" src="https://github.com/uwaisalqadri/GiphyGIF/assets/55146646/b7eb36c1-7e7b-42f9-a2f9-cbd090b7659b" width="400">
-  </a>
+     <img alt="A" title="B" src="https://github.com/uwaisalqadri/GiphyGIF/assets/55146646/2d216304-130c-4007-8308-efbf85f0732d" width="250">
+    <img alt="B" title="B" src="https://github.com/uwaisalqadri/GiphyGIF/assets/55146646/cb299bd3-6aff-4dd4-9ed8-990a55a098b6" width="250">
+    <img alt="C" title="C" src="https://github.com/uwaisalqadri/GiphyGIF/assets/55146646/b7eb36c1-7e7b-42f9-a2f9-cbd090b7659b" width="250">
 </p>
 
 
