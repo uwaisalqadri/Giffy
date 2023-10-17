@@ -9,7 +9,7 @@
 
 ## <a name="introduction"></a> 🤖 Introduction
 
-Giphy Client App with implementation of shiny tech such as **TCA (The Composable Architecture by Pointfreeco)**, **Swinject**, **Coordinator Pattern**, Beautiful UI built with **SwiftUI**, **Clean Architecture with Generic Protocol Approach**, **SPM Modularization** and **XcodeGen!**   
+Giphy Client App built with some of interesting iOS tech such as **TCA (The Composable Architecture by Point-Free)**, **Swinject**, **Coordinator Pattern**, Beautiful UI built with **SwiftUI**, **Clean Architecture with Generic Protocol Approach**, **SPM Modularization** and **XcodeGen!**   
 
 **Module**
 
@@ -419,7 +419,7 @@ If you like this project please support me by <a href="https://www.buymeacoffee.
     - `Search`
 
 
- - `+ **GiphyWidget**`
+ - `**GiphyWidget**`
 
 **`Modules`**:
 
