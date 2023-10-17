@@ -9,7 +9,7 @@
 
 ## <a name="introduction"></a> 🤖 Introduction
 
-Giphy Client App built with some of interesting iOS tech such as **TCA (The Composable Architecture by Point-Free)**, **Swinject**, **Coordinator Pattern**, Beautiful UI built with **SwiftUI**, **Clean Architecture with Generic Protocol Approach**, **SPM Modularization** and **XcodeGen!**   
+Giphy Client App built with some of the interesting iOS tech such as **TCA (The Composable Architecture by Point-Free)**, **Swinject**, **Coordinator Pattern**, Beautiful UI built with **SwiftUI**, **Clean Architecture with Generic Protocol Approach**, **SPM Modularization** and **XcodeGen!**   
 
 **Module**
 
@@ -33,7 +33,7 @@ Giphy Client App built with some of interesting iOS tech such as **TCA (The Comp
 
 - Sharing, Copy-Pasting, and AirDropping GIFs and Stickers
 - Search GIFs
-- Save and Favorite GIFs
+- Save Favorite GIFs
 - Animations!
 
 ⚠️ **`This project have no concern about backward compatibility, and only support the very latest or experimental api`** ⚠️
@@ -61,8 +61,6 @@ Rate my [XcodeGen setup!](https://github.com/uwaisalqadri/GiphyGIF/blob/master/p
 * [TCACoordinators](https://github.com/johnpatrickmorgan/TCACoordinators)
 
 ## <a name="composable-architecture"></a> 💨 TCA: Reducer, Action, State, and Store
-
-![image](https://github.com/uwaisalqadri/GiphyGIF/assets/55146646/dfeee2c2-851f-4a49-aac0-f5effbd711e5)
 
 Define your screen's _**State**_ and _**Action**_
 
@@ -172,7 +170,7 @@ struct MainTabView: View {
 }
 ```
 
-_"consistent and understandable"_ **- Pointfreeco**
+_"consistent and understandable"_ **- Point-Free**
 
 
 Let your _**Store**_(d) _**Reducer**_ update the View
@@ -222,7 +220,10 @@ struct FavoriteView: View {
 
 Read more about [**The Composable Architecture**](https://github.com/pointfreeco/swift-composable-architecture)
 
-## <a name="coordinator-pattern"></a> ⚙️ Coordinator Pattern for Composable Architecture with [TCACoodinators!](https://github.com/johnpatrickmorgan/TCACoordinators)
+## <a name="coordinator-pattern"></a> ⚙️ Navigation Between Screens Done with Coordinator Pattern supported by [TCACoodinators!](https://github.com/johnpatrickmorgan/TCACoordinators)
+
+<img width="1232" alt="Screenshot 2023-10-17 at 7 19 53 PM" src="https://github.com/uwaisalqadri/GiphyGIF/assets/55146646/ba07c117-692a-4cad-aab6-36b95ab9e9e6">
+
 ```swift
 struct AppCoordinatorView: View {
   let coordinator: StoreOf<AppCoordinator>
