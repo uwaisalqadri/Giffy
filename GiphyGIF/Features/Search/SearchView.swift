@@ -26,17 +26,14 @@ struct SearchView: View {
         }
         
         if !viewStore.state.isLoading {
-          if viewStore.state.list.isEmpty {
+          if viewStore.state.grid.rightGrid.isEmpty {
             SearchEmptyView()
               .padding(.top, 30)
           }
           
           HStack(alignment: .top) {
             LazyVStack(spacing: 8) {
-              ForEach(
-                Array(splitGiphys(items: viewStore.state.list).rightGrid.enumerated()),
-                id: \.offset
-              ) { _, item in
+              ForEach(viewStore.state.grid.rightGrid.indexed, id: \.position) { _, item in
                 GiphyGridRow(giphy: item) { selectedItem in
                   viewStore.send(.showDetail(item: selectedItem))
                 }
@@ -45,10 +42,7 @@ struct SearchView: View {
             }
             
             LazyVStack(spacing: 8) {
-              ForEach(
-                Array(splitGiphys(items: viewStore.state.list).leftGrid.enumerated()),
-                id: \.offset
-              ) { _, item in
+              ForEach(viewStore.state.grid.leftGrid.indexed, id: \.position) { _, item in
                 GiphyGridRow(giphy: item) { selectedItem in
                   viewStore.send(.showDetail(item: selectedItem))
                 }
@@ -81,26 +75,6 @@ struct SearchView: View {
       }
     }
   }
-  
-  private func splitGiphys(items: [Giphy]) -> (rightGrid: [Giphy], leftGrid: [Giphy]) {
-    var firstGiphys: [Giphy] = []
-    var secondGiphys: [Giphy] = []
-    
-    items.forEach { giphy in
-      let index = items.firstIndex {$0.id == giphy.id }
-      
-      if let index = index {
-        if index % 2 == 0 {
-          firstGiphys.append(giphy)
-        } else {
-          secondGiphys.append(giphy)
-        }
-      }
-    }
-    
-    return (firstGiphys, secondGiphys)
-  }
-  
 }
 
 struct SearchField: View {

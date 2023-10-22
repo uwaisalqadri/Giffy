@@ -10,28 +10,54 @@ import SwiftUI
 import Core
 import Giphy
 import SDWebImageSwiftUI
+import Common
 
 struct GiphyEntry: TimelineEntry {
   var date = Date()
-  let giphy: Giphy
+  let total: Int
 }
 
 struct WidgetFavoriteView: View {
   let entry: WidgetProvider.Entry
 
   var body: some View {
-    VStack(alignment: .leading) {
-//      AnimatedImage(url: URL(string: entry.giphy.url), isAnimating: .constant(true))
-//        .indicator(SDWebImageActivityIndicator.medium)
-      Image("img-gumball")
-        .resizable()
-        .scaledToFill()
-        .cornerRadius(20)
+    VStack(alignment: .leading, spacing: 20) {
+      LinearGradient(
+        colors: [.Theme.purple, .Theme.red],
+        startPoint: .bottomTrailing,
+        endPoint: .topLeading
+      )
+      .mask(
+        Image(systemName: "heart.fill")
+          .resizable()
+      )
+      .frame(width: 60, height: 55)
+      
+      Text("\(entry.total)")
+        .font(.headline)
+        .fontWeight(.bold)
+        .foregroundColor(.white)
+      
+      +
+      
+      Text(" Favorite GIFs")
+        .font(.headline)
+        .fontWeight(.light)
+        .foregroundColor(.white)
     }
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
+    .background(Color.black.opacity(0.6))
   }
 }
 
-@main
+struct Widget_Previews: PreviewProvider {
+  static var previews: some View {
+    WidgetFavoriteView(entry: .init(total: 10))
+      .previewContext(WidgetPreviewContext(family: .systemSmall))
+      .previewDevice(.none)
+  }
+}
+
 struct GiphyWidget: Widget {
   private let kind = "GiphyWidget"
 

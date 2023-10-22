@@ -18,7 +18,7 @@ public struct SearchRemoteDataSource: DataSource {
     let result = try await NetworkService.shared.connect(
       api: APIFactory.search(query: request ?? "").url,
       responseType: GiphyDataResponse.self
-    ).data?.compactMap { $0.map() } ?? []
+    ).data.compactMap { $0.map() } 
 
     return result
   }

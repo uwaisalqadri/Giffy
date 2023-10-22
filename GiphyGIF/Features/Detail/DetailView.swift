@@ -11,23 +11,27 @@ import Core
 import Common
 import ComposableArchitecture
 import SDWebImageSwiftUI
+import ActivityKit
+import Foundation
 
 struct DetailView: View {
   let store: StoreOf<DetailReducer>
   
   @Environment(\.dismiss) private var dismiss
-  @State private var isFavorite = false
   @State private var isShareGIF = false
   @State private var isAnimating = true
   
-  private let screenWidth = UIScreen.main.bounds.width
+  @State private var activity: Activity<GiphyAttributes>?
   
+  private let screenWidth = UIScreen.main.bounds.width
   var body: some View {
     WithViewStore(store, observe: { $0 }) { viewStore in
       NavigationView {
         ZStack(alignment: .bottomTrailing) {
           TabView {
-            ForEach(Array([viewStore.state.item, viewStore.state.item, viewStore.state.item].enumerated()), id: \.offset) { _, item in
+            let items = [viewStore.state.item, viewStore.state.item, viewStore.state.item].indexed
+            
+            ForEach(items, id: \.position) { _, item in
               GeometryReader { geometry in
                 ZStack {
                   AnimatedGradientBackground()
@@ -89,12 +93,13 @@ struct DetailView: View {
                   viewStore.send(.removeFavorite(item: viewStore.state.item))
                 } else {
                   viewStore.send(.addFavorite(item: viewStore.state.item))
+                  viewStore.send(.startLiveActivity(viewStore.state))
                 }
               }
             )
           }
         }
-
+        
       }
     }
   }
@@ -128,27 +133,5 @@ struct AnimatedGradientBackground: View {
         }
       }
     }
-  }
-}
-
-struct ShareSheetView: UIViewControllerRepresentable {
-  typealias Callback = (_ activityType: UIActivity.ActivityType?, _ completed: Bool, _ returnedItems: [Any]?, _ error: Error?) -> Void
-  
-  let activityItems: [Any]
-  let applicationActivities: [UIActivity]? = nil
-  let excludedActivityTypes: [UIActivity.ActivityType]? = nil
-  let callback: Callback? = nil
-  
-  func makeUIViewController(context: Context) -> UIActivityViewController {
-    let controller = UIActivityViewController(
-      activityItems: activityItems,
-      applicationActivities: applicationActivities)
-    controller.excludedActivityTypes = excludedActivityTypes
-    controller.completionWithItemsHandler = callback
-    return controller
-  }
-  
-  func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {
-    // nothing to do here
   }
 }

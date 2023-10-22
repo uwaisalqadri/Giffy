@@ -18,7 +18,7 @@ public struct TrendingRemoteDataSource: DataSource {
     let result = try await NetworkService.shared.connect(
       api: APIFactory.trending.url,
       responseType: GiphyDataResponse.self
-    ).data?.compactMap { $0.map() } ?? []
+    ).data.compactMap { $0.map() }
 
     return result
   }

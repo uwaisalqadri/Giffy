@@ -10,6 +10,7 @@ import ComposableArchitecture
 import Core
 import Giphy
 import Common
+import ActivityKit
 
 typealias AddFavoriteInteractor = Interactor<
   Giphy, Giphy, AddFavoriteRepository<
@@ -52,6 +53,7 @@ public struct DetailReducer: Reducer {
     case addFavorite(item: Giphy)
     case removeFavorite(item: Giphy)
     case downloadedGIF(sharedData: [Data])
+    case startLiveActivity(DetailReducer.State)
     
     case success(isFavorited: Bool)
     case failed(error: Error)
@@ -107,7 +109,24 @@ public struct DetailReducer: Reducer {
           }
         }
         
+      case .startLiveActivity(let state):
+        return .run { send in
+          let attributes = GiphyAttributes(title: state.item.title)
+          let attributeState = GiphyAttributes.FavoriteState.init(isFavorited: state.isFavorited)
+          
+          let activity = try? Activity<GiphyAttributes>.request(attributes: attributes, contentState: attributeState)
+          
+          try await Task.sleep(nanoseconds: 3_000_000_000)
+          await activity?.end(using: attributeState, dismissalPolicy: .immediate)
+        }
       }
     }
+  }
+}
+
+
+extension Activity: Equatable {
+  public static func == (lhs: Activity<Attributes>, rhs: Activity<Attributes>) -> Bool {
+    lhs.id == rhs.id
   }
 }

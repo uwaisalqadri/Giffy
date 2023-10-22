@@ -28,7 +28,7 @@ struct HomeView: View {
             if !viewStore.state.isLoading {
               ZStack {
                 LazyVStack {
-                  ForEach(Array(viewStore.state.list.enumerated()), id: \.offset) { _, item in
+                  ForEach(viewStore.state.list.indexed, id: \.position) { _, item in
                     GiphyItemRow(
                       isFavorite: item.isFavorite,
                       giphy: item,

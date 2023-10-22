@@ -111,7 +111,7 @@ public extension Font {
   
   static func jbsRegisterFont(withFilename filename: FontType) {
         
-    guard let pathForResourceString = Bundle.main.path(forResource: filename.rawValue, ofType: "ttf") else {
+    guard let pathForResourceString = Bundle.common.path(forResource: filename.rawValue, ofType: "ttf") else {
       print("UIFont+:  Failed to register font - path for resource not found.")
       return
     }

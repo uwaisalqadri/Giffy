@@ -25,33 +25,23 @@ struct WidgetProvider: IntentTimelineProvider {
   }
   
   private var sampleEntry: GiphyEntry {
-    var giphy = Giphy()
-    giphy.url = "https://media4.giphy.com/media/loLO30j5PEbLgAqt63/giphy.gif"
-    return GiphyEntry(giphy: giphy)
+    return GiphyEntry(total: 10)
   }
-
+  
   func placeholder(in context: Context) -> GiphyEntry {
     sampleEntry
   }
-
+  
   func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (GiphyEntry) -> Void) {
     completion(sampleEntry)
   }
-
+  
   func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<GiphyEntry>) -> Void) {
-    
     Task {
-      do {
-        let response = try await self.useCase.execute(request: "")
-        if let item = response.first {
-          let entries = [GiphyEntry(giphy: item)]
-          let timeline = Timeline(entries: entries, policy: .atEnd)
-          completion(timeline)
-          print("WIDGET:", timeline)
-        }
-      } catch {
-        print(error.localizedDescription)
-      }
+      let response = try await self.useCase.execute(request: "")
+      let entries = [GiphyEntry(total: response.count)]
+      let timeline = Timeline(entries: entries, policy: .atEnd)
+      completion(timeline)
     }
   }
 }

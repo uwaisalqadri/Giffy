@@ -27,10 +27,9 @@ let package = Package(
         .process("Assets/LottieFiles/search_empty.json"),
         .process("Assets/LottieFiles/favorite_empty.json"),
         .process("Assets/LottieFiles/nyan_cat.json"),
-        
-//        .process("Assets/Fonts/HelveticaNeue-Bold.ttf"),
-//        .process("Assets/Fonts/HelveticaNeue-Light.ttf"),
-//        .process("Assets/Fonts/HelveticaNeue-Medium.ttf")
+        .process("Assets/Fonts/HelveticaNeue-Bold.ttf"),
+        .process("Assets/Fonts/HelveticaNeue-Light.ttf"),
+        .process("Assets/Fonts/HelveticaNeue-Medium.ttf")
       ]
     ),
     .testTarget(

@@ -8,7 +8,7 @@
 import Foundation
 
 public class GiphyDataResponse: Codable {
-  public var data: [GiphyResponse]?
+  public var data = [GiphyResponse]()
 
   public enum CodingKeys: String, CodingKey {
     case data

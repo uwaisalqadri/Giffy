@@ -26,10 +26,10 @@ public struct SearchReducer: Reducer {
   }
   
   public struct State: Equatable {
-    public var list: [Giphy] = []
+    public var grid = SearchGrid.init()
     public var errorMessage: String = ""
     public var isLoading: Bool = false
-    public var isError: Bool = false
+    public var isEmpty: Bool = false
   }
   
   public enum Action {
@@ -56,12 +56,16 @@ public struct SearchReducer: Reducer {
         }
         
       case .success(let data):
-        state.list = data
+        state.isEmpty = data.isEmpty
         state.isLoading = false
+
+        if !data.isEmpty {
+          state.grid = splitGiphys(items: data)
+        }
         return .none
         
       case .failed:
-        state.isError = true
+        state.isEmpty = true
         state.isLoading = false
         return .none
         
@@ -69,5 +73,29 @@ public struct SearchReducer: Reducer {
         return .none
       }
     }
+  }
+  
+  public struct SearchGrid: Equatable {
+    public var rightGrid = [Giphy]()
+    public var leftGrid = [Giphy]()
+  }
+  
+  private func splitGiphys(items: [Giphy]) -> SearchGrid {
+    var firstGiphys: [Giphy] = []
+    var secondGiphys: [Giphy] = []
+    
+    items.forEach { giphy in
+      let index = items.firstIndex {$0.id == giphy.id }
+      
+      if let index = index {
+        if index % 2 == 0 {
+          firstGiphys.append(giphy)
+        } else {
+          secondGiphys.append(giphy)
+        }
+      }
+    }
+    
+    return SearchGrid(rightGrid: firstGiphys, leftGrid: secondGiphys)
   }
 }
