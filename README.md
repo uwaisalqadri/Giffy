@@ -35,6 +35,7 @@ Giphy Client App built with some of the interesting iOS tech such as **TCA (The 
 - Sharing, Copy-Pasting, and AirDropping GIFs and Stickers
 - Search GIFs
 - Save Favorite GIFs
+- Widget, Live Activty, and Dynamic Island
 - Animations!
 
 ⚠️ **`This project have no concern about backward compatibility, and only support the very latest or experimental api`** ⚠️
