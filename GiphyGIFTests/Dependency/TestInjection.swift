@@ -12,16 +12,15 @@ import Swinject
 
 class TestInjection: Injection {
   private let container = Container()
-
+  
   override init() {
     super.init()
     registerDummyTrendingRemoteDataSource()
-    registerActualTrendingRemoteDataSource()
-    registerActualSearchRemoteDataSource()
+    registerDetailFeature()
   }
-
+  
   private func registerDummyTrendingRemoteDataSource() {
-    container.register(DummyInteractor.self) { [unowned self] _ in
+    container.register(DummyGetGiphyInteractor.self) { [unowned self] _ in
       Interactor(repository: self.resolve())
     }
     container.register(GetGiphyRepository<DummyRemoteDataSource>.self) { [unowned self] _ in
@@ -31,34 +30,38 @@ class TestInjection: Injection {
       DummyRemoteDataSource()
     }
   }
-
-  private func registerActualTrendingRemoteDataSource() {
-    container.register(ActualTrendingInteractor.self) { [unowned self] _ in
+  
+  private func registerDetailFeature() {
+    
+    container.register(DetailReducer.self) { _ in
+      DetailReducer(checkUseCase: self.resolve(), addUseCase: self.resolve(), removeUseCase: self.resolve())
+    }
+    
+    container.register(CheckFavoriteInteractor.self) { [unowned self] _ in
       Interactor(repository: self.resolve())
     }
-
-    container.register(GetGiphyRepository<TrendingRemoteDataSource>.self) { [unowned self] _ in
-      GetGiphyRepository(remoteDataSource: self.resolve())
-    }
-
-    container.register(TrendingRemoteDataSource.self) { _ in
-      TrendingRemoteDataSource()
-    }
-  }
-
-  private func registerActualSearchRemoteDataSource() {
-    container.register(ActualSearchInteractor.self) { [unowned self] _ in
+    
+    container.register(AddFavoriteInteractor.self) { [unowned self] _ in
       Interactor(repository: self.resolve())
     }
-
-    container.register(SearchGiphyRepository<SearchRemoteDataSource>.self) { [unowned self] _ in
-      SearchGiphyRepository(remoteDataSource: self.resolve())
+    
+    container.register(RemoveFavoriteInteractor.self) { [unowned self] _ in
+      Interactor(repository: self.resolve())
     }
-    container.register(SearchRemoteDataSource.self) { _ in
-      SearchRemoteDataSource()
+    
+    container.register(CheckFavoriteRepository<GiphyLocalDataSource>.self) { [unowned self] _ in
+      CheckFavoriteRepository(localDataSource: self.resolve())
+    }
+    
+    container.register(AddFavoriteRepository<GiphyLocalDataSource>.self) { [unowned self] _ in
+      AddFavoriteRepository(localDataSource: self.resolve())
+    }
+    
+    container.register(RemoveFavoriteRepository<GiphyLocalDataSource>.self) { [unowned self] _ in
+      RemoveFavoriteRepository(localDataSource: self.resolve())
     }
   }
-
+  
   override func resolve<T>() -> T {
     guard let result = container.resolve(T.self) else {
       return super.resolve()

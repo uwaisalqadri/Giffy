@@ -110,7 +110,7 @@ public struct DetailReducer: Reducer {
         }
         
       case .startLiveActivity(let state):
-        return .run { send in
+        return .run { _ in
           let attributes = GiphyAttributes(title: state.item.title)
           let attributeState = GiphyAttributes.FavoriteState.init(isFavorited: state.isFavorited)
           
@@ -121,12 +121,5 @@ public struct DetailReducer: Reducer {
         }
       }
     }
-  }
-}
-
-
-extension Activity: Equatable {
-  public static func == (lhs: Activity<Attributes>, rhs: Activity<Attributes>) -> Bool {
-    lhs.id == rhs.id
   }
 }
