@@ -223,3 +223,4 @@ Framework
 Pods/*
 *.xcodeproj/
 *.xcworkspace/
+.swiftpm/*
