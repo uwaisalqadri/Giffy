@@ -9,10 +9,12 @@ import SwiftUI
 
 struct ActivityIndicator: UIViewRepresentable {
 
+  var style: UIActivityIndicatorView.Style = .large
+
   func makeUIView(
     context: UIViewRepresentableContext<ActivityIndicator>
   ) -> UIActivityIndicatorView {
-    return UIActivityIndicatorView(style: .large)
+    return UIActivityIndicatorView(style: style)
   }
 
   func updateUIView(

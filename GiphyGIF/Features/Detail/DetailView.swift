@@ -10,38 +10,47 @@ import Giphy
 import Core
 import Common
 import ComposableArchitecture
-import SDWebImageSwiftUI
 import ActivityKit
 import Foundation
+import SDWebImageSwiftUI
 
 struct DetailView: View {
   let store: StoreOf<DetailReducer>
-  
+
   @Environment(\.dismiss) private var dismiss
   @State private var isShareGIF = false
   @State private var isAnimating = true
-  
+
   @State private var activity: Activity<GiphyAttributes>?
-  
+
   private let screenWidth = UIScreen.main.bounds.width
+  private let screenHeight = UIScreen.main.bounds.height
+
   var body: some View {
     WithViewStore(store, observe: { $0 }) { viewStore in
       NavigationView {
         ZStack(alignment: .bottomTrailing) {
           TabView {
             let items = [viewStore.state.item, viewStore.state.item, viewStore.state.item].indexed
-            
-            ForEach(items, id: \.position) { _, item in
+
+            ForEach(items, id: \.position) { position, item in
               GeometryReader { geometry in
-                ZStack {
-                  AnimatedGradientBackground()
-                  
-                  AnimatedImage(url: URL(string: item.image.url), isAnimating: $isAnimating)
-                    .placeholder(content: { Color.randomColor })
+                ScrollView(showsIndicators: false) {
+                  ZStack {
+                    AnimatedGradientBackground()
+                      .frame(width: screenWidth, height: screenHeight)
+
+                    AnimatedImage(url: URL(string: item.image.url), isAnimating: $isAnimating) {
+                      Color.randomColor
+                    }
                     .resizable()
                     .scaledToFill()
+                    .rotationEffect(.degrees(CGFloat(90 * position)))
                     .frame(width: screenWidth - 60, height: screenWidth - 60)
                     .cornerRadius(20)
+                    .showGiphyMenu(item)
+                  }
+
                 }
                 .frame(width: geometry.frame(in: .global).width, height: geometry.frame(in: .global).height)
                 .rotation3DEffect(
@@ -57,8 +66,8 @@ struct DetailView: View {
         }
         .padding(.top, -40)
         .edgesIgnoringSafeArea(.all)
-        .sheet(isPresented: $isShareGIF) {
-          ShareSheetView(activityItems: viewStore.state.sharedData)
+        .sheet(isPresented: .constant(isShareGIF && !viewStore.state.isLoading)) {
+          ShareSheetView(activityItems: viewStore.state.sharedDatas)
         }
         .onAppear {
           viewStore.send(.checkFavoriteAndDownloadGIF(item: viewStore.state.item))
@@ -73,22 +82,29 @@ struct DetailView: View {
               }
             )
           }
-          
+
           ToolbarItem(placement: .navigationBarTrailing) {
-            IconButton(
-              iconName: "square.and.arrow.up.fill",
-              tint: .Theme.green,
-              onClick: {
-                isShareGIF.toggle()
-              }
-            ).padding(.trailing, 20)
+            if viewStore.state.isLoading && isShareGIF {
+              ActivityIndicator(style: .medium)
+                .frame(width: 10, height: 10)
+                .padding(.trailing, 20)
+            } else {
+              IconButton(
+                iconName: "square.and.arrow.up.fill",
+                tint: .Theme.green,
+                onClick: {
+                  isShareGIF.toggle()
+                }
+              ).padding(.trailing, 20)
+            }
           }
-          
+
           ToolbarItem(placement: .navigationBarTrailing) {
             IconButton(
               iconName: viewStore.state.isFavorited ? "heart.fill" : "heart",
               tint: .Theme.blueSky,
               onClick: {
+                isShareGIF = false
                 if viewStore.state.isFavorited {
                   viewStore.send(.removeFavorite(item: viewStore.state.item))
                 } else {
@@ -96,14 +112,13 @@ struct DetailView: View {
                   viewStore.send(.startLiveActivity(viewStore.state))
                 }
               }
-            )
+            ).tapScaleEffect()
           }
         }
-        
       }
     }
   }
-  
+
   func getAngle(xOffset: CGFloat) -> Double {
     let angle = xOffset / (screenWidth / 2)
     let rotationDegree: CGFloat = 25
@@ -112,9 +127,9 @@ struct DetailView: View {
 }
 
 struct AnimatedGradientBackground: View {
-  
+
   @State private var shouldAnimate = false
-  
+
   var body: some View {
     LinearGradient(
       colors: [.Theme.purple, .Theme.red],
@@ -126,7 +141,7 @@ struct AnimatedGradientBackground: View {
       withAnimation(animation) {
         shouldAnimate.toggle()
       }
-      
+
       DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
         withAnimation(animation) {
           self.shouldAnimate.toggle()

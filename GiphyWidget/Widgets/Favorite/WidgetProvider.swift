@@ -9,7 +9,6 @@ import WidgetKit
 import SwiftUI
 import Core
 import Giphy
-import SDWebImageSwiftUI
 
 typealias WidgetInteractor = Interactor<
   String, [Giphy], FavoriteGiphysRepository<

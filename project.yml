@@ -13,7 +13,7 @@ options:
 packages:
   SDWebImageSwiftUI:
     github: SDWebImage/SDWebImageSwiftUI
-    version: 2.0.0
+    version: 3.0.2
   Swinject:
     github: Swinject/Swinject
     version: 2.8.0

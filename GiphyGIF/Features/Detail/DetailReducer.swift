@@ -43,8 +43,9 @@ public struct DetailReducer: Reducer {
     
     public var item: Giphy = .init()
     @BindingState public var isFavorited: Bool = false
+    @BindingState public var isLoading: Bool = false
     public var errorMessage: String = ""
-    public var sharedData = [Data]()
+    public var sharedDatas = [Data]()
     public var isError: Bool = false
   }
   
@@ -52,7 +53,7 @@ public struct DetailReducer: Reducer {
     case checkFavoriteAndDownloadGIF(item: Giphy)
     case addFavorite(item: Giphy)
     case removeFavorite(item: Giphy)
-    case downloadedGIF(sharedData: [Data])
+    case downloadedGIF(sharedDatas: [Data])
     case startLiveActivity(DetailReducer.State)
     
     case success(isFavorited: Bool)
@@ -63,23 +64,29 @@ public struct DetailReducer: Reducer {
     Reduce<State, Action> { state, action in
       switch action {
       case .checkFavoriteAndDownloadGIF(let item):
+        state.isLoading = true
         return .run { send in
           do {
             let response = try await self.checkUseCase.execute(request: item.id)
             await send(.success(isFavorited: response))
-            
-            let (data, _) = try await URLSession.shared.data(from: URL(string: item.image.url)!)
-            await send(.downloadedGIF(sharedData: [data]))
-            
+
+            guard let imageURL = URL(string: item.image.url) else { return }
+            let (data, _) = try await URLSession.shared.data(from: imageURL)
+            await send(.downloadedGIF(sharedDatas: [data]))
+
           } catch {
             await send(.failed(error: error))
           }
         }
         
-      case .downloadedGIF(let sharedData):
-        state.sharedData = sharedData
+      case .downloadedGIF(let sharedDatas):
+        state.sharedDatas = sharedDatas
+        state.isLoading = false
+        if let data = sharedDatas.first {
+          data.copyGifClipboard()
+        }
         return .none
-        
+
       case .success(let isFavorited):
         state.isFavorited = isFavorited
         return .none

@@ -9,7 +9,6 @@ import WidgetKit
 import SwiftUI
 import Core
 import Giphy
-import SDWebImageSwiftUI
 import Common
 
 struct GiphyEntry: TimelineEntry {
