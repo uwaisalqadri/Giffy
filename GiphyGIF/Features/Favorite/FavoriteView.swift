@@ -53,19 +53,6 @@ struct FavoriteView: View {
   }
 }
 
-struct FavoriteEmptyView: View {
-  var body: some View {
-    VStack {
-      LottieView(fileName: "favorite_empty", bundle: Bundle.common, loopMode: .loop)
-        .frame(width: 220, height: 220)
-      
-      Text(FavoriteString.labelFavoriteEmpty.localized)
-        .font(.HelveticaNeue.s1SubtitleSemibold)
-        .multilineTextAlignment(.center)
-    }
-  }
-}
-
 struct FavoriteView_Previews: PreviewProvider {
   static var previews: some View {
     FavoriteView(store: Injection.shared.resolve())
