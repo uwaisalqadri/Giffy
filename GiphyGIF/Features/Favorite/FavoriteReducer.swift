@@ -23,16 +23,20 @@ typealias RemoveFavoriteInteractor = Interactor<
   >
 >
 
-public struct FavoriteReducer: Reducer {
+@Reducer
+public struct FavoriteReducer {
   
+  @Route var router
+
   private let useCase: FavoriteInteractor
   private let removeUseCase: RemoveFavoriteInteractor
-  
+
   init(useCase: FavoriteInteractor, removeUseCase: RemoveFavoriteInteractor) {
     self.useCase = useCase
     self.removeUseCase = removeUseCase
   }
   
+  @ObservableState
   public struct State: Equatable {
     public var list: [Giphy] = []
     public var errorMessage: String = ""
@@ -47,12 +51,13 @@ public struct FavoriteReducer: Reducer {
     
     case removeFavorite(item: Giphy, request: String)
     case showDetail(item: Giphy)
+    case didBackPressed
   }
   
-  public var body: some ReducerOf<Self> {
-    Reduce<State, Action> { state, action in
+  public var body: some Reducer<State, Action> {
+    Reduce { state, action in
       switch action {
-      case .fetch(let request):
+      case let .fetch(request):
         state.isLoading = true
         return .run { send in
           do {
@@ -63,7 +68,7 @@ public struct FavoriteReducer: Reducer {
           }
         }
         
-      case .success(let data):
+      case let .success(data):
         state.list = data
         state.isLoading = false
         return .none
@@ -73,7 +78,7 @@ public struct FavoriteReducer: Reducer {
         state.isLoading = false
         return .none
         
-      case .removeFavorite(let item, let request):
+      case let .removeFavorite(item, request):
         return .run { send in
           do {
             _ = try await self.removeUseCase.execute(request: item)
@@ -83,9 +88,13 @@ public struct FavoriteReducer: Reducer {
           }
         }
         
-      case .showDetail:
+      case let .showDetail(item):
+        router.present(.detail(item))
         return .none
         
+      case .didBackPressed:
+        router.pop()
+        return .none
       }
     }
   }

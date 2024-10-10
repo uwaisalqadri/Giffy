@@ -13,9 +13,7 @@ import ComposableArchitecture
 
 struct HomeView: View {
   let store: StoreOf<HomeReducer>
-  
-  @State private var isFetched = false
-  
+    
   var body: some View {
     WithViewStore(store, observe: { $0 }) { viewStore in
       ScrollView(.vertical, showsIndicators: false) {
@@ -65,17 +63,12 @@ struct HomeView: View {
         }
       )
       .onAppear {
-        if !isFetched {
-          isFetched = true
-          viewStore.send(.fetch(request: 0))
-        }
+        viewStore.send(.fetch(request: 0))
       }
     }
   }
 }
 
-struct HomeView_Previews: PreviewProvider {
-  static var previews: some View {
-    HomeView(store: Injection.shared.resolve())
-  }
+#Preview {
+  HomeView(store: Injection.resolve())
 }

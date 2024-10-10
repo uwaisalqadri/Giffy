@@ -17,35 +17,50 @@ struct FavoriteView: View {
   
   var body: some View {
     WithViewStore(store, observe: { $0 }) { viewStore in
-      ScrollView {
-        SearchField { query in
-          viewStore.send(.fetch(request: query))
-        }.padding(.vertical, 20)
-        
-        if viewStore.state.list.isEmpty {
-          FavoriteEmptyView()
-            .padding(.top, 50)
+      NavigationView {
+        ScrollView {
+          SearchField { query in
+            viewStore.send(.fetch(request: query))
+          }.padding(.vertical, 20)
+          
+          if viewStore.state.list.isEmpty {
+            FavoriteEmptyView()
+              .padding(.top, 50)
+          }
+          
+          LazyVStack {
+            ForEach(viewStore.state.list, id: \.id) { item in
+              GiphyItemRow(
+                isFavorite: true,
+                giphy: item,
+                onTapRow: { giphy in
+                  viewStore.send(.showDetail(item: giphy))
+                },
+                onFavorite: { giphy in
+                  viewStore.send(.removeFavorite(item: giphy, request: ""))
+                }
+              )
+              .padding(.horizontal, 20)
+              .padding(.bottom, 20)
+            }
+          }
         }
-        
-        LazyVStack {
-          ForEach(viewStore.state.list, id: \.id) { item in
-            GiphyItemRow(
-              isFavorite: true,
-              giphy: item,
-              onTapRow: { giphy in
-                viewStore.send(.showDetail(item: giphy))
-              },
-              onFavorite: { giphy in
-                viewStore.send(.removeFavorite(item: giphy, request: ""))
+        .padding(.horizontal, 10)
+        .navigationTitle(FavoriteString.titleFavorite.localized)
+        .navigationBarBackButtonHidden(false)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+          ToolbarItem(placement: .navigationBarLeading) {
+            IconButton(
+              iconName: "chevron.left",
+              tint: .blue,
+              onClick: {
+                viewStore.send(.didBackPressed)
               }
             )
-            .padding(.horizontal, 20)
-            .padding(.bottom, 20)
           }
         }
       }
-      .padding(.horizontal, 10)
-      .navigationTitle(FavoriteString.titleFavorite.localized)
       .onAppear {
         viewStore.send(.fetch(request: ""))
       }
@@ -53,8 +68,6 @@ struct FavoriteView: View {
   }
 }
 
-struct FavoriteView_Previews: PreviewProvider {
-  static var previews: some View {
-    FavoriteView(store: Injection.shared.resolve())
-  }
+#Preview {
+  FavoriteView(store: Injection.resolve())
 }

@@ -8,32 +8,33 @@
 import SwiftUI
 import Common
 import ComposableArchitecture
+import Combine
 import TCACoordinators
 
 struct MainTabView: View {
   let store: StoreOf<MainTabReducer>
-  
+
   var body: some View {
     WithViewStore(store, observe: \.selectedTab) { viewStore in
       NavigationView {
         ZStack {
           switch viewStore.state {
           case .home:
-            AppCoordinatorView(
-              coordinator: store.scope(
-                state: \.homeTab,
-                action: { .homeTab($0) }
+            HomeView(
+              store: store.scope(
+                state: \.home,
+                action: \.home
               )
             )
           case .search:
-            AppCoordinatorView(
-              coordinator: store.scope(
-                state: \.searchTab,
-                action: { .searchTab($0) }
+            SearchView(
+              store: store.scope(
+                state: \.search,
+                action: \.search
               )
             )
           }
-          
+
           VStack {
             Spacer()
             CapsuleTabView(currentTab: viewStore.binding(send: MainTabReducer.Action.selectedTabChanged))
@@ -47,7 +48,7 @@ struct MainTabView: View {
 
 struct CapsuleTabView: View {
   @Binding var currentTab: Tabs
-  
+
   var body: some View {
     HStack(spacing: 45) {
       ForEach(Tabs.allCases, id: \.rawValue) { tab in
@@ -83,15 +84,10 @@ struct CapsuleTabView: View {
   }
 }
 
-struct ContentView_Previews: PreviewProvider {
-  static var previews: some View {
-    MainTabView(store: Injection.shared.resolve())
-  }
-}
-
 extension AnyTransition {
   static var backslide: AnyTransition {
     AnyTransition.asymmetric(
       insertion: .move(edge: .trailing),
-      removal: .move(edge: .leading))}
+      removal: .move(edge: .leading))
+  }
 }

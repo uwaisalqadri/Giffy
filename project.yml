@@ -10,6 +10,11 @@ options:
   postGenCommand: xcodebuild -resolvePackageDependencies
   indentWidth: 2
   tabWidth: 2
+  groupOrdering:
+    - order:
+      - GiphyGIF
+      - GiphyWidget
+      - Packages
 packages:
   SDWebImageSwiftUI:
     github: SDWebImage/SDWebImageSwiftUI

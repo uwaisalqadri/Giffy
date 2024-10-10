@@ -49,12 +49,10 @@ struct WidgetFavoriteView: View {
   }
 }
 
-struct Widget_Previews: PreviewProvider {
-  static var previews: some View {
-    WidgetFavoriteView(entry: .init(total: 10))
-      .previewContext(WidgetPreviewContext(family: .systemSmall))
-      .previewDevice(.none)
-  }
+#Preview {
+  WidgetFavoriteView(entry: .init(total: 10))
+    .previewContext(WidgetPreviewContext(family: .systemSmall))
+    .previewDevice(.none)
 }
 
 struct GiphyWidget: Widget {

@@ -77,8 +77,6 @@ struct SearchView: View {
   }
 }
 
-struct SearchView_Previews: PreviewProvider {
-  static var previews: some View {
-    SearchView(store: Injection.shared.resolve())
-  }
+#Preview {
+  SearchView(store: Injection.resolve())
 }

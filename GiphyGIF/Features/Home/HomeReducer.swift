@@ -17,10 +17,12 @@ typealias HomeInteractor = Interactor<
   >
 >
 
-public struct HomeReducer: Reducer {
+@Reducer
+public struct HomeReducer {
   
   private let useCase: HomeInteractor
-  
+  @Route private var router
+
   init(useCase: HomeInteractor) {
     self.useCase = useCase
   }
@@ -30,6 +32,7 @@ public struct HomeReducer: Reducer {
     public var errorMessage: String = ""
     public var isLoading: Bool = false
     public var isError: Bool = false
+    public var isFetched: Bool = false
   }
   
   public enum Action {
@@ -41,10 +44,13 @@ public struct HomeReducer: Reducer {
     case openFavorite
   }
   
-  public var body: some ReducerOf<Self> {
-    Reduce<State, Action> { state, action in
+  public var body: some Reducer<State, Action> {
+    Reduce { state, action in
       switch action {
       case .fetch(let request):
+        guard !state.isFetched else { return .none }
+        state.isFetched = true
+
         state.isLoading = true
         return .run { send in
           do {
@@ -64,7 +70,12 @@ public struct HomeReducer: Reducer {
         state.isLoading = false
         return .none
         
-      case .showDetail, .openFavorite:
+      case let .showDetail(item):
+        router.present(.detail(item))
+        return .none
+
+      case .openFavorite:
+        router.push(.favorite)
         return .none
       }
     }

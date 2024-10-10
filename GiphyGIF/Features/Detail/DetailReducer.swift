@@ -24,26 +24,32 @@ typealias CheckFavoriteInteractor = Interactor<
   >
 >
 
-public struct DetailReducer: Reducer {
+@Reducer
+public struct DetailReducer {
   
   private let checkUseCase: CheckFavoriteInteractor
   private let addUseCase: AddFavoriteInteractor
   private let removeUseCase: RemoveFavoriteInteractor
   
-  init(checkUseCase: CheckFavoriteInteractor, addUseCase: AddFavoriteInteractor, removeUseCase: RemoveFavoriteInteractor) {
+  init(
+    checkUseCase: CheckFavoriteInteractor,
+    addUseCase: AddFavoriteInteractor,
+    removeUseCase: RemoveFavoriteInteractor
+  ) {
     self.checkUseCase = checkUseCase
     self.addUseCase = addUseCase
     self.removeUseCase = removeUseCase
   }
   
+  @ObservableState
   public struct State: Equatable {
+    public let item: Giphy
     public init(item: Giphy) {
       self.item = item
     }
     
-    public var item: Giphy = .init()
-    @BindingState public var isFavorited: Bool = false
-    @BindingState public var isLoading: Bool = false
+    public var isFavorited: Bool = false
+    public var isLoading: Bool = false
     public var errorMessage: String = ""
     public var sharedDatas = [Data]()
     public var isError: Bool = false
@@ -60,8 +66,8 @@ public struct DetailReducer: Reducer {
     case failed(error: Error)
   }
   
-  public var body: some ReducerOf<Self> {
-    Reduce<State, Action> { state, action in
+  public var body: some Reducer<State, Action> {
+    Reduce { state, action in
       switch action {
       case .checkFavoriteAndDownloadGIF(let item):
         state.isLoading = true

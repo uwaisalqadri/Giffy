@@ -10,15 +10,23 @@ import ComposableArchitecture
 import Common
 
 @main
-struct GiphyApp: App {
-  
+struct MainApp: App {
+  @Route var router
+
   init() {
     Font.loadCustomFont()
   }
   
   var body: some Scene {
     WindowGroup {
-      MainTabView(store: Injection.shared.resolve())
+      RouteView(
+        store: Store(initialState: RouteReducer.State()) {
+          RouteReducer()
+        }
+      )
+      .onAppear {
+        router.makeRoot(.main)
+      }
     }
   }
 }

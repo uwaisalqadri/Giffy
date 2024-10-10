@@ -35,14 +35,15 @@ public enum Tabs: Int, CaseIterable {
 
 struct MainTabReducer: Reducer {
   struct State: Equatable {
-    var homeTab = AppCoordinator.State.rootHomeState
-    var searchTab = AppCoordinator.State.rootSearchState
     var selectedTab: Tabs = .home
+    var home: HomeReducer.State = .init()
+    var search: SearchReducer.State = .init()
   }
   
-  enum Action {
-    case homeTab(AppCoordinator.Action)
-    case searchTab(AppCoordinator.Action)
+  @CasePathable
+  enum Action: CasePathable {
+    case home(HomeReducer.Action)
+    case search(SearchReducer.Action)
     case selectedTabChanged(Tabs)
   }
   
@@ -52,16 +53,17 @@ struct MainTabReducer: Reducer {
       case let .selectedTabChanged(tab):
         state.selectedTab = tab
         return .none
-        
-      case .homeTab, .searchTab:
+      default:
         return .none
       }
     }
-    Scope(state: \.homeTab, action: /Action.homeTab) {
-      AppCoordinator()
+
+    Scope(state: \.home, action: \.home) {
+      HomeReducer(useCase: Injection.resolve())
     }
-    Scope(state: \.searchTab, action: /Action.searchTab) {
-      AppCoordinator()
+
+    Scope(state: \.search, action: \.search) {
+      SearchReducer(useCase: Injection.resolve())
     }
   }
 }

@@ -17,14 +17,17 @@ typealias SearchInteractor = Interactor<
   >
 >
 
-public struct SearchReducer: Reducer {
+@Reducer
+public struct SearchReducer {
   
+  @Route var router
   private let useCase: SearchInteractor
-  
+
   init(useCase: SearchInteractor) {
     self.useCase = useCase
   }
   
+  @ObservableState
   public struct State: Equatable {
     public var grid = SearchGrid.init()
     public var errorMessage: String = ""
@@ -41,8 +44,8 @@ public struct SearchReducer: Reducer {
     case openFavorite
   }
   
-  public var body: some ReducerOf<Self> {
-    Reduce<State, Action> { state, action in
+  public var body: some Reducer<State, Action> {
+    Reduce { state, action in
       switch action {
       case .fetch(let request):
         state.isLoading = true
@@ -69,7 +72,12 @@ public struct SearchReducer: Reducer {
         state.isLoading = false
         return .none
         
-      case .showDetail, .openFavorite:
+      case let .showDetail(item):
+        router.present(.detail(item))
+        return .none
+
+      case .openFavorite:
+        router.push(.favorite)
         return .none
       }
     }

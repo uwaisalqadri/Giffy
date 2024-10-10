@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TapScaleEffectModifier: ViewModifier {
-  @State private var isClicked = false
+  @State private var isPressed = false
   var maximumScaleEffect: CGFloat = 1.7
 
   func body(content: Content) -> some View {
@@ -16,14 +16,14 @@ struct TapScaleEffectModifier: ViewModifier {
       .simultaneousGesture(
         TapGesture()
           .onEnded { _ in
-            isClicked = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-              isClicked = false
+            isPressed = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.07) {
+              isPressed = false
             }
           }
       )
-      .scaleEffect(isClicked ? maximumScaleEffect : 1)
-      .animation(.spring(response: 0.4, dampingFraction: 0.6), value: isClicked)
+      .scaleEffect(isPressed ? maximumScaleEffect : 1)
+      .animation(.spring(response: 0.4, dampingFraction: 0.6), value: isPressed)
   }
 }
 

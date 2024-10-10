@@ -11,11 +11,10 @@ import Giphy
 import Common
 import ComposableArchitecture
 
-class Injection {
-  static let shared = Injection()
+public class Injection {
   private let container = Container()
 
-  init() {
+  private init() {
     registerHomeFeature()
     registerDetailFeature()
     registerSearchFeature()
@@ -23,19 +22,6 @@ class Injection {
   }
 
   private func registerHomeFeature() {
-    container.register(HomeView.self) { [unowned self] _ in
-      HomeView(store: self.resolve())
-    }
-    container.register(StoreOf<HomeReducer>.self) { _ in
-      Store(initialState: HomeReducer.State(), reducer: {
-        HomeReducer(useCase: self.resolve())
-      })
-    }
-    container.register(StoreOf<MainTabReducer>.self) { _ in
-      Store(initialState: MainTabReducer.State(), reducer: {
-        MainTabReducer()
-      })
-    }
     container.register(HomeInteractor.self) { [unowned self] _ in
       Interactor(repository: self.resolve())
     }
@@ -48,12 +34,6 @@ class Injection {
   }
 
   private func registerDetailFeature() {
-
-    container.register(StoreOf<DetailReducer>.self) { _ in
-      Store(initialState: DetailReducer.State(item: .init()), reducer: {
-        DetailReducer(checkUseCase: self.resolve(), addUseCase: self.resolve(), removeUseCase: self.resolve())
-      })
-    }
     container.register(CheckFavoriteInteractor.self) { [unowned self] _ in
       Interactor(repository: self.resolve())
     }
@@ -75,14 +55,6 @@ class Injection {
   }
 
   private func registerSearchFeature() {
-    container.register(SearchView.self) { [unowned self] _ in
-      SearchView(store: self.resolve())
-    }
-    container.register(StoreOf<SearchReducer>.self) { [unowned self] _ in
-      Store(initialState: SearchReducer.State()) {
-        SearchReducer(useCase: self.resolve())
-      }
-    }
     container.register(SearchInteractor.self) { [unowned self] _ in
       Interactor(repository: self.resolve())
     }
@@ -95,14 +67,6 @@ class Injection {
   }
 
   private func registerFavoriteFeature() {
-    container.register(FavoriteView.self) { [unowned self] _ in
-      FavoriteView(store: self.resolve())
-    }
-    container.register(StoreOf<FavoriteReducer>.self) { [unowned self] _ in
-      Store(initialState: FavoriteReducer.State()) {
-        FavoriteReducer(useCase: self.resolve(), removeUseCase: self.resolve())
-      }
-    }
     container.register(FavoriteInteractor.self) { [unowned self] _ in
       Interactor(repository: self.resolve())
     }
@@ -114,20 +78,33 @@ class Injection {
     }
   }
 
-  func resolve<T>() -> T {
+  public static func resolve<T>() -> T {
+    Injection().resolve()
+  }
+
+  public static func resolve<T, A>(argument: A) -> T {
+    Injection().resolve(argument: argument)
+  }
+
+  public static func resolve<T>(name: String) -> T {
+    Injection().resolve(name: name)
+  }
+
+  private func resolve<T>() -> T {
     guard let result = container.resolve(T.self) else {
       fatalError("This type is not registered: \(T.self)")
     }
     return result
   }
 
-  func resolve<T, A>(argument: A) -> T {
+  private func resolve<T, A>(argument: A) -> T {
     guard let result = container.resolve(T.self, argument: argument) else {
       fatalError("This type is not registered: \(T.self)")
     }
     return result
   }
-  func resolve<T>(name: String) -> T {
+
+  private func resolve<T>(name: String) -> T {
     guard let result = container.resolve(T.self, name: name) else {
       fatalError("This type is not registered: \(T.self)")
     }
