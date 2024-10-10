@@ -36,20 +36,10 @@ public struct Route {
   public init() {}
 
   private var customValue: Router<AppRoute>?
+  public static var defaultRouter: Router<AppRoute> = Router()
+
   public var wrappedValue: Router<AppRoute> {
-    get { customValue ?? RouteWrapperValues.router }
+    get { customValue ?? Self.defaultRouter }
     set { customValue = newValue }
   }
-}
-
-public struct RouteWrapperValues {
-  private static var current = RouteWrapperValues()
-  public static var router: Router<AppRoute> {
-    get { RouterWrapperKey.currentValue }
-    set { RouterWrapperKey.currentValue = newValue }
-  }
-}
-
-struct RouterWrapperKey {
-  static var currentValue: Router<AppRoute> = Router()
 }

@@ -18,7 +18,7 @@ struct FavoriteView: View {
   var body: some View {
     WithViewStore(store, observe: { $0 }) { viewStore in
       NavigationView {
-        ScrollView {
+        ScrollView(.vertical, showsIndicators: false) {
           SearchField { query in
             viewStore.send(.fetch(request: query))
           }
@@ -42,7 +42,7 @@ struct FavoriteView: View {
                   viewStore.send(.removeFavorite(item: giphy, request: ""))
                 }
               )
-              .padding(.horizontal, 8)
+              .padding(.horizontal, 16)
               .padding(.bottom, 20)
             }
           }
