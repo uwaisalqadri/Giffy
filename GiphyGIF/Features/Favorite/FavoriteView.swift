@@ -21,8 +21,10 @@ struct FavoriteView: View {
         ScrollView {
           SearchField { query in
             viewStore.send(.fetch(request: query))
-          }.padding(.vertical, 20)
-          
+          }
+          .padding(.horizontal, 16)
+          .padding(.vertical, 20)
+
           if viewStore.state.list.isEmpty {
             FavoriteEmptyView()
               .padding(.top, 50)
@@ -40,12 +42,11 @@ struct FavoriteView: View {
                   viewStore.send(.removeFavorite(item: giphy, request: ""))
                 }
               )
-              .padding(.horizontal, 20)
+              .padding(.horizontal, 8)
               .padding(.bottom, 20)
             }
           }
         }
-        .padding(.horizontal, 10)
         .navigationTitle(FavoriteString.titleFavorite.localized)
         .navigationBarBackButtonHidden(false)
         .navigationBarTitleDisplayMode(.inline)

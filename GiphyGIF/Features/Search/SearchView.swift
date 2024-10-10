@@ -23,8 +23,8 @@ struct SearchView: View {
         SearchField { query in
           searchText = query
           viewStore.send(.fetch(request: searchText))
-        }
-        
+        }.padding(.horizontal, 16)
+
         if !viewStore.state.isLoading {
           if viewStore.state.grid.rightGrid.isEmpty {
             SearchEmptyView()

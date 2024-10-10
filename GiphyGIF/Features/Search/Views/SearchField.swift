@@ -46,7 +46,6 @@ struct SearchField: View {
       }
       .background(Color.white)
       .cornerRadius(5)
-      .padding(.horizontal, 18)
     }
   }
 }

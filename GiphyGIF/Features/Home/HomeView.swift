@@ -34,7 +34,7 @@ struct HomeView: View {
                         viewStore.send(.showDetail(item: item))
                       }
                     )
-                    .padding(.horizontal, 20)
+                    .padding(.horizontal, 8)
                     .padding(.bottom, 20)
                   }
                 }.padding(.top, 20)
@@ -48,7 +48,6 @@ struct HomeView: View {
           
         }
         .padding(.bottom, 60)
-        .padding(.horizontal, 10)
       }
       .navigationTitle(HomeString.titleTrending.localized)
       .navigationViewStyle(.stack)
