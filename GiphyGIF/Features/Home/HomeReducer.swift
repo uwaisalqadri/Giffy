@@ -19,9 +19,9 @@ typealias HomeInteractor = Interactor<
 
 @Reducer
 public struct HomeReducer {
-  
-  private let useCase: HomeInteractor
+
   @Route private var router
+  private let useCase: HomeInteractor
 
   init(useCase: HomeInteractor) {
     self.useCase = useCase

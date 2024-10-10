@@ -47,11 +47,11 @@ public struct SearchReducer {
   public var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
-      case .fetch(let request):
+      case .fetch(let query):
         state.isLoading = true
         return .run { send in
           do {
-            let response = try await self.useCase.execute(request: request)
+            let response = try await self.useCase.execute(request: query)
             await send(.success(response: response))
           } catch {
             await send(.failed(error: error))

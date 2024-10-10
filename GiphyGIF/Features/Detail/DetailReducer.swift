@@ -50,18 +50,20 @@ public struct DetailReducer {
     
     public var isFavorited: Bool = false
     public var isLoading: Bool = false
+    public var isShareGIF = false
     public var errorMessage: String = ""
     public var sharedDatas = [Data]()
     public var isError: Bool = false
   }
   
   public enum Action {
-    case checkFavoriteAndDownloadGIF(item: Giphy)
-    case addFavorite(item: Giphy)
-    case removeFavorite(item: Giphy)
-    case downloadedGIF(sharedDatas: [Data])
+    case checkFavorite
+    case download
+    case addFavorite
+    case removeFavorite
+    case copyToClipboard(sharedDatas: [Data])
     case startLiveActivity(DetailReducer.State)
-    
+
     case success(isFavorited: Bool)
     case failed(error: Error)
   }
@@ -69,27 +71,38 @@ public struct DetailReducer {
   public var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
-      case .checkFavoriteAndDownloadGIF(let item):
-        state.isLoading = true
+      case .checkFavorite:
+        let item = state.item
         return .run { send in
           do {
             let response = try await self.checkUseCase.execute(request: item.id)
             await send(.success(isFavorited: response))
+          } catch {
+            await send(.failed(error: error))
+          }
+        }
 
+      case .download:
+        state.isLoading = true
+
+        let item = state.item
+        return .run { send in
+          do {
             guard let imageURL = URL(string: item.image.url) else { return }
             let (data, _) = try await URLSession.shared.data(from: imageURL)
-            await send(.downloadedGIF(sharedDatas: [data]))
+            await send(.copyToClipboard(sharedDatas: [data]))
 
           } catch {
             await send(.failed(error: error))
           }
         }
-        
-      case .downloadedGIF(let sharedDatas):
+
+      case .copyToClipboard(let sharedDatas):
         state.sharedDatas = sharedDatas
         state.isLoading = false
         if let data = sharedDatas.first {
           data.copyGifClipboard()
+          state.isShareGIF = true
         }
         return .none
 
@@ -102,7 +115,8 @@ public struct DetailReducer {
         state.isError = true
         return .none
         
-      case .addFavorite(let item):
+      case .addFavorite:
+        let item = state.item
         return .run { send in
           do {
             _ = try await self.addUseCase.execute(request: item)
@@ -112,7 +126,8 @@ public struct DetailReducer {
           }
         }
         
-      case .removeFavorite(let item):
+      case .removeFavorite:
+        let item = state.item
         return .run { send in
           do {
             _ = try await self.removeUseCase.execute(request: item)
@@ -132,7 +147,12 @@ public struct DetailReducer {
           try await Task.sleep(nanoseconds: 3_000_000_000)
           await activity?.end(using: attributeState, dismissalPolicy: .immediate)
         }
+
       }
     }
   }
+}
+
+enum ShareError: Error {
+  case fail
 }

@@ -37,9 +37,15 @@ struct SearchField: View {
             .foregroundColor(.white)
             .frame(width: 20, height: 20)
             .background(
-              LinearGradient(gradient: Gradient(colors: [.Theme.red, .Theme.purple]), startPoint: .bottomTrailing, endPoint: .topLeading)
-                .frame(width: 40, height: 40)
-                .cornerRadius(5, corners: [.topRight, .bottomRight])
+              LinearGradient(
+                gradient: Gradient(
+                  colors: [.Theme.red, .Theme.purple]
+                ),
+                startPoint: .bottomTrailing,
+                endPoint: .topLeading
+              )
+              .frame(width: 40, height: 40)
+              .cornerRadius(5, corners: [.topRight, .bottomRight])
             )
             .padding(.trailing, 10)
         }

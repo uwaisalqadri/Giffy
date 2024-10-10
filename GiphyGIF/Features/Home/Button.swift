@@ -11,12 +11,13 @@ struct IconButton: View {
   
   var iconName: String
   var tint: Color
+  var size: CGFloat = 20
   var onClick: () -> Void
   
   var body: some View {
     Image(systemName: iconName)
       .resizable()
-      .font(.system(size: 20))
+      .font(.system(size: size))
       .foregroundColor(tint)
       .onTapGesture {
         onClick()
@@ -32,10 +33,11 @@ struct RedirectButton: View {
       .resizable()
       .foregroundColor(.Theme.yellow)
       .frame(width: 17, height: 17)
+      .padding(.all, 17)
       .background(
-        Color.Theme.background.clipShape(Circle())
-          .frame(width: 47, height: 47)
+        Color.Theme.background
       )
+      .clipShape(Circle())
       .onTapGesture {
         onClick()
       }

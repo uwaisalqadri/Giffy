@@ -13,110 +13,83 @@ public protocol RouterIdentifiable: Equatable {
 }
 
 public final class Router<T: RouterIdentifiable> {
-  private var _routes: [T] = []
-  public var routes: [T] {
-    return _routes
-  }
-
+  private var routes: [T] = []
   public var onMakeRoot: ((T, Bool) -> Void)?
   public var onPush: ((T, Bool) -> Void)?
   public var onPresent: ((T, Bool) -> Void)?
   public var onPopLast: ((Int, Bool) -> Void)?
   public var onPopToRoot: ((Int?, Bool) -> Void)?
 
+  public var currentRoutes: [T] {
+    return routes
+  }
+
   public init(initial: T? = nil) {
-    if let initial = initial {
-      push(initial)
-    }
+    if let initial = initial { push(initial) }
   }
 
   public func makeRoot(_ route: T, animated: Bool = true, needValidate: Bool = false) {
-    if needValidate && _routes.last?.key == route.key {
-      return
-    }
-
-    _routes = [route]
+    guard !(needValidate && routes.last?.key == route.key) else { return }
+    routes = [route]
     onMakeRoot?(route, animated)
   }
 
   public func push(_ route: T, animated: Bool = true, needValidate: Bool = false) {
-    if needValidate && _routes.last?.key == route.key {
-      return
-    }
-
-    _routes.append(route)
+    guard !(needValidate && routes.last?.key == route.key) else { return }
+    routes.append(route)
     onPush?(route, animated)
   }
 
   public func present(_ route: T, animated: Bool = true, needValidate: Bool = false) {
-    if needValidate && _routes.last?.key == route.key {
-      return
-    }
-
-    _routes.append(route)
+    guard !(needValidate && routes.last?.key == route.key) else { return }
+    routes.append(route)
     onPresent?(route, animated)
   }
 
   public func pop(animated: Bool = true) {
-    if !_routes.isEmpty {
-      let popped = _routes.removeLast()
-      print("Router \(popped)")
-      onPopLast?(1, animated)
-    }
+    guard !routes.isEmpty else { return }
+    let popped = routes.removeLast()
+    print("Router popped: \(popped)")
+    onPopLast?(1, animated)
   }
 
   public func popTo(last index: Int, animated: Bool = true) {
-    if !_routes.isEmpty {
-      let elementsToRemove = min(index - 1, _routes.count - 1)
-      _routes.removeLast(elementsToRemove)
-      onPopLast?(index, animated)
-    }
+    guard !routes.isEmpty else { return }
+    let elementsToRemove = min(index - 1, routes.count - 1)
+    routes.removeLast(elementsToRemove)
+    onPopLast?(index, animated)
   }
 
   public func popTo(_ route: T, inclusive: Bool = false, animated: Bool = true) {
-
-    if _routes.isEmpty {
+    guard let foundIndex = routes.lastIndex(where: { $0 == route }) else { return }
+    let indexToPopTo = inclusive ? foundIndex : foundIndex + 1
+    guard indexToPopTo != 0 else {
+      popToRoot(index: nil, animated: animated)
       return
     }
 
-    guard var found = _routes.lastIndex(where: { $0 == route }) else {
-      return
-    }
-
-    if !inclusive {
-      found += 1
-    }
-
-    guard found != 0 else {
-      popToRoot()
-      return
-    }
-
-    let numToPop = (found ..< _routes.endIndex).count
-    _routes.removeLast(numToPop)
+    let numToPop = routes.count - indexToPopTo
+    routes.removeLast(numToPop)
     onPopLast?(numToPop, animated)
   }
 
   public func popToRoot(index: Int? = nil, animated: Bool = true) {
     onPopToRoot?(index, animated)
-    if _routes.count > 1 {
-      _routes.removeSubrange(1 ..< _routes.count)
+    if routes.count > 1 {
+      routes.removeSubrange(1 ..< routes.count)
     }
   }
 
   public func onSystemPop() {
-    if !_routes.isEmpty {
-      let popped = _routes.removeLast()
-      print("Router \(popped)")
-    }
+    guard !routes.isEmpty else { return }
+    let popped = routes.removeLast()
+    print("Router popped: \(popped)")
   }
 }
 
 public struct RouteProvider<T: RouterIdentifiable, Screen: View>: View {
   private let router: Router<T>
-
-  @ViewBuilder
-  private let routeMap: (T) -> Screen
+  @ViewBuilder private let routeMap: (T) -> Screen
 
   public init(_ router: Router<T>, @ViewBuilder _ routeMap: @escaping (T) -> Screen) {
     self.router = router
@@ -124,37 +97,26 @@ public struct RouteProvider<T: RouterIdentifiable, Screen: View>: View {
   }
 
   public var body: some View {
-    NavigationControllerHost(
-      router: router,
-      routeMap: routeMap
-    )
-    .edgesIgnoringSafeArea(.top)
-    .edgesIgnoringSafeArea(.bottom)
+    NavigationControllerHost(router: router, routeMap: routeMap)
+      .edgesIgnoringSafeArea(.all)
   }
 }
 
 struct NavigationControllerHost<T: RouterIdentifiable, Screen: View>: UIViewControllerRepresentable {
   let router: Router<T>
+  @ViewBuilder var routeMap: (T) -> Screen
 
-  @ViewBuilder
-  var routeMap: (T) -> Screen
-
-  func makeUIViewController(context _: Context) -> PopAwareUINavigationController {
+  func makeUIViewController(context: Context) -> PopAwareUINavigationController {
     let navigation = PopAwareUINavigationController()
     navigation.navigationBar.isHidden = true
+    setupRouterCallbacks(in: navigation)
+    setupInitialRoutes(in: navigation)
+    return navigation
+  }
 
-    navigation.popHandler = {
-      router.onSystemPop()
-    }
-    navigation.stackSizeProvider = {
-      router.routes.count
-    }
-
-    for path in router.routes {
-      navigation.pushViewController(
-        UIHostingController(rootView: routeMap(path)), animated: true
-      )
-    }
+  private func setupRouterCallbacks(in navigation: PopAwareUINavigationController) {
+    navigation.popHandler = { router.onSystemPop() }
+    navigation.stackSizeProvider = { router.currentRoutes.count }
 
     router.onMakeRoot = { route, animated in
       let viewController = UIHostingController(rootView: routeMap(route))
@@ -162,30 +124,28 @@ struct NavigationControllerHost<T: RouterIdentifiable, Screen: View>: UIViewCont
     }
 
     router.onPush = { route, animated in
-      navigation.pushViewController(
-        UIHostingController(rootView: routeMap(route)), animated: animated
-      )
+      let viewController = UIHostingController(rootView: routeMap(route))
+      navigation.pushViewController(viewController, animated: animated)
     }
 
     router.onPresent = { route, animated in
       let viewController = UIHostingController(rootView: routeMap(route))
       viewController.modalPresentationStyle = .overFullScreen
-      navigation.present(viewController, animated: animated, completion: nil)
+      navigation.present(viewController, animated: animated)
     }
 
     router.onPopLast = { numToPop, animated in
+      let popTo = navigation.viewControllers.count - numToPop - 1
       if numToPop == navigation.viewControllers.count {
         navigation.viewControllers = []
       } else {
-        let popTo = navigation.viewControllers[navigation.viewControllers.count - numToPop - 1]
-        navigation.popToViewController(popTo, animated: animated)
+        navigation.popToViewController(navigation.viewControllers[popTo], animated: animated)
       }
     }
 
     router.onPopToRoot = { tabIndex, animated in
       navigation.popToRootViewController(animated: animated)
-
-      if let tabIndex {
+      if let tabIndex = tabIndex {
         NotificationCenter.default.post(
           name: NSNotification.Name("shouldOpenTab"),
           object: nil,
@@ -193,15 +153,19 @@ struct NavigationControllerHost<T: RouterIdentifiable, Screen: View>: UIViewCont
         )
       }
     }
-
-    return navigation
   }
 
-  func updateUIViewController(_ navigation: PopAwareUINavigationController, context _: Context) {
+  private func setupInitialRoutes(in navigation: PopAwareUINavigationController) {
+    for path in router.currentRoutes {
+      navigation.pushViewController(UIHostingController(rootView: routeMap(path)), animated: true)
+    }
+  }
+
+  func updateUIViewController(_ navigation: PopAwareUINavigationController, context: Context) {
     navigation.navigationBar.isHidden = true
   }
 
-  static func dismantleUIViewController(_ navigation: PopAwareUINavigationController, coordinator _: ()) {
+  static func dismantleUIViewController(_ navigation: PopAwareUINavigationController, coordinator: ()) {
     navigation.viewControllers = []
     navigation.popHandler = nil
   }
@@ -213,18 +177,12 @@ class PopAwareUINavigationController: UINavigationController, UINavigationContro
   var popHandler: (() -> Void)?
   var stackSizeProvider: (() -> Int)?
 
-  var popGestureBeganController: UIViewController?
-
   override func viewDidLoad() {
     super.viewDidLoad()
     delegate = self
   }
 
-  func navigationController(
-    _ navigationController: UINavigationController,
-    didShow _: UIViewController,
-    animated _: Bool
-  ) {
+  func navigationController(_ navigationController: UINavigationController, didShow _: UIViewController, animated _: Bool) {
     if let stackSizeProvider = stackSizeProvider, stackSizeProvider() > navigationController.viewControllers.count {
       popHandler?()
     }

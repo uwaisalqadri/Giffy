@@ -84,9 +84,11 @@ struct GiphyItemRow: View {
         onTapRow?(giphy)
       })
       .tapScaleEffect()
-      .padding(.horizontal, 10)
+      .showGiphyMenu(giphy)
     }
-    .padding(.all, 20)
+    .padding(.leading, 20)
+    .padding(.trailing, 15)
+    .padding(.vertical, 15)
     .frame(maxHeight: 160)
     .background(
       Blur(style: .systemUltraThinMaterialDark)

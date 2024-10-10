@@ -27,7 +27,6 @@ typealias RemoveFavoriteInteractor = Interactor<
 public struct FavoriteReducer {
   
   @Route var router
-
   private let useCase: FavoriteInteractor
   private let removeUseCase: RemoveFavoriteInteractor
 
