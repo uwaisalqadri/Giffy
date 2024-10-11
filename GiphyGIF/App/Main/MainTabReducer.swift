@@ -11,23 +11,23 @@ import ComposableArchitecture
 import TCACoordinators
 
 public enum Tabs: Int, CaseIterable {
-  case home
   case search
-  
+  case home
+
   var iconName: String {
     switch self {
-    case .home:
-      return "rectangle.3.offgrid"
     case .search:
+      return "rectangle.3.offgrid"
+    case .home:
       return "rectangle.stack"
     }
   }
   
   var iconColor: Color {
     switch self {
-    case .home:
-      return .Theme.green
     case .search:
+      return .Theme.green
+    case .home:
       return .Theme.blueSky
     }
   }
@@ -35,7 +35,7 @@ public enum Tabs: Int, CaseIterable {
 
 struct MainTabReducer: Reducer {
   struct State: Equatable {
-    var selectedTab: Tabs = .home
+    var selectedTab: Tabs = .search
     var home: HomeReducer.State = .init()
     var search: SearchReducer.State = .init()
   }
