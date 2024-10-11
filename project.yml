@@ -1,4 +1,4 @@
-name: GiphyGIF
+name: Giffy
 include:
   - .swiftlint.yml
   - path: .swiftlint.yml
@@ -12,8 +12,8 @@ options:
   tabWidth: 2
   groupOrdering:
     - order:
-      - GiphyGIF
-      - GiphyWidget
+      - Giffy
+      - GiffyWidget
       - Packages
 packages:
   SDWebImageSwiftUI:
@@ -27,26 +27,26 @@ packages:
     version: 4.3.0
   Common:
     path: Modules/Common/Common
-  Giphy:
-    path: Modules/Giphy/Giphy
+  CommonUI:
+    path: Modules/CommonUI/CommonUI
 targets:
-  GiphyGIF:
+  Giffy:
     type: application
     platform: iOS
     deploymentTarget: "16.1"
     scheme:
       testTargets:
-        - GiphyGIFTests
+        - GiffyTests
       gatherCoverageData: true
     dependencies:
-      - target: GiphyWidget
-      - package: Giphy
+      - target: GiffyWidget
       - package: Common
+      - package: CommonUI
       - package: SDWebImageSwiftUI
       - package: Swinject
       - package: Lottie
     sources:
-      - path: GiphyGIF
+      - path: Giffy
         excludes:
           - "**/*.md" # excludes all files with the .md extension
     settings:
@@ -60,7 +60,7 @@ targets:
         ENABLE_BITCODE: false
         LIBRARY_SEARCH_PATHS:
           - "$(inherited)"
-          - "$(PROJECT_DIR)/GiphyGIF"
+          - "$(PROJECT_DIR)/Giffy"
     postCompileScripts:
       - script: |
           if test -d "/opt/homebrew/bin/"; then
@@ -75,37 +75,37 @@ targets:
             echo "warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint"
           fi
   
-  GiphyWidget:
+  GiffyWidget:
     type: app-extension
     subtype: widgetkit-extension
     platform: iOS
     deploymentTarget: "16.1"
     settings:
-      PRODUCT_BUNDLE_IDENTIFIER: com.uwaisalqadri.GiphyGIF.GiphyWidget
+      PRODUCT_BUNDLE_IDENTIFIER: com.uwaisalqadri.Giffy.GiffyWidget
       CODE_SIGN_STYLE: Automatic
-      INFOPLIST_FILE: GiphyWidget/Info.plist
+      INFOPLIST_FILE: GiffyWidget/Info.plist
     sources:
-      - path: GiphyWidget
+      - path: GiffyWidget
     dependencies:
-      - package: Giphy
+      - package: CommonUI
       - package: Common
       - package: SDWebImageSwiftUI
       - package: Swinject
       - package: Lottie
       - sdk: SwiftUI.framework
       - sdk: WidgetKit.framework
-  GiphyGIFTests:
+  GiffyTests:
     type: bundle.unit-test
     platform: iOS
     deploymentTarget: "16.1"
     dependencies:
-      - target: GiphyGIF
+      - target: Giffy
     settings:
       CODE_SIGN_STYLE: Automatic
-      INFOPLIST_FILE: GiphyGIFTests/Info.plist
-      TEST_HOST: $(BUILT_PRODUCTS_DIR)/GiphyGIF.app/GiphyGIF
+      INFOPLIST_FILE: GiffyTests/Info.plist
+      TEST_HOST: $(BUILT_PRODUCTS_DIR)/Giffy.app/Giffy
     scheme:
       testTargets:
-        - GiphyGIFTests
+        - GiffyTests
     sources:
-      - path: GiphyGIFTests
+      - path: GiffyTests
