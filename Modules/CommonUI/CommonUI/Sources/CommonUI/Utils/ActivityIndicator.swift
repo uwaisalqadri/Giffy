@@ -7,17 +7,21 @@
 
 import SwiftUI
 
-struct ActivityIndicator: UIViewRepresentable {
+public struct ActivityIndicator: UIViewRepresentable {
 
   var style: UIActivityIndicatorView.Style = .large
 
-  func makeUIView(
+  public init(style: UIActivityIndicatorView.Style) {
+    self.style = style
+  }
+  
+  public func makeUIView(
     context: UIViewRepresentableContext<ActivityIndicator>
   ) -> UIActivityIndicatorView {
     return UIActivityIndicatorView(style: style)
   }
 
-  func updateUIView(
+  public func updateUIView(
     _ uiView: UIActivityIndicatorView,
     context: UIViewRepresentableContext<ActivityIndicator>
   ) {

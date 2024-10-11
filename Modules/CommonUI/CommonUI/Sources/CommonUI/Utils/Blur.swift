@@ -8,14 +8,18 @@
 import Foundation
 import SwiftUI
 
-struct Blur: UIViewRepresentable {
+public struct Blur: UIViewRepresentable {
   @State var style: UIBlurEffect.Style = .systemMaterial
 
-  func makeUIView(context: Context) -> UIVisualEffectView {
+  public init(style: UIBlurEffect.Style) {
+    self.style = style
+  }
+  
+  public func makeUIView(context: Context) -> UIVisualEffectView {
     return UIVisualEffectView(effect: UIBlurEffect(style: style))
   }
 
-  func updateUIView(_ uiView: UIVisualEffectView, context: Context) {
+  public func updateUIView(_ uiView: UIVisualEffectView, context: Context) {
     uiView.effect = UIBlurEffect(style: style)
   }
 }

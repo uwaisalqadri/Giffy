@@ -8,8 +8,10 @@
 import SwiftUI
 import Common
 
-struct NyanCatLoading: View {
-  var body: some View {
+public struct NyanCatLoading: View {
+  public init() {}
+  
+  public var body: some View {
     LottieView(fileName: "nyan_cat", bundle: Bundle.common, loopMode: .loop)
       .frame(width: 200, height: 200)
       .padding(.trailing, -40)

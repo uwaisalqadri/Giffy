@@ -5,13 +5,13 @@
 //  Created by Uwais Alqadri on 24/05/21.
 //
 
-import SwiftUI
-import Common
+import ActivityKit
 import Core
+import Common
 import CommonUI
 import ComposableArchitecture
-import ActivityKit
 import Foundation
+import SwiftUI
 import SDWebImageSwiftUI
 
 struct DetailView: View {
@@ -19,7 +19,6 @@ struct DetailView: View {
 
   @Environment(\.dismiss) private var dismiss
   @State private var isAnimating = true
-
   @State private var activity: Activity<GiphyAttributes>?
 
   var body: some View {
@@ -27,12 +26,13 @@ struct DetailView: View {
       NavigationView {
         ZStack(alignment: .bottomTrailing) {
           TabView {
-            let items = [viewStore.state.item, viewStore.state.item, viewStore.state.item].indexed
-
-            ForEach(items, id: \.position) { position, item in
+            ForEach(
+              Array(repeating: viewStore.state.item, count: 4).indexed,
+              id: \.position
+            ) { position, item in
               GeometryReader { geometry in
                 let mainFrame = geometry.frame(in: .global)
-
+                
                 ScrollView(showsIndicators: false) {
                   ZStack {
                     AnimatedGradientBackground()

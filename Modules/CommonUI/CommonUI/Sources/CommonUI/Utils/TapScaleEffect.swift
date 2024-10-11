@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct TapScaleEffectModifier: ViewModifier {
+public struct TapScaleEffectModifier: ViewModifier {
   @State private var isPressed = false
   var maximumScaleEffect: CGFloat = 1.7
 
-  func body(content: Content) -> some View {
+  public func body(content: Content) -> some View {
     content
       .simultaneousGesture(
         TapGesture()
@@ -27,7 +27,7 @@ struct TapScaleEffectModifier: ViewModifier {
   }
 }
 
-extension View {
+public extension View {
   func tapScaleEffect(maximumScaleEffect: CGFloat = 1.7) -> some View {
     self.modifier(TapScaleEffectModifier(maximumScaleEffect: maximumScaleEffect))
   }

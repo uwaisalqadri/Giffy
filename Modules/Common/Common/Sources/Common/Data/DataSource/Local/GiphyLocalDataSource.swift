@@ -39,7 +39,7 @@ public struct GiphyLocalDataSource: LocalDataSource {
       }
     }
     
-    return favoriteGiphys
+    return favoriteGiphys.reversed()
   }
   
   public func add(entity: Giphy) async throws -> Bool {

@@ -7,9 +7,9 @@
 
 import SwiftUI
 import Common
+import CommonUI
 import ComposableArchitecture
 import Combine
-import TCACoordinators
 
 struct MainTabView: View {
   let store: StoreOf<MainTabReducer>

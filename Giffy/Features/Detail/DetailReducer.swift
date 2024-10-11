@@ -103,6 +103,7 @@ public struct DetailReducer {
         if let data = sharedDatas.first {
           data.copyGifClipboard()
           state.isShareGIF = true
+          Toaster.success(message: "Copied").show()
         }
         return .none
 

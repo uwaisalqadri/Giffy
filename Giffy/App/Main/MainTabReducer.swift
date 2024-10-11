@@ -8,7 +8,6 @@
 import SwiftUI
 import Common
 import ComposableArchitecture
-import TCACoordinators
 
 public enum Tabs: Int, CaseIterable {
   case search

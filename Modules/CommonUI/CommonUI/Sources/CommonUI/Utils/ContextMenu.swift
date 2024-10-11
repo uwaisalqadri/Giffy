@@ -8,7 +8,7 @@
 import SwiftUI
 import Common
 
-extension View {
+public extension View {
   func showGiphyMenu(_ item: Giphy) -> some View {
     self.contextMenu {
       Button {
@@ -24,6 +24,7 @@ extension View {
           if let imageURL = URL(string: item.image.url) {
             let (data, _) = try await URLSession.shared.data(from: imageURL)
             data.copyGifClipboard()
+            await Toaster.success(message: "Copied").show()
           }
         }
       } label: {
