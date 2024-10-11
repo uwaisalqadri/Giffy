@@ -15,11 +15,16 @@ public struct SearchRemoteDataSource: DataSource {
   public init() {}
 
   public func execute(request: String?) async throws -> [Giphy] {
-    let result = try await NetworkService.shared.connect(
-      api: APIFactory.search(query: request ?? "").url,
+    let giphyResult = try await NetworkService.shared.connect(
+      api: GiphyAPI.search(query: request ?? ""),
       responseType: GiphyDataResponse.self
     ).data.compactMap { $0.map() } 
 
-    return result
+//    let tenorResult = try await NetworkService.shared.connect(
+//      api: TenorAPI.search(query: request ?? ""),
+//      responseType: GiphyDataResponse.self
+//    ).data.compactMap { $0.map() }
+
+    return giphyResult
   }
 }

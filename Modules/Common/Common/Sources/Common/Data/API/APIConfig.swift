@@ -7,9 +7,10 @@
 
 import Foundation
 
-struct Config {
-  static let baseUrl = "https://api.giphy.com/v1/gifs/"
-  
+struct APIConfig {
+  static let giphyBaseUrl = "https://api.giphy.com/v1/gifs/"
+  static let tenorBaseUrl = "https://g.tenor.com/v1/" // coming soon
+
   static var apiKey: String {
     guard let filePath = Bundle.main.path(forResource: "Info", ofType: "plist") else {
       fatalError("Couldn't find file 'Info.plist'.")

@@ -16,7 +16,7 @@ public struct TrendingRemoteDataSource: DataSource {
 
   public func execute(request: Int?) async throws -> [Giphy] {
     let result = try await NetworkService.shared.connect(
-      api: APIFactory.trending.url,
+      api: GiphyAPI.trending,
       responseType: GiphyDataResponse.self
     ).data.compactMap { $0.map() }
 

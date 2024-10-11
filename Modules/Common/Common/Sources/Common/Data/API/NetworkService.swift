@@ -12,9 +12,9 @@ import Alamofire
 public class NetworkService {
   public static let shared = NetworkService()
 
-  public func connect<T: Codable>(api: URL, responseType: T.Type) async throws -> T {
+  public func connect<T: Codable>(api: APIFactory, responseType: T.Type) async throws -> T {
     return try await withCheckedThrowingContinuation { continuation in
-      AF.request(api.absoluteString)
+      AF.request(api.composedURL)
         .prettyPrintedJsonResponse(of: responseType)
         .responseDecodable(of: responseType) { response in
           switch response.result {
