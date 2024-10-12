@@ -14,15 +14,12 @@ import ComposableArchitecture
 
 struct SearchView: View {
   let store: StoreOf<SearchReducer>
-  
-  @State private var searchText = ""
-  
+    
   var body: some View {
     WithViewStore(store, observe: { $0 }) { viewStore in
       ScrollView(.vertical, showsIndicators: false) {
         SearchField { query in
-          searchText = query
-          viewStore.send(.fetch(request: searchText))
+          viewStore.send(.fetch(request: query))
         }.padding(.horizontal, 16)
 
         if !viewStore.state.isLoading {
@@ -71,7 +68,10 @@ struct SearchView: View {
       )
       .padding(.top, 10)
       .onAppear {
-        viewStore.send(.fetch(request: searchText.isEmpty ? "Hello" : searchText))
+        let searchText = viewStore.state.searchText
+        viewStore.send(.fetch(
+          request: searchText.isEmpty ? "Hello" : searchText
+        ))
       }
     }
   }

@@ -13,7 +13,7 @@ import CommonUI
 import ActivityKit
 
 typealias AddFavoriteInteractor = Interactor<
-  Giphy, Giphy, AddFavoriteRepository<
+  Giffy, Giffy, AddFavoriteRepository<
     GiphyLocalDataSource
   >
 >
@@ -43,8 +43,8 @@ public struct DetailReducer {
   
   @ObservableState
   public struct State: Equatable {
-    public let item: Giphy
-    public init(item: Giphy) {
+    public let item: Giffy
+    public init(item: Giffy) {
       self.item = item
     }
     

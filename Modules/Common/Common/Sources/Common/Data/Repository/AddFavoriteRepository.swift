@@ -12,11 +12,11 @@ import Combine
 public struct AddFavoriteRepository<
   GiphyDataSource: LocalDataSource>: Repository
 where
-  GiphyDataSource.Response == Giphy,
+  GiphyDataSource.Response == Giffy,
   GiphyDataSource.Request == String {
 
-  public typealias Request = Giphy
-  public typealias Response = Giphy
+  public typealias Request = Giffy
+  public typealias Response = Giffy
 
   private let localDataSource: GiphyDataSource
 
@@ -24,7 +24,7 @@ where
     self.localDataSource = localDataSource
   }
 
-  public func execute(request: Giphy?) async throws -> Giphy {
+  public func execute(request: Giffy?) async throws -> Giffy {
     return try await withCheckedThrowingContinuation { continuation in
       Task {
         do {

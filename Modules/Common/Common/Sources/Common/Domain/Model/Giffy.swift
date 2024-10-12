@@ -7,8 +7,8 @@
 
 import Foundation
 
-public struct Giphy: Equatable, Hashable {
-  public static func == (lhs: Giphy, rhs: Giphy) -> Bool {
+public struct Giffy: Equatable, Hashable {
+  public static func == (lhs: Giffy, rhs: Giffy) -> Bool {
     lhs.id == rhs.id
   }
   
@@ -16,10 +16,8 @@ public struct Giphy: Equatable, Hashable {
     return hasher.combine(id)
   }
   
-  public var type: String
   public var id: String
   public var url: String
-  public var embedUrl: String
   public var rating: String
   public var username: String
   public var title: String
@@ -27,11 +25,18 @@ public struct Giphy: Equatable, Hashable {
   public var image: ImageOriginal
   public var isFavorite: Bool
   
-  public init(type: String = "", id: String = "", url: String = "", embedUrl: String = "", rating: String = "", username: String = "", title: String = "", trendingDateTime: String = "", image: ImageOriginal = .init(), isFavorite: Bool = false) {
-    self.type = type
+  public init(
+    id: String = "",
+    url: String = "",
+    rating: String = "",
+    username: String = "",
+    title: String = "",
+    trendingDateTime: String = "",
+    image: ImageOriginal = .init(),
+    isFavorite: Bool = false
+  ) {
     self.id = id
     self.url = url
-    self.embedUrl = embedUrl
     self.rating = rating
     self.username = username
     self.title = title
@@ -40,8 +45,8 @@ public struct Giphy: Equatable, Hashable {
     self.isFavorite = isFavorite
   }
   
-  public func setFavorite(_ state: Bool) -> Giphy {
-    return Giphy(type: type, id: id, url: url, embedUrl: embedUrl, rating: rating, username: username, title: title, trendingDateTime: trendingDateTime, image: image, isFavorite: state)
+  public func setFavorite(_ state: Bool) -> Giffy {
+    return Giffy(id: id, url: url, rating: rating, username: username, title: title, trendingDateTime: trendingDateTime, image: image, isFavorite: state)
   }
 }
 

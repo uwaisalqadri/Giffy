@@ -18,8 +18,6 @@ struct DetailView: View {
   let store: StoreOf<DetailReducer>
 
   @Environment(\.dismiss) private var dismiss
-  @State private var isAnimating = true
-  @State private var activity: Activity<GiphyAttributes>?
 
   var body: some View {
     WithViewStore(store, observe: { $0 }) { viewStore in
@@ -37,8 +35,12 @@ struct DetailView: View {
                   ZStack {
                     AnimatedGradientBackground()
                       .frame(width: mainFrame.width, height: mainFrame.height)
+                      .cornerRadius(40)
 
-                    AnimatedImage(url: URL(string: item.image.url), isAnimating: $isAnimating) {
+                    AnimatedImage(
+                      url: URL(string: item.image.url),
+                      isAnimating: .constant(true)
+                    ) {
                       Color.randomColor
                     }
                     .resizable()
@@ -46,9 +48,15 @@ struct DetailView: View {
                     .rotationEffect(.degrees(CGFloat(90 * position)))
                     .frame(width: mainFrame.width - 60, height: mainFrame.width - 60)
                     .cornerRadius(20)
-                    .showGiphyMenu(item)
+                    .showGiphyMenu(URL(string: item.url))
+                  }
+                  .trackScrollOffset { offset in
+                    if offset > 70 {
+                      dismiss()
+                    }
                   }
                 }
+                .coordinateSpace(name: "scroll")
                 .frame(width: mainFrame.width, height: mainFrame.height)
                 .rotation3DEffect(
                   .init(degrees: getAngle(xOffset: mainFrame.minX, in: mainFrame.width)),
@@ -119,5 +127,38 @@ struct DetailView: View {
     let angle = xOffset / (screenWidth / 2)
     let rotationDegree: CGFloat = 25
     return Double(angle * rotationDegree)
+  }
+}
+
+struct ScrollViewOffsetModifier: ViewModifier {
+  let onOffsetChange: (CGFloat) -> Void
+  
+  func body(content: Content) -> some View {
+    content
+      .overlay(
+        GeometryReader { geo in
+          Color.clear
+            .preference(
+              key: ScrollViewOffsetPreferenceKey.self,
+              value: geo.frame(in: .named("scrollView")).minY
+            )
+        }
+      )
+      .onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { value in
+        onOffsetChange(value)
+      }
+  }
+}
+
+struct ScrollViewOffsetPreferenceKey: PreferenceKey {
+  static var defaultValue: CGFloat = 0
+  static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+    value = nextValue()
+  }
+}
+
+extension View {
+  func trackScrollOffset(onOffsetChange: @escaping (CGFloat) -> Void) -> some View {
+    modifier(ScrollViewOffsetModifier(onOffsetChange: onOffsetChange))
   }
 }

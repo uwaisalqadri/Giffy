@@ -20,7 +20,7 @@ struct HomeView: View {
         LazyVStack(alignment: .leading) {
           Text(HomeString.labelTodayPopular.localized)
             .font(.HelveticaNeue.h6HeadingSemibold)
-            .padding(.leading, 12)
+            .padding(.leading, 14)
           
           VStack(alignment: .center) {
             if !viewStore.state.isLoading {

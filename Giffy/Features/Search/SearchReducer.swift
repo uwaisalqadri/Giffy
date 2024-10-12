@@ -12,7 +12,7 @@ import Common
 import CommonUI
 
 typealias SearchInteractor = Interactor<
-  String, [Giphy], SearchGiphyRepository<
+  String, [Giffy], SearchGiphyRepository<
     SearchRemoteDataSource
   >
 >
@@ -30,6 +30,7 @@ public struct SearchReducer {
   @ObservableState
   public struct State: Equatable {
     public var grid = SearchGrid.init()
+    public var searchText: String = ""
     public var errorMessage: String = ""
     public var isLoading: Bool = false
     public var isEmpty: Bool = false
@@ -37,10 +38,10 @@ public struct SearchReducer {
   
   public enum Action {
     case fetch(request: String)
-    case success(response: [Giphy])
+    case success(response: [Giffy])
     case failed(error: Error)
     
-    case showDetail(item: Giphy)
+    case showDetail(item: Giffy)
     case openFavorite
   }
   
@@ -48,6 +49,7 @@ public struct SearchReducer {
     Reduce { state, action in
       switch action {
       case .fetch(let query):
+        state.searchText = query
         state.isLoading = true
         return .run { send in
           do {
@@ -84,13 +86,13 @@ public struct SearchReducer {
   }
   
   public struct SearchGrid: Equatable {
-    public var rightGrid = [Giphy]()
-    public var leftGrid = [Giphy]()
+    public var rightGrid = [Giffy]()
+    public var leftGrid = [Giffy]()
   }
   
-  private func splitGiphys(items: [Giphy]) -> SearchGrid {
-    var firstGiphys: [Giphy] = []
-    var secondGiphys: [Giphy] = []
+  private func splitGiphys(items: [Giffy]) -> SearchGrid {
+    var firstGiphys: [Giffy] = []
+    var secondGiphys: [Giffy] = []
     
     items.forEach { giphy in
       let index = items.firstIndex {$0.id == giphy.id }

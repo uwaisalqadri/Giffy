@@ -26,7 +26,7 @@ class WidgetInjection {
 
     container.register(
       Interactor<
-        String, [Giphy], FavoriteGiphysRepository<
+        String, [Giffy], FavoriteGiphysRepository<
           GiphyLocalDataSource
         >
       >.self) { [unowned self] _ in

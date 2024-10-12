@@ -7,26 +7,26 @@
 
 import Foundation
 
-public class GiphyDataResponse: Codable {
-  public var data = [GiphyResponse]()
+class GiphyDataResponse: Codable {
+  var data = [GiphyResponse]()
 
-  public enum CodingKeys: String, CodingKey {
+  enum CodingKeys: String, CodingKey {
     case data
   }
 }
 
-public class GiphyResponse: Codable {
-  public var type: String?
-  public var id: String?
-  public var url: String?
-  public var embedUrl: String?
-  public var rating: String?
-  public var username: String?
-  public var title: String?
-  public var trendingDateTime: String?
-  public var images: ImageGIFResponse?
+class GiphyResponse: Codable {
+  var type: String?
+  var id: String?
+  var url: String?
+  var embedUrl: String?
+  var rating: String?
+  var username: String?
+  var title: String?
+  var trendingDateTime: String?
+  var images: ImageGIFResponse?
   
-  public enum CodingKeys: String, CodingKey {
+  enum CodingKeys: String, CodingKey {
     case type
     case id
     case url

@@ -11,11 +11,11 @@ import Combine
 public struct SearchGiphyRepository<
   GiphyDataSource: DataSource>: Repository
 where
-  GiphyDataSource.Response == [Giphy],
+  GiphyDataSource.Response == [Giffy],
   GiphyDataSource.Request == String {
 
   public typealias Request = String
-  public typealias Response = [Giphy]
+  public typealias Response = [Giffy]
 
   private let remoteDataSource: GiphyDataSource
 
@@ -23,7 +23,7 @@ where
     self.remoteDataSource = remoteDataSource
   }
 
-  public func execute(request: String?) async throws -> [Giphy] {
+  public func execute(request: String?) async throws -> [Giffy] {
     return try await remoteDataSource.execute(request: request)
   }
 }

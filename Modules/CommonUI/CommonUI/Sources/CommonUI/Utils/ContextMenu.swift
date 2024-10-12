@@ -6,13 +6,12 @@
 //
 
 import SwiftUI
-import Common
 
 public extension View {
-  func showGiphyMenu(_ item: Giphy) -> some View {
+  func showGiphyMenu(_ url: URL?) -> some View {
     self.contextMenu {
       Button {
-        if let url = URL(string: item.url), UIApplication.shared.canOpenURL(url) {
+        if let url = url, UIApplication.shared.canOpenURL(url) {
           UIApplication.shared.open(url)
         }
       } label: {
@@ -21,7 +20,7 @@ public extension View {
 
       Button {
         Task {
-          if let imageURL = URL(string: item.image.url) {
+          if let imageURL = url {
             let (data, _) = try await URLSession.shared.data(from: imageURL)
             data.copyGifClipboard()
             await Toaster.success(message: "Copied").show()

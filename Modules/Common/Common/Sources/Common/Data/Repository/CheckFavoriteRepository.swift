@@ -12,7 +12,7 @@ import Combine
 public struct CheckFavoriteRepository<
   GiphyDataSource: LocalDataSource>: Repository
 where
-  GiphyDataSource.Response == Giphy,
+  GiphyDataSource.Response == Giffy,
   GiphyDataSource.Request == String {
 
   public typealias Request = String

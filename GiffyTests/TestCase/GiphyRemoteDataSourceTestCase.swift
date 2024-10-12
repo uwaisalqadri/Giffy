@@ -12,7 +12,7 @@ import Combine
 import XCTest
 
 typealias DummyGetGiphyInteractor = Interactor<
-  Int, [Giphy], GetGiphyRepository<
+  Int, [Giffy], GetGiphyRepository<
     DummyRemoteDataSource
   >
 >

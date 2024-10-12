@@ -10,17 +10,23 @@ import Combine
 
 public struct TrendingRemoteDataSource: DataSource {
   public typealias Request = Int
-  public typealias Response = [Giphy]
+  public typealias Response = [Giffy]
 
   public init() {}
 
-  public func execute(request: Int?) async throws -> [Giphy] {
-    let result = try await NetworkService.shared.connect(
+  public func execute(request: Int?) async throws -> [Giffy] {
+    let giphies = try await NetworkService.shared.connect(
       api: GiphyAPI.trending,
       responseType: GiphyDataResponse.self
     ).data.compactMap { $0.map() }
+    
+    let tenors = try await NetworkService.shared.connect(
+      api: TenorAPI.search(query: "trending", limit: 18),
+      responseType: TenorDataResponse.self
+    ).results.compactMap { $0.map() }
 
-    return result
+    return combineGiffies(giphies, tenors)
+      .filter { !$0.title.isEmpty }
   }
 
 }

@@ -11,7 +11,7 @@ import Core
 import Common
 
 typealias WidgetInteractor = Interactor<
-  String, [Giphy], FavoriteGiphysRepository<
+  String, [Giffy], FavoriteGiphysRepository<
     GiphyLocalDataSource
   >
 >

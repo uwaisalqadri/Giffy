@@ -8,7 +8,7 @@
 import Foundation
 
 public enum TenorAPI {
-  case search(query: String)
+  case search(query: String, limit: Int = 100)
 }
 
 extension TenorAPI: APIFactory {
@@ -20,10 +20,15 @@ extension TenorAPI: APIFactory {
   }
   
   public var parameter: [String: Any] {
+    var defaultParams: [String: Any] = ["key": APIConfig.tenorApiKey]
     switch self {
-    case let .search(query):
-      return ["q": query, "key": "LIVDSRZULELA", "limit": 100]
+    case let .search(query, limit) where query.count > 0:
+      defaultParams["q"] = query
+      defaultParams["limit"] = limit
+    default:
+      break
     }
+    return defaultParams
   }
   
   public var composedURL: URL {

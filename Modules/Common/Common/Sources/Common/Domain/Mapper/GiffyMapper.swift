@@ -9,12 +9,10 @@ import Foundation
 import CoreData
 
 extension GiphyEntity {
-  public func map() -> Giphy {
-    return Giphy(
-      type: self.type ?? "",
+  public func map() -> Giffy {
+    return Giffy(
       id: self.id ?? "",
       url: url ?? "",
-      embedUrl: embedUrl ?? "",
       rating: rating ?? "",
       username: username ?? "",
       title: title ?? "",
@@ -30,12 +28,10 @@ extension GiphyEntity {
 }
 
 extension GiphyResponse {
-  public func map() -> Giphy {
-    return Giphy(
-      type: self.type ?? "",
+  public func map() -> Giffy {
+    return Giffy(
       id: self.id ?? "",
       url: url ?? "",
-      embedUrl: embedUrl ?? "",
       rating: rating ?? "",
       username: username ?? "",
       title: title ?? "",
@@ -44,6 +40,26 @@ extension GiphyResponse {
         url: images?.original?.url ?? "",
         height: images?.original?.height ?? "",
         width: images?.original?.width ?? ""
+      ),
+      isFavorite: false
+    )
+  }
+}
+
+extension TenorResponse {
+  public func map() -> Giffy {
+    let gifMedia = media.first(where: { $0["gif"] != nil })?["gif"]
+    return Giffy(
+      id: self.id ?? "",
+      url: url ?? "",
+      rating: contentRating ?? "",
+      username: title ?? "",
+      title: h1Title ?? "",
+      trendingDateTime: "",
+      image: .init(
+        url: gifMedia?.url ?? "",
+        height: String(gifMedia?.dims?.last ?? 0),
+        width: String(gifMedia?.dims?.first ?? 0)
       ),
       isFavorite: false
     )

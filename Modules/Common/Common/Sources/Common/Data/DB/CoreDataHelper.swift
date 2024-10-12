@@ -39,14 +39,12 @@ final class CoreDataHelper {
     return try await self.getFavoriteGiphys().map { $0.id }.contains(id)
   }
   
-  func addFavoriteGiphy(item: Giphy) async throws -> Bool {
+  func addFavoriteGiphy(item: Giffy) async throws -> Bool {
     let entity = GiphyEntity(context: context)
-    entity.embedUrl = item.embedUrl
     entity.id = item.id
     entity.rating = item.rating
     entity.title = item.title
     entity.trendingDateTime = item.trendingDateTime
-    entity.type = item.type
     entity.url = item.url
     entity.username = item.username
     let imageEntity = ImageOriginalEntity(context: context)

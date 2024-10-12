@@ -12,13 +12,13 @@ import Combine
 import XCTest
 
 typealias AddFavoriteInteractor = Interactor<
-  Giphy, Giphy, AddFavoriteRepository<
+  Giffy, Giffy, AddFavoriteRepository<
     GiphyLocalDataSource
   >
 >
 
 typealias FavoriteInteractor = Interactor<
-  String, [Giphy], FavoriteGiphysRepository<
+  String, [Giffy], FavoriteGiphysRepository<
     GiphyLocalDataSource
   >
 >

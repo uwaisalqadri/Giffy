@@ -12,13 +12,13 @@ import CommonUI
 import Common
 
 typealias FavoriteInteractor = Interactor<
-  String, [Giphy], FavoriteGiphysRepository<
+  String, [Giffy], FavoriteGiphysRepository<
     GiphyLocalDataSource
   >
 >
 
 typealias RemoveFavoriteInteractor = Interactor<
-  Giphy, Bool, RemoveFavoriteRepository<
+  Giffy, Bool, RemoveFavoriteRepository<
     GiphyLocalDataSource
   >
 >
@@ -37,7 +37,7 @@ public struct FavoriteReducer {
   
   @ObservableState
   public struct State: Equatable {
-    public var list: [Giphy] = []
+    public var list: [Giffy] = []
     public var errorMessage: String = ""
     public var isLoading: Bool = false
     public var isError: Bool = false
@@ -45,11 +45,11 @@ public struct FavoriteReducer {
   
   public enum Action {
     case fetch(request: String)
-    case success(response: [Giphy])
+    case success(response: [Giffy])
     case failed(error: Error)
     
-    case removeFavorite(item: Giphy, request: String)
-    case showDetail(item: Giphy)
+    case removeFavorite(item: Giffy, request: String)
+    case showDetail(item: Giffy)
     case didBackPressed
   }
   

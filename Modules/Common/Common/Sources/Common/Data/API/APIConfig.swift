@@ -9,17 +9,19 @@ import Foundation
 
 struct APIConfig {
   static let giphyBaseUrl = "https://api.giphy.com/v1/gifs/"
-  static let tenorBaseUrl = "https://g.tenor.com/v1/" // coming soon
+  static let tenorBaseUrl = "https://g.tenor.com/v1/"
 
-  static var apiKey: String {
-    guard let filePath = Bundle.main.path(forResource: "Info", ofType: "plist") else {
-      fatalError("Couldn't find file 'Info.plist'.")
-    }
-    
+  static var giphyApiKey: String {
+    let filePath = Bundle.main.path(forResource: "Info", ofType: "plist")!
     let plist = NSDictionary(contentsOfFile: filePath)
-    guard let value = plist?.object(forKey: "API_KEY") as? String else {
-      fatalError("Couldn't find key 'API_KEY' in 'Info.plist'.")
-    }
+    let value = plist?.object(forKey: "GPHYApiKey") as! String
+    return value
+  }
+  
+  static var tenorApiKey: String {
+    let filePath = Bundle.main.path(forResource: "Info", ofType: "plist")!
+    let plist = NSDictionary(contentsOfFile: filePath)
+    let value = plist?.object(forKey: "TNORApiKey") as! String
     return value
   }
   

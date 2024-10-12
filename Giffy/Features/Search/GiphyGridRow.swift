@@ -14,9 +14,9 @@ import CommonUI
 struct GiphyGridRow: View {
 
   @State private var isAnimating = true
-  let giphy: Giphy
+  let giphy: Giffy
 
-  var onTapRow: ((Giphy) -> Void)?
+  var onTapRow: ((Giffy) -> Void)?
 
   var body: some View {
     VStack(alignment: .leading) {
@@ -36,7 +36,7 @@ struct GiphyGridRow: View {
       .onTapGesture {
         onTapRow?(giphy)
       }
-      .showGiphyMenu(giphy)
+      .showGiphyMenu(URL(string: giphy.url))
     }
   }
 }

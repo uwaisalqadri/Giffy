@@ -12,7 +12,7 @@ import Common
 import CommonUI
 
 typealias HomeInteractor = Interactor<
-  Int, [Giphy], GetGiphyRepository<
+  Int, [Giffy], GetGiphyRepository<
     TrendingRemoteDataSource
   >
 >
@@ -28,7 +28,7 @@ public struct HomeReducer {
   }
   
   public struct State: Equatable {
-    public var list: [Giphy] = []
+    public var list: [Giffy] = []
     public var errorMessage: String = ""
     public var isLoading: Bool = false
     public var isError: Bool = false
@@ -37,10 +37,10 @@ public struct HomeReducer {
   
   public enum Action {
     case fetch(request: Int)
-    case success(response: [Giphy])
+    case success(response: [Giffy])
     case failed(error: Error)
     
-    case showDetail(item: Giphy)
+    case showDetail(item: Giffy)
     case openFavorite
   }
   

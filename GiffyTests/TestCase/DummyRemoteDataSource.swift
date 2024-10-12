@@ -13,9 +13,9 @@ import Foundation
 
 struct DummyRemoteDataSource: DataSource {
   typealias Request = Int
-  typealias Response = [Giphy]
+  typealias Response = [Giffy]
 
-  func execute(request: Int?) async throws -> [Giphy] {
+  func execute(request: Int?) async throws -> [Giffy] {
     if request == 10 {
       return try await createErrorResponse()
     }
@@ -25,11 +25,11 @@ struct DummyRemoteDataSource: DataSource {
     return result
   }
 
-  private func createDummyArrayResponse() async throws -> [Giphy] {
+  private func createDummyArrayResponse() async throws -> [Giffy] {
     return try await JSONLoader<GiphyDataResponse>().load(fileName: "GiphyMockResponse").data.map { $0.map() }
   }
 
-  private func createErrorResponse() async throws -> [Giphy] {
+  private func createErrorResponse() async throws -> [Giffy] {
     return try await withCheckedThrowingContinuation { promise in
       promise.resume(throwing: ApiError.networkFailure(error: NetworkError.internalServerError))
     }

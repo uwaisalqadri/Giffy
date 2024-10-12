@@ -7,22 +7,22 @@
 
 import Foundation
 
-public struct ImageGIFResponse: Codable {
-  public var original: ImageOriginalResponse?
+struct ImageGIFResponse: Codable {
+  var original: ImageOriginalResponse?
   
-  public init() {}
+  init() {}
   
-  public enum CodingKeys: String, CodingKey {
+  enum CodingKeys: String, CodingKey {
     case original
   }
 }
 
-public struct ImageOriginalResponse: Codable {
-  public var url: String?
-  public var height: String?
-  public var width: String?
+struct ImageOriginalResponse: Codable {
+  var url: String?
+  var height: String?
+  var width: String?
 
-  public enum CodingKeys: String, CodingKey {
+  enum CodingKeys: String, CodingKey {
     case url, height, width
   }
 }

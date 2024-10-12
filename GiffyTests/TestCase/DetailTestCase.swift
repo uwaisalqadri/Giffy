@@ -16,7 +16,7 @@ import ComposableArchitecture
 final class DetailTestCase: XCTestCase {
   
   private var store: TestStore<DetailReducer.State, DetailReducer.Action>!
-  private let itemToAdd: Giphy = .init(title: "Yuhu")
+  private let itemToAdd: Giffy = .init(title: "Yuhu")
   
   override func setUp() {
     super.setUp()

@@ -12,11 +12,11 @@ import Combine
 public struct FavoriteGiphysRepository<
   GiphyDataSource: LocalDataSource>: Repository
 where
-  GiphyDataSource.Response == Giphy,
+  GiphyDataSource.Response == Giffy,
   GiphyDataSource.Request == String {
 
   public typealias Request = String
-  public typealias Response = [Giphy]
+  public typealias Response = [Giffy]
 
   private let localDataSource: GiphyDataSource
 
@@ -24,7 +24,7 @@ where
     self.localDataSource = localDataSource
   }
 
-  public func execute(request: String?) async throws -> [Giphy] {
+  public func execute(request: String?) async throws -> [Giffy] {
     return try await localDataSource.list(request: request)
   }
 }

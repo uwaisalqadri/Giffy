@@ -15,10 +15,10 @@ struct GiphyItemRow: View {
   @State private var isAnimating = true
   @State private var isSelected = false
   @State var isFavorite = false
-  let giphy: Giphy
+  let giphy: Giffy
 
-  var onTapRow: ((Giphy) -> Void)?
-  var onFavorite: ((Giphy) -> Void)?
+  var onTapRow: ((Giffy) -> Void)?
+  var onFavorite: ((Giffy) -> Void)?
 
   var body: some View {
     ZStack {
@@ -84,7 +84,7 @@ struct GiphyItemRow: View {
         onTapRow?(giphy)
       })
       .tapScaleEffect()
-      .showGiphyMenu(giphy)
+      .showGiphyMenu(URL(string: giphy.url))
     }
     .padding(.leading, 20)
     .padding(.trailing, 15)

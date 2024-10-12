@@ -30,7 +30,7 @@ extension GiphyAPI: APIFactory {
   }
 
   public var parameter: [String: Any] {
-    var defaultParams = ["api_key": APIConfig.apiKey]
+    var defaultParams: [String: Any] = ["api_key": APIConfig.giphyApiKey]
     switch self {
     case .search(let query) where query.count > 0:
       defaultParams["q"] = query

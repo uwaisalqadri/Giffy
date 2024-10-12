@@ -12,10 +12,10 @@ import Combine
 public struct RemoveFavoriteRepository<
   GiphyDataSource: LocalDataSource>: Repository
 where
-  GiphyDataSource.Response == Giphy,
+  GiphyDataSource.Response == Giffy,
   GiphyDataSource.Request == String {
 
-  public typealias Request = Giphy
+  public typealias Request = Giffy
   public typealias Response = Bool
 
   private let localDataSource: GiphyDataSource
@@ -24,7 +24,7 @@ where
     self.localDataSource = localDataSource
   }
 
-  public func execute(request: Giphy?) async throws -> Bool {
+  public func execute(request: Giffy?) async throws -> Bool {
     return try await localDataSource.delete(id: request?.id ?? "")
   }
 }
