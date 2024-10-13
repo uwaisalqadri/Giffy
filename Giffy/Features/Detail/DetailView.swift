@@ -39,16 +39,20 @@ struct DetailView: View {
 
                     AnimatedImage(
                       url: URL(string: item.image.url),
+                      options: .queryMemoryData,
                       isAnimating: .constant(true)
                     ) {
                       Color.randomColor
+                    }
+                    .onSuccess { _, data, _ in
+                      viewStore.send(.downloaded(data: data))
                     }
                     .resizable()
                     .scaledToFill()
                     .rotationEffect(.degrees(CGFloat(90 * position)))
                     .frame(width: mainFrame.width - 60, height: mainFrame.width - 60)
                     .cornerRadius(20)
-                    .showGiphyMenu(URL(string: item.url))
+                    .showGiphyMenu(URL(string: item.url), data: viewStore.state.downloadedImage)
                   }
                   .trackScrollOffset { offset in
                     if offset > 70 {
@@ -96,7 +100,7 @@ struct DetailView: View {
                 tint: .Theme.green,
                 size: 15,
                 onClick: {
-                  viewStore.send(.download)
+                  viewStore.send(.copyToClipboard)
                 }
               )
               .tapScaleEffect()

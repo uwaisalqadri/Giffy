@@ -8,7 +8,7 @@
 import SwiftUI
 
 public extension View {
-  func showGiphyMenu(_ url: URL?) -> some View {
+  func showGiphyMenu(_ url: URL?, data: Data?) -> some View {
     self.contextMenu {
       Button {
         if let url = url, UIApplication.shared.canOpenURL(url) {
@@ -19,13 +19,9 @@ public extension View {
       }
 
       Button {
-        Task {
-          if let imageURL = url {
-            let (data, _) = try await URLSession.shared.data(from: imageURL)
-            data.copyGifClipboard()
-            await Toaster.success(message: "Copied").show()
-          }
-        }
+        guard let data = data else { return }
+        data.copyGifClipboard()
+        Toaster.success(message: "Copied").show()
       } label: {
         Label("Copy to Clipboard", systemImage: "doc.on.clipboard.fill")
       }

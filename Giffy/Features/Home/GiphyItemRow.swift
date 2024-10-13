@@ -12,7 +12,7 @@ import CommonUI
 
 struct GiphyItemRow: View {
 
-  @State private var isAnimating = true
+  @State private var downloadedImage: Data?
   @State private var isSelected = false
   @State var isFavorite = false
   let giphy: Giffy
@@ -22,8 +22,15 @@ struct GiphyItemRow: View {
 
   var body: some View {
     ZStack {
-      AnimatedImage(url: URL(string: giphy.image.url), isAnimating: $isAnimating) {
+      AnimatedImage(
+        url: URL(string: giphy.image.url),
+        options: .queryMemoryData,
+        isAnimating: .constant(true)
+      ) {
         Color.randomColor
+      }
+      .onSuccess { _, data, _ in
+          downloadedImage = data
       }
       .resizable()
       .scaledToFill()
@@ -84,7 +91,7 @@ struct GiphyItemRow: View {
         onTapRow?(giphy)
       })
       .tapScaleEffect()
-      .showGiphyMenu(URL(string: giphy.url))
+      .showGiphyMenu(URL(string: giphy.url), data: downloadedImage)
     }
     .padding(.leading, 20)
     .padding(.trailing, 15)

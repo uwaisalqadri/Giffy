@@ -52,16 +52,16 @@ public struct DetailReducer {
     public var isLoading: Bool = false
     public var isShareGIF = false
     public var errorMessage: String = ""
-    public var sharedDatas = [Data]()
     public var isError: Bool = false
+    public var downloadedImage: Data?
   }
   
   public enum Action {
     case checkFavorite
-    case download
+    case downloaded(data: Data?)
     case addFavorite
     case removeFavorite
-    case copyToClipboard(sharedDatas: [Data])
+    case copyToClipboard
     case startLiveActivity(DetailReducer.State)
 
     case success(isFavorited: Bool)
@@ -72,6 +72,7 @@ public struct DetailReducer {
     Reduce { state, action in
       switch action {
       case .checkFavorite:
+        state.isLoading = true
         let item = state.item
         return .run { send in
           do {
@@ -82,29 +83,16 @@ public struct DetailReducer {
           }
         }
 
-      case .download:
-        state.isLoading = true
-
-        let item = state.item
-        return .run { send in
-          do {
-            guard let imageURL = URL(string: item.image.url) else { return }
-            let (data, _) = try await URLSession.shared.data(from: imageURL)
-            await send(.copyToClipboard(sharedDatas: [data]))
-
-          } catch {
-            await send(.failed(error: error))
-          }
-        }
-
-      case .copyToClipboard(let sharedDatas):
-        state.sharedDatas = sharedDatas
+      case let .downloaded(data):
         state.isLoading = false
-        if let data = sharedDatas.first {
-          data.copyGifClipboard()
-          state.isShareGIF = true
-          Toaster.success(message: "Copied").show()
-        }
+        state.downloadedImage = data
+        return .none
+
+      case .copyToClipboard:
+        guard let data = state.downloadedImage else { return .none }
+        data.copyGifClipboard()
+        state.isShareGIF = true
+        Toaster.success(message: "Copied").show()
         return .none
 
       case .success(let isFavorited):

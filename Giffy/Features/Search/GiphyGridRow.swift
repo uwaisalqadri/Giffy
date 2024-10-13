@@ -13,15 +13,22 @@ import CommonUI
 
 struct GiphyGridRow: View {
 
-  @State private var isAnimating = true
+  @State private var downloadedImage: Data?
   let giphy: Giffy
 
   var onTapRow: ((Giffy) -> Void)?
 
   var body: some View {
     VStack(alignment: .leading) {
-      AnimatedImage(url: URL(string: giphy.image.url), isAnimating: $isAnimating) {
+      AnimatedImage(
+        url: URL(string: giphy.image.url),
+        options: .queryMemoryData,
+        isAnimating: .constant(true)
+      ) {
         Color.randomColor
+      }
+      .onSuccess { _, data, _ in
+        downloadedImage = data
       }
       .resizable()
       .background(Color.randomColor)
@@ -36,7 +43,7 @@ struct GiphyGridRow: View {
       .onTapGesture {
         onTapRow?(giphy)
       }
-      .showGiphyMenu(URL(string: giphy.url))
+      .showGiphyMenu(URL(string: giphy.url), data: downloadedImage)
     }
   }
 }
