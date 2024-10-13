@@ -52,14 +52,13 @@ struct HomeView: View {
       .navigationTitle(HomeString.titleTrending.localized)
       .navigationViewStyle(.stack)
       .navigationBarItems(
-        trailing: Button(action: {
-          viewStore.send(.openFavorite)
-        }) {
-          Image(systemName: "heart.fill")
-            .resizable()
-            .foregroundColor(.Theme.red)
-            .frame(width: 20, height: 18)
-        }
+        trailing: IconButton(
+          iconName: "heart",
+          tint: .Theme.red,
+          onClick: {
+            viewStore.send(.openFavorite)
+          }
+        ).tapScaleEffect()
       )
       .onAppear {
         viewStore.send(.fetch(request: 0))

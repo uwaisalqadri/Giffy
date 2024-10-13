@@ -51,14 +51,13 @@ struct SearchView: View {
       .navigationTitle(SearchString.titleSearch.localized)
       .navigationViewStyle(.stack)
       .navigationBarItems(
-        trailing: Button(action: {
-          viewStore.send(.openFavorite)
-        }) {
-          Image(systemName: "heart.fill")
-            .resizable()
-            .foregroundColor(.Theme.red)
-            .frame(width: 20, height: 18)
-        }
+        trailing: IconButton(
+          iconName: "heart",
+          tint: .Theme.red,
+          onClick: {
+            viewStore.send(.openFavorite)
+          }
+        ).tapScaleEffect()
       )
       .padding(.top, 10)
       .onAppear {
@@ -66,6 +65,11 @@ struct SearchView: View {
         viewStore.send(.fetch(
           request: searchText.isEmpty ? "Hello" : searchText
         ))
+      }
+      .trackScrollOffset { offset in
+        if offset > 4 {
+          UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
       }
     }
   }
