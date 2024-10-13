@@ -25,7 +25,7 @@ public struct TrendingRemoteDataSource: DataSource {
       responseType: TenorDataResponse.self
     ).results.compactMap { $0.map() }
 
-    return combineGiffies(giphies, tenors)
+    return giphies + tenors
       .filter { !$0.title.isEmpty }
   }
 

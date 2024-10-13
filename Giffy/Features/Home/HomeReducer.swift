@@ -39,7 +39,6 @@ public struct HomeReducer {
     case fetch(request: Int)
     case success(response: [Giffy])
     case failed(error: Error)
-    
     case showDetail(item: Giffy)
     case openFavorite
   }

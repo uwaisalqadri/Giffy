@@ -26,6 +26,7 @@ struct MainTabView: View {
                 action: \.home
               )
             )
+            
           case .search:
             SearchView(
               store: store.scope(
@@ -34,11 +35,14 @@ struct MainTabView: View {
               )
             )
           }
-
+          
           VStack {
             Spacer()
-            CapsuleTabView(currentTab: viewStore.binding(send: MainTabReducer.Action.selectedTabChanged))
-              .padding(.bottom, 20)
+            CapsuleTabView(
+              currentTab: viewStore.binding(
+                send: MainTabReducer.Action.selectedTabChanged
+              )
+            ).padding(.bottom, 20)
           }
         }
       }

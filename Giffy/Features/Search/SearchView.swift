@@ -23,27 +23,21 @@ struct SearchView: View {
         }.padding(.horizontal, 16)
 
         if !viewStore.state.isLoading {
-          if viewStore.state.grid.rightGrid.isEmpty {
+          if viewStore.state.isEmpty {
             SearchEmptyView()
               .padding(.top, 30)
           }
           
           HStack(alignment: .top) {
-            LazyVStack(spacing: 8) {
-              ForEach(viewStore.state.grid.rightGrid.indexed, id: \.position) { _, item in
-                GiphyGridRow(giphy: item) { selectedItem in
-                  viewStore.send(.showDetail(item: selectedItem))
+            ForEach(SearchReducer.GridSide.allCases, id: \.self) { side in
+              let currentItems = viewStore.state.items(side)
+              LazyVStack(spacing: 8) {
+                ForEach(currentItems.indexed, id: \.position) { _, item in
+                  GiphyGridRow(giphy: item) { selectedItem in
+                    viewStore.send(.showDetail(item: selectedItem))
+                  }
+                  .padding(.horizontal, 5)
                 }
-                .padding(.horizontal, 5)
-              }
-            }
-            
-            LazyVStack(spacing: 8) {
-              ForEach(viewStore.state.grid.leftGrid.indexed, id: \.position) { _, item in
-                GiphyGridRow(giphy: item) { selectedItem in
-                  viewStore.send(.showDetail(item: selectedItem))
-                }
-                .padding(.horizontal, 5)
               }
             }
           }.padding(.horizontal, 10)

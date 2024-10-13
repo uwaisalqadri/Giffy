@@ -32,7 +32,8 @@ public enum Tabs: Int, CaseIterable {
   }
 }
 
-struct MainTabReducer: Reducer {
+@Reducer
+struct MainTabReducer {
   struct State: Equatable {
     var selectedTab: Tabs = .search
     var home: HomeReducer.State = .init()
@@ -46,8 +47,8 @@ struct MainTabReducer: Reducer {
     case selectedTabChanged(Tabs)
   }
   
-  var body: some ReducerOf<Self> {
-    Reduce<State, Action> { state, action in
+  var body: some Reducer<State, Action> {
+    Reduce { state, action in
       switch action {
       case let .selectedTabChanged(tab):
         state.selectedTab = tab

@@ -29,11 +29,21 @@ public struct SearchReducer {
   
   @ObservableState
   public struct State: Equatable {
-    public var grid = SearchGrid.init()
+    public var rightColumn: [Giffy] = []
+    public var leftColumn: [Giffy] = []
     public var searchText: String = ""
     public var errorMessage: String = ""
     public var isLoading: Bool = false
     public var isEmpty: Bool = false
+    
+    public func items(_ side: SearchReducer.GridSide) -> [Giffy] {
+      switch side {
+      case .right:
+        return rightColumn
+      case .left:
+        return leftColumn
+      }
+    }
   }
   
   public enum Action {
@@ -65,7 +75,8 @@ public struct SearchReducer {
         state.isLoading = false
 
         if !data.isEmpty {
-          state.grid = splitGiphys(items: data)
+          state.rightColumn = GridSide.split(data, side: .right)
+          state.leftColumn = GridSide.split(data, side: .left)
         }
         return .none
         
@@ -85,27 +96,21 @@ public struct SearchReducer {
     }
   }
   
-  public struct SearchGrid: Equatable {
-    public var rightGrid = [Giffy]()
-    public var leftGrid = [Giffy]()
-  }
-  
-  private func splitGiphys(items: [Giffy]) -> SearchGrid {
-    var firstGiphys: [Giffy] = []
-    var secondGiphys: [Giffy] = []
+  public enum GridSide: CaseIterable {
+    case right, left
     
-    items.forEach { giphy in
-      let index = items.firstIndex {$0.id == giphy.id }
-      
-      if let index = index {
-        if index % 2 == 0 {
-          firstGiphys.append(giphy)
-        } else {
-          secondGiphys.append(giphy)
+    static func split(_ items: [Giffy], side: GridSide) -> [Giffy] {
+      let allItems = items.enumerated()
+      switch side {
+      case .right:
+        return allItems.compactMap { index, item in
+          index % 2 == 0 ? item : nil
+        }
+      case .left:
+        return allItems.compactMap { index, item in
+          index % 2 != 0 ? item : nil
         }
       }
     }
-    
-    return SearchGrid(rightGrid: firstGiphys, leftGrid: secondGiphys)
   }
 }

@@ -25,21 +25,6 @@ public struct SearchRemoteDataSource: DataSource {
       responseType: TenorDataResponse.self
     ).results.compactMap { $0.map() }
     
-    return combineGiffies(giphies, tenors)
+    return giphies + tenors
   }
-}
-
-func combineGiffies(_ giphies: [Giffy], _ tenors: [Giffy]) -> [Giffy] {
-  var allGifs: [Giffy] = []
-  let maxLength = max(giphies.count, tenors.count)
-  
-  for index in 0..<maxLength {
-    if index < giphies.count {
-      allGifs.append(giphies[index])
-    }
-    if index < tenors.count {
-      allGifs.append(tenors[index])
-    }
-  }
-  return allGifs
 }
