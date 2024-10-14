@@ -15,7 +15,7 @@ public enum GiphyAPI {
 
 extension GiphyAPI: APIFactory {
   public var baseURL: String {
-    APIConfig.giphyBaseUrl
+    APIConfig.giphyConfig.baseUrl
   }
 
   public var path: String {
@@ -30,7 +30,7 @@ extension GiphyAPI: APIFactory {
   }
 
   public var parameter: [String: Any] {
-    var defaultParams: [String: Any] = ["api_key": APIConfig.giphyApiKey]
+    var defaultParams: [String: Any] = ["api_key": APIConfig.giphyConfig.apiKey]
     switch self {
     case .search(let query) where query.count > 0:
       defaultParams["q"] = query

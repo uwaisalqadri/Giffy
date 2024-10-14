@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Common
 
 public struct NyanCatLoading: View {
   public init() {}

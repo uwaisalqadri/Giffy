@@ -20,7 +20,7 @@ extension TenorAPI: APIFactory {
   }
   
   public var parameter: [String: Any] {
-    var defaultParams: [String: Any] = ["key": APIConfig.tenorApiKey]
+    var defaultParams: [String: Any] = ["key": APIConfig.tenorConfig.apiKey]
     switch self {
     case let .search(query, limit) where query.count > 0:
       defaultParams["q"] = query
@@ -40,6 +40,6 @@ extension TenorAPI: APIFactory {
   }
   
   public var baseURL: String {
-    APIConfig.tenorBaseUrl
+    APIConfig.tenorConfig.baseUrl
   }
 }
