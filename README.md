@@ -1,4 +1,9 @@
-<h1 align="center"> GiphyGIF</h1> <br>
+<p align="center">
+ <img alt="A" title="B" src="https://github.com/user-attachments/assets/65f88513-376c-4778-906e-a0722c463678" width="150">
+ <h1 align="center"> Giffy</h1> 
+<p align="center">
+<br>
+
 <p align="center">
      <img alt="A" title="B" src="https://github.com/uwaisalqadri/GiphyGIF/assets/55146646/2d216304-130c-4007-8308-efbf85f0732d" width="200">
     <img alt="B" title="B" src="https://github.com/uwaisalqadri/GiphyGIF/assets/55146646/cb299bd3-6aff-4dd4-9ed8-990a55a098b6" width="200">
@@ -10,13 +15,13 @@
 
 ## <a name="introduction"></a> 🤖 Introduction
 
-Giphy Client App built with some of the interesting iOS tech such as **TCA (The Composable Architecture by Point-Free)**, **Swinject**, **Coordinator Pattern**, Beautiful UI built with **SwiftUI**, **Clean Architecture with Generic Protocol Approach**, **SPM Modularization** and **XcodeGen!**   
+Giphy Client App built with some of the interesting iOS tech such as **TCA (The Composable Architecture by Point-Free)**, **Swinject**, Beautiful UI built with **SwiftUI**, **Clean Architecture with Generic Protocol Approach**, **SPM Modularization** and **XcodeGen!**   
 
 **Module**
 
-* **`GiphyGIF`**: the main app with presentation layer
-* **`Giphy`**: domain and data layer
-* **`Common`**: common utils and assets
+* **`Giffy`**: the main app with presentation layer
+* **`Common`**: domain and data layer
+* **`CommonUI`**: common utils and assets
 * **`Core`**: generic protocol for _DataSource_ and _Interactor_
 
 ## Table of Contents
@@ -26,14 +31,13 @@ Giphy Client App built with some of the interesting iOS tech such as **TCA (The 
 - [Installation](#installation)
 - [Libraries](#libraries)
 - [The Composable Architecture](#composable-architecture)
-- [Coordinator Pattern](#coordinator-pattern)
 - [Dependency Injection](#dependency-injection)
 - [Project Structure](#project-structure)
 
 ## <a name="features"></a> 🦾 Features
 
 - Sharing, Copy-Pasting, and AirDropping GIFs and Stickers
-- Search GIFs
+- Search GIFs from various sources (Giphy and Tenor
 - Save Favorite GIFs
 - Widget, Live Activty, and Dynamic Island
 - Animations!
@@ -55,12 +59,11 @@ Rate my [XcodeGen setup!](https://github.com/uwaisalqadri/GiphyGIF/blob/master/p
 * [Swift's New Concurrency](https://developer.apple.com/news/?id=2o3euotz)
 * [SDWebImage](https://github.com/SDWebImage/SDWebImage)
 * [SwiftUI](https://developer.apple.com/documentation/swiftui)
-* [The Composabable Architecture](https://github.com/pointfreeco/swift-composable-architecture)
+* [The Composable Architecture](https://github.com/pointfreeco/swift-composable-architecture)
 * [XcodeGen](https://github.com/yonaskolb/XcodeGen)
 * [SwiftLint](https://github.com/realm/SwiftLint)
 * [Swinject](https://github.com/Swinject/Swinject)
 * [CoreData](https://developer.apple.com/documentation/coredata)
-* [TCACoordinators](https://github.com/johnpatrickmorgan/TCACoordinators)
 
 ## <a name="composable-architecture"></a> 💨 TCA: Reducer, Action, State, and Store
 
@@ -140,31 +143,31 @@ public struct FavoriteReducer: Reducer {
 ```swift
 struct MainTabView: View {
   let store: StoreOf<MainTabReducer>
-  
+
   var body: some View {
     WithViewStore(store, observe: \.selectedTab) { viewStore in
-      ZStack {
-        switch viewStore.state {
-        case .home:
-          AppCoordinatorView(
-            coordinator: store.scope(
-              state: \.homeTab,
-              action: { .homeTab($0) }
+      NavigationView {
+        ZStack {
+          switch viewStore.state {
+          case .home:
+            HomeView(
+              store: store.scope(
+                state: \.home,
+                action: \.home
+              )
             )
-          )
-        case .search:
-          AppCoordinatorView(
-            coordinator: store.scope(
-              state: \.searchTab,
-              action: { .searchTab($0) }
+            
+          case .search:
+            SearchView(
+              store: store.scope(
+                state: \.search,
+                action: \.search
+              )
             )
-          )
-        }
+          }
+          
+          . . . .
 
-        VStack {
-          Spacer()
-          TabView(currentTab: viewStore.binding(send: MainTabReducer.Action.selectedTabChanged))
-            .padding(.bottom, 20)
         }
       }
     }
@@ -222,136 +225,6 @@ struct FavoriteView: View {
 
 Read more about [**The Composable Architecture**](https://github.com/pointfreeco/swift-composable-architecture)
 
-## <a name="coordinator-pattern"></a> ⚙️ Navigation Between Screens Done with Coordinator Pattern supported by [TCACoodinators!](https://github.com/johnpatrickmorgan/TCACoordinators)
-
-<img width="1232" alt="Screenshot 2023-10-17 at 7 19 53 PM" src="https://github.com/uwaisalqadri/GiphyGIF/assets/55146646/ba07c117-692a-4cad-aab6-36b95ab9e9e6">
-
-```swift
-struct AppCoordinatorView: View {
-  let coordinator: StoreOf<AppCoordinator>
-  
-  var body: some View {
-    TCARouter(coordinator) { screen in
-      SwitchStore(screen) { screen in
-        switch screen {
-        case .detail:
-          CaseLet(
-            /AppScreen.State.detail,
-             action: AppScreen.Action.detail,
-             then: DetailView.init
-          )
-        case .favorite:
-          CaseLet(
-            /AppScreen.State.favorite,
-             action: AppScreen.Action.favorite,
-             then: FavoriteView.init
-          )
-        case .home:
-          CaseLet(
-            /AppScreen.State.home,
-             action: AppScreen.Action.home,
-             then: HomeView.init
-          )
-        case .search:
-          CaseLet(
-            /AppScreen.State.search,
-             action: AppScreen.Action.search,
-             then: SearchView.init
-          )
-        }
-      }
-    }
-  }
-}
-```
-
-```swift
-public struct AppScreen: Reducer {
-  public enum State: Equatable {
-    case detail(DetailReducer.State)
-    case favorite(FavoriteReducer.State)
-    case home(HomeReducer.State)
-    case search(SearchReducer.State)
-  }
-  
-  public enum Action {
-    case detail(DetailReducer.Action)
-    case favorite(FavoriteReducer.Action)
-    case home(HomeReducer.Action)
-    case search(SearchReducer.Action)
-  }
-  
-  public var body: some ReducerOf<Self> {
-    Scope(state: /State.detail, action: /Action.detail) {
-      DetailReducer(checkUseCase: Injection.shared.resolve(), addUseCase: Injection.shared.resolve(), removeUseCase: Injection.shared.resolve())
-    }
-    
-    Scope(state: /State.favorite, action: /Action.favorite) {
-      FavoriteReducer(useCase: Injection.shared.resolve(), removeUseCase: Injection.shared.resolve())
-    }
-    
-    Scope(state: /State.home, action: /Action.home) {
-      HomeReducer(useCase: Injection.shared.resolve())
-    }
-    
-    Scope(state: /State.search, action: /Action.search) {
-      SearchReducer(useCase: Injection.shared.resolve())
-    }
-  }
-}
-```
-
-```swift
-public struct AppCoordinator: Reducer {
-  public struct State: Equatable, IndexedRouterState {
-    public static let rootHomeState = AppCoordinator.State(
-      routes: [.root(.home(.init()), embedInNavigationView: true)]
-    )
-    
-    public static let rootSearchState = AppCoordinator.State(
-      routes: [.root(.search(.init()), embedInNavigationView: true)]
-    )
-    
-    public var routes: [Route<AppScreen.State>]
-  }
-  
-  public enum Action: IndexedRouterAction {
-    case routeAction(Int, action: AppScreen.Action)
-    case updateRoutes([Route<AppScreen.State>])
-  }
-  
-  public var body: some ReducerOf<Self> {
-    Reduce<State, Action> { state, action in
-      switch action {
-      case let .routeAction(_, action: .home(.showDetail(item))):
-        state.routes.presentSheet(.detail(.init(item: item)))
-        
-      case .routeAction(_, action: .home(.openFavorite)):
-        state.routes.push(.favorite(.init()))
-        
-      case let .routeAction(_, action: .search(.showDetail(item))):
-        state.routes.presentSheet(.detail(.init(item: item)))
-        
-      case .routeAction(_, action: .search(.openFavorite)):
-        state.routes.push(.favorite(.init()))
-        
-      case let .routeAction(_, action: .favorite(.showDetail(item))):
-        state.routes.presentSheet(.detail(.init(item: item)))
-        
-      default:
-        break
-      }
-      
-      return .none
-      
-    }.forEachRoute {
-      AppScreen()
-    }
-  }
-}
-
-```
-
 ## <a name="dependency-injection"></a> 🚀 Dependency Injection
 
 Here i'm using _**Swinject**_ for Dependency Injection
@@ -364,39 +237,50 @@ class Injection {
   private let container = Container()
 
   init() {
-    registerFavoriteFeature()
+    registerSearchFeature()
   }
 
   . . . .
 
-  private func registerFavoriteFeature() {
-    container.register(FavoriteView.self) { [unowned self] _ in
-      FavoriteView(holder: self.resolve(), router: self.resolve(), store: self.resolve())
+  private func registerSearchFeature() {
+    container.register(SearchInteractor.self) { [unowned self] _ in
+      Interactor(repository: self.resolve())
     }
-    
-    container.register(StoreOf<FavoriteReducer>.self) { [unowned self] _ in
-      Store(initialState: FavoriteReducer.State()) {
-        FavoriteReducer(useCase: self.resolve(), removeUseCase: self.resolve())
-      }
+    container.register(SearchGiphyRepository<SearchRemoteDataSource>.self) { [unowned self] _ in
+      SearchGiphyRepository(remoteDataSource: self.resolve())
     }
-
-    . . . .
+    container.register(SearchRemoteDataSource.self) { _ in
+      SearchRemoteDataSource()
+    }
   }
 
-  func resolve<T>() -> T {
+  public static func resolve<T>() -> T {
+    Injection().resolve()
+  }
+
+  public static func resolve<T, A>(argument: A) -> T {
+    Injection().resolve(argument: argument)
+  }
+
+  public static func resolve<T>(name: String) -> T {
+    Injection().resolve(name: name)
+  }
+
+  private func resolve<T>() -> T {
     guard let result = container.resolve(T.self) else {
       fatalError("This type is not registered: \(T.self)")
     }
     return result
   }
 
-  func resolve<T, A>(argument: A) -> T {
+  private func resolve<T, A>(argument: A) -> T {
     guard let result = container.resolve(T.self, argument: argument) else {
       fatalError("This type is not registered: \(T.self)")
     }
     return result
   }
-  func resolve<T>(name: String) -> T {
+
+  private func resolve<T>(name: String) -> T {
     guard let result = container.resolve(T.self, name: name) else {
       fatalError("This type is not registered: \(T.self)")
     }
@@ -404,6 +288,12 @@ class Injection {
   }
 }
 ```
+
+### Usage:
+```
+Injection.resolve()
+```
+
 Read more about [**Swinject**](https://github.com/Swinject/Swinject)
 
 ## <a name="buy-me-coffee"></a> ☕️ Buy Me a Coffee
@@ -411,7 +301,7 @@ If you like this project please support me by <a href="https://www.buymeacoffee.
 
 ## <a name="project-structure"></a> 🏛 Project Structure
 
-**`GiphyGIF`**:
+**`Giffy`**:
 
  - `Dependency`
  - `App`
@@ -422,11 +312,12 @@ If you like this project please support me by <a href="https://www.buymeacoffee.
     - `Search`
 
 
- - `**GiphyWidget**`
+ - `**GiffyWidget**`
+ - `**GiffyTests**`
 
 **`Modules`**:
 
-**`Giphy`**:
+**`Common`**:
  - `Data`
     - `API`
     - `DB`
@@ -439,7 +330,7 @@ If you like this project please support me by <a href="https://www.buymeacoffee.
     - `Model`
     - `Mapper`
 
-**`Common`**: 
+**`CommonUI`**: 
  - `Assets`
  - `Extensions`
  - `Modifier`
