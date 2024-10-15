@@ -51,9 +51,5 @@ struct RouteReducer {
     Scope(state: \.favorite, action: \.favorite) {
       FavoriteReducer(useCase: Injection.resolve(), removeUseCase: Injection.resolve())
     }
-
-    Scope(state: \.detail, action: \.detail) {
-      DetailReducer(checkUseCase: Injection.resolve(), addUseCase: Injection.resolve(), removeUseCase: Injection.resolve())
-    }
   }
 }

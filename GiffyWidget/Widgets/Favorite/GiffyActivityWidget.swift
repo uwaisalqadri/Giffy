@@ -1,6 +1,6 @@
 //
 //  GiphyDynamicIsland.swift
-//  GiphyWidget
+//  GiffyWidget
 //
 //  Created by Uwais Alqadri on 22/10/23.
 //
@@ -10,7 +10,7 @@ import WidgetKit
 import SwiftUI
 import Common
 
-struct GiphyActivityWidget: Widget {
+struct GiffyActivityWidget: Widget {
   var body: some WidgetConfiguration {
     ActivityConfiguration(for: GiphyAttributes.self) { _ in
       VStack {

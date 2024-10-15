@@ -1,6 +1,6 @@
 //
-//  GiphyWidget.swift
-//  GiphyWidget
+//  GiffyWidget.swift
+//  GiffyWidget
 //
 //  Created by Uwais Alqadri on 11/3/21.
 //
@@ -17,29 +17,29 @@ struct GiphyEntry: TimelineEntry {
 }
 
 struct WidgetFavoriteView: View {
+  @AppStorage("gifCopyCount") var copyCount: Int = 0
+
   let entry: WidgetProvider.Entry
 
   var body: some View {
     VStack(alignment: .leading, spacing: 20) {
       LinearGradient(
-        colors: [.Theme.purple, .Theme.red],
+        colors: [.Theme.green, .Theme.blueSky],
         startPoint: .bottomTrailing,
         endPoint: .topLeading
       )
       .mask(
-        Image(systemName: "heart.fill")
+        Image(systemName: "doc.on.clipboard.fill")
           .resizable()
       )
-      .frame(width: 60, height: 55)
-      
-      Text("\(entry.total)")
+      .frame(width: 40, height: 50)
+
+      Text("\(copyCount)")
         .font(.headline)
         .fontWeight(.bold)
-        .foregroundColor(.white)
-      
-      +
-      
-      Text(" Favorite GIFs")
+        .foregroundColor(.white) +
+
+      Text(" Copied GIFs")
         .font(.headline)
         .fontWeight(.light)
         .foregroundColor(.white)
@@ -55,18 +55,16 @@ struct WidgetFavoriteView: View {
     .previewDevice(.none)
 }
 
-struct GiphyWidget: Widget {
-  private let kind = "GiphyWidget"
-
+struct GiffyWidget: Widget {
   var body: some WidgetConfiguration {
     IntentConfiguration(
-      kind: kind,
+      kind: String(describing: Self.self),
       intent: ConfigurationIntent.self,
       provider: WidgetProvider(useCase: WidgetInjection.shared.resolve())
     ) { entry in
       WidgetFavoriteView(entry: entry)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.black)
+        .background(Color.black.padding(-20))
     }
     .configurationDisplayName("Giphy Widget")
     .description("Show Your Favorites Giphy!")

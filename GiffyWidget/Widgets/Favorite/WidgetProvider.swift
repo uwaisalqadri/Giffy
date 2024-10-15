@@ -1,6 +1,6 @@
 //
 //  WidgetReducer.swift
-//  GiphyWidget
+//  GiffyWidget
 //
 //  Created by Uwais Alqadri on 8/10/23.
 //
@@ -10,16 +10,16 @@ import SwiftUI
 import Core
 import Common
 
-typealias WidgetInteractor = Interactor<
+typealias FavoriteWidgetInteractor = Interactor<
   String, [Giffy], FavoriteGiphysRepository<
-    GiphyLocalDataSource
+    FavoriteLocalDataSource
   >
 >
 
 struct WidgetProvider: IntentTimelineProvider {
-  private let useCase: WidgetInteractor
-  
-  init(useCase: WidgetInteractor) {
+  private let useCase: FavoriteWidgetInteractor
+
+  init(useCase: FavoriteWidgetInteractor) {
     self.useCase = useCase
   }
   
@@ -32,7 +32,10 @@ struct WidgetProvider: IntentTimelineProvider {
   }
   
   func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (GiphyEntry) -> Void) {
-    completion(sampleEntry)
+    Task {
+      let response = try await self.useCase.execute(request: "")
+      completion(GiphyEntry(total: response.count))
+    }
   }
   
   func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<GiphyEntry>) -> Void) {

@@ -1,5 +1,5 @@
 //
-//  GiphyLocalDataSource.swift
+//  FavoriteLocalDataSource.swift
 //  
 //
 //  Created by Uwais Alqadri on 10/19/21.
@@ -8,7 +8,7 @@
 import Core
 import Combine
 
-public struct GiphyLocalDataSource: LocalDataSource {
+public struct FavoriteLocalDataSource: LocalDataSource {
   public typealias Request = String
   public typealias Response = Giffy
   
@@ -21,12 +21,10 @@ public struct GiphyLocalDataSource: LocalDataSource {
       let lowercaseSearchRequest = searchRequest.lowercased()
       
       favoriteGiphys = favoriteGiphys.filter { giphy in
-        // Convert all properties to lowercase for case-insensitive search
         let title = giphy.title.lowercased()
         let username = giphy.username.lowercased()
         let url = giphy.url.lowercased()
         
-        // Check if any property contains the search request
         let contains = title.contains(lowercaseSearchRequest) ||
         username.contains(lowercaseSearchRequest) ||
         url.contains(lowercaseSearchRequest)

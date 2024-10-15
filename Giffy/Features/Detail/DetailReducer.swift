@@ -14,13 +14,13 @@ import ActivityKit
 
 typealias AddFavoriteInteractor = Interactor<
   Giffy, Giffy, AddFavoriteRepository<
-    GiphyLocalDataSource
+    FavoriteLocalDataSource
   >
 >
 
 typealias CheckFavoriteInteractor = Interactor<
   String, Bool, CheckFavoriteRepository<
-    GiphyLocalDataSource
+    FavoriteLocalDataSource
   >
 >
 

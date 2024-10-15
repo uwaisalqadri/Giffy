@@ -13,13 +13,13 @@ import Common
 
 typealias FavoriteInteractor = Interactor<
   String, [Giffy], FavoriteGiphysRepository<
-    GiphyLocalDataSource
+    FavoriteLocalDataSource
   >
 >
 
 typealias RemoveFavoriteInteractor = Interactor<
   Giffy, Bool, RemoveFavoriteRepository<
-    GiphyLocalDataSource
+    FavoriteLocalDataSource
   >
 >
 

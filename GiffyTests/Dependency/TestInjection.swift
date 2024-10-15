@@ -49,15 +49,15 @@ class TestInjection: Injection {
       Interactor(repository: self.resolve())
     }
     
-    container.register(CheckFavoriteRepository<GiphyLocalDataSource>.self) { [unowned self] _ in
+    container.register(CheckFavoriteRepository<FavoriteLocalDataSource>.self) { [unowned self] _ in
       CheckFavoriteRepository(localDataSource: self.resolve())
     }
     
-    container.register(AddFavoriteRepository<GiphyLocalDataSource>.self) { [unowned self] _ in
+    container.register(AddFavoriteRepository<FavoriteLocalDataSource>.self) { [unowned self] _ in
       AddFavoriteRepository(localDataSource: self.resolve())
     }
     
-    container.register(RemoveFavoriteRepository<GiphyLocalDataSource>.self) { [unowned self] _ in
+    container.register(RemoveFavoriteRepository<FavoriteLocalDataSource>.self) { [unowned self] _ in
       RemoveFavoriteRepository(localDataSource: self.resolve())
     }
   }

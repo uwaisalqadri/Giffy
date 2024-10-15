@@ -27,18 +27,18 @@ class WidgetInjection {
     container.register(
       Interactor<
         String, [Giffy], FavoriteGiphysRepository<
-          GiphyLocalDataSource
+          FavoriteLocalDataSource
         >
       >.self) { [unowned self] _ in
       Interactor(repository: self.resolve())
     }
 
-    container.register(FavoriteGiphysRepository<GiphyLocalDataSource>.self) { [unowned self] _ in
+    container.register(FavoriteGiphysRepository<FavoriteLocalDataSource>.self) { [unowned self] _ in
       FavoriteGiphysRepository(localDataSource: self.resolve())
     }
 
-    container.register(GiphyLocalDataSource.self) { _ in
-      GiphyLocalDataSource()
+    container.register(FavoriteLocalDataSource.self) { _ in
+      FavoriteLocalDataSource()
     }
   }
 

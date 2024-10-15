@@ -1,6 +1,6 @@
 //
 //  WidgetBundle.swift
-//  GiphyWidget
+//  GiffyWidget
 //
 //  Created by Uwais Alqadri on 22/10/23.
 //
@@ -11,7 +11,7 @@ import SwiftUI
 @main
 struct WidgetsBundle: WidgetBundle {
   var body: some Widget {
-    GiphyWidget()
-    GiphyActivityWidget()
+    GiffyWidget()
+    GiffyActivityWidget()
   }
 }
