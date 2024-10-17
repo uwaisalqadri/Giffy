@@ -15,47 +15,24 @@ struct RouteView: View {
   @Route var router
 
   var body: some View {
-    RouteProvider(router.self) { route in
-      switch route {
-      case .main:
-        MainTabView(
-          store: store.scope(
-            state: \.main,
-            action: \.main
-          )
-        )
+    WithViewStore(store, observe: { $0 }) { viewStore in
+      RouteProvider(router.self) { route in
+        switch route {
+        case .main:
+          MainTabView(store: viewStore.main)
 
-      case .home:
-        HomeView(
-          store: store.scope(
-            state: \.home,
-            action: \.home
-          )
-        )
+        case .home:
+          HomeView(store: viewStore.home)
 
-      case .search:
-        SearchView(
-          store: store.scope(
-            state: \.search,
-            action: \.search
-          )
-        )
+        case .search:
+          SearchView(store: viewStore.search)
 
-      case .favorite:
-        FavoriteView(
-          store: store.scope(
-            state: \.favorite,
-            action: \.favorite
-          )
-        )
+        case .favorite:
+          FavoriteView(store: viewStore.favorite)
 
-      case let .detail(item):
-        DetailView(
-          store: Store(initialState: DetailReducer.State(item: item)) {
-            DetailReducer(
-              checkUseCase: Injection.resolve(), addUseCase: Injection.resolve(), removeUseCase: Injection.resolve())
-          }
-        )
+        case let .detail(item):
+          DetailView(store: viewStore[detail: item])
+        }
       }
     }
   }

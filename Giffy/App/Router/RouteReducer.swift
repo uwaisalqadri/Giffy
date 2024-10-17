@@ -7,49 +7,39 @@
 
 import Foundation
 import ComposableArchitecture
+import Common
 
 @Reducer
 struct RouteReducer {
   @ObservableState
   struct State: Equatable {
-    var main: MainTabReducer.State = .init()
-    var home: HomeReducer.State = .init()
-    var search: SearchReducer.State = .init()
-    var favorite: FavoriteReducer.State = .init()
-    var detail: DetailReducer.State = .init(item: .init())
-  }
-
-  @CasePathable
-  enum Action: CasePathable {
-    case main(MainTabReducer.Action)
-    case home(HomeReducer.Action)
-    case search(SearchReducer.Action)
-    case favorite(FavoriteReducer.Action)
-    case detail(DetailReducer.Action)
-  }
-
-  var body: some Reducer<State, Action> {
-    Reduce { _, action in
-      switch action {
-      default:
-        return .none
-      }
-    }
-
-    Scope(state: \.main, action: \.main) {
+    var main: StoreOf<MainTabReducer> = Store(initialState: .init()) {
       MainTabReducer()
     }
-
-    Scope(state: \.home, action: \.home) {
+    
+    var home: StoreOf<HomeReducer> = Store(initialState: .init()) {
       HomeReducer(useCase: Injection.resolve())
     }
-
-    Scope(state: \.search, action: \.search) {
+    
+    var search: StoreOf<SearchReducer> = Store(initialState: .init()) {
       SearchReducer(useCase: Injection.resolve())
     }
-
-    Scope(state: \.favorite, action: \.favorite) {
-      FavoriteReducer(useCase: Injection.resolve(), removeUseCase: Injection.resolve())
+    
+    var favorite: StoreOf<FavoriteReducer> = Store(initialState: .init()) {
+      FavoriteReducer(
+        useCase: Injection.resolve(),
+        removeUseCase: Injection.resolve()
+      )
+    }
+    
+    subscript(detail giffy: Giffy) -> StoreOf<DetailReducer> {
+      .init(initialState: .init(item: giffy)) {
+        DetailReducer(
+          checkUseCase: Injection.resolve(),
+          addUseCase: Injection.resolve(),
+          removeUseCase: Injection.resolve()
+        )
+      }
     }
   }
 }
