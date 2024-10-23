@@ -28,7 +28,18 @@ struct SearchField: View {
           .onChange(of: query) { text in
             onQueryChange?(text)
           }
-
+        
+        if !query.isEmpty {
+          Button(action: {
+            query = ""
+          }) {
+            Image(systemName: "xmark.circle.fill")
+              .resizable()
+              .frame(width: 14, height: 14)
+              .tint(.init(uiColor: .darkGray))
+          }.padding(.trailing, 12)
+        }
+        
         Button(action: {
           onQueryChange?(query)
         }) {

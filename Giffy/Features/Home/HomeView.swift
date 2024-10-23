@@ -20,7 +20,7 @@ struct HomeView: View {
         LazyVStack(alignment: .leading) {
           Text(HomeString.labelTodayPopular.localized)
             .font(.HelveticaNeue.h6HeadingSemibold)
-            .padding(.leading, 14)
+            .padding(.leading, 16)
           
           VStack(alignment: .center) {
             if !viewStore.state.isLoading {
@@ -34,7 +34,7 @@ struct HomeView: View {
                         viewStore.send(.showDetail(item: item))
                       }
                     )
-                    .padding(.horizontal, 8)
+                    .padding(.horizontal, 16)
                     .padding(.bottom, 20)
                   }
                 }.padding(.top, 20)

@@ -11,11 +11,6 @@ import Core
 import Common
 import CommonUI
 
-struct GiphyEntry: TimelineEntry {
-  var date = Date()
-  let total: Int
-}
-
 struct WidgetFavoriteView: View {
   let entry: WidgetProvider.Entry
 
@@ -37,13 +32,13 @@ struct WidgetFavoriteView: View {
         .fontWeight(.bold)
         .foregroundColor(.white) +
 
-      Text(" Copied GIFs")
+      Text(" Today's Copied GIFs")
         .font(.headline)
         .fontWeight(.light)
         .foregroundColor(.white)
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity)
-    .widgetBackground(Color.black.opacity(0.6))
+    .widgetBackground(Color.black)
   }
 }
 
@@ -66,11 +61,12 @@ extension View {
 }
 
 struct GiffyWidget: Widget {
+  let provider = WidgetProvider()
+  
   var body: some WidgetConfiguration {
-    IntentConfiguration(
+    StaticConfiguration(
       kind: String(describing: Self.self),
-      intent: ConfigurationIntent.self,
-      provider: WidgetProvider(useCase: WidgetInjection.shared.resolve())
+      provider: provider
     ) { entry in
       WidgetFavoriteView(entry: entry)
         .frame(maxWidth: .infinity, maxHeight: .infinity)

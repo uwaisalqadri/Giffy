@@ -44,7 +44,7 @@ public struct FavoriteReducer {
   }
   
   public enum Action {
-    case fetch(request: String)
+    case fetch(request: String = "")
     case success(response: [Giffy])
     case failed(error: Error)
     

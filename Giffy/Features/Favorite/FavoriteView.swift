@@ -63,7 +63,7 @@ struct FavoriteView: View {
         }
       }
       .onAppear {
-        viewStore.send(.fetch(request: ""))
+        viewStore.send(.fetch())
       }
     }
   }

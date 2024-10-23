@@ -17,6 +17,7 @@ import SDWebImageSwiftUI
 struct DetailView: View {
   let store: StoreOf<DetailReducer>
 
+  @AppStorage("copyCount", store: UserDefaults(suiteName: "Copied")) var copyCount: Int = 0
   @Environment(\.dismiss) private var dismiss
 
   var body: some View {
@@ -55,7 +56,7 @@ struct DetailView: View {
                     .showGiphyMenu(URL(string: item.url), data: viewStore.state.downloadedImage)
                   }
                   .trackScrollOffset { offset in
-                    if offset > 70 {
+                    if offset > 60 {
                       dismiss()
                     }
                   }
@@ -72,6 +73,14 @@ struct DetailView: View {
             }
           }
           .tabViewStyle(.page(indexDisplayMode: .never))
+          
+          ForEach(viewStore.hearts) { heart in
+            HeartView(heart: heart)
+          }
+        }
+        .onTapGesture(count: 2) { location in
+          viewStore.send(.displayHeart(location: location))
+          viewStore.send(.addFavorite)
         }
         .padding(.top, -40)
         .edgesIgnoringSafeArea(.all)
@@ -100,6 +109,7 @@ struct DetailView: View {
                 tint: .Theme.green,
                 size: 15,
                 onClick: {
+                  copyCount += 1
                   viewStore.send(.copyToClipboard)
                 }
               )
@@ -131,38 +141,5 @@ struct DetailView: View {
     let angle = xOffset / (screenWidth / 2)
     let rotationDegree: CGFloat = 25
     return Double(angle * rotationDegree)
-  }
-}
-
-struct ScrollViewOffsetModifier: ViewModifier {
-  let onOffsetChange: (CGFloat) -> Void
-  
-  func body(content: Content) -> some View {
-    content
-      .overlay(
-        GeometryReader { geo in
-          Color.clear
-            .preference(
-              key: ScrollViewOffsetPreferenceKey.self,
-              value: geo.frame(in: .named("scrollView")).minY
-            )
-        }
-      )
-      .onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { value in
-        onOffsetChange(value)
-      }
-  }
-}
-
-struct ScrollViewOffsetPreferenceKey: PreferenceKey {
-  static var defaultValue: CGFloat = 0
-  static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
-    value = nextValue()
-  }
-}
-
-extension View {
-  func trackScrollOffset(onOffsetChange: @escaping (CGFloat) -> Void) -> some View {
-    modifier(ScrollViewOffsetModifier(onOffsetChange: onOffsetChange))
   }
 }

@@ -54,6 +54,7 @@ public struct DetailReducer {
     public var errorMessage: String = ""
     public var isError: Bool = false
     public var downloadedImage: Data?
+    public var hearts: [HeartModel] = []
   }
   
   public enum Action {
@@ -63,6 +64,8 @@ public struct DetailReducer {
     case removeFavorite
     case copyToClipboard
     case startLiveActivity(DetailReducer.State)
+    case displayHeart(location: CGPoint)
+    case takeOffHeart(_ heartId: UUID)
 
     case success(isFavorited: Bool)
     case failed(error: Error)
@@ -136,7 +139,22 @@ public struct DetailReducer {
           try await Task.sleep(nanoseconds: 3_000_000_000)
           await activity?.end(using: attributeState, dismissalPolicy: .immediate)
         }
+        
+      case let .displayHeart(location):
+        let heart = HeartModel(location: location)
+        state.hearts.append(heart)
+        
+        let heartId = heart.id
+        
+        return .run { send in
+          try await Task.sleep(for: .seconds(1))
+          await send(.takeOffHeart(heartId))
+        }
 
+      case let .takeOffHeart(heartId):
+        state.hearts.removeAll(where: { $0.id == heartId })
+        return .none
+        
       }
     }
   }

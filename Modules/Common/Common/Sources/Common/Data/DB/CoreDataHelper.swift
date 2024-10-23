@@ -40,6 +40,14 @@ final class CoreDataHelper {
   }
   
   func addFavoriteGiphy(item: Giffy) async throws -> Bool {
+    let fetchRequest: NSFetchRequest<GiphyEntity>
+    fetchRequest = GiphyEntity.fetchRequest()
+    
+    guard let objects = try? context.fetch(fetchRequest),
+          !objects.contains(where: { $0.id == item.id }) else {
+      return false
+    }
+    
     let entity = GiphyEntity(context: context)
     entity.id = item.id
     entity.rating = item.rating

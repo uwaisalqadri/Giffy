@@ -16,34 +16,28 @@ typealias FavoriteWidgetInteractor = Interactor<
   >
 >
 
-struct WidgetProvider: IntentTimelineProvider {
-  private let useCase: FavoriteWidgetInteractor
+struct GiffyEntry: TimelineEntry {
+  var date = Date()
+  let total: Int
+}
 
-  init(useCase: FavoriteWidgetInteractor) {
-    self.useCase = useCase
+struct WidgetProvider: TimelineProvider {
+  @AppStorage("copyCount", store: UserDefaults(suiteName: "Copied")) var copyCount: Int = 0
+  
+  func placeholder(in context: Context) -> GiffyEntry {
+    GiffyEntry(total: copyCount)
   }
   
-  private var sampleEntry: GiphyEntry {
-    return GiphyEntry(total: 10)
+  func getSnapshot(in context: Context, completion: @escaping (GiffyEntry) -> Void) {
+    let entry = GiffyEntry(total: copyCount)
+    completion(entry)
   }
   
-  func placeholder(in context: Context) -> GiphyEntry {
-    sampleEntry
-  }
-  
-  func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (GiphyEntry) -> Void) {
-    Task {
-      let response = try await self.useCase.execute(request: "")
-      completion(GiphyEntry(total: response.count))
-    }
-  }
-  
-  func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<GiphyEntry>) -> Void) {
-    Task {
-      let response = try await self.useCase.execute(request: "")
-      let entries = [GiphyEntry(total: response.count)]
-      let timeline = Timeline(entries: entries, policy: .atEnd)
-      completion(timeline)
-    }
+  func getTimeline(in context: Context, completion: @escaping (Timeline<GiffyEntry>) -> Void) {
+    let entry = GiffyEntry(total: copyCount)
+    let currentDate = Date()
+    let futureDate = Calendar.current.date(byAdding: .minute, value: 15, to: currentDate)!
+    let timeline = Timeline(entries: [entry], policy: .after(futureDate))
+    completion(timeline)
   }
 }

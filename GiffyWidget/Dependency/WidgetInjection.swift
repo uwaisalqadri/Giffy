@@ -19,11 +19,6 @@ class WidgetInjection {
   }
 
   private func registerFavoriteWidget() {
-
-    container.register(WidgetProvider.self) { [unowned self] _ in
-      WidgetProvider(useCase: self.resolve())
-    }
-
     container.register(
       Interactor<
         String, [Giffy], FavoriteGiphysRepository<

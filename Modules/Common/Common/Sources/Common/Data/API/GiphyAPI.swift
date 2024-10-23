@@ -39,12 +39,4 @@ extension GiphyAPI: APIFactory {
     }
     return defaultParams
   }
-
-  public var composedURL: URL {
-    let params = parameter.map({ "\($0.key)=\($0.value)" }).joined(separator: "&")
-    let urlString = baseURL.appending(path)
-      .appending("?")
-      .appending(params)
-    return URL(string: urlString) ?? URL.init(fileURLWithPath: "")
-  }
 }
