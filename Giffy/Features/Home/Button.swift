@@ -15,13 +15,12 @@ struct IconButton: View {
   var onClick: () -> Void
   
   var body: some View {
-    Image(systemName: iconName)
-      .resizable()
-      .font(.system(size: size))
-      .foregroundColor(tint)
-      .onTapGesture {
-        onClick()
-      }
+    Button(action: onClick) {
+      Image(systemName: iconName)
+        .resizable()
+        .font(.system(size: size))
+        .foregroundColor(tint)
+    }.buttonStyle(.plain)
   }
 }
 

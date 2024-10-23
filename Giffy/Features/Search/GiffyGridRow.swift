@@ -1,6 +1,6 @@
 //
-//  GiphyGridRow.swift
-//  GiphyGIF
+//  GiffyGridRow.swift
+//  Giffy
 //
 //  Created by Uwais Alqadri on 24/05/21.
 //
@@ -11,7 +11,7 @@ import Core
 import Common
 import CommonUI
 
-struct GiphyGridRow: View {
+struct GiffyGridRow: View {
 
   @State private var downloadedImage: Data?
   let giphy: Giffy

@@ -27,7 +27,7 @@ struct HomeView: View {
               ZStack {
                 LazyVStack {
                   ForEach(viewStore.state.list.indexed, id: \.position) { _, item in
-                    GiphyItemRow(
+                    GiffyRow(
                       isFavorite: item.isFavorite,
                       giphy: item,
                       onTapRow: { item in

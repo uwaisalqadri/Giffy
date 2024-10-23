@@ -17,8 +17,6 @@ struct GiphyEntry: TimelineEntry {
 }
 
 struct WidgetFavoriteView: View {
-  @AppStorage("gifCopyCount") var copyCount: Int = 0
-
   let entry: WidgetProvider.Entry
 
   var body: some View {
@@ -34,7 +32,7 @@ struct WidgetFavoriteView: View {
       )
       .frame(width: 40, height: 50)
 
-      Text("\(copyCount)")
+      Text("\(entry.total)")
         .font(.headline)
         .fontWeight(.bold)
         .foregroundColor(.white) +
@@ -45,7 +43,19 @@ struct WidgetFavoriteView: View {
         .foregroundColor(.white)
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity)
-    .background(Color.black.opacity(0.6))
+    .widgetBackground(Color.black.opacity(0.6))
+  }
+}
+
+extension View {
+  func widgetBackground(_ backgroundView: some View) -> some View {
+    if #available(iOSApplicationExtension 17.0, *) {
+      return containerBackground(for: .widget) {
+        backgroundView
+      }
+    } else {
+      return background(backgroundView)
+    }
   }
 }
 
@@ -64,7 +74,7 @@ struct GiffyWidget: Widget {
     ) { entry in
       WidgetFavoriteView(entry: entry)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.black.padding(-20))
+        .background(Color.black.padding(-10))
     }
     .configurationDisplayName("Giphy Widget")
     .description("Show Your Favorites Giphy!")

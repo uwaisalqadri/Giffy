@@ -1,6 +1,6 @@
 //
-//  GiphyItemRow.swift
-//  GiphyGIF
+//  GiffyRow.swift
+//  Giffy
 //
 //  Created by Uwais Alqadri on 25/05/21.
 //
@@ -10,7 +10,7 @@ import SDWebImageSwiftUI
 import Common
 import CommonUI
 
-struct GiphyItemRow: View {
+struct GiffyRow: View {
 
   @State private var downloadedImage: Data?
   @State private var isSelected = false
@@ -40,7 +40,7 @@ struct GiphyItemRow: View {
       .overlay(
         HStack {
           VStack(alignment: .leading) {
-            if let trendingDateTime = giphy.trendingDateTime.stringToDate()?.string(format: "d MMM yyyy") {
+            if let trendingDateTime = giphy.trendingDateTime.stringToDate()?.string() {
               Text("Trending Date")
                 .foregroundColor(.white)
                 .font(.HelveticaNeue.captionRegular)
@@ -61,12 +61,15 @@ struct GiphyItemRow: View {
             .padding(.trailing, 10)
           }
 
-        }.frame(height: 40).padding([.horizontal, .top], 15)
-        , alignment: .top
+        }.frame(height: 40).padding([.horizontal, .top], 15),
+        alignment: .top
       )
 
       footer
         .padding(.top, 250)
+        .onTapGesture {
+          onTapRow?(giphy)
+        }
     }
     .scaleEffect(isSelected ? 1.2 : 1)
     .animation(.linear(duration: 0.2), value: isSelected)
@@ -90,7 +93,6 @@ struct GiphyItemRow: View {
       RedirectButton(onClick: {
         onTapRow?(giphy)
       })
-      .tapScaleEffect()
       .showGiphyMenu(URL(string: giphy.url), data: downloadedImage)
     }
     .padding(.leading, 20)

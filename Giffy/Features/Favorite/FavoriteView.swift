@@ -32,7 +32,7 @@ struct FavoriteView: View {
           
           LazyVStack {
             ForEach(viewStore.state.list, id: \.id) { item in
-              GiphyItemRow(
+              GiffyRow(
                 isFavorite: true,
                 giphy: item,
                 onTapRow: { giphy in

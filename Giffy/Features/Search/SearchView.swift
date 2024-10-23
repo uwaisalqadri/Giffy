@@ -33,7 +33,7 @@ struct SearchView: View {
               let currentItems = viewStore.state.items(side)
               LazyVStack(spacing: 8) {
                 ForEach(currentItems.indexed, id: \.position) { _, item in
-                  GiphyGridRow(giphy: item) { selectedItem in
+                  GiffyGridRow(giphy: item) { selectedItem in
                     viewStore.send(.showDetail(item: selectedItem))
                   }
                   .padding(.horizontal, 5)
