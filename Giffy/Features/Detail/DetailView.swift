@@ -82,7 +82,8 @@ struct DetailView: View {
           viewStore.send(.displayHeart(location: location))
           viewStore.send(.addFavorite)
         }
-        .padding(.top, -40)
+        .padding(.top, -(window?.safeAreaInsets.top ?? 0))
+        .padding(.bottom, -(window?.safeAreaInsets.bottom ?? 0))
         .edgesIgnoringSafeArea(.all)
         .onAppear {
           viewStore.send(.checkFavorite)
