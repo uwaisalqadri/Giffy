@@ -90,7 +90,7 @@ struct DetailView: View {
         .toolbar {
           ToolbarItem(placement: .navigationBarLeading) {
             IconButton(
-              iconName: "xmark",
+              iconName: "chevron.down",
               tint: .Theme.yellow,
               onClick: {
                 dismiss()
