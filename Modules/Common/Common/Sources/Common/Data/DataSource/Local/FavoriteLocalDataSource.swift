@@ -15,7 +15,7 @@ public struct FavoriteLocalDataSource: LocalDataSource {
   public init() {}
   
   public func list(request: String?) async throws -> [Giffy] {
-    var favoriteGiphys = try await CoreDataHelper.shared.getFavoriteGiphys().map { $0.map() }
+    var favoriteGiphys = try await DBService.shared.getFavoriteGiphys().map { $0.map() }
     
     if let searchRequest = request, !searchRequest.isEmpty {
       let lowercaseSearchRequest = searchRequest.lowercased()
@@ -37,14 +37,14 @@ public struct FavoriteLocalDataSource: LocalDataSource {
   }
   
   public func add(entity: Giffy) async throws -> Bool {
-    return try await CoreDataHelper.shared.addFavoriteGiphy(item: entity)
+    return try await DBService.shared.addFavoriteGiphy(item: entity)
   }
   
   public func delete(id: String) async throws -> Bool {
-    return try await CoreDataHelper.shared.deleteFavoriteGiphy(with: id)
+    return try await DBService.shared.deleteFavoriteGiphy(with: id)
   }
   
   public func isFavorited(id: String) async throws -> Bool {
-    return try await CoreDataHelper.shared.isGiphyFavorited(with: id)
+    return try await DBService.shared.isGiphyFavorited(with: id)
   }
 }

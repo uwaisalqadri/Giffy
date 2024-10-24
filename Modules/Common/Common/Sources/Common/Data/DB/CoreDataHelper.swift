@@ -8,8 +8,8 @@
 import CoreData
 import Combine
 
-final class CoreDataHelper {
-  static let shared = CoreDataHelper()
+final class DBService {
+  static let shared = DBService()
   
   private static var persistentContainer: NSPersistentContainer = {
     let modelURL = Bundle.module.url(forResource: "Giphy", withExtension: "momd")!
