@@ -7,15 +7,8 @@
 
 import Foundation
 import ComposableArchitecture
-import Core
 import Common
 import CommonUI
-
-typealias HomeInteractor = Interactor<
-  Int, [Giffy], GetGiphyRepository<
-    TrendingRemoteDataSource
-  >
->
 
 @Reducer
 public struct HomeReducer {

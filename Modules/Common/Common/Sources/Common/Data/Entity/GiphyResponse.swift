@@ -1,21 +1,21 @@
 //
 //  GiphyEntity.swift
-//  
+//
 //
 //  Created by Uwais Alqadri on 10/17/21.
 //
 
 import Foundation
 
-class GiphyDataResponse: Codable {
+struct GiphyDataResponse: Codable {
   var data = [GiphyResponse]()
-
+  
   enum CodingKeys: String, CodingKey {
     case data
   }
 }
 
-class GiphyResponse: Codable {
+struct GiphyResponse: Codable {
   var type: String?
   var id: String?
   var url: String?
@@ -36,5 +36,23 @@ class GiphyResponse: Codable {
     case title
     case trendingDateTime = "trending_datetime"
     case images
+  }
+}
+
+struct ImageGIFResponse: Codable {
+  var original: ImageOriginalResponse?
+  
+  enum CodingKeys: String, CodingKey {
+    case original
+  }
+}
+
+struct ImageOriginalResponse: Codable {
+  var url: String?
+  var height: String?
+  var width: String?
+  
+  enum CodingKeys: String, CodingKey {
+    case url, height, width
   }
 }

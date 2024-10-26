@@ -7,15 +7,8 @@
 
 import Foundation
 import ComposableArchitecture
-import Core
 import Common
 import CommonUI
-
-typealias SearchInteractor = Interactor<
-  String, [Giffy], SearchGiphyRepository<
-    SearchRemoteDataSource
-  >
->
 
 @Reducer
 public struct SearchReducer {

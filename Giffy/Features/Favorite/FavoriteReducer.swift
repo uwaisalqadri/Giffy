@@ -7,21 +7,8 @@
 
 import Foundation
 import ComposableArchitecture
-import Core
 import CommonUI
 import Common
-
-typealias FavoriteInteractor = Interactor<
-  String, [Giffy], FavoriteGiphysRepository<
-    FavoriteLocalDataSource
-  >
->
-
-typealias RemoveFavoriteInteractor = Interactor<
-  Giffy, Bool, RemoveFavoriteRepository<
-    FavoriteLocalDataSource
-  >
->
 
 @Reducer
 public struct FavoriteReducer {
