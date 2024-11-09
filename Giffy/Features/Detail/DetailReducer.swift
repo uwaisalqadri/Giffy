@@ -10,6 +10,7 @@ import ComposableArchitecture
 import Common
 import CommonUI
 import ActivityKit
+import SwiftUI
 
 @Reducer
 public struct DetailReducer {
@@ -95,6 +96,8 @@ public struct DetailReducer {
         return .none
         
       case .addFavorite:
+        UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
+        
         let item = state.item
         return .run { send in
           do {

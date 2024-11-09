@@ -52,6 +52,7 @@ struct MainTabReducer {
       switch action {
       case let .selectedTabChanged(tab):
         state.selectedTab = tab
+        UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
         return .none
       default:
         return .none

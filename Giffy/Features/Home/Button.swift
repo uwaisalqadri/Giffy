@@ -20,7 +20,9 @@ struct IconButton: View {
         .resizable()
         .font(.system(size: size))
         .foregroundColor(tint)
-    }.buttonStyle(.plain)
+    }
+    .contentShape(.rect)
+    .buttonStyle(.plain)
   }
 }
 

@@ -41,10 +41,9 @@ struct DetailView: View {
                     AnimatedImage(
                       url: URL(string: item.image.url),
                       options: .queryMemoryData,
-                      isAnimating: .constant(true)
-                    ) {
-                      Color.randomColor
-                    }
+                      isAnimating: .constant(true),
+                      placeholder: { Color.randomColor }
+                    )
                     .onSuccess { _, data, _ in
                       viewStore.send(.downloaded(data: data))
                     }
@@ -60,8 +59,8 @@ struct DetailView: View {
                     )
                   }
                   .trackScrollOffset { offset in
-                    if offset > 60 {
-                      dismissSheet()
+                    if (50...60).contains(offset) {
+                        dismissSheet()
                     }
                   }
                 }
