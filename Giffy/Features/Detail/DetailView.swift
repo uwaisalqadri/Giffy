@@ -57,7 +57,7 @@ struct DetailView: View {
                   }
                   .trackScrollOffset { offset in
                     if offset > 60 {
-                      dismiss()
+                      dismissSheet()
                     }
                   }
                 }
@@ -73,11 +73,14 @@ struct DetailView: View {
             }
           }
           .tabViewStyle(.page(indexDisplayMode: .never))
-          
-          ForEach(viewStore.hearts) { heart in
-            HeartView(heart: heart)
-          }
         }
+        .overlay(
+          ZStack {
+            ForEach(viewStore.hearts) { heart in
+              HeartView(heart: heart)
+            }
+          }
+        )
         .onTapGesture(count: 2) { location in
           viewStore.send(.displayHeart(location: location))
           viewStore.send(.addFavorite)
@@ -94,7 +97,7 @@ struct DetailView: View {
               iconName: "chevron.down",
               tint: .Theme.yellow,
               onClick: {
-                dismiss()
+                dismissSheet()
               }
             )
           }
@@ -140,6 +143,11 @@ struct DetailView: View {
         }
       }
     }
+  }
+  
+  func dismissSheet() {
+    dismiss()
+    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
   }
 
   func getAngle(xOffset: CGFloat, in screenWidth: CGFloat) -> Double {
