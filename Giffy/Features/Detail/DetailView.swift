@@ -53,7 +53,11 @@ struct DetailView: View {
                     .rotationEffect(.degrees(CGFloat(90 * position)))
                     .frame(width: mainFrame.width - 60, height: mainFrame.width - 60)
                     .cornerRadius(20)
-                    .showGiphyMenu(URL(string: item.url), data: viewStore.state.downloadedImage)
+                    .showGiphyMenu(
+                      URL(string: item.url),
+                      data: viewStore.state.downloadedImage,
+                      withShape: .rect(cornerRadius: 20)
+                    )
                   }
                   .trackScrollOffset { offset in
                     if offset > 60 {

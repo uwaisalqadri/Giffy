@@ -30,7 +30,7 @@ struct GiffyGridRow: View {
         downloadedImage = data
       }
       .resizable()
-      .background(Color.randomColor)
+      .showGiphyMenu(URL(string: giphy.image.url), data: downloadedImage, withShape: .rect(cornerRadius: 10))
       .frame(
         idealWidth: (giphy.image.width).cgFloat,
         idealHeight: (giphy.image.height).cgFloat,

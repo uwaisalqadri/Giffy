@@ -93,7 +93,11 @@ struct GiffyRow: View {
       RedirectButton(onClick: {
         onTapRow?(giphy)
       })
-      .showGiphyMenu(URL(string: giphy.url), data: downloadedImage)
+      .showGiphyMenu(
+        URL(string: giphy.url),
+        data: downloadedImage,
+        withShape: .circle
+      )
     }
     .padding(.leading, 20)
     .padding(.trailing, 15)
