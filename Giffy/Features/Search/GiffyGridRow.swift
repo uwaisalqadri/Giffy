@@ -15,18 +15,17 @@ struct GiffyGridRow: View {
 
   @State private var downloadedImage: Data?
   let giphy: Giffy
-
+  
   var onTapRow: ((Giffy) -> Void)?
-
+  
   var body: some View {
     VStack(alignment: .leading) {
       AnimatedImage(
         url: URL(string: giphy.image.url),
-        options: .queryMemoryData,
-        isAnimating: .constant(true)
-      ) {
-        Color.randomColor
-      }
+        options: [.queryMemoryData, .progressiveLoad],
+        isAnimating: .constant(true),
+        placeholder: { Color.randomColor }
+      )
       .onSuccess { _, data, _ in
         downloadedImage = data
       }
@@ -43,7 +42,6 @@ struct GiffyGridRow: View {
       .onTapGesture {
         onTapRow?(giphy)
       }
-      .showGiphyMenu(URL(string: giphy.url), data: downloadedImage)
     }
   }
 }
