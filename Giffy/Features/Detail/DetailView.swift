@@ -129,6 +129,10 @@ struct DetailView: View {
                 } else {
                   viewStore.send(.addFavorite)
                   viewStore.send(.startLiveActivity(viewStore.state))
+                  
+                  let middleX: CGFloat = CGFloat((window?.screen.bounds.width ?? 0.0) / 2)
+                  let middleY: CGFloat = CGFloat((window?.screen.bounds.height ?? 0.0) / 2)
+                  viewStore.send(.displayHeart(location: .init(x: middleX, y: middleY)))
                 }
               }
             ).tapScaleEffect()
