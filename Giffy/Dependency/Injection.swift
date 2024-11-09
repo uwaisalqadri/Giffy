@@ -19,6 +19,7 @@ public class Injection {
     registerDetailFeature()
     registerSearchFeature()
     registerFavoriteFeature()
+    registerStickerFeature()
   }
 
   private func registerHomeFeature() {
@@ -75,6 +76,18 @@ public class Injection {
     }
     container.register(FavoriteLocalDataSource.self) { _ in
       FavoriteLocalDataSource()
+    }
+  }
+  
+  private func registerStickerFeature() {
+    container.register(BackgroundRemovalInteractor.self) { [unowned self] _ in
+      Interactor(repository: self.resolve())
+    }
+    container.register(BackgroundRemovalRepository<ImageVisionDataSource>.self) { [unowned self] _ in
+      BackgroundRemovalRepository(remoteDataSource: self.resolve())
+    }
+    container.register(ImageVisionDataSource.self) { _ in
+      ImageVisionDataSource()
     }
   }
 

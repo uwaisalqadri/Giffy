@@ -6,7 +6,7 @@ include:
 options:
   bundleIdPrefix: "com.uwaisalqadri"
   deploymentTarget:
-    iOS: 16.1
+    iOS: 17.0
   postGenCommand: xcodebuild -resolvePackageDependencies
   indentWidth: 2
   tabWidth: 2
@@ -33,7 +33,7 @@ targets:
   Giffy:
     type: application
     platform: iOS
-    deploymentTarget: "16.1"
+    deploymentTarget: "17.0"
     scheme:
       testTargets:
         - GiffyTests
@@ -79,7 +79,7 @@ targets:
     type: app-extension
     subtype: widgetkit-extension
     platform: iOS
-    deploymentTarget: "16.1"
+    deploymentTarget: "17.0"
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: com.uwaisalqadri.Giffy.GiffyWidget
       CODE_SIGN_STYLE: Automatic
@@ -97,7 +97,7 @@ targets:
   GiffyTests:
     type: bundle.unit-test
     platform: iOS
-    deploymentTarget: "16.1"
+    deploymentTarget: "17.0"
     dependencies:
       - target: Giffy
     settings:

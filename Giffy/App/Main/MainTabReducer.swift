@@ -12,6 +12,8 @@ import ComposableArchitecture
 public enum Tabs: Int, CaseIterable {
   case search
   case home
+  case sticker
+  case aiGen
 
   var iconName: String {
     switch self {
@@ -19,6 +21,10 @@ public enum Tabs: Int, CaseIterable {
       return "rectangle.3.offgrid"
     case .home:
       return "rectangle.stack"
+    case .sticker:
+      return "square.on.square"
+    case .aiGen:
+      return "sparkles"
     }
   }
   
@@ -28,6 +34,10 @@ public enum Tabs: Int, CaseIterable {
       return .Theme.green
     case .home:
       return .Theme.blueSky
+    case .sticker:
+      return .Theme.purple
+    case .aiGen:
+      return .Theme.yellow
     }
   }
 }
@@ -38,12 +48,14 @@ struct MainTabReducer {
     var selectedTab: Tabs = .search
     var home: HomeReducer.State = .init()
     var search: SearchReducer.State = .init()
+    var sticker: StickerReducer.State = .init()
   }
   
   @CasePathable
   enum Action: CasePathable {
     case home(HomeReducer.Action)
     case search(SearchReducer.Action)
+    case sticker(StickerReducer.Action)
     case selectedTabChanged(Tabs)
   }
   
@@ -65,6 +77,10 @@ struct MainTabReducer {
 
     Scope(state: \.search, action: \.search) {
       SearchReducer(useCase: Injection.resolve())
+    }
+    
+    Scope(state: \.sticker, action: \.sticker) {
+      StickerReducer(backgroundRemovalUseCase: Injection.resolve())
     }
   }
 }

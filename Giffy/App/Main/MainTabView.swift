@@ -34,6 +34,18 @@ struct MainTabView: View {
                 action: \.search
               )
             )
+            
+          case .sticker:
+            StickerView(
+              store: store.scope(
+                state: \.sticker,
+                action: \.sticker
+              )
+            )
+            
+          case .aiGen:
+            AIGenStickerView()
+            
           }
           
           VStack {
@@ -68,10 +80,9 @@ struct CapsuleTabView: View {
           .background(
             ZStack {
               if currentTab == tab {
-                Color.black.clipShape(Capsule())
+                Color.black.clipShape(.capsule)
                   .frame(width: 90, height: 50)
                   .padding(.horizontal, 30)
-                  .transition(currentTab == .home ? .backslide : .slide)
               }
             }
           )
@@ -79,12 +90,12 @@ struct CapsuleTabView: View {
         }
       }
     }
-    .frame(maxWidth: 190, minHeight: 65)
+    .frame(maxWidth: .infinity, minHeight: 65)
     .background(
       Blur(style: .systemUltraThinMaterialDark)
-        .clipShape(Capsule())
+        .clipShape(.capsule)
     )
-    .padding(.horizontal, 70)
+    .padding(.horizontal, 10)
   }
 }
 

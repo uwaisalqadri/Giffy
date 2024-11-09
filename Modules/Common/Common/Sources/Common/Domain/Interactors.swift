@@ -6,6 +6,13 @@
 //
 
 import Core
+import UIKit
+
+public typealias BackgroundRemovalInteractor = Interactor<
+  CIImage, ImageData, BackgroundRemovalRepository<
+    ImageVisionDataSource
+  >
+>
 
 public typealias FavoriteInteractor = Interactor<
   String, [Giffy], FavoriteGiphysRepository<

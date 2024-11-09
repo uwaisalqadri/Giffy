@@ -59,7 +59,7 @@ struct DetailView: View {
                     )
                   }
                   .trackScrollOffset { offset in
-                    if (50...60).contains(offset) {
+                    if (50...70).contains(offset) {
                         dismissSheet()
                     }
                   }
