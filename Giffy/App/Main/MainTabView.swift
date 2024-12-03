@@ -66,7 +66,7 @@ struct CapsuleTabView: View {
   @Binding var currentTab: Tabs
 
   var body: some View {
-    HStack(spacing: 45) {
+    HStack(spacing: 20) {
       ForEach(Tabs.allCases, id: \.rawValue) { tab in
         Button(action: {
           currentTab = tab
@@ -80,8 +80,8 @@ struct CapsuleTabView: View {
           .background(
             ZStack {
               if currentTab == tab {
-                Color.black.clipShape(.capsule)
-                  .frame(width: 90, height: 50)
+                Color.black.clipShape(.circle)
+                  .frame(width: 50, height: 50)
                   .padding(.horizontal, 30)
               }
             }
@@ -95,7 +95,7 @@ struct CapsuleTabView: View {
       Blur(style: .systemUltraThinMaterialDark)
         .clipShape(.capsule)
     )
-    .padding(.horizontal, 10)
+    .padding(.horizontal, 70)
   }
 }
 

@@ -24,17 +24,15 @@ struct GiffyRow: View {
     ZStack {
       AnimatedImage(
         url: URL(string: giphy.image.url),
-        options: .queryMemoryData,
-        isAnimating: .constant(true)
-      ) {
-        Color.randomColor
-      }
+        options: [.scaleDownLargeImages, .queryMemoryData, .highPriority],
+        isAnimating: .constant(true),
+        placeholder: { Color.randomColor }
+      )
       .onSuccess { _, data, _ in
           downloadedImage = data
       }
       .resizable()
       .scaledToFill()
-      .background(Color.randomColor)
       .frame(maxHeight: 350, alignment: .center)
       .cornerRadius(30)
       .overlay(

@@ -22,7 +22,7 @@ struct GiffyGridRow: View {
     VStack(alignment: .leading) {
       AnimatedImage(
         url: URL(string: giphy.image.url),
-        options: [.queryMemoryData, .progressiveLoad],
+        options: [.scaleDownLargeImages, .queryMemoryData, .highPriority],
         isAnimating: .constant(true),
         placeholder: { Color.randomColor }
       )

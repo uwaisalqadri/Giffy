@@ -23,10 +23,14 @@ struct SearchField: View {
           .frame(height: UIDevice.isIpad ? 60 : 40)
           .autocapitalization(.none)
           .disableAutocorrection(true)
+          .submitLabel(.search)
           .padding(.leading, 13)
           .padding(.trailing, 30)
-          .onChange(of: query) { text in
+          .onChange(of: query) { _, text in
             onQueryChange?(text)
+          }
+          .onSubmit {
+            onQueryChange?(query)
           }
         
         if !query.isEmpty {

@@ -25,6 +25,9 @@ packages:
   Lottie:
     github: airbnb/lottie-spm
     version: 4.3.0
+  netfox:
+    github: kasketis/netfox
+    version: 1.21.0
   Common:
     path: Modules/Common/Common
   CommonUI:
@@ -45,6 +48,7 @@ targets:
       - package: SDWebImageSwiftUI
       - package: Swinject
       - package: Lottie
+      - package: netfox
     sources:
       - path: Giffy
         excludes:
@@ -92,6 +96,7 @@ targets:
       - package: SDWebImageSwiftUI
       - package: Swinject
       - package: Lottie
+      - package: netfox
       - sdk: SwiftUI.framework
       - sdk: WidgetKit.framework
   GiffyTests:

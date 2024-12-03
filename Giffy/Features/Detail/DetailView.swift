@@ -38,9 +38,11 @@ struct DetailView: View {
                       .frame(width: mainFrame.width, height: mainFrame.height)
                       .cornerRadius(40)
 
+                    let imageWidth = (item.image.width).cgFloat * 2
+                    let imageHeight = (item.image.height).cgFloat * 2
                     AnimatedImage(
                       url: URL(string: item.image.url),
-                      options: .queryMemoryData,
+                      options: [.scaleDownLargeImages, .queryMemoryData, .highPriority],
                       isAnimating: .constant(true),
                       placeholder: { Color.randomColor }
                     )
@@ -50,8 +52,7 @@ struct DetailView: View {
                     .resizable()
                     .scaledToFill()
                     .rotationEffect(.degrees(CGFloat(90 * position)))
-                    .frame(width: mainFrame.width - 60, height: mainFrame.width - 60)
-                    .cornerRadius(20)
+                    .frame(maxWidth: position % 2 == 0 ? imageWidth : imageHeight, maxHeight: position % 2 == 0 ? imageHeight : imageWidth)
                     .showGiphyMenu(
                       URL(string: item.url),
                       data: viewStore.state.downloadedImage,

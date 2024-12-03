@@ -8,6 +8,7 @@
 import SwiftUI
 import ComposableArchitecture
 import Common
+import netfox
 
 @main
 struct MainApp: App {
@@ -26,6 +27,7 @@ struct MainApp: App {
       )
       .onAppear {
         router.makeRoot(.main)
+        NFX.sharedInstance().start()
       }
     }
   }
