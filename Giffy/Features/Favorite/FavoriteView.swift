@@ -47,11 +47,10 @@ struct FavoriteView: View {
             }
           }
         }
-        .navigationTitle(FavoriteString.titleFavorite.localized)
         .navigationBarBackButtonHidden(false)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-          ToolbarItem(placement: .navigationBarLeading) {
+          ToolbarItem(placement: .topBarLeading) {
             IconButton(
               iconName: "chevron.left",
               tint: .blue,
@@ -59,6 +58,11 @@ struct FavoriteView: View {
                 viewStore.send(.didBackPressed)
               }
             )
+          }
+          
+          ToolbarItem(placement: .principal) {
+            Text(FavoriteString.titleFavorite.localized)
+              .font(.bold, size: 16)
           }
         }
       }

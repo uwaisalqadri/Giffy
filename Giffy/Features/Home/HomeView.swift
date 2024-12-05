@@ -18,10 +18,6 @@ struct HomeView: View {
     WithViewStore(store, observe: { $0 }) { viewStore in
       ScrollView(.vertical, showsIndicators: false) {
         LazyVStack(alignment: .leading) {
-          Text(HomeString.labelTodayPopular.localized)
-            .font(.HelveticaNeue.h6HeadingSemibold)
-            .padding(.leading, 16)
-          
           VStack(alignment: .center) {
             if !viewStore.state.isLoading {
               ZStack {
@@ -49,17 +45,26 @@ struct HomeView: View {
         }
         .padding(.bottom, 60)
       }
-      .navigationTitle(HomeString.titleTrending.localized)
       .navigationViewStyle(.stack)
-      .navigationBarItems(
-        trailing: IconButton(
-          iconName: "heart",
-          tint: .Theme.red,
-          onClick: {
-            viewStore.send(.openFavorite)
-          }
-        ).tapScaleEffect()
-      )
+      .navigationBarTitleDisplayMode(.inline)
+      .toolbar {
+        ToolbarItem(placement: .topBarLeading) {
+          VStack(alignment: .leading) {
+            Text(HomeString.labelTodayPopular.localized)
+              .font(.bold, size: 22)
+          }.padding(.top, 5)
+        }
+        
+        ToolbarItem(placement: .topBarTrailing) {
+          IconButton(
+            iconName: "heart",
+            tint: .Theme.red,
+            onClick: {
+              viewStore.send(.openFavorite)
+            }
+          ).tapScaleEffect()
+        }
+      }
       .onAppear {
         viewStore.send(.fetch(request: 0))
       }

@@ -48,18 +48,24 @@ struct SearchView: View {
             .padding(.top, 60)
         }
       }
-      .navigationTitle(SearchString.titleSearch.localized)
       .navigationViewStyle(.stack)
-      .navigationBarItems(
-        trailing: IconButton(
-          iconName: "heart",
-          tint: .Theme.red,
-          onClick: {
-            viewStore.send(.openFavorite)
-          }
-        ).tapScaleEffect()
-      )
-      .padding(.top, 10)
+      .navigationBarTitleDisplayMode(.inline)
+      .toolbar {
+        ToolbarItem(placement: .topBarLeading) {
+          Text(SearchString.titleSearch.localized)
+            .font(.bold, size: 22)
+        }
+
+        ToolbarItem(placement: .topBarTrailing) {
+          IconButton(
+            iconName: "heart",
+            tint: .Theme.red,
+            onClick: {
+              viewStore.send(.openFavorite)
+            }
+          ).tapScaleEffect()
+        }
+      }
       .onAppear {
         let searchText = viewStore.state.searchText
         viewStore.send(.fetch(

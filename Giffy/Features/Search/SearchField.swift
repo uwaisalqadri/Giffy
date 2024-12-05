@@ -17,7 +17,7 @@ struct SearchField: View {
     VStack(alignment: .leading) {
       HStack {
         TextField("", text: $query, prompt: Text(SearchString.labelSearchDesc.localized).foregroundColor(.gray))
-          .font(.HelveticaNeue.s1SubtitleSemibold)
+          .font(.semibold, size: 14)
           .tint(.gray)
           .foregroundColor(.black)
           .frame(height: UIDevice.isIpad ? 60 : 40)

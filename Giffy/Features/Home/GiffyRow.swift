@@ -41,11 +41,11 @@ struct GiffyRow: View {
             if let trendingDateTime = giphy.trendingDateTime.stringToDate()?.string() {
               Text("Trending Date")
                 .foregroundColor(.white)
-                .font(.HelveticaNeue.captionRegular)
+                .font(.semibold, size: 14)
 
               Text(trendingDateTime)
                 .foregroundColor(.white)
-                .font(.HelveticaNeue.s1SubtitleBold)
+                .font(.medium, size: 12)
             }
           }
 
@@ -78,12 +78,12 @@ struct GiffyRow: View {
       VStack(alignment: .leading) {
         Text(giphy.title)
           .foregroundColor(.white)
-          .font(.HelveticaNeue.s1SubtitleBold)
+          .font(.bold, size: 16)
           .lineLimit(1)
 
         Text(giphy.username.isEmpty ? "Unnamed" : giphy.username)
           .foregroundColor(.white)
-          .font(.HelveticaNeue.s1SubtitleRegular)
+          .font(.medium, size: 14)
       }
 
       Spacer()

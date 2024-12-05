@@ -16,7 +16,7 @@ struct SearchEmptyView: View {
         .padding(.bottom, 5)
 
       Text(SearchString.labelSearching.localized)
-        .font(.HelveticaNeue.s1SubtitleSemibold)
+        .font(.bold, size: 20)
         .multilineTextAlignment(.center)
         .padding(.horizontal, 40)
     }

@@ -94,15 +94,7 @@ public struct StickerReducer {
     
     do {
       let data = try await item.loadTransferable(type: Data.self)
-      guard let imageData = data else {
-        print("Failed to load image data")
-        return
-      }
-      
-      guard var image = CIImage(data: imageData) else {
-        print("Failed to create image from selected photo")
-        return
-      }
+      guard let imageData = data, var image = CIImage(data: imageData) else { return }
       
       if let orientation = image.properties["Orientation"] as? Int32, orientation != 1 {
         image = image.oriented(forExifOrientation: orientation)
@@ -111,7 +103,7 @@ public struct StickerReducer {
       try await onInputImageSelected(image, send: send)
       
     } catch {
-      print("Failed to load: \(error)")
+      await Toaster.error(message: "Something is wrong").show()
     }
   }
   
@@ -119,7 +111,7 @@ public struct StickerReducer {
     do {
       let imageData = try await backgroundRemovalUseCase.execute(request: image)
       await send(.updateSticker(.init(state: .completed(imageData))))
-    } catch let error where error is CancellationError {
+    } catch let error as CancellationError {
       await send(.updateSticker(.init(state: .failure(error))))
     }
   }

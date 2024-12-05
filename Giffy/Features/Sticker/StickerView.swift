@@ -59,10 +59,14 @@ struct StickerView: View {
         ),
         matching: .images
       )
-      .navigationTitle("Background Removal")
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
-        ToolbarItem(placement: .navigationBarTrailing) {
+        ToolbarItem(placement: .principal) {
+          Text("Background Removal")
+            .font(.bold, size: 16)
+        }
+        
+        ToolbarItem(placement: .topBarTrailing) {
           IconButton(
             iconName: viewStore.state.isCopied ? "doc.on.clipboard.fill" : "doc.on.clipboard",
             tint: .Theme.green,

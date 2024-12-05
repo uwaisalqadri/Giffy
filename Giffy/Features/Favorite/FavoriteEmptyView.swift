@@ -15,7 +15,7 @@ struct FavoriteEmptyView: View {
         .frame(width: 220, height: 220)
 
       Text(FavoriteString.labelFavoriteEmpty.localized)
-        .font(.HelveticaNeue.s1SubtitleSemibold)
+        .font(.bold, size: 20)
         .multilineTextAlignment(.center)
     }
   }
