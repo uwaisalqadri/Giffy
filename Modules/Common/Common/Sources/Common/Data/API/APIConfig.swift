@@ -13,18 +13,38 @@ struct APIConfig {
 
   static var giphyConfig = APIConfig(
     baseUrl: "https://api.giphy.com/v1/gifs/",
-    apiKey: getPropertyValue(for: "GPHYApiKey")
+    apiKey: propertyValue(forKey: .giphy)
   )
 
   static var tenorConfig = APIConfig(
     baseUrl: "https://g.tenor.com/v1/",
-    apiKey: getPropertyValue(for: "TNORApiKey")
+    apiKey: propertyValue(forKey: .tenor)
+  )
+  
+  static var openAIConfig = APIConfig(
+    baseUrl: "",
+    apiKey: propertyValue(forKey: .openAI)
   )
 
-  static func getPropertyValue(for key: String) -> String {
-    let filePath = Bundle.main.path(forResource: "Info", ofType: "plist")!
+  static func propertyValue(forKey key: Keys) -> String {
+    guard let filePath = Keys.path else {
+      fatalError("Don't forget to setup some Keys.plist!")
+    }
     let plist = NSDictionary(contentsOfFile: filePath)
-    let value = plist?.object(forKey: key) as? String
+    let value = plist?.object(forKey: key.rawValue) as? String
     return value ?? ""
+  }
+}
+
+extension APIConfig {
+  /// Enum representation of your local `Keys.plist`
+  enum Keys: String {
+    case giphy = "GPHYApiKey"
+    case tenor = "TNORApiKey"
+    case openAI = "OpenAIApiKey"
+    
+    static var path: String? {
+      Bundle.main.path(forResource: "Keys", ofType: "plist")
+    }
   }
 }

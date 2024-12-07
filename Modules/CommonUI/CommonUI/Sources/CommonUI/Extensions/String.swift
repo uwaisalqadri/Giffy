@@ -9,6 +9,10 @@ import Foundation
 import SwiftUI
 
 public extension String {
+  func ifEmpty(fallback: () -> String) -> String {
+    return isEmpty ? fallback() : self
+  }
+  
   var cgFloat: CGFloat {
     guard let doubleValue = Double(self) else {
       return 0.0

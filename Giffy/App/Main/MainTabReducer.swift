@@ -49,6 +49,7 @@ struct MainTabReducer {
     var home: HomeReducer.State = .init()
     var search: SearchReducer.State = .init()
     var sticker: StickerReducer.State = .init()
+    var aiGen: AIGenReducer.State = .init()
   }
   
   @CasePathable
@@ -56,6 +57,7 @@ struct MainTabReducer {
     case home(HomeReducer.Action)
     case search(SearchReducer.Action)
     case sticker(StickerReducer.Action)
+    case aiGen(AIGenReducer.Action)
     case selectedTabChanged(Tabs)
   }
   
@@ -81,6 +83,10 @@ struct MainTabReducer {
     
     Scope(state: \.sticker, action: \.sticker) {
       StickerReducer(backgroundRemovalUseCase: Injection.resolve())
+    }
+    
+    Scope(state: \.aiGen, action: \.aiGen) {
+      AIGenReducer(aiGenUseCase: Injection.resolve())
     }
   }
 }

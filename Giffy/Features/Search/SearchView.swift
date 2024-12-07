@@ -48,6 +48,7 @@ struct SearchView: View {
             .padding(.top, 60)
         }
       }
+      .scrollDismissesKeyboard(.immediately)
       .navigationViewStyle(.stack)
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
@@ -67,9 +68,8 @@ struct SearchView: View {
         }
       }
       .onAppear {
-        let searchText = viewStore.state.searchText
         viewStore.send(.fetch(
-          request: searchText.isEmpty ? "Hello" : searchText
+          request: viewStore.state.searchText.ifEmpty { "Hello" }
         ))
       }
     }

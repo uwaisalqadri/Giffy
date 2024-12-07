@@ -20,6 +20,7 @@ public class Injection {
     registerSearchFeature()
     registerFavoriteFeature()
     registerStickerFeature()
+    registerAIGenFeature()
   }
 
   private func registerHomeFeature() {
@@ -88,6 +89,18 @@ public class Injection {
     }
     container.register(ImageVisionDataSource.self) { _ in
       ImageVisionDataSource()
+    }
+  }
+  
+  private func registerAIGenFeature() {
+    container.register(AIGenInteractor.self) { [unowned self] _ in
+      Interactor(repository: self.resolve())
+    }
+    container.register(AIGenRepository<AIGenDataSource>.self) { [unowned self] _ in
+      AIGenRepository(remoteDataSource: self.resolve())
+    }
+    container.register(AIGenDataSource.self) { _ in
+      AIGenDataSource()
     }
   }
 

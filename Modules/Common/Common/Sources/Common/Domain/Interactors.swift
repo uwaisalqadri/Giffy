@@ -8,6 +8,12 @@
 import Core
 import UIKit
 
+public typealias AIGenInteractor = Interactor<
+  String, [String], AIGenRepository<
+    AIGenDataSource
+  >
+>
+
 public typealias BackgroundRemovalInteractor = Interactor<
   CIImage, ImageData, BackgroundRemovalRepository<
     ImageVisionDataSource

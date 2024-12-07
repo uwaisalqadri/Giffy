@@ -44,8 +44,12 @@ struct MainTabView: View {
             )
             
           case .aiGen:
-            AIGenStickerView()
-            
+            AIGenView(
+              store: store.scope(
+                state: \.aiGen,
+                action: \.aiGen
+              )
+            )
           }
           
           VStack {
@@ -57,6 +61,7 @@ struct MainTabView: View {
             ).padding(.bottom, 20)
           }
         }
+        .animation(.easeInOut(duration: 0.2), value: viewStore.state)
       }
     }
   }

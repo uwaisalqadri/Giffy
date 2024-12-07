@@ -16,7 +16,7 @@ let package = Package(
     .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.8.0")),
     .package(url: "https://github.com/uwaisalqadri/CoreModule.git", branch: "main"),
     .package(url: "https://github.com/pointfreeco/swift-composable-architecture.git", branch: "main"),
-    .package(url: "https://github.com/alfianlosari/XCAOpenAIClient.git", branch: "main")
+    .package(url: "https://github.com/SwiftBeta/SwiftOpenAI.git", .upToNextMajor(from: "1.9.0"))
   ],
   targets: [
     .target(
@@ -25,7 +25,7 @@ let package = Package(
         .byName(name: "Alamofire"),
         .product(name: "Core", package: "CoreModule"),
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-        .byName(name: "XCAOpenAIClient")
+        .byName(name: "SwiftOpenAI")
       ]),
     .testTarget(
       name: "CommonTests",
