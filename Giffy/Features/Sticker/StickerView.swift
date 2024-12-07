@@ -17,12 +17,12 @@ struct StickerView: View {
     WithViewStore(store, observe: { $0 }) { viewStore in
       VStack(alignment: .center, spacing: 20) {
         Menu {
-          Button("Select from Photo Library") {
+          Button(Localizable.actionSelectPhotoLibrary.localized) {
             viewStore.send(.presentPhotoPicker(true))
           }
           
           if viewStore.state.currentSticker.imageData != nil {
-            Button("Delete", role: .destructive) {
+            Button(Localizable.actionDelete.localized, role: .destructive) {
               viewStore.send(.deleteImage)
             }
           }
@@ -66,16 +66,18 @@ struct StickerView: View {
             .font(.bold, size: 16)
         }
         
-        ToolbarItem(placement: .topBarTrailing) {
-          IconButton(
-            iconName: viewStore.state.isCopied ? "doc.on.clipboard.fill" : "doc.on.clipboard",
-            tint: .Theme.green,
-            size: 15,
-            onClick: {
-              viewStore.send(.copySticker)
-            }
-          )
-          .tapScaleEffect()
+        if viewStore.state.currentSticker.imageData != nil {
+          ToolbarItem(placement: .topBarTrailing) {
+            IconButton(
+              iconName: viewStore.state.isCopied ? "doc.on.clipboard.fill" : "doc.on.clipboard",
+              tint: .Theme.green,
+              size: 15,
+              onClick: {
+                viewStore.send(.copySticker)
+              }
+            )
+            .tapScaleEffect()
+          }
         }
       }
     }
