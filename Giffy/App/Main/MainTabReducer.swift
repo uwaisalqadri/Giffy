@@ -14,6 +14,10 @@ public enum Tabs: Int, CaseIterable {
   case home
   case sticker
   case aiGen
+  
+  public static var allCases: [Tabs] {
+    [.search, .home, .sticker]
+  }
 
   var iconName: String {
     switch self {

@@ -223,3 +223,5 @@ Framework
 Pods/*
 *.xcodeproj/
 *.xcworkspace/
+.Keys.plist
+Keys.plist

@@ -87,7 +87,7 @@ struct CapsuleTabView: View {
               if currentTab == tab {
                 Color.black.clipShape(.circle)
                   .frame(width: 50, height: 50)
-                  .padding(.horizontal, 30)
+                  .padding(.horizontal, 32)
               }
             }
           )
@@ -95,12 +95,12 @@ struct CapsuleTabView: View {
         }
       }
     }
-    .frame(maxWidth: .infinity, minHeight: 65)
+    .frame(minHeight: 65)
+    .padding(.horizontal, 16)
     .background(
       Blur(style: .systemUltraThinMaterialDark)
         .clipShape(.capsule)
     )
-    .padding(.horizontal, 70)
   }
 }
 
