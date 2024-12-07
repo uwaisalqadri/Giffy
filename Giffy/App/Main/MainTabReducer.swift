@@ -78,11 +78,11 @@ struct MainTabReducer {
     }
 
     Scope(state: \.home, action: \.home) {
-      HomeReducer(useCase: Injection.resolve())
+      HomeReducer(homeUseCase: Injection.resolve())
     }
 
     Scope(state: \.search, action: \.search) {
-      SearchReducer(useCase: Injection.resolve())
+      SearchReducer(searchUseCase: Injection.resolve())
     }
     
     Scope(state: \.sticker, action: \.sticker) {

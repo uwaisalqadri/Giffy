@@ -18,11 +18,11 @@ struct RouteReducer {
     }
     
     var home: StoreOf<HomeReducer> = Store(initialState: .init()) {
-      HomeReducer(useCase: Injection.resolve())
+      HomeReducer(homeUseCase: Injection.resolve())
     }
     
     var search: StoreOf<SearchReducer> = Store(initialState: .init()) {
-      SearchReducer(useCase: Injection.resolve())
+      SearchReducer(searchUseCase: Injection.resolve())
     }
     
     var favorite: StoreOf<FavoriteReducer> = Store(initialState: .init()) {

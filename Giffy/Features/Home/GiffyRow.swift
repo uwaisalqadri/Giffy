@@ -39,7 +39,7 @@ struct GiffyRow: View {
         HStack {
           VStack(alignment: .leading) {
             if let trendingDateTime = giphy.trendingDateTime.stringToDate()?.string() {
-              Text("Trending Date")
+              Text(key: .labelTrendingDate)
                 .foregroundColor(.white)
                 .font(.semibold, size: 14)
 

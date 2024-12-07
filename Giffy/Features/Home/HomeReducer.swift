@@ -14,10 +14,10 @@ import CommonUI
 public struct HomeReducer {
 
   @Route private var router
-  private let useCase: HomeInteractor
+  private let homeUseCase: HomeInteractor
 
-  init(useCase: HomeInteractor) {
-    self.useCase = useCase
+  init(homeUseCase: HomeInteractor) {
+    self.homeUseCase = homeUseCase
   }
   
   public struct State: Equatable {
@@ -46,7 +46,7 @@ public struct HomeReducer {
         state.isLoading = true
         return .run { send in
           do {
-            let response = try await self.useCase.execute(request: request)
+            let response = try await homeUseCase.execute(request: request)
             await send(.success(response: response))
           } catch {
             await send(.failed(error: error))

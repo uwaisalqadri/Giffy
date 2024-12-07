@@ -14,3 +14,7 @@
 "search_desc" = "Telusuri Giphy...";
 "searching_giphy" = "Mencari Giphy... Atau Coba Keyword Yang Berbeda";
 "favorite_empty" = "Favorit Kosong!";
+"trending_date" = "Tanggal Trending";
+"background_removal" = "Hapus Background";
+"select_photo_library" = "Select from Photo Library";
+"delete" = "Delete";

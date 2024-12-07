@@ -15,7 +15,7 @@ public struct FavoriteLocalDataSource: LocalDataSource {
   public init() {}
   
   public func list(request: String?) async throws -> [Giffy] {
-    var favoriteGiphys = try await DBService.shared.getFavoriteGiphys().map { $0.map() }
+    var favoriteGiphys = try await DBService.shared.getFavoriteGiphys().map { Giffy(from: $0) }
     
     if let searchRequest = request, !searchRequest.isEmpty {
       let lowercaseSearchRequest = searchRequest.lowercased()

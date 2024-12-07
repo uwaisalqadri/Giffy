@@ -50,7 +50,7 @@ struct HomeView: View {
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {
           VStack(alignment: .leading) {
-            Text(HomeString.labelTodayPopular.localized)
+            Text(key: .labelTodayPopular)
               .font(.bold, size: 22)
           }.padding(.top, 5)
         }

@@ -14,7 +14,7 @@ struct FavoriteEmptyView: View {
       LottieView(fileName: "favorite_empty", bundle: Bundle.common, loopMode: .loop)
         .frame(width: 220, height: 220)
 
-      Text(FavoriteString.labelFavoriteEmpty.localized)
+      Text(key: .labelFavoriteEmpty)
         .font(.bold, size: 20)
         .multilineTextAlignment(.center)
     }

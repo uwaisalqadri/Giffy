@@ -14,10 +14,10 @@ import CommonUI
 public struct SearchReducer {
   
   @Route var router
-  private let useCase: SearchInteractor
+  private let searchUseCase: SearchInteractor
 
-  init(useCase: SearchInteractor) {
-    self.useCase = useCase
+  init(searchUseCase: SearchInteractor) {
+    self.searchUseCase = searchUseCase
   }
   
   @ObservableState
@@ -56,7 +56,7 @@ public struct SearchReducer {
         state.isLoading = true
         return .run { send in
           do {
-            let response = try await self.useCase.execute(request: query)
+            let response = try await searchUseCase.execute(request: query)
             await send(.success(response: response))
           } catch {
             await send(.failed(error: error))

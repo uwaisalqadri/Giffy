@@ -53,7 +53,7 @@ struct SearchView: View {
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {
-          Text(SearchString.titleSearch.localized)
+          Text(key: .titleSearch)
             .font(.bold, size: 22)
         }
 

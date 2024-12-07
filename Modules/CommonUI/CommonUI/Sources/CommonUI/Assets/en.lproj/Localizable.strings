@@ -14,3 +14,7 @@
 "search_desc" = "Search all GIFs and Stickers";
 "searching_giphy" = "Searching For The GIFs... Maybe You Should Search Different Keyword";
 "favorite_empty" = "Favorite is Empty!";
+"trending_date" = "Trending Date";
+"background_removal" = "Background Removal";
+"select_photo_library" = "Select from Photo Library";
+"delete" = "Delete";

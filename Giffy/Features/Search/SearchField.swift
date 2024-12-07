@@ -9,29 +9,34 @@ import SwiftUI
 import CommonUI
 
 struct SearchField: View {
-
+  
   @State private var query = ""
   var onQueryChange: ((String) -> Void)?
-
+  
   var body: some View {
     VStack(alignment: .leading) {
       HStack {
-        TextField("", text: $query, prompt: Text(SearchString.labelSearchDesc.localized).foregroundColor(.gray))
-          .font(.semibold, size: 14)
-          .tint(.gray)
-          .foregroundColor(.black)
-          .frame(height: UIDevice.isIpad ? 60 : 40)
-          .autocapitalization(.none)
-          .disableAutocorrection(true)
-          .submitLabel(.search)
-          .padding(.leading, 13)
-          .padding(.trailing, 30)
-          .onChange(of: query) { _, text in
-            onQueryChange?(text)
-          }
-          .onSubmit {
-            onQueryChange?(query)
-          }
+        TextField(
+          "",
+          text: $query,
+          prompt: Text(key: .labelSearchDesc)
+            .foregroundColor(.gray)
+        )
+        .font(.semibold, size: 14)
+        .tint(.gray)
+        .foregroundColor(.black)
+        .frame(height: UIDevice.isIpad ? 60 : 40)
+        .autocapitalization(.none)
+        .disableAutocorrection(true)
+        .submitLabel(.search)
+        .padding(.leading, 13)
+        .padding(.trailing, 30)
+        .onChange(of: query) { _, text in
+          onQueryChange?(text)
+        }
+        .onSubmit {
+          onQueryChange?(query)
+        }
         
         if !query.isEmpty {
           Button(action: {

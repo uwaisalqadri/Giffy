@@ -62,7 +62,7 @@ struct StickerView: View {
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         ToolbarItem(placement: .principal) {
-          Text("Background Removal")
+          Text(key: .titleBackgroundRemoval)
             .font(.bold, size: 16)
         }
         

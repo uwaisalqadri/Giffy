@@ -18,12 +18,12 @@ public struct SearchRemoteDataSource: DataSource {
     let giphies = try await NetworkService.shared.connect(
       api: GiphyAPI.search(query: request ?? ""),
       responseType: GiphyDataResponse.self
-    ).data.compactMap { $0.map() } 
+    ).data.compactMap { Giffy(from: $0) }
 
     let tenors = try await NetworkService.shared.connect(
       api: TenorAPI.search(query: request ?? ""),
       responseType: TenorDataResponse.self
-    ).results.compactMap { $0.map() }
+    ).results.compactMap { Giffy(from: $0) }
     
     return giphies + tenors
   }

@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by Uwais Alqadri on 20/9/23.
 //
@@ -8,53 +8,53 @@
 import Foundation
 import CoreData
 
-extension GiphyEntity {
-  public func map() -> Giffy {
-    return Giffy(
-      id: self.id ?? "",
-      url: url ?? "",
-      rating: rating ?? "",
-      username: username ?? "",
-      title: title ?? "",
-      trendingDateTime: trendingDateTime ?? "",
+extension Giffy {
+  init(from entity: GiphyEntity) {
+    self.init(
+      id: entity.id ?? "",
+      url: entity.url ?? "",
+      rating: entity.rating ?? "",
+      username: entity.username ?? "",
+      title: entity.title ?? "",
+      trendingDateTime: entity.trendingDateTime ?? "",
       image: .init(
-        url: image?.url ?? "",
-        height: image?.height ?? "",
-        width: image?.width ?? ""
+        url: entity.image?.url ?? "",
+        height: entity.image?.height ?? "",
+        width: entity.image?.width ?? ""
       ),
       isFavorite: false
     )
   }
 }
 
-extension GiphyResponse {
-  public func map() -> Giffy {
-    return Giffy(
-      id: self.id ?? "",
-      url: url ?? "",
-      rating: rating ?? "",
-      username: username ?? "",
-      title: title ?? "",
-      trendingDateTime: trendingDateTime ?? "",
+extension Giffy {
+  init(from response: GiphyResponse) {
+    self.init(
+      id: response.id ?? "",
+      url: response.url ?? "",
+      rating: response.rating ?? "",
+      username: response.username ?? "",
+      title: response.title ?? "",
+      trendingDateTime: response.trendingDateTime ?? "",
       image: .init(
-        url: images?.original?.url ?? "",
-        height: images?.original?.height ?? "",
-        width: images?.original?.width ?? ""
+        url: response.images?.original?.url ?? "",
+        height: response.images?.original?.height ?? "",
+        width: response.images?.original?.width ?? ""
       ),
       isFavorite: false
     )
   }
 }
 
-extension TenorResponse {
-  public func map() -> Giffy {
-    let gifMedia = media.first(where: { $0["gif"] != nil })?["gif"]
-    return Giffy(
-      id: self.id ?? "",
-      url: url ?? "",
-      rating: contentRating ?? "",
-      username: title ?? "",
-      title: h1Title ?? "",
+extension Giffy {
+  init(from response: TenorResponse) {
+    let gifMedia = response.media.first(where: { $0["gif"] != nil })?["gif"]
+    self.init(
+      id: response.id ?? "",
+      url: response.url ?? "",
+      rating: response.contentRating ?? "",
+      username: response.title ?? "",
+      title: response.h1Title ?? "",
       trendingDateTime: "",
       image: .init(
         url: gifMedia?.url ?? "",

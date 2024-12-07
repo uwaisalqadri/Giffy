@@ -62,7 +62,7 @@ struct FavoriteView: View {
           }
           
           ToolbarItem(placement: .principal) {
-            Text(FavoriteString.titleFavorite.localized)
+            Text(key: .titleFavorite)
               .font(.bold, size: 16)
           }
         }
