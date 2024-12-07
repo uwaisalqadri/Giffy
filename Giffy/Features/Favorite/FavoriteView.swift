@@ -47,6 +47,7 @@ struct FavoriteView: View {
             }
           }
         }
+        .scrollDismissesKeyboard(.immediately)
         .navigationBarBackButtonHidden(false)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -67,6 +68,9 @@ struct FavoriteView: View {
         }
       }
       .onAppear {
+        viewStore.send(.fetch())
+      }
+      .onReceive(viewStore.state.detailDisappear) { _ in
         viewStore.send(.fetch())
       }
     }

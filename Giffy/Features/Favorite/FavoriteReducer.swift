@@ -28,6 +28,7 @@ public struct FavoriteReducer {
     public var errorMessage: String = ""
     public var isLoading: Bool = false
     public var isError: Bool = false
+    public let detailDisappear = NotificationCenter.default.publisher(for: Notifications.onDetailDisappear)
   }
   
   public enum Action {

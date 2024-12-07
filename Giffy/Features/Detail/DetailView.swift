@@ -31,6 +31,8 @@ struct DetailView: View {
             ) { position, item in
               GeometryReader { geometry in
                 let mainFrame = geometry.frame(in: .global)
+                let imageWidth = (item.image.width).cgFloat * 1.5
+                let imageHeight = (item.image.height).cgFloat * 1.5
                 
                 ScrollView(showsIndicators: false) {
                   ZStack {
@@ -38,8 +40,6 @@ struct DetailView: View {
                       .frame(width: mainFrame.width, height: mainFrame.height)
                       .cornerRadius(40)
 
-                    let imageWidth = (item.image.width).cgFloat * 2
-                    let imageHeight = (item.image.height).cgFloat * 2
                     AnimatedImage(
                       url: URL(string: item.image.url),
                       options: [.scaleDownLargeImages, .queryMemoryData, .highPriority],
@@ -52,7 +52,11 @@ struct DetailView: View {
                     .resizable()
                     .scaledToFill()
                     .rotationEffect(.degrees(CGFloat(90 * position)))
-                    .frame(maxWidth: position % 2 == 0 ? imageWidth : imageHeight, maxHeight: position % 2 == 0 ? imageHeight : imageWidth)
+                    .frame(
+                      maxWidth: position % 2 == 0 ? imageWidth : imageHeight,
+                      maxHeight: position % 2 == 0 ? imageHeight : imageWidth
+                    )
+                    .clipShape(.rect(cornerRadius: 20))
                     .showGiphyMenu(
                       URL(string: item.url),
                       data: viewStore.state.downloadedImage,
@@ -65,7 +69,6 @@ struct DetailView: View {
                     }
                   }
                 }
-                .coordinateSpace(name: "scroll")
                 .frame(width: mainFrame.width, height: mainFrame.height)
                 .rotation3DEffect(
                   .init(degrees: getAngle(xOffset: mainFrame.minX, in: mainFrame.width)),
@@ -94,6 +97,9 @@ struct DetailView: View {
         .edgesIgnoringSafeArea(.all)
         .onAppear {
           viewStore.send(.checkFavorite)
+        }
+        .onDisappear {
+          viewStore.send(.onDisappear)
         }
         .toolbar {
           ToolbarItem(placement: .navigationBarLeading) {

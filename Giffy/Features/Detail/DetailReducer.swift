@@ -51,6 +51,7 @@ public struct DetailReducer {
     case addFavorite
     case removeFavorite
     case copyToClipboard
+    case onDisappear
     case startLiveActivity(DetailReducer.State)
     case displayHeart(location: CGPoint)
     case takeOffHeart(_ heartId: UUID)
@@ -145,6 +146,9 @@ public struct DetailReducer {
         state.hearts.removeAll(where: { $0.id == heartId })
         return .none
         
+      case .onDisappear:
+        Notifications.onDetailDisappear.post()
+        return .none
       }
     }
   }
