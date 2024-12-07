@@ -16,9 +16,9 @@ import _PhotosUI_SwiftUI
 public struct StickerReducer {
   
   @Route var router
-  private let backgroundRemovalUseCase: BackgroundRemovalInteractor
+  private let backgroundRemovalUseCase: BackgroundRemovalUseCase
 
-  init(backgroundRemovalUseCase: BackgroundRemovalInteractor) {
+  init(backgroundRemovalUseCase: BackgroundRemovalUseCase) {
     self.backgroundRemovalUseCase = backgroundRemovalUseCase
   }
   

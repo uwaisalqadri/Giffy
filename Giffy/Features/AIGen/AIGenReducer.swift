@@ -14,9 +14,9 @@ import CommonUI
 public struct AIGenReducer {
   
   @Route var router
-  private let aiGenUseCase: AIGenInteractor
+  private let aiGenUseCase: AIGenUseCase
   
-  init(aiGenUseCase: AIGenInteractor) {
+  init(aiGenUseCase: AIGenUseCase) {
     self.aiGenUseCase = aiGenUseCase
   }
   

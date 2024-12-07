@@ -14,9 +14,9 @@ import CommonUI
 public struct HomeReducer {
 
   @Route private var router
-  private let homeUseCase: HomeInteractor
+  private let homeUseCase: HomeUseCase
 
-  init(homeUseCase: HomeInteractor) {
+  init(homeUseCase: HomeUseCase) {
     self.homeUseCase = homeUseCase
   }
   

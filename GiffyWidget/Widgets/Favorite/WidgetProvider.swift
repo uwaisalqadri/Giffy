@@ -10,8 +10,8 @@ import SwiftUI
 import Core
 import Common
 
-typealias FavoriteWidgetInteractor = Interactor<
-  String, [Giffy], FavoriteGiphysRepository<
+typealias FavoriteWidgetUseCase = Interactor<
+  String, [Giffy], FavoriteGiphysInteractor<
     FavoriteLocalDataSource
   >
 >

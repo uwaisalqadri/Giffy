@@ -14,9 +14,9 @@ import CommonUI
 public struct SearchReducer {
   
   @Route var router
-  private let searchUseCase: SearchInteractor
+  private let searchUseCase: SearchUseCase
 
-  init(searchUseCase: SearchInteractor) {
+  init(searchUseCase: SearchUseCase) {
     self.searchUseCase = searchUseCase
   }
   

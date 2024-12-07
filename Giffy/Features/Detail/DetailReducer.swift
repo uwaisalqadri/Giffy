@@ -15,14 +15,14 @@ import SwiftUI
 @Reducer
 public struct DetailReducer {
   
-  private let checkUseCase: CheckFavoriteInteractor
-  private let addUseCase: AddFavoriteInteractor
-  private let removeUseCase: RemoveFavoriteInteractor
+  private let checkUseCase: CheckFavoriteUseCase
+  private let addUseCase: AddFavoriteUseCase
+  private let removeUseCase: RemoveFavoriteUseCase
   
   init(
-    checkUseCase: CheckFavoriteInteractor,
-    addUseCase: AddFavoriteInteractor,
-    removeUseCase: RemoveFavoriteInteractor
+    checkUseCase: CheckFavoriteUseCase,
+    addUseCase: AddFavoriteUseCase,
+    removeUseCase: RemoveFavoriteUseCase
   ) {
     self.checkUseCase = checkUseCase
     self.addUseCase = addUseCase

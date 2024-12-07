@@ -1,29 +1,31 @@
 //
-//  File.swift
-//  
+//  AIGenInteractor.swift
 //
-//  Created by Uwais Alqadri on 10/17/21.
+//
+//  Created by Uwais Alqadri on 06/12/24.
 //
 
+import Foundation
 import Core
-import Combine
+import SwiftOpenAI
 
-public struct SearchGiphyRepository<
+public struct AIGenInteractor<
   GiphyDataSource: DataSource>: Repository
 where
-  GiphyDataSource.Response == [Giffy],
+  GiphyDataSource.Response == [String],
   GiphyDataSource.Request == String {
-
+  
   public typealias Request = String
-  public typealias Response = [Giffy]
-
+  public typealias Response = [String]
+  
   private let remoteDataSource: GiphyDataSource
-
+  
   public init(remoteDataSource: GiphyDataSource) {
     self.remoteDataSource = remoteDataSource
   }
-
-  public func execute(request: String?) async throws -> [Giffy] {
+  
+  public func execute(request: String?) async throws -> [String] {
     return try await remoteDataSource.execute(request: request)
   }
 }
+

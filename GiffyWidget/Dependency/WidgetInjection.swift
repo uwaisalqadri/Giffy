@@ -19,17 +19,12 @@ class WidgetInjection {
   }
 
   private func registerFavoriteWidget() {
-    container.register(
-      Interactor<
-        String, [Giffy], FavoriteGiphysRepository<
-          FavoriteLocalDataSource
-        >
-      >.self) { [unowned self] _ in
+    container.register(FavoriteWidgetUseCase.self) { [unowned self] _ in
       Interactor(repository: self.resolve())
     }
 
-    container.register(FavoriteGiphysRepository<FavoriteLocalDataSource>.self) { [unowned self] _ in
-      FavoriteGiphysRepository(localDataSource: self.resolve())
+    container.register(FavoriteGiphysInteractor<FavoriteLocalDataSource>.self) { [unowned self] _ in
+      FavoriteGiphysInteractor(localDataSource: self.resolve())
     }
 
     container.register(FavoriteLocalDataSource.self) { _ in

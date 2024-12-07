@@ -1,20 +1,20 @@
 //
-//  GetGiphyRepository.swift
-//  
+//  SearchGiphyInteractor.swift
 //
-//  Created by Uwais Alqadri on 10/19/21.
+//
+//  Created by Uwais Alqadri on 10/17/21.
 //
 
 import Core
 import Combine
 
-public struct GetGiphyRepository<
+public struct SearchGiphyInteractor<
   GiphyDataSource: DataSource>: Repository
 where
   GiphyDataSource.Response == [Giffy],
-  GiphyDataSource.Request == Int {
+  GiphyDataSource.Request == String {
 
-  public typealias Request = Int
+  public typealias Request = String
   public typealias Response = [Giffy]
 
   private let remoteDataSource: GiphyDataSource
@@ -23,7 +23,7 @@ where
     self.remoteDataSource = remoteDataSource
   }
 
-  public func execute(request: Int?) async throws -> [Giffy] {
+  public func execute(request: String?) async throws -> [Giffy] {
     return try await remoteDataSource.execute(request: request)
   }
 }

@@ -24,11 +24,11 @@ public class Injection {
   }
 
   private func registerHomeFeature() {
-    container.register(HomeInteractor.self) { [unowned self] _ in
+    container.register(HomeUseCase.self) { [unowned self] _ in
       Interactor(repository: self.resolve())
     }
-    container.register(GetGiphyRepository<TrendingRemoteDataSource>.self) { [unowned self] _ in
-      GetGiphyRepository(remoteDataSource: self.resolve())
+    container.register(GetGiphyInteractor<TrendingRemoteDataSource>.self) { [unowned self] _ in
+      GetGiphyInteractor(remoteDataSource: self.resolve())
     }
     container.register(TrendingRemoteDataSource.self) { _ in
       TrendingRemoteDataSource()
@@ -36,32 +36,32 @@ public class Injection {
   }
 
   private func registerDetailFeature() {
-    container.register(CheckFavoriteInteractor.self) { [unowned self] _ in
+    container.register(CheckFavoriteUseCase.self) { [unowned self] _ in
       Interactor(repository: self.resolve())
     }
-    container.register(AddFavoriteInteractor.self) { [unowned self] _ in
+    container.register(AddFavoriteUseCase.self) { [unowned self] _ in
       Interactor(repository: self.resolve())
     }
-    container.register(RemoveFavoriteInteractor.self) { [unowned self] _ in
+    container.register(RemoveFavoriteUseCase.self) { [unowned self] _ in
       Interactor(repository: self.resolve())
     }
-    container.register(CheckFavoriteRepository<FavoriteLocalDataSource>.self) { [unowned self] _ in
-      CheckFavoriteRepository(localDataSource: self.resolve())
+    container.register(CheckFavoriteInteractor<FavoriteLocalDataSource>.self) { [unowned self] _ in
+      CheckFavoriteInteractor(localDataSource: self.resolve())
     }
-    container.register(AddFavoriteRepository<FavoriteLocalDataSource>.self) { [unowned self] _ in
-      AddFavoriteRepository(localDataSource: self.resolve())
+    container.register(AddFavoriteInteractor<FavoriteLocalDataSource>.self) { [unowned self] _ in
+      AddFavoriteInteractor(localDataSource: self.resolve())
     }
-    container.register(RemoveFavoriteRepository<FavoriteLocalDataSource>.self) { [unowned self] _ in
-      RemoveFavoriteRepository(localDataSource: self.resolve())
+    container.register(RemoveFavoriteInteractor<FavoriteLocalDataSource>.self) { [unowned self] _ in
+      RemoveFavoriteInteractor(localDataSource: self.resolve())
     }
   }
 
   private func registerSearchFeature() {
-    container.register(SearchInteractor.self) { [unowned self] _ in
+    container.register(SearchUseCase.self) { [unowned self] _ in
       Interactor(repository: self.resolve())
     }
-    container.register(SearchGiphyRepository<SearchRemoteDataSource>.self) { [unowned self] _ in
-      SearchGiphyRepository(remoteDataSource: self.resolve())
+    container.register(SearchGiphyInteractor<SearchRemoteDataSource>.self) { [unowned self] _ in
+      SearchGiphyInteractor(remoteDataSource: self.resolve())
     }
     container.register(SearchRemoteDataSource.self) { _ in
       SearchRemoteDataSource()
@@ -69,11 +69,11 @@ public class Injection {
   }
 
   private func registerFavoriteFeature() {
-    container.register(FavoriteInteractor.self) { [unowned self] _ in
+    container.register(FavoriteUseCase.self) { [unowned self] _ in
       Interactor(repository: self.resolve())
     }
-    container.register(FavoriteGiphysRepository<FavoriteLocalDataSource>.self) { [unowned self] _ in
-      FavoriteGiphysRepository(localDataSource: self.resolve())
+    container.register(FavoriteGiphysInteractor<FavoriteLocalDataSource>.self) { [unowned self] _ in
+      FavoriteGiphysInteractor(localDataSource: self.resolve())
     }
     container.register(FavoriteLocalDataSource.self) { _ in
       FavoriteLocalDataSource()
@@ -81,11 +81,11 @@ public class Injection {
   }
   
   private func registerStickerFeature() {
-    container.register(BackgroundRemovalInteractor.self) { [unowned self] _ in
+    container.register(BackgroundRemovalUseCase.self) { [unowned self] _ in
       Interactor(repository: self.resolve())
     }
-    container.register(BackgroundRemovalRepository<ImageVisionDataSource>.self) { [unowned self] _ in
-      BackgroundRemovalRepository(remoteDataSource: self.resolve())
+    container.register(BackgroundRemovalInteractor<ImageVisionDataSource>.self) { [unowned self] _ in
+      BackgroundRemovalInteractor(remoteDataSource: self.resolve())
     }
     container.register(ImageVisionDataSource.self) { _ in
       ImageVisionDataSource()
@@ -93,11 +93,11 @@ public class Injection {
   }
   
   private func registerAIGenFeature() {
-    container.register(AIGenInteractor.self) { [unowned self] _ in
+    container.register(AIGenUseCase.self) { [unowned self] _ in
       Interactor(repository: self.resolve())
     }
-    container.register(AIGenRepository<AIGenDataSource>.self) { [unowned self] _ in
-      AIGenRepository(remoteDataSource: self.resolve())
+    container.register(AIGenInteractor<AIGenDataSource>.self) { [unowned self] _ in
+      AIGenInteractor(remoteDataSource: self.resolve())
     }
     container.register(AIGenDataSource.self) { _ in
       AIGenDataSource()

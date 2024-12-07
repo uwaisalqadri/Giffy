@@ -1,21 +1,21 @@
 //
-//  RemoveFavoriteRepository.swift
+//  CheckFavoriteInteractor.swift
 //  
 //
-//  Created by Uwais Alqadri on 10/20/21.
+//  Created by Uwais Alqadri on 21/9/23.
 //
 
 import Foundation
 import Core
 import Combine
 
-public struct RemoveFavoriteRepository<
+public struct CheckFavoriteInteractor<
   GiphyDataSource: LocalDataSource>: Repository
 where
   GiphyDataSource.Response == Giffy,
   GiphyDataSource.Request == String {
 
-  public typealias Request = Giffy
+  public typealias Request = String
   public typealias Response = Bool
 
   private let localDataSource: GiphyDataSource
@@ -24,7 +24,7 @@ where
     self.localDataSource = localDataSource
   }
 
-  public func execute(request: Giffy?) async throws -> Bool {
-    return try await localDataSource.delete(id: request?.id ?? "")
+  public func execute(request: String?) async throws -> Bool {
+    return try await localDataSource.isFavorited(id: request ?? "")
   }
 }

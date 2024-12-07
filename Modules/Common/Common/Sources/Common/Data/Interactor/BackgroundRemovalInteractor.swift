@@ -1,5 +1,5 @@
 //
-//  BackgroundRemovalRepository.swift
+//  BackgroundRemovalInteractor.swift
 //
 //
 //  Created by Uwais Alqadri on 10/11/24.
@@ -9,7 +9,7 @@ import Foundation
 import Core
 import UIKit
 
-public struct BackgroundRemovalRepository<
+public struct BackgroundRemovalInteractor<
   GiphyDataSource: DataSource>: Repository
 where
   GiphyDataSource.Response == ImageData,

@@ -14,10 +14,10 @@ import Common
 public struct FavoriteReducer {
   
   @Route var router
-  private let useCase: FavoriteInteractor
-  private let removeUseCase: RemoveFavoriteInteractor
+  private let useCase: FavoriteUseCase
+  private let removeUseCase: RemoveFavoriteUseCase
 
-  init(useCase: FavoriteInteractor, removeUseCase: RemoveFavoriteInteractor) {
+  init(useCase: FavoriteUseCase, removeUseCase: RemoveFavoriteUseCase) {
     self.useCase = useCase
     self.removeUseCase = removeUseCase
   }
