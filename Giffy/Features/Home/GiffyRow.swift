@@ -33,12 +33,12 @@ struct GiffyRow: View {
       .overlay(
         HStack {
           VStack(alignment: .leading) {
-            if let trendingDateTime = giphy.trendingDateTime.stringToDate()?.string() {
+            if let trendingDate = giphy.trendingDateTime.stringToDate()?.string(), !trendingDate.contains("1970") {
               Text(key: .labelTrendingDate)
                 .foregroundColor(.white)
                 .font(.semibold, size: 14)
 
-              Text(trendingDateTime)
+              Text(trendingDate)
                 .foregroundColor(.white)
                 .font(.medium, size: 12)
             }
@@ -70,17 +70,19 @@ struct GiffyRow: View {
 
   var footer: some View {
     HStack {
-      VStack(alignment: .leading) {
-        Text(giphy.title)
-          .foregroundColor(.white)
-          .font(.bold, size: 16)
-          .lineLimit(1)
-
-        Text(giphy.username.isEmpty ? "Unnamed" : giphy.username)
-          .foregroundColor(.white)
-          .font(.medium, size: 14)
+      if !giphy.title.isEmpty {
+        VStack(alignment: .leading) {
+          Text(giphy.title)
+            .foregroundColor(.white)
+            .font(.bold, size: 16)
+            .lineLimit(1)
+          
+          Text(giphy.username.ifEmpty { "Unnamed" })
+            .foregroundColor(.white)
+            .font(.medium, size: 14)
+        }
       }
-
+      
       Spacer()
 
       RedirectButton(onClick: {
