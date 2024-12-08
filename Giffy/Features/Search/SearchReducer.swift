@@ -40,6 +40,7 @@ public struct SearchReducer {
   }
   
   public enum Action {
+    case initialFetch
     case fetch(request: String)
     case success(response: [Giffy])
     case failed(error: Error)
@@ -51,6 +52,11 @@ public struct SearchReducer {
   public var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
+      case .initialFetch:
+        return .run { send in
+          await send(.fetch(request: greetingText))
+        }
+        
       case .fetch(let query):
         state.searchText = query
         state.isLoading = true
@@ -87,6 +93,20 @@ public struct SearchReducer {
         return .none
       }
     }
+  }
+  
+  public var greetingText: String {
+      let hour = Calendar.current.component(.hour, from: Date())
+      switch hour {
+      case 5..<12:
+          return "Good Morning"
+      case 12..<17:
+          return "Good Afternoon"
+      case 17..<21:
+          return "Good Evening"
+      default:
+          return "Good Night"
+      }
   }
   
   public enum GridSide: CaseIterable {

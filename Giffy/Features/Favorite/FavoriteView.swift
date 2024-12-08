@@ -48,6 +48,7 @@ struct FavoriteView: View {
           }
         }
         .scrollDismissesKeyboard(.immediately)
+        .animation(.easeInOut(duration: 0.2), value: viewStore.list.count)
         .navigationBarBackButtonHidden(false)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {

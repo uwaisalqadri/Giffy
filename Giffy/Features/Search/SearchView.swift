@@ -68,9 +68,7 @@ struct SearchView: View {
         }
       }
       .onAppear {
-        viewStore.send(.fetch(
-          request: viewStore.state.searchText.ifEmpty { "Hello" }
-        ))
+        viewStore.send(.initialFetch)
       }
     }
   }
