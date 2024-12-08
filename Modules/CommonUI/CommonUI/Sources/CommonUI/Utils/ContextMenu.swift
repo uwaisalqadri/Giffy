@@ -23,7 +23,7 @@ public extension View {
         Button {
           guard let data = data else { return }
           data.copyGifClipboard()
-          Toaster.success(message: "Copied").show()
+          Toaster.success(message: Localizable.labelCopied.tr()).show()
         } label: {
           Label("Copy to Clipboard", systemImage: "doc.on.clipboard.fill")
         }

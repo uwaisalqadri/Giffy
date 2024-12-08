@@ -81,7 +81,7 @@ public struct StickerReducer {
           .pngData() else { return .none }
         data.copyGifClipboard()
         state.isCopied = true
-        Toaster.success(message: "Copied").show()
+        Toaster.success(message: Localizable.labelCopied.tr()).show()
         return .none
       }
     }

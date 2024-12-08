@@ -32,8 +32,8 @@ struct RouteReducer {
       )
     }
     
-    subscript(detail giffy: Giffy) -> StoreOf<DetailReducer> {
-      .init(initialState: .init(item: giffy)) {
+    subscript(detail giffies: [Giffy]) -> StoreOf<DetailReducer> {
+      .init(initialState: .init(items: giffies)) {
         DetailReducer(
           checkUseCase: Injection.resolve(),
           addUseCase: Injection.resolve(),

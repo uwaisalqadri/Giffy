@@ -63,7 +63,7 @@ public struct HomeReducer {
         return .none
         
       case let .showDetail(item):
-        router.present(.detail(item))
+        router.present(.detail(items: state.list.setHighlighted(item)))
         return .none
 
       case .openFavorite:

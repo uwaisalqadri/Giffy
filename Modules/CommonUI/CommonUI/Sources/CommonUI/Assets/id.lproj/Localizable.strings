@@ -10,7 +10,7 @@
 "favorite" = "Favorit";
 "trending" = "Trending";
 "detail" = "Detail";
-"today_popular" = "Populer Hari Ini";
+"today_popular" = "Trend Hari Ini";
 "search_desc" = "Telusuri Giphy...";
 "searching_giphy" = "Mencari Giphy... Atau Coba Keyword Yang Berbeda";
 "favorite_empty" = "Favorit Kosong!";
@@ -18,3 +18,5 @@
 "background_removal" = "Hapus Background";
 "select_photo_library" = "Select from Photo Library";
 "delete" = "Delete";
+"error_check_favorite" = "Can't sure if the GIF favorited";
+"copied" = "Copied";

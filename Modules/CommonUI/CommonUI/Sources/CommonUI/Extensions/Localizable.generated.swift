@@ -33,6 +33,12 @@ public enum Localizable: String {
   case titleBackgroundRemoval = "background_removal"
   case actionSelectPhotoLibrary = "select_photo_library"
   case actionDelete = "delete"
+  case errorCheckFavorite = "error_check_favorite"
+  case labelCopied = "copied"
+  
+  public func tr() -> String {
+    localized
+  }
   
   public var localized: String {
     Bundle.common.localizedString(forKey: self.rawValue, value: nil, table: nil)

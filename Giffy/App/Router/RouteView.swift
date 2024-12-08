@@ -30,8 +30,8 @@ struct RouteView: View {
         case .favorite:
           FavoriteView(store: viewStore.favorite)
 
-        case let .detail(item):
-          DetailView(store: viewStore[detail: item])
+        case let .detail(items):
+          DetailView(store: viewStore[detail: items])
         }
       }
     }

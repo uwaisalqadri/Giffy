@@ -31,9 +31,11 @@ public struct DetailReducer {
   
   @ObservableState
   public struct State: Equatable {
-    public let item: Giffy
-    public init(item: Giffy) {
-      self.item = item
+    public var items: [Giffy]
+    public var item: Giffy
+    public init(items: [Giffy]) {
+      self.items = items
+      self.item = items.first(where: \.isHighlighted)!
     }
     
     public var isFavorited: Bool = false
@@ -53,6 +55,7 @@ public struct DetailReducer {
     case copyToClipboard
     case onDisappear
     case startLiveActivity(DetailReducer.State)
+    case updateHighlight(Giffy)
     case displayHeart(location: CGPoint)
     case takeOffHeart(_ heartId: UUID)
 
@@ -84,16 +87,18 @@ public struct DetailReducer {
         guard let data = state.downloadedImage else { return .none }
         data.copyGifClipboard()
         state.isShareGIF = true
-        Toaster.success(message: "Copied").show()
+        Toaster.success(message: Localizable.labelCopied.tr()).show()
         return .none
 
       case .success(let isFavorited):
+        state.isLoading = false
         state.isFavorited = isFavorited
         return .none
         
       case .failed:
+        state.isLoading = false
         state.isFavorited = false
-        state.isError = true
+        Toaster.error(message: Localizable.errorCheckFavorite.tr()).show()
         return .none
         
       case .addFavorite:
@@ -149,6 +154,12 @@ public struct DetailReducer {
       case .onDisappear:
         Notifications.onDetailDisappear.post()
         return .none
+        
+      case let .updateHighlight(giffy):
+        state.item = giffy
+        return .run { send in
+          await send(.checkFavorite)
+        }
       }
     }
   }

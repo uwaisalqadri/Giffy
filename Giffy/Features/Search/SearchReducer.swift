@@ -29,6 +29,28 @@ public struct SearchReducer {
     public var isLoading: Bool = false
     public var isEmpty: Bool = false
     
+    public var allItems: [Giffy] {
+      var combinedItems: [Giffy] = []
+      let leftItems = items(.left)
+      let rightItems = items(.right)
+      let maxCount = max(rightItems.count, leftItems.count)
+      
+      for index in 0..<maxCount {
+        if index < rightItems.count {
+          combinedItems.append(rightItems[index]) // Add from right (odd indices)
+        }
+        if index < leftItems.count {
+          combinedItems.append(leftItems[index]) // Add from left (even indices)
+        }
+      }
+      
+      return combinedItems
+    }
+    
+    public func currentPosition(_ giffy: Giffy) -> Int {
+      allItems.firstIndex(where: { $0.id == giffy.id }) ?? 0
+    }
+    
     public func items(_ side: SearchReducer.GridSide) -> [Giffy] {
       switch side {
       case .right:
@@ -85,7 +107,9 @@ public struct SearchReducer {
         return .none
         
       case let .showDetail(item):
-        router.present(.detail(item))
+        var allItems = state.allItems
+        allItems[state.currentPosition(item)].isHighlighted = true
+        router.present(.detail(items: allItems))
         return .none
 
       case .openFavorite:

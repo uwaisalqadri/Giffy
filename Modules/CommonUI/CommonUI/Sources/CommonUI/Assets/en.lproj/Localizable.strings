@@ -10,7 +10,7 @@
 "favorite" = "Favorite";
 "trending" = "Trending";
 "detail" = "Detail";
-"today_popular" = "Today's Popular";
+"today_popular" = "Today's Trending";
 "search_desc" = "Search all GIFs and Stickers";
 "searching_giphy" = "Searching For The GIFs... Maybe You Should Search Different Keyword";
 "favorite_empty" = "Favorite is Empty!";
@@ -18,3 +18,5 @@
 "background_removal" = "Background Removal";
 "select_photo_library" = "Select from Photo Library";
 "delete" = "Delete";
+"error_check_favorite" = "Can't sure if the GIF favorited";
+"copied" = "Copied";

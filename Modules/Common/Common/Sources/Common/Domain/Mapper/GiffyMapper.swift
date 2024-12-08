@@ -65,3 +65,12 @@ extension Giffy {
     )
   }
 }
+
+public extension [Giffy] {
+  func setHighlighted(_ item: Giffy) -> Self {
+    var newSelf = self
+    let position = newSelf.firstIndex(where: { $0.id == item.id }) ?? 0
+    newSelf[position].isHighlighted = true
+    return newSelf
+  }
+}

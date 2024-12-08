@@ -32,7 +32,7 @@ struct WidgetFavoriteView: View {
         .fontWeight(.bold)
         .foregroundColor(.white) +
 
-      Text(" Today's Copied GIFs")
+      Text(" Today's Copied Giffys")
         .font(.headline)
         .fontWeight(.light)
         .foregroundColor(.white)

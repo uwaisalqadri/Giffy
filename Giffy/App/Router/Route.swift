@@ -13,7 +13,7 @@ public enum AppRoute: RouterIdentifiable {
   case home
   case search
   case favorite
-  case detail(_ item: Giffy)
+  case detail(items: [Giffy])
 
   public var key: String {
     switch self {

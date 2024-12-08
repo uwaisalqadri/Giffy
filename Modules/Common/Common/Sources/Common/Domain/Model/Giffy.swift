@@ -24,6 +24,7 @@ public struct Giffy: Equatable, Hashable {
   public var trendingDateTime: String
   public var image: ImageOriginal
   public var isFavorite: Bool
+  public var isHighlighted: Bool
   
   public init(
     id: String = "",
@@ -33,7 +34,8 @@ public struct Giffy: Equatable, Hashable {
     title: String = "",
     trendingDateTime: String = "",
     image: ImageOriginal = .init(),
-    isFavorite: Bool = false
+    isFavorite: Bool = false,
+    isHighlighted: Bool = false
   ) {
     self.id = id
     self.url = url
@@ -43,6 +45,7 @@ public struct Giffy: Equatable, Hashable {
     self.trendingDateTime = trendingDateTime
     self.image = image
     self.isFavorite = isFavorite
+    self.isHighlighted = isHighlighted
   }
   
   public func setFavorite(_ state: Bool) -> Giffy {

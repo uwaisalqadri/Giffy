@@ -24,11 +24,11 @@ struct DetailView: View {
     WithViewStore(store, observe: { $0 }) { viewStore in
       NavigationView {
         ZStack(alignment: .bottomTrailing) {
-          TabView {
-            ForEach(
-              Array(repeating: viewStore.state.item, count: 4).indexed,
-              id: \.position
-            ) { position, item in
+          TabView(selection: viewStore.binding(
+            get: { $0.item },
+            send: { .updateHighlight($0) }
+          )) {
+            ForEach(viewStore.items.indexed, id: \.position) { position, item in
               GeometryReader { geometry in
                 let mainFrame = geometry.frame(in: .global)
                 let imageWidth = (item.image.width).cgFloat * 1.5
@@ -51,15 +51,14 @@ struct DetailView: View {
                     }
                     .resizable()
                     .scaledToFill()
-                    .rotationEffect(.degrees(CGFloat(90 * position)))
                     .frame(
-                      maxWidth: position % 2 == 0 ? imageWidth : imageHeight,
-                      maxHeight: position % 2 == 0 ? imageHeight : imageWidth
+                      maxWidth: imageWidth,
+                      maxHeight: imageHeight
                     )
                     .clipShape(.rect(cornerRadius: 20))
                     .showGiphyMenu(
                       URL(string: item.url),
-                      data: viewStore.state.downloadedImage,
+                      data: viewStore.downloadedImage,
                       withShape: .rect(cornerRadius: 20)
                     )
                   }
@@ -77,6 +76,7 @@ struct DetailView: View {
                   perspective: 2.5
                 )
               }
+              .tag(item)
             }
           }
           .tabViewStyle(.page(indexDisplayMode: .never))
@@ -148,7 +148,9 @@ struct DetailView: View {
                   viewStore.send(.displayHeart(location: .init(x: middleX, y: middleY)))
                 }
               }
-            ).tapScaleEffect()
+            )
+            .animation(.easeInOut(duration: 0.2), value: viewStore.state.isFavorited)
+            .tapScaleEffect()
           }
         }
       }
