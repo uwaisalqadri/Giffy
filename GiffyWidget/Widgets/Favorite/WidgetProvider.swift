@@ -22,7 +22,7 @@ struct GiffyEntry: TimelineEntry {
 }
 
 struct WidgetProvider: TimelineProvider {
-  @AppStorage("copyCount", store: UserDefaults(suiteName: "Copied")) var copyCount: Int = 0
+  @AppStorage("copyCount", store: UserDefaults(suiteName: "com.uwaisalqadri.giffo")) var copyCount: Int = 0
   
   func placeholder(in context: Context) -> GiffyEntry {
     GiffyEntry(total: copyCount)

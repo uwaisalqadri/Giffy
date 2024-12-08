@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 import Common
 import CommonUI
 
@@ -22,17 +21,13 @@ struct GiffyRow: View {
 
   var body: some View {
     ZStack {
-      AnimatedImage(
+      GIFView(
         url: URL(string: giphy.image.url),
-        options: [.scaleDownLargeImages, .queryMemoryData, .highPriority],
-        isAnimating: .constant(true),
-        placeholder: { Color.randomColor }
+        options: [.scaleDownLargeImages, .queryMemoryData, .highPriority]
       )
-      .onSuccess { _, data, _ in
+      .onSuccess { data in
           downloadedImage = data
       }
-      .resizable()
-      .scaledToFill()
       .frame(maxHeight: 350, alignment: .center)
       .cornerRadius(30)
       .overlay(

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 import Core
 import Common
 import CommonUI
@@ -20,16 +19,13 @@ struct GiffyGridRow: View {
   
   var body: some View {
     VStack(alignment: .leading) {
-      AnimatedImage(
+      GIFView(
         url: URL(string: giphy.image.url),
-        options: [.scaleDownLargeImages, .queryMemoryData, .highPriority],
-        isAnimating: .constant(true),
-        placeholder: { Color.randomColor }
+        options: [.scaleDownLargeImages, .queryMemoryData, .highPriority]
       )
-      .onSuccess { _, data, _ in
+      .onSuccess { data in
         downloadedImage = data
       }
-      .resizable()
       .showGiphyMenu(URL(string: giphy.image.url), data: downloadedImage, withShape: .rect(cornerRadius: 10))
       .frame(
         idealWidth: (giphy.image.width).cgFloat,

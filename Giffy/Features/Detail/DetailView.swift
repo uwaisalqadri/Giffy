@@ -12,12 +12,11 @@ import CommonUI
 import ComposableArchitecture
 import Foundation
 import SwiftUI
-import SDWebImageSwiftUI
 
 struct DetailView: View {
   let store: StoreOf<DetailReducer>
 
-  @AppStorage("copyCount", store: UserDefaults(suiteName: "Copied")) var copyCount: Int = 0
+  @AppStorage("copyCount", store: UserDefaults(suiteName: "com.uwaisalqadri.giffo")) var copyCount: Int = 0
   @Environment(\.dismiss) private var dismiss
 
   var body: some View {
@@ -40,16 +39,13 @@ struct DetailView: View {
                       .frame(width: mainFrame.width, height: mainFrame.height)
                       .cornerRadius(40)
 
-                    AnimatedImage(
+                    GIFView(
                       url: URL(string: item.image.url),
-                      options: [.scaleDownLargeImages, .queryMemoryData, .highPriority],
-                      isAnimating: .constant(true),
-                      placeholder: { Color.randomColor }
+                      options: [.scaleDownLargeImages, .queryMemoryData, .highPriority]
                     )
-                    .onSuccess { _, data, _ in
+                    .onSuccess { data in
                       viewStore.send(.downloaded(data: data))
                     }
-                    .resizable()
                     .scaledToFill()
                     .frame(
                       maxWidth: imageWidth,
