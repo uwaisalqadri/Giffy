@@ -41,6 +41,7 @@ struct DetailView: View {
 
                     GIFView(
                       url: URL(string: item.image.url),
+                      contentMode: .fit,
                       options: [.scaleDownLargeImages, .queryMemoryData, .highPriority]
                     )
                     .onSuccess { data in

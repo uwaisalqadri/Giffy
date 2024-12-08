@@ -10,6 +10,7 @@ import SDWebImageSwiftUI
 
 struct GIFView: View {
   let url: URL?
+  var contentMode: ContentMode = .fill
   let options: SDWebImageOptions
   var onSuccess: ((Data?) -> Void)? = nil
   
@@ -24,7 +25,7 @@ struct GIFView: View {
       onSuccess?(data)
     }
     .resizable()
-    .scaledToFill()
+    .aspectRatio(contentMode: contentMode)
   }
 }
 

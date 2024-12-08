@@ -9,6 +9,7 @@ import Foundation
 import ComposableArchitecture
 import Common
 import CommonUI
+import SDWebImage
 
 @Reducer
 public struct SearchReducer {
@@ -98,6 +99,7 @@ public struct SearchReducer {
         if !data.isEmpty {
           state.rightColumn = GridSide.split(data, side: .right)
           state.leftColumn = GridSide.split(data, side: .left)
+          SDWebImagePrefetcher.shared.prefetchURLs(data.compactMap { URL(string: $0.url) } )
         }
         return .none
         
