@@ -21,7 +21,7 @@ public struct TrendingRemoteDataSource: DataSource {
     ).data.compactMap { Giffy(from: $0) }
     
     let tenors = try await NetworkService.shared.connect(
-      api: TenorAPI.search(query: "trending", limit: 18),
+      api: TenorAPI.search(query: "", limit: 18),
       responseType: TenorDataResponse.self
     ).results.compactMap { Giffy(from: $0) }
 

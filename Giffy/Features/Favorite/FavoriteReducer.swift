@@ -14,11 +14,11 @@ import Common
 public struct FavoriteReducer {
   
   @Route var router
-  private let useCase: FavoriteUseCase
+  private let favoriteUseCase: FavoriteUseCase
   private let removeUseCase: RemoveFavoriteUseCase
 
-  init(useCase: FavoriteUseCase, removeUseCase: RemoveFavoriteUseCase) {
-    self.useCase = useCase
+  init(favoriteUseCase: FavoriteUseCase, removeUseCase: RemoveFavoriteUseCase) {
+    self.favoriteUseCase = favoriteUseCase
     self.removeUseCase = removeUseCase
   }
   
@@ -48,7 +48,7 @@ public struct FavoriteReducer {
         state.isLoading = true
         return .run { send in
           do {
-            let response = try await self.useCase.execute(request: request)
+            let response = try await favoriteUseCase.execute(request: request)
             await send(.success(response: response))
           } catch {
             await send(.failed(error: error))

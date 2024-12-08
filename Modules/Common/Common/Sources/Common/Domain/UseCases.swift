@@ -44,7 +44,7 @@ public typealias CheckFavoriteUseCase = Interactor<
   >
 >
 
-public typealias HomeUseCase = Interactor<
+public typealias TrendingUseCase = Interactor<
   Int, [Giffy], GetGiphyInteractor<
     TrendingRemoteDataSource
   >

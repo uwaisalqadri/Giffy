@@ -15,10 +15,10 @@ import SDWebImage
 public struct HomeReducer {
 
   @Route private var router
-  private let homeUseCase: HomeUseCase
+  private let trendingUseCase: TrendingUseCase
 
-  init(homeUseCase: HomeUseCase) {
-    self.homeUseCase = homeUseCase
+  init(trendingUseCase: TrendingUseCase) {
+    self.trendingUseCase = trendingUseCase
   }
   
   public struct State: Equatable {
@@ -47,7 +47,7 @@ public struct HomeReducer {
         state.isLoading = true
         return .run { send in
           do {
-            let response = try await homeUseCase.execute(request: request)
+            let response = try await trendingUseCase.execute(request: request)
             await send(.success(response: response))
           } catch {
             await send(.failed(error: error))

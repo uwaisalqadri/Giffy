@@ -15,18 +15,18 @@ import SwiftUI
 @Reducer
 public struct DetailReducer {
   
-  private let checkUseCase: CheckFavoriteUseCase
-  private let addUseCase: AddFavoriteUseCase
-  private let removeUseCase: RemoveFavoriteUseCase
+  private let checkFavoriteUseCase: CheckFavoriteUseCase
+  private let addFavoriteUseCase: AddFavoriteUseCase
+  private let removeFavoriteUseCase: RemoveFavoriteUseCase
   
   init(
-    checkUseCase: CheckFavoriteUseCase,
-    addUseCase: AddFavoriteUseCase,
-    removeUseCase: RemoveFavoriteUseCase
+    checkFavoriteUseCase: CheckFavoriteUseCase,
+    addFavoriteUseCase: AddFavoriteUseCase,
+    removeFavoriteUseCase: RemoveFavoriteUseCase
   ) {
-    self.checkUseCase = checkUseCase
-    self.addUseCase = addUseCase
-    self.removeUseCase = removeUseCase
+    self.checkFavoriteUseCase = checkFavoriteUseCase
+    self.addFavoriteUseCase = addFavoriteUseCase
+    self.removeFavoriteUseCase = removeFavoriteUseCase
   }
   
   @ObservableState
@@ -71,7 +71,7 @@ public struct DetailReducer {
         let item = state.item
         return .run { send in
           do {
-            let response = try await self.checkUseCase.execute(request: item.id)
+            let response = try await checkFavoriteUseCase.execute(request: item.id)
             await send(.success(isFavorited: response))
           } catch {
             await send(.failed(error: error))
@@ -107,7 +107,7 @@ public struct DetailReducer {
         let item = state.item
         return .run { send in
           do {
-            _ = try await self.addUseCase.execute(request: item)
+            _ = try await addFavoriteUseCase.execute(request: item)
             await send(.success(isFavorited: true))
           } catch {
             await send(.failed(error: error))
@@ -118,7 +118,7 @@ public struct DetailReducer {
         let item = state.item
         return .run { send in
           do {
-            _ = try await self.removeUseCase.execute(request: item)
+            _ = try await removeFavoriteUseCase.execute(request: item)
             await send(.success(isFavorited: false))
           } catch {
             await send(.failed(error: error))

@@ -24,7 +24,7 @@ public class Injection {
   }
 
   private func registerHomeFeature() {
-    container.register(HomeUseCase.self) { [unowned self] _ in
+    container.register(TrendingUseCase.self) { [unowned self] _ in
       Interactor(repository: self.resolve())
     }
     container.register(GetGiphyInteractor<TrendingRemoteDataSource>.self) { [unowned self] _ in

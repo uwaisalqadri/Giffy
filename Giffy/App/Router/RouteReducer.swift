@@ -18,7 +18,7 @@ struct RouteReducer {
     }
     
     var home: StoreOf<HomeReducer> = Store(initialState: .init()) {
-      HomeReducer(homeUseCase: Injection.resolve())
+      HomeReducer(trendingUseCase: Injection.resolve())
     }
     
     var search: StoreOf<SearchReducer> = Store(initialState: .init()) {
@@ -27,7 +27,7 @@ struct RouteReducer {
     
     var favorite: StoreOf<FavoriteReducer> = Store(initialState: .init()) {
       FavoriteReducer(
-        useCase: Injection.resolve(),
+        favoriteUseCase: Injection.resolve(),
         removeUseCase: Injection.resolve()
       )
     }
@@ -35,9 +35,9 @@ struct RouteReducer {
     subscript(detail giffies: [Giffy]) -> StoreOf<DetailReducer> {
       .init(initialState: .init(items: giffies)) {
         DetailReducer(
-          checkUseCase: Injection.resolve(),
-          addUseCase: Injection.resolve(),
-          removeUseCase: Injection.resolve()
+          checkFavoriteUseCase: Injection.resolve(),
+          addFavoriteUseCase: Injection.resolve(),
+          removeFavoriteUseCase: Injection.resolve()
         )
       }
     }

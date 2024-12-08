@@ -78,7 +78,7 @@ struct MainTabReducer {
     }
 
     Scope(state: \.home, action: \.home) {
-      HomeReducer(homeUseCase: Injection.resolve())
+      HomeReducer(trendingUseCase: Injection.resolve())
     }
 
     Scope(state: \.search, action: \.search) {
