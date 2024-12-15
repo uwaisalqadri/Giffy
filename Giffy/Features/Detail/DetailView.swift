@@ -49,8 +49,8 @@ struct DetailView: View {
                     }
                     .scaledToFill()
                     .frame(
-                      maxWidth: imageWidth,
-                      maxHeight: imageHeight
+                      width: min(imageWidth, UIScreen.main.bounds.width - 16),
+                      height: imageHeight
                     )
                     .clipShape(.rect(cornerRadius: 20))
                     .showGiphyMenu(
