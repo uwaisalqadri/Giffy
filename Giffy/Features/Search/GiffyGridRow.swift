@@ -20,8 +20,7 @@ struct GiffyGridRow: View {
   var body: some View {
     VStack(alignment: .leading) {
       GIFView(
-        url: URL(string: giphy.image.url),
-        options: [.scaleDownLargeImages, .queryMemoryData, .highPriority]
+        url: URL(string: giphy.image.url)
       )
       .onSuccess { data in
         downloadedImage = data

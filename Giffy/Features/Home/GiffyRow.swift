@@ -22,8 +22,7 @@ struct GiffyRow: View {
   var body: some View {
     ZStack {
       GIFView(
-        url: URL(string: giphy.image.url),
-        options: [.scaleDownLargeImages, .queryMemoryData, .highPriority]
+        url: URL(string: giphy.image.url)
       )
       .onSuccess { data in
           downloadedImage = data

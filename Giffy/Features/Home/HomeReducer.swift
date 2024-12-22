@@ -56,7 +56,6 @@ public struct HomeReducer {
       case .success(let data):
         state.list = data
         state.isLoading = false
-        SDWebImagePrefetcher.shared.prefetchURLs(data.compactMap { URL(string: $0.url) } )
         return .none
         
       case .failed:

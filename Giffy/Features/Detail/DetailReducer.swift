@@ -128,12 +128,13 @@ public struct DetailReducer {
       case .startLiveActivity(let state):
         return .run { _ in
           let attributes = GiphyAttributes(title: state.item.title)
-          let attributeState = GiphyAttributes.FavoriteState.init(isFavorited: state.isFavorited)
+          let attributeState = GiphyAttributes.FavoriteState(isFavorited: state.isFavorited)
           
-          let activity = try? Activity<GiphyAttributes>.request(attributes: attributes, contentState: attributeState)
+          let content = ActivityContent(state: attributeState, staleDate: nil)
+          let activity = try? Activity<GiphyAttributes>.request(attributes: attributes, content: content)
           
-          try await Task.sleep(nanoseconds: 3_000_000_000)
-          await activity?.end(using: attributeState, dismissalPolicy: .immediate)
+          try await Task.sleep(for: .seconds(3))
+          await activity?.end(content, dismissalPolicy: .immediate)
         }
         
       case let .displayHeart(location):
@@ -152,7 +153,9 @@ public struct DetailReducer {
         return .none
         
       case .onDisappear:
-        Notifications.onDetailDisappear.post()
+        if let position = state.items.firstIndex(where: { $0.id == state.item.id }) {
+          Notifications.onDetailDisappear.post(with: position)
+        }
         return .none
         
       case let .updateHighlight(giffy):

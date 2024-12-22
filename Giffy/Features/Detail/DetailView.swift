@@ -16,7 +16,6 @@ import SwiftUI
 struct DetailView: View {
   let store: StoreOf<DetailReducer>
 
-  @AppStorage("copyCount", store: UserDefaults(suiteName: "com.uwaisalqadri.giffo")) var copyCount: Int = 0
   @Environment(\.dismiss) private var dismiss
 
   var body: some View {
@@ -41,8 +40,7 @@ struct DetailView: View {
 
                     GIFView(
                       url: URL(string: item.image.url),
-                      contentMode: .fit,
-                      options: [.scaleDownLargeImages, .queryMemoryData, .highPriority]
+                      contentMode: .fit
                     )
                     .onSuccess { data in
                       viewStore.send(.downloaded(data: data))
@@ -120,7 +118,6 @@ struct DetailView: View {
                 tint: .Theme.green,
                 size: 15,
                 onClick: {
-                  copyCount += 1
                   viewStore.send(.copyToClipboard)
                 }
               )

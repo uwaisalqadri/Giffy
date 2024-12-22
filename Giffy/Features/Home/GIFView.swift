@@ -11,7 +11,13 @@ import SDWebImageSwiftUI
 struct GIFView: View {
   let url: URL?
   var contentMode: ContentMode = .fill
-  let options: SDWebImageOptions
+  var options: SDWebImageOptions = [
+    .scaleDownLargeImages,
+    .queryMemoryData,
+    .queryDiskDataSync,
+    .progressiveLoad,
+    .highPriority
+  ]
   var onSuccess: ((Data?) -> Void)? = nil
   
   var body: some View {
