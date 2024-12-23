@@ -11,6 +11,24 @@ import Core
 import Common
 import CommonUI
 
+struct GiffyWidget: Widget {
+  let provider = WidgetProvider()
+  
+  var body: some WidgetConfiguration {
+    StaticConfiguration(
+      kind: String(describing: Self.self),
+      provider: provider
+    ) { entry in
+      WidgetFavoriteView(entry: entry)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.black.padding(-10))
+    }
+    .configurationDisplayName("Giphy Widget")
+    .description("Show Your Favorites Giphy!")
+    .supportedFamilies([.systemSmall])
+  }
+}
+
 struct WidgetFavoriteView: View {
   let entry: WidgetProvider.Entry
 
@@ -58,22 +76,4 @@ extension View {
   WidgetFavoriteView(entry: .init(total: 10))
     .previewContext(WidgetPreviewContext(family: .systemSmall))
     .previewDevice(.none)
-}
-
-struct GiffyWidget: Widget {
-  let provider = WidgetProvider()
-  
-  var body: some WidgetConfiguration {
-    StaticConfiguration(
-      kind: String(describing: Self.self),
-      provider: provider
-    ) { entry in
-      WidgetFavoriteView(entry: entry)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.black.padding(-10))
-    }
-    .configurationDisplayName("Giphy Widget")
-    .description("Show Your Favorites Giphy!")
-    .supportedFamilies([.systemSmall])
-  }
 }
