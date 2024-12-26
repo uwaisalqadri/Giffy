@@ -1,0 +1,11 @@
+name: chat-pull-request 
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review]
+jobs:
+  chat:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: uwaisalqadri/actions-chat@v1
+        with:
+          url: ${{ secrets.GOOGLE_CHAT_PULL_REQUEST_WEBHOOK_URL }}
