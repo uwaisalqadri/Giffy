@@ -14,6 +14,7 @@ import ComposableArchitecture
 
 struct SearchView: View {
   let store: StoreOf<SearchReducer>
+  @EnvironmentObject var viewModel: MainTabViewModel
     
   var body: some View {
     WithViewStore(store, observe: { $0 }) { viewStore in
@@ -33,9 +34,15 @@ struct SearchView: View {
               let currentItems = viewStore.state.items(side)
               LazyVStack(spacing: 8) {
                 ForEach(currentItems.indexed, id: \.position) { _, item in
-                  GiffyGridRow(giphy: item) { selectedItem in
-                    viewStore.send(.showDetail(item: selectedItem))
-                  }
+                  GiffyGridRow(
+                    giphy: item,
+                    onTapRow: { selectedItem in
+                      viewStore.send(.showDetail(item: selectedItem))
+                    },
+                    onShare: { image in
+                      viewStore.send(.showShare(image))
+                    }
+                  )
                   .padding(.horizontal, 5)
                 }
               }
@@ -66,6 +73,18 @@ struct SearchView: View {
             }
           ).tapScaleEffect()
         }
+      }
+      .showDialog(
+        shouldDismissOnTapOutside: true,
+        isShowing: viewStore.binding(
+          get: { $0.shareImage != nil },
+          send: .showShare(nil)
+        )
+      ) {
+        ShareView(store: viewStore.share)
+      }
+      .onChange(of: viewStore.shareImage) { image in
+        viewModel.isShowShare = image != nil
       }
       .onAppear {
         viewStore.send(.initialFetch)

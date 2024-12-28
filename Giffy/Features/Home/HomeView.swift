@@ -13,6 +13,7 @@ import ComposableArchitecture
 
 struct HomeView: View {
   let store: StoreOf<HomeReducer>
+  @EnvironmentObject var viewModel: MainTabViewModel
     
   var body: some View {
     WithViewStore(store, observe: { $0 }) { viewStore in
@@ -28,6 +29,9 @@ struct HomeView: View {
                       giphy: item,
                       onTapRow: { item in
                         viewStore.send(.showDetail(item: item))
+                      },
+                      onShare: { image in
+                        viewStore.send(.showShare(image))
                       }
                     )
                     .padding(.horizontal, 16)
@@ -64,6 +68,18 @@ struct HomeView: View {
             }
           ).tapScaleEffect()
         }
+      }
+      .showDialog(
+        shouldDismissOnTapOutside: true,
+        isShowing: viewStore.binding(
+          get: { $0.shareImage != nil },
+          send: .showShare(nil)
+        )
+      ) {
+        ShareView(store: viewStore.share)
+      }
+      .onChange(of: viewStore.shareImage) { image in
+        viewModel.isShowShare = image != nil
       }
       .onAppear {
         viewStore.send(.fetch(request: 0))

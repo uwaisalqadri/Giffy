@@ -14,19 +14,19 @@ struct GiffyRow: View {
   @State private var downloadedImage: Data?
   @State private var isSelected = false
   @State var isFavorite = false
+  @State private var isShowShare = false
   let giphy: Giffy
 
   var onTapRow: ((Giffy) -> Void)?
   var onFavorite: ((Giffy) -> Void)?
+  var onShare: ((Data?) -> Void)?
 
   var body: some View {
     ZStack {
       GIFView(
-        url: URL(string: giphy.image.url)
+        url: URL(string: giphy.image.url),
+        downloadedImage: $downloadedImage
       )
-      .onSuccess { data in
-          downloadedImage = data
-      }
       .frame(maxHeight: 350, alignment: .center)
       .cornerRadius(30)
       .overlay(
@@ -87,10 +87,11 @@ struct GiffyRow: View {
       RedirectButton(onClick: {
         onTapRow?(giphy)
       })
-      .showGiphyMenu(
+      .showGiffyMenu(
         URL(string: giphy.url),
         data: downloadedImage,
-        withShape: .circle
+        withShape: .circle,
+        onShowShare: onShare
       )
     }
     .padding(.leading, 20)

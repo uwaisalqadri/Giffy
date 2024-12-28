@@ -18,6 +18,7 @@ struct GIFView: View {
     .progressiveLoad,
     .highPriority
   ]
+  var downloadedImage: Binding<Data?> = .constant(nil)
   var onSuccess: ((Data?) -> Void)? = nil
   
   var body: some View {
@@ -28,7 +29,10 @@ struct GIFView: View {
       placeholder: { Color.randomColor }
     )
     .onSuccess { _, data, _ in
-      onSuccess?(data)
+      DispatchQueue.main.async {
+        onSuccess?(data)
+        downloadedImage.wrappedValue = data
+      }
     }
     .resizable()
     .aspectRatio(contentMode: contentMode)

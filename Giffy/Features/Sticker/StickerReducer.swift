@@ -37,6 +37,14 @@ public struct StickerReducer {
     var isPresentPhotoPicker: Bool = false
     var selectedPhotoPickerItem: PhotosPickerItem?
     var currentSticker: Sticker = .init()
+    
+    var share: StoreOf<ShareReducer> {
+      Store(
+        initialState: .init(currentSticker.imageData?.outputImage?.pngData())
+      ) {
+        ShareReducer()
+      }
+    }
   }
   
   public enum Action {
@@ -45,7 +53,8 @@ public struct StickerReducer {
     case presentPhotoPicker(_ state: Bool)
     case toggleShowOriginalImage(_ state: Bool)
     case updateSticker(_ sticker: Sticker)
-    case copySticker
+    case shareSticker
+    case dismissShare
   }
   
   public var body: some Reducer<State, Action> {
@@ -76,12 +85,15 @@ public struct StickerReducer {
         state.currentSticker = sticker
         return .none
         
-      case .copySticker:
+      case .shareSticker:
         guard let data = state.currentSticker.imageData?.outputImage?
           .pngData() else { return .none }
         data.copyGifClipboard()
         state.isCopied = true
-        Toaster.success(message: Localizable.labelCopied.tr()).show()
+        return .none
+        
+      case .dismissShare:
+        state.isCopied = false
         return .none
       }
     }

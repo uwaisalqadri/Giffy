@@ -8,7 +8,12 @@
 import SwiftUI
 
 public extension View {
-  func showGiphyMenu<S>(_ url: URL?, data: Data?, withShape shape: S) -> some View where S: Shape {
+  func showGiffyMenu<S>(
+    _ url: URL?,
+    data: Data?,
+    withShape shape: S,
+    onShowShare: ((Data) -> Void)? = nil
+  ) -> some View where S: Shape {
     self
       .contextMenuShape(shape)
       .contextMenu {
@@ -21,9 +26,12 @@ public extension View {
         }
         
         Button {
-          guard let data = data else { return }
-          data.copyGifClipboard()
-          Toaster.success(message: Localizable.labelCopied.tr()).show()
+          if let data {
+            data.copyGifClipboard()
+            onShowShare?(data)
+          } else {
+            Toaster.error(message: "Can't copy the image").show()
+          }
         } label: {
           Label("Copy to Clipboard", systemImage: "doc.on.clipboard.fill")
         }

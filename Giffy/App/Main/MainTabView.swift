@@ -11,8 +11,13 @@ import CommonUI
 import ComposableArchitecture
 import Combine
 
+class MainTabViewModel: ObservableObject {
+  @Published var isShowShare = false
+}
+
 struct MainTabView: View {
   let store: StoreOf<MainTabReducer>
+  @StateObject var viewModel = MainTabViewModel()
 
   var body: some View {
     WithViewStore(store, observe: \.selectedTab) { viewStore in
@@ -52,17 +57,19 @@ struct MainTabView: View {
             )
           }
           
-          VStack {
-            Spacer()
-            CapsuleTabView(
-              currentTab: viewStore.binding(
-                send: MainTabReducer.Action.selectedTabChanged
-              )
-            ).padding(.bottom, 20)
+          if !viewModel.isShowShare {
+            VStack {
+              Spacer()
+              CapsuleTabView(
+                currentTab: viewStore.binding(
+                  send: MainTabReducer.Action.selectedTabChanged
+                )
+              ).padding(.bottom, 20)
+            }
           }
         }
         .animation(.easeInOut(duration: 0.2), value: viewStore.state)
-      }
+      }.environmentObject(viewModel)
     }
   }
 }

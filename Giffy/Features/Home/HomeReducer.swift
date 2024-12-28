@@ -22,11 +22,19 @@ public struct HomeReducer {
   }
   
   public struct State: Equatable {
-    public var list: [Giffy] = []
-    public var errorMessage: String = ""
-    public var isLoading: Bool = false
-    public var isError: Bool = false
-    public var isFetched: Bool = false
+    var list: [Giffy] = []
+    var errorMessage: String = ""
+    var isLoading: Bool = false
+    var isError: Bool = false
+    var isFetched: Bool = false
+    var isSharing: Bool = false
+    var shareImage: Data?
+    
+    var share: StoreOf<ShareReducer> {
+      Store(initialState: .init(nil)) {
+        ShareReducer()
+      }
+    }
   }
   
   public enum Action {
@@ -35,6 +43,7 @@ public struct HomeReducer {
     case failed(error: Error)
     case showDetail(item: Giffy)
     case openFavorite
+    case showShare(Data?)
   }
   
   public var body: some Reducer<State, Action> {
@@ -69,6 +78,10 @@ public struct HomeReducer {
 
       case .openFavorite:
         router.push(.favorite)
+        return .none
+        
+      case let .showShare(image):
+        state.shareImage = image
         return .none
       }
     }

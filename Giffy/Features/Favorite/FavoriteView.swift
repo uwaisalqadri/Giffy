@@ -40,6 +40,9 @@ struct FavoriteView: View {
                 },
                 onFavorite: { giphy in
                   viewStore.send(.removeFavorite(item: giphy, request: ""))
+                },
+                onShare: { image in
+                  viewStore.send(.showShare(image))
                 }
               )
               .padding(.horizontal, 16)
@@ -67,6 +70,15 @@ struct FavoriteView: View {
               .font(.bold, size: 16)
           }
         }
+      }
+      .showDialog(
+        shouldDismissOnTapOutside: true,
+        isShowing: viewStore.binding(
+          get: { $0.shareImage != nil },
+          send: .showShare(nil)
+        )
+      ) {
+        ShareView(store: viewStore.share)
       }
       .onAppear {
         viewStore.send(.fetch())

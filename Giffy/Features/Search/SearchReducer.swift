@@ -23,14 +23,21 @@ public struct SearchReducer {
   
   @ObservableState
   public struct State: Equatable {
-    public var rightColumn: [Giffy] = []
-    public var leftColumn: [Giffy] = []
-    public var searchText: String = ""
-    public var errorMessage: String = ""
-    public var isLoading: Bool = false
-    public var isEmpty: Bool = false
+    var rightColumn: [Giffy] = []
+    var leftColumn: [Giffy] = []
+    var searchText: String = ""
+    var errorMessage: String = ""
+    var isLoading: Bool = false
+    var shareImage: Data?
+    var isEmpty: Bool = false
     
-    public var allItems: [Giffy] {
+    var share: StoreOf<ShareReducer> {
+      Store(initialState: .init(shareImage)) {
+        ShareReducer()
+      }
+    }
+    
+    var allItems: [Giffy] {
       var combinedItems: [Giffy] = []
       let leftItems = items(.left)
       let rightItems = items(.right)
@@ -48,11 +55,11 @@ public struct SearchReducer {
       return combinedItems
     }
     
-    public func currentPosition(_ giffy: Giffy) -> Int {
+    func currentPosition(_ giffy: Giffy) -> Int {
       allItems.firstIndex(where: { $0.id == giffy.id }) ?? 0
     }
     
-    public func items(_ side: SearchReducer.GridSide) -> [Giffy] {
+    func items(_ side: SearchReducer.GridSide) -> [Giffy] {
       switch side {
       case .right:
         return rightColumn
@@ -69,6 +76,7 @@ public struct SearchReducer {
     case failed(error: Error)
     
     case showDetail(item: Giffy)
+    case showShare(Data?)
     case openFavorite
   }
   
@@ -111,6 +119,10 @@ public struct SearchReducer {
         var allItems = state.allItems
         allItems[state.currentPosition(item)].isHighlighted = true
         router.present(.detail(items: allItems))
+        return .none
+        
+      case let .showShare(image):
+        state.shareImage = image
         return .none
 
       case .openFavorite:

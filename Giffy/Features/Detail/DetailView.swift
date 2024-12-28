@@ -51,10 +51,13 @@ struct DetailView: View {
                       height: imageHeight
                     )
                     .clipShape(.rect(cornerRadius: 20))
-                    .showGiphyMenu(
+                    .showGiffyMenu(
                       URL(string: item.url),
                       data: viewStore.downloadedImage,
-                      withShape: .rect(cornerRadius: 20)
+                      withShape: .rect(cornerRadius: 20),
+                      onShowShare: { image in
+                        viewStore.send(.showShare(image))
+                      }
                     )
                   }
                   .trackScrollOffset { offset in
@@ -96,6 +99,15 @@ struct DetailView: View {
         .onDisappear {
           viewStore.send(.onDisappear)
         }
+        .showDialog(
+          shouldDismissOnTapOutside: true,
+          isShowing: viewStore.binding(
+            get: { $0.shareImage != nil },
+            send: .showShare(nil)
+          )
+        ) {
+          ShareView(store: viewStore.state.share)
+        }
         .toolbar {
           ToolbarItem(placement: .navigationBarLeading) {
             IconButton(
@@ -114,11 +126,11 @@ struct DetailView: View {
                 .padding(.trailing, 20)
             } else {
               IconButton(
-                iconName: viewStore.state.isShareGIF ? "doc.on.clipboard.fill" : "doc.on.clipboard",
+                iconName: viewStore.state.shareImage != nil ? "doc.on.clipboard.fill" : "doc.on.clipboard",
                 tint: .Theme.green,
                 size: 15,
                 onClick: {
-                  viewStore.send(.copyToClipboard)
+                  viewStore.send(.showShare(viewStore.state.downloadedImage))
                 }
               )
               .tapScaleEffect()

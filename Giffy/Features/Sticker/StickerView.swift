@@ -59,6 +59,15 @@ struct StickerView: View {
         ),
         matching: .images
       )
+      .showDialog(
+        shouldDismissOnTapOutside: true,
+        isShowing: viewStore.binding(
+          get: { $0.isCopied },
+          send: .dismissShare
+        )
+      ) {
+        ShareView(store: viewStore.state.share)
+      }
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         ToolbarItem(placement: .principal) {
@@ -73,7 +82,7 @@ struct StickerView: View {
               tint: .Theme.green,
               size: 15,
               onClick: {
-                viewStore.send(.copySticker)
+                viewStore.send(.shareSticker)
               }
             )
             .tapScaleEffect()

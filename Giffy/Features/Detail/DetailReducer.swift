@@ -31,20 +31,26 @@ public struct DetailReducer {
   
   @ObservableState
   public struct State: Equatable {
-    public var items: [Giffy]
-    public var item: Giffy
-    public init(items: [Giffy]) {
+    var items: [Giffy]
+    var item: Giffy
+    init(items: [Giffy]) {
       self.items = items
       self.item = items.first(where: \.isHighlighted)!
     }
     
-    public var isFavorited: Bool = false
-    public var isLoading: Bool = false
-    public var isShareGIF = false
-    public var errorMessage: String = ""
-    public var isError: Bool = false
-    public var downloadedImage: Data?
-    public var hearts: [HeartModel] = []
+    var isFavorited: Bool = false
+    var isLoading: Bool = false
+    var errorMessage: String = ""
+    var isError: Bool = false
+    var downloadedImage: Data?
+    var shareImage: Data?
+    var hearts: [HeartModel] = []
+    
+    var share: StoreOf<ShareReducer> {
+      Store(initialState: .init(downloadedImage)) {
+        ShareReducer()
+      }
+    }
   }
   
   public enum Action {
@@ -52,12 +58,12 @@ public struct DetailReducer {
     case downloaded(data: Data?)
     case addFavorite
     case removeFavorite
-    case copyToClipboard
     case onDisappear
     case startLiveActivity(DetailReducer.State)
     case updateHighlight(Giffy)
     case displayHeart(location: CGPoint)
     case takeOffHeart(_ heartId: UUID)
+    case showShare(Data?)
 
     case success(isFavorited: Bool)
     case failed(error: Error)
@@ -83,11 +89,10 @@ public struct DetailReducer {
         state.downloadedImage = data
         return .none
 
-      case .copyToClipboard:
-        guard let data = state.downloadedImage else { return .none }
+      case let .showShare(image):
+        state.shareImage = image
+        guard let data = state.shareImage else { return .none }
         data.copyGifClipboard()
-        state.isShareGIF = true
-        Toaster.success(message: Localizable.labelCopied.tr()).show()
         return .none
 
       case .success(let isFavorited):

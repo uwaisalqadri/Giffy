@@ -27,8 +27,15 @@ public struct FavoriteReducer {
     public var list: [Giffy] = []
     public var errorMessage: String = ""
     public var isLoading: Bool = false
+    public var shareImage: Data?
     public var isError: Bool = false
     public let detailDisappear = NotificationCenter.default.publisher(for: Notifications.onDetailDisappear)
+    
+    var share: StoreOf<ShareReducer> {
+      Store(initialState: .init(nil)) {
+        ShareReducer()
+      }
+    }
   }
   
   public enum Action {
@@ -38,6 +45,7 @@ public struct FavoriteReducer {
     
     case removeFavorite(item: Giffy, request: String)
     case showDetail(item: Giffy)
+    case showShare(Data?)
     case didBackPressed
   }
   
@@ -77,6 +85,10 @@ public struct FavoriteReducer {
         
       case let .showDetail(item):
         router.present(.detail(items: state.list.setHighlighted(item)))
+        return .none
+        
+      case let .showShare(image):
+        state.shareImage = image
         return .none
         
       case .didBackPressed:

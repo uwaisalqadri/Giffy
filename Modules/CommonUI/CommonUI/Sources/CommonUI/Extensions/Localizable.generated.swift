@@ -35,6 +35,7 @@ public enum Localizable: String {
   case actionDelete = "delete"
   case errorCheckFavorite = "error_check_favorite"
   case labelCopied = "copied"
+  case labelShareVia = "share_via"
   
   public func tr() -> String {
     localized
