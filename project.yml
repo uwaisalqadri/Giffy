@@ -55,7 +55,6 @@ targets:
           - "**/*.md" # excludes all files with the .md extension
     settings:
       base:
-        API_KEY: EEx8BY3HX9JrYdFZ4Hdcx4Trbj35k5Ic
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         CODE_SIGN_STYLE: Automatic
         MARKETING_VERSION: 1.0.0

@@ -31,7 +31,7 @@ struct ShareView: View {
             Button(action: {
               viewStore.send(.onShare(item))
             }) {
-              Image(item.imageName, bundle: Bundle.common)
+              Image(item.rawValue, bundle: Bundle.common)
                 .resizable()
                 .frame(width: 50, height: 50)
             }
@@ -44,7 +44,7 @@ struct ShareView: View {
             Button(action: {
               viewStore.send(.onShare(item))
             }) {
-              Image(item.imageName, bundle: Bundle.common)
+              Image(item.rawValue, bundle: Bundle.common)
                 .resizable()
                 .frame(width: 50, height: 50)
             }
@@ -53,6 +53,13 @@ struct ShareView: View {
         .padding(.top, 16)
         .padding(.bottom, 30)
 
+      }
+      .sheet(
+        isPresented: viewStore.binding(
+          get: { $0.showShareSheet },
+          send: .onShare(.more))
+      ) {
+        ShareSheetView(activityItems: [viewStore.shareImage])
       }
     }
   }
