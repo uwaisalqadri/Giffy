@@ -92,7 +92,6 @@ public struct DetailReducer {
       case let .showShare(image):
         state.shareImage = image
         guard let data = state.shareImage else { return .none }
-        data.copyGifClipboard()
         return .none
 
       case .success(let isFavorited):

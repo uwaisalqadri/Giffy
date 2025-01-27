@@ -79,6 +79,7 @@ public struct OneDialog<Content: View>: View {
           isOpen.toggle()
         }
       }
+      .environment(\.dismissDialog, { isOpen.toggle() })
     }
   }
 }
@@ -113,6 +114,17 @@ struct DialogModifier<DialogContent: View>: ViewModifier {
       .padding(.horizontal, 20)
 //      .edgesRespectingSafeArea(.bottom)
     }
+  }
+}
+
+public struct DismissDialogKey: EnvironmentKey {
+  public static var defaultValue: () -> Void = {}
+}
+
+public extension EnvironmentValues {
+  var dismissDialog: () -> Void {
+    get { self[DismissDialogKey.self] }
+    set { self[DismissDialogKey.self] = newValue }
   }
 }
 

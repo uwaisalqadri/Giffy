@@ -12,6 +12,7 @@ import CommonUI
 import ComposableArchitecture
 
 struct ShareView: View {
+  @Environment(\.dismissDialog) var dismissDialog
   let store: StoreOf<ShareReducer>
   
   var body: some View {
@@ -42,6 +43,9 @@ struct ShareView: View {
         HStack(spacing: 16) {
           ForEach(viewStore.bottomItems, id: \.id) { item in
             Button(action: {
+              if case .copy = item {
+                dismissDialog()
+              }
               viewStore.send(.onShare(item))
             }) {
               Image(item.rawValue, bundle: Bundle.common)
@@ -57,9 +61,16 @@ struct ShareView: View {
       .sheet(
         isPresented: viewStore.binding(
           get: { $0.showShareSheet },
-          send: .onShare(.more))
+          send: { _ in
+            dismissDialog()
+            return .dismissShare
+          }
+        )
       ) {
-        ShareSheetView(activityItems: [viewStore.shareImage])
+        ShareSheetView(
+          activityItems: [viewStore.shareImageURL!],
+          excludedActivityTypes: viewStore.excludedShareApps
+        )
       }
     }
   }

@@ -11,9 +11,9 @@ public struct ShareSheetView: UIViewControllerRepresentable {
   public typealias Completion = (_ activityType: UIActivity.ActivityType?, _ completed: Bool, _ returnedItems: [Any]?, _ error: Error?) -> Void
   
   let activityItems: [Any]
-  var applicationActivities: [UIActivity]? = nil
-  var excludedActivityTypes: [UIActivity.ActivityType]? = nil
-  var callback: Completion? = nil
+  var applicationActivities: [UIActivity]?
+  var excludedActivityTypes: [UIActivity.ActivityType]?
+  var callback: Completion?
   
   public init(
     activityItems: [Any],
@@ -30,7 +30,8 @@ public struct ShareSheetView: UIViewControllerRepresentable {
   public func makeUIViewController(context: Context) -> UIActivityViewController {
     let controller = UIActivityViewController(
       activityItems: activityItems,
-      applicationActivities: applicationActivities)
+      applicationActivities: applicationActivities
+    )
     controller.excludedActivityTypes = excludedActivityTypes
     controller.completionWithItemsHandler = callback
     return controller

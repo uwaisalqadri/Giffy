@@ -32,7 +32,7 @@ public struct FavoriteReducer {
     public let detailDisappear = NotificationCenter.default.publisher(for: Notifications.onDetailDisappear)
     
     var share: StoreOf<ShareReducer> {
-      Store(initialState: .init(nil)) {
+      Store(initialState: .init(shareImage)) {
         ShareReducer()
       }
     }

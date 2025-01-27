@@ -27,7 +27,6 @@ public extension View {
         
         Button {
           if let data {
-            data.copyGifClipboard()
             onShowShare?(data)
           } else {
             Toaster.error(message: "Can't copy the image").show()

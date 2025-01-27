@@ -17,7 +17,10 @@ public struct ImagePicker<Label>: View where Label: View {
   var label: () -> Label
   let onSelectedImage: (CIImage) -> ()
   
-  public init(@ViewBuilder label: @escaping () -> Label, onSelectedImage: @escaping (CIImage) -> Void) {
+  public init(
+    @ViewBuilder label: @escaping () -> Label,
+    onSelectedImage: @escaping (CIImage) -> Void
+  ) {
     self.label = label
     self.onSelectedImage = onSelectedImage
   }

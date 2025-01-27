@@ -12,10 +12,7 @@ struct GIFView: View {
   let url: URL?
   var contentMode: ContentMode = .fill
   var options: SDWebImageOptions = [
-    .scaleDownLargeImages,
     .queryMemoryData,
-    .queryDiskDataSync,
-    .progressiveLoad,
     .highPriority
   ]
   var downloadedImage: Binding<Data?> = .constant(nil)

@@ -24,150 +24,135 @@ public class ShareReducer {
     var topItems: [ShareType] = [.whatsapp, .instagram, .twitter, .telegram]
     var bottomItems: [ShareType] = [.copy, .more]
     var showShareSheet: Bool = false
-    var shareImage: UIImage {
-      if let image = image, let cachedImage = UIImage(data: image) {
-        return cachedImage
-      }
-      return UIImage()
-    }
+    var excludedShareApps: [UIActivity.ActivityType]?
     var shareCaption: String {
       "Product Caption"
     }
     var appName: String? {
       Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String ?? Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String
     }
-    var utmFormat: String = "?utm_source=%@&utm_medium=social&utm_campaign=product_share"
     
-    var image: Data?
-    init(_ image: Data?) {
-      self.image = image
+    var shareImageURL: URL?
+    var imageData: Data?
+    init(_ imageData: Data?) {
+      self.imageData = imageData
     }
   }
   
   public enum Action {
     case onShare(ShareType)
+    case dismissShare
   }
   
   public var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
       case let .onShare(type):
-        let imageUtmShare = String(format: state.utmFormat, type.rawValue)
-        
+        state.excludedShareApps = type.excludedActivities
         switch type {
-        case .whatsapp:
-          if let escapedCaption = state.shareCaption.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
-            let fullMessage = "\(escapedCaption)\(imageUtmShare)"
-            self.shareImageToWhatsApp(image: state.shareImage, caption: fullMessage)
+        case .whatsapp, .telegram:
+          self.shareImageGIF(imageData: state.imageData) { url in
+            state.shareImageURL = url
+            state.showShareSheet = true
+          }
+          
+        case .twitter:
+          self.shareImageGIF(imageData: state.imageData) { url in
+            state.shareImageURL = url
+            state.showShareSheet = true
           }
           
         case .instagram:
-          self.postImageToInstagram(state.shareImage, appName: state.appName ?? "-")
-          
-        case .twitter:
-          if let escapedCaption = state.shareCaption.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
-            let fullMessage = "\(escapedCaption)\(imageUtmShare)"
-            self.shareImageToTwitter(image: state.shareImage, caption: fullMessage)
-          }
-          
-        case .telegram:
-          if let escapedCaption = state.shareCaption.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
-            let fullMessage = "\(escapedCaption)\(imageUtmShare)"
-            self.shareImageToTelegram(image: state.shareImage, caption: fullMessage)
-          }
+          self.postImageToInstagram(state.imageData)
           
         case .copy:
+          state.imageData?.copyGifClipboard()
+          state.showShareSheet = false
           Toaster.success(message: Localizable.labelCopied.tr()).show()
           
         case .more:
-          state.showShareSheet.toggle()
+          self.shareImageGIF(imageData: state.imageData) { url in
+            state.shareImageURL = url
+            state.showShareSheet = true
+          }
         }
+        return .none
         
+      case .dismissShare:
+        state.showShareSheet = false
         return .none
       }
     }
   }
   
-  private func shareImageToWhatsApp(image: UIImage, caption: String) {
-    let urlWhats = "whatsapp://app"
-    if let urlString = urlWhats.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) {
+  private func shareImageGIF(imageData: Data?, onShare: (URL?) -> Void) {
+    if let data = imageData,
+       let imageURL = self.saveImageToTemporaryDirectory(imageData: data, fileName: "Giffy.gif") {
+      onShare(imageURL)
+    }
+  }
+
+  private func postImageToInstagram(_ imageData: Data?) {
+    guard let imageData = imageData else {
+      return
+    }
+    
+    PHPhotoLibrary.requestAuthorization { status in
+      guard status == .authorized else {
+        return
+      }
       
-      if let whatsappURL = URL(string: urlString) {
+      self.saveImageToPhotoLibrary(imageData: imageData) { localIdentifier in
+        guard let localIdentifier = localIdentifier else {
+          return
+        }
         
-        if UIApplication.shared.canOpenURL(whatsappURL) {
-          
-          if let imageData = image.jpegData(compressionQuality: 1.0) {
-            let tempFile = NSURL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("Documents/whatsAppTmp.wai")!
-            do {
-              try imageData.write(to: tempFile, options: .atomic)
-              let documentController = UIDocumentInteractionController(url: tempFile)
-              documentController.uti = "net.whatsapp.image"
-              if let contextView = contextView {
-                documentController.presentOpenInMenu(from: .zero, in: contextView, animated: true)
-              }
-            } catch {
-              print(error)
-            }
+        let instagramUrl = URL(string: "instagram://library?LocalIdentifier=\(localIdentifier)")!
+        
+        DispatchQueue.main.async {
+          if UIApplication.shared.canOpenURL(instagramUrl) {
+            UIApplication.shared.open(instagramUrl)
+          } else {
+            print("Instagram app not installed")
           }
-          
-        } else {
-          let ac = UIAlertController(title: "MessageAletTitleText", message: "AppNotFoundToShare", preferredStyle: .alert)
-          ac.addAction(UIAlertAction(title: "OKButtonText", style: .default))
-          contextViewController?.present(ac, animated: true)
-          print("Whatsapp isn't installed ")
         }
       }
     }
   }
   
-  private func postImageToInstagram(_ image: UIImage, appName: String) {
-      guard let imageData = image.pngData(),
-            let imageURL = saveImageToTemporaryDirectory(imageData: imageData, fileName: "sharedImage.png") else { return }
-      
-      let instagramUrl = URL(string: "instagram://library?AssetPath=\(imageURL.absoluteString)")!
-      if UIApplication.shared.canOpenURL(instagramUrl) {
-          UIApplication.shared.open(instagramUrl)
+  private func saveImageToPhotoLibrary(imageData: Data, completion: @escaping (String?) -> Void) {
+    PHPhotoLibrary.shared().performChanges {
+      let request = PHAssetCreationRequest.forAsset()
+      let options = PHAssetResourceCreationOptions()
+      request.addResource(with: .photo, data: imageData, options: options)
+    } completionHandler: { success, error in
+      if success {
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        
+        let fetchResult = PHAsset.fetchAssets(with: fetchOptions)
+        if let lastAsset = fetchResult.firstObject {
+          completion(lastAsset.localIdentifier)
+        } else {
+          completion(nil)
+        }
       } else {
-          Toaster.error(message: "Instagram app not installed").show()
+        completion(nil)
       }
-  }
-
-  private func shareImageToTwitter(image: UIImage, caption: String) {
-      guard let imageData = image.jpegData(compressionQuality: 1.0),
-            let imageURL = saveImageToTemporaryDirectory(imageData: imageData, fileName: "sharedImage.jpg") else { return }
-      
-      let twitterUrl = URL(string: "twitter://post?message=\(caption)")!
-      if UIApplication.shared.canOpenURL(twitterUrl) {
-          UIApplication.shared.open(twitterUrl)
-      } else {
-          let webUrl = URL(string: "https://twitter.com/intent/tweet?text=\(caption)")!
-          UIApplication.shared.open(webUrl)
-      }
-  }
-  
-  private func shareImageToTelegram(image: UIImage, caption: String) {
-      guard let imageData = image.jpegData(compressionQuality: 1.0),
-            let imageURL = saveImageToTemporaryDirectory(imageData: imageData, fileName: "sharedImage.jpg") else { return }
-      
-      let telegramUrl = URL(string: "tg://msg?text=\(caption)")!
-      if UIApplication.shared.canOpenURL(telegramUrl) {
-          UIApplication.shared.open(telegramUrl)
-      } else {
-          Toaster.error(message: "Telegram app not installed").show()
-      }
+    }
   }
   
   private func saveImageToTemporaryDirectory(imageData: Data, fileName: String) -> URL? {
-      let temporaryDirectory = FileManager.default.temporaryDirectory
-      let fileURL = temporaryDirectory.appendingPathComponent(fileName)
-      
-      do {
-          try imageData.write(to: fileURL)
-          return fileURL
-      } catch {
-          print("Error saving image to temporary directory: \(error)")
-          return nil
-      }
+    let temporaryDirectory = FileManager.default.temporaryDirectory
+    let fileURL = temporaryDirectory.appendingPathComponent(fileName)
+    
+    do {
+      try imageData.write(to: fileURL)
+      return fileURL
+    } catch {
+      print("Error saving image to temporary directory: \(error)")
+      return nil
+    }
   }
 }
 
@@ -198,6 +183,19 @@ public extension ShareReducer {
         return "copy"
       case .more:
         return "more"
+      }
+    }
+    
+    var excludedActivities: [UIActivity.ActivityType]? {
+      switch self {
+      case .whatsapp, .telegram:
+        return [.postToFacebook, .postToTwitter, .airDrop, .copyToPasteboard, .markupAsPDF, .message, .saveToCameraRoll]
+      case .twitter:
+        return [.postToFacebook, .airDrop, .copyToPasteboard, .markupAsPDF, .message, .saveToCameraRoll]
+      case .instagram:
+        return nil
+      case .copy, .more:
+        return nil
       }
     }
   }

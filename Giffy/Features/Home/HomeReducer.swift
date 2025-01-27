@@ -31,7 +31,7 @@ public struct HomeReducer {
     var shareImage: Data?
     
     var share: StoreOf<ShareReducer> {
-      Store(initialState: .init(nil)) {
+      Store(initialState: .init(shareImage)) {
         ShareReducer()
       }
     }
