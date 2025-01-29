@@ -199,30 +199,4 @@ public extension ShareReducer {
       }
     }
   }
-  
-  var contextViewController: UIViewController? {
-    UIApplication.shared.connectedScenes
-      .compactMap { $0 as? UIWindowScene }
-      .compactMap { $0.windows.first { $0.isKeyWindow } }
-      .first?.rootViewController.flatMap(getTopViewController)
-  }
-  
-  var contextView: UIView? {
-    UIApplication.shared.connectedScenes
-      .compactMap { $0 as? UIWindowScene }
-      .compactMap { $0.windows.first { $0.isKeyWindow } }
-      .first?.rootViewController.flatMap(getTopViewController)?.view
-  }
-  
-  func getTopViewController(from viewController: UIViewController) -> UIViewController {
-    if let presented = viewController.presentedViewController {
-      return getTopViewController(from: presented)
-    } else if let navigation = viewController as? UINavigationController {
-      return getTopViewController(from: navigation.visibleViewController ?? viewController)
-    } else if let tabBar = viewController as? UITabBarController {
-      return getTopViewController(from: tabBar.selectedViewController ?? viewController)
-    } else {
-      return viewController
-    }
-  }
 }

@@ -97,9 +97,15 @@ struct GiffyRow: View {
     .padding(.vertical, 15)
     .frame(maxHeight: 160)
     .background(
-      Blur(style: .systemUltraThinMaterialDark)
-        .clipShape(.capsule)
-        .padding(5)
+      Group {
+        if giphy.title.isEmpty {
+          EmptyView()
+        } else {
+          Blur(style: .systemUltraThinMaterialDark)
+            .clipShape(.capsule)
+            .padding(5)
+        }
+      }
     )
   }
 }
