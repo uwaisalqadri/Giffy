@@ -15,7 +15,11 @@ public enum StickerState {
   case failure(Error)
 }
 
-public struct Sticker: Identifiable {
+public struct Sticker: Identifiable, Equatable {
+  public static func == (lhs: Sticker, rhs: Sticker) -> Bool {
+    lhs.id == rhs.id
+  }
+    
   public let id = UUID()
   public var pos: Int = 0
   public var state = StickerState.none

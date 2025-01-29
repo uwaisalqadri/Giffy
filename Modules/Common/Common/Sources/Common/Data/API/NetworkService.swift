@@ -33,18 +33,16 @@ public class NetworkService {
 }
 
 extension DataRequest {
-
   @discardableResult
   func prettyPrintedJsonResponse<T: Codable>(of responseType: T.Type) -> Self {
-    return responseDecodable(of: responseType) { (response) in
-      switch response.result {
-      case .success(let result):
-        if let data = try? JSONEncoder().encode(result),
-           let text = String(data: data, encoding: .utf8) {
-          print("📗 prettyPrinted JSON response: \n \(text)")
-        }
-      case .failure: break
+    return responseDecodable(of: responseType) { response in
+      guard case .success(let result) = response.result,
+            let data = try? JSONEncoder().encode(result),
+            let text = String(data: data, encoding: .utf8) else {
+        print("❌ Failed to encode the result to UTF-8 string")
+        return
       }
+      print("📗 prettyPrinted JSON response: \n \(text)")
     }
   }
 }

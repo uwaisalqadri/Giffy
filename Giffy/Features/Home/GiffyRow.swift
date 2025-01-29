@@ -59,9 +59,6 @@ struct GiffyRow: View {
 
       footer
         .padding(.top, 250)
-        .onTapGesture {
-          onTapRow?(giphy)
-        }
     }
     .scaleEffect(isSelected ? 1.2 : 1)
     .animation(.linear(duration: 0.2), value: isSelected)
@@ -87,6 +84,7 @@ struct GiffyRow: View {
       RedirectButton(onClick: {
         onTapRow?(giphy)
       })
+      .tapScaleEffect()
       .showGiffyMenu(
         URL(string: giphy.url),
         data: downloadedImage,
@@ -100,7 +98,7 @@ struct GiffyRow: View {
     .frame(maxHeight: 160)
     .background(
       Blur(style: .systemUltraThinMaterialDark)
-        .clipShape(Capsule())
+        .clipShape(.capsule)
         .padding(5)
     )
   }

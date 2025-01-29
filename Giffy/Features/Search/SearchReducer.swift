@@ -74,7 +74,6 @@ public struct SearchReducer {
     case fetch(request: String)
     case success(response: [Giffy])
     case failed(error: Error)
-    
     case showDetail(item: Giffy)
     case showShare(Data?)
     case openFavorite

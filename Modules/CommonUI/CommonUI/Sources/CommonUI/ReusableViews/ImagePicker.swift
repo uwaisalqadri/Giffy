@@ -12,10 +12,10 @@ import UIKit
 
 public struct ImagePicker<Label>: View where Label: View {
   
-  @State private var imageSelection: PhotosPickerItem? = nil
+  @State private var imageSelection: PhotosPickerItem?
   
   var label: () -> Label
-  let onSelectedImage: (CIImage) -> ()
+  let onSelectedImage: (CIImage) -> Void
   
   public init(
     @ViewBuilder label: @escaping () -> Label,

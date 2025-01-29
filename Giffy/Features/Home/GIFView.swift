@@ -10,29 +10,52 @@ import SDWebImageSwiftUI
 
 struct GIFView: View {
   let url: URL?
+  let data: Data?
   var contentMode: ContentMode = .fill
-  var options: SDWebImageOptions = [
-    .queryMemoryData,
-    .highPriority
-  ]
-  var downloadedImage: Binding<Data?> = .constant(nil)
-  var onSuccess: ((Data?) -> Void)? = nil
+  var options: SDWebImageOptions
+  @Binding var downloadedImage: Data?
+  var onSuccess: ((Data?) -> Void)?
+  
+  init(
+    url: URL? = nil,
+    data: Data? = nil,
+    contentMode: ContentMode = .fill,
+    options: SDWebImageOptions = [.queryMemoryData, .highPriority],
+    downloadedImage: Binding<Data?> = .constant(nil),
+    onSuccess: ((Data?) -> Void)? = nil
+  ) {
+    self.url = url
+    self.data = data
+    self.contentMode = contentMode
+    self.options = options
+    _downloadedImage = downloadedImage
+    self.onSuccess = onSuccess
+  }
   
   var body: some View {
-    AnimatedImage(
-      url: url,
-      options: options,
-      isAnimating: .constant(true),
-      placeholder: { Color.randomColor }
-    )
-    .onSuccess { _, data, _ in
-      DispatchQueue.main.async {
+    animatedImage
+      .onSuccess { _, data, _ in
         onSuccess?(data)
-        downloadedImage.wrappedValue = data
+        downloadedImage = data
       }
+      .resizable()
+      .aspectRatio(contentMode: contentMode)
+  }
+  
+  var animatedImage: AnimatedImage {
+    if let data {
+      AnimatedImage(
+        data: data,
+        isAnimating: .constant(true)
+      )
+    } else {
+      AnimatedImage(
+        url: url,
+        options: options,
+        isAnimating: .constant(true),
+        placeholder: { Color.randomColor }
+      )
     }
-    .resizable()
-    .aspectRatio(contentMode: contentMode)
   }
 }
 

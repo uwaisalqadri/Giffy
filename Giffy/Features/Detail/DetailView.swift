@@ -15,9 +15,9 @@ import SwiftUI
 
 struct DetailView: View {
   let store: StoreOf<DetailReducer>
-
+  
   @Environment(\.dismiss) private var dismiss
-
+  
   var body: some View {
     WithViewStore(store, observe: { $0 }) { viewStore in
       NavigationView {
@@ -26,7 +26,7 @@ struct DetailView: View {
             get: { $0.item },
             send: { .updateHighlight($0) }
           )) {
-            ForEach(viewStore.items.indexed, id: \.position) { position, item in
+            ForEach(viewStore.items.indexed, id: \.position) { _, item in
               GeometryReader { geometry in
                 let mainFrame = geometry.frame(in: .global)
                 let imageWidth = (item.image.width).cgFloat * 1.5
@@ -37,32 +37,21 @@ struct DetailView: View {
                     AnimatedGradientBackground()
                       .frame(width: mainFrame.width, height: mainFrame.height)
                       .cornerRadius(40)
-
+                    
                     GIFView(
                       url: URL(string: item.image.url),
                       contentMode: .fit
                     )
-                    .onSuccess { data in
-                      viewStore.send(.downloaded(data: data))
-                    }
                     .scaledToFill()
                     .frame(
                       width: min(imageWidth, UIScreen.main.bounds.width - 16),
                       height: imageHeight
                     )
                     .clipShape(.rect(cornerRadius: 20))
-                    .showGiffyMenu(
-                      URL(string: item.url),
-                      data: viewStore.downloadedImage,
-                      withShape: .rect(cornerRadius: 20),
-                      onShowShare: { image in
-                        viewStore.send(.showShare(image))
-                      }
-                    )
                   }
                   .trackScrollOffset { offset in
                     if (50...70).contains(offset) {
-                        dismissSheet()
+                      dismissSheet()
                     }
                   }
                 }
@@ -118,10 +107,12 @@ struct DetailView: View {
               }
             )
           }
-
+          
           ToolbarItem(placement: .navigationBarTrailing) {
             if viewStore.state.isLoading {
-              ActivityIndicator(style: .medium)
+              ProgressView()
+                .tint(.Theme.green)
+                .font(.system(size: 80))
                 .frame(width: 10, height: 10)
                 .padding(.trailing, 20)
             } else {
@@ -130,14 +121,14 @@ struct DetailView: View {
                 tint: .Theme.green,
                 size: 15,
                 onClick: {
-                  viewStore.send(.showShare(viewStore.state.downloadedImage))
+                  viewStore.send(.prepareShare)
                 }
               )
               .tapScaleEffect()
               .padding(.trailing, 20)
             }
           }
-
+          
           ToolbarItem(placement: .navigationBarTrailing) {
             IconButton(
               iconName: viewStore.state.isFavorited ? "heart.fill" : "heart",
@@ -167,7 +158,7 @@ struct DetailView: View {
     dismiss()
     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
   }
-
+  
   func getAngle(xOffset: CGFloat, in screenWidth: CGFloat) -> Double {
     let angle = xOffset / (screenWidth / 2)
     let rotationDegree: CGFloat = 25

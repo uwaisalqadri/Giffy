@@ -13,7 +13,7 @@ import ComposableArchitecture
 
 struct HomeView: View {
   let store: StoreOf<HomeReducer>
-  @EnvironmentObject var viewModel: MainTabViewModel
+  @EnvironmentObject var tabState: MainTabStateHolder
     
   var body: some View {
     WithViewStore(store, observe: { $0 }) { viewStore in
@@ -78,8 +78,8 @@ struct HomeView: View {
       ) {
         ShareView(store: viewStore.share)
       }
-      .onChange(of: viewStore.shareImage) { image in
-        viewModel.isShowShare = image != nil
+      .onChange(of: viewStore.shareImage) { image, _ in
+        tabState.isShowShare = image != nil
       }
       .onAppear {
         viewStore.send(.fetch(request: 0))

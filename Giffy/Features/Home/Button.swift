@@ -17,11 +17,11 @@ struct IconButton: View {
   var body: some View {
     Button(action: onClick) {
       Image(systemName: iconName)
-        .resizable()
         .font(.system(size: size))
         .foregroundColor(tint)
+        .frame(width: size, height: size)
+        .contentShape(.rect)
     }
-    .contentShape(.rect)
     .buttonStyle(.plain)
   }
 }
@@ -30,18 +30,16 @@ struct RedirectButton: View {
   var onClick: () -> Void
   
   var body: some View {
-    Image(systemName: "arrow.up.right")
-      .resizable()
-      .foregroundColor(.Theme.yellow)
-      .frame(width: 17, height: 17)
-      .padding(.all, 17)
-      .background(
-        Color.Theme.background
-      )
-      .clipShape(Circle())
-      .onTapGesture {
-        onClick()
-      }
+    Button(action: onClick) {
+      Image(systemName: "arrow.up.right")
+        .resizable()
+        .foregroundColor(.Theme.yellow)
+        .frame(width: 17, height: 17)
+        .padding(.all, 17)
+        .background(Color.Theme.background)
+        .clipShape(.circle)
+        .contentShape(.circle)
+    }.buttonStyle(.plain)
   }
 }
 

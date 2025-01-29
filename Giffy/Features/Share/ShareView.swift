@@ -61,7 +61,8 @@ struct ShareView: View {
       .sheet(
         isPresented: viewStore.binding(
           get: { $0.showShareSheet },
-          send: { _ in
+          send: { isShowing in
+            guard !isShowing else { return .dismissShare }
             dismissDialog()
             return .dismissShare
           }

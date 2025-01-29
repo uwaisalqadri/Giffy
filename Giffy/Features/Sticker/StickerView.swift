@@ -12,7 +12,7 @@ import ComposableArchitecture
 
 struct StickerView: View {
   let store: StoreOf<StickerReducer>
-  @EnvironmentObject var viewModel: MainTabViewModel
+  @EnvironmentObject var tabState: MainTabStateHolder
   
   var body: some View {
     WithViewStore(store, observe: { $0 }) { viewStore in
@@ -69,9 +69,9 @@ struct StickerView: View {
       ) {
         ShareView(store: viewStore.state.share)
       }
-//      .onChange(of: viewStore.state.currentSticker) { sticker in
-//        viewModel.isShowShare = sticker.imageData != nil
-//      }
+      .onChange(of: viewStore.state.currentSticker) { sticker, _ in
+        tabState.isShowShare = sticker.imageData != nil
+      }
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         ToolbarItem(placement: .principal) {

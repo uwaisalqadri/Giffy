@@ -25,15 +25,7 @@ where
   }
 
   public func execute(request: Giffy?) async throws -> Giffy {
-    return try await withCheckedThrowingContinuation { continuation in
-      Task {
-        do {
-          _ = try await localDataSource.add(entity: request!)
-          continuation.resume(returning: request!)
-        } catch {
-          continuation.resume(throwing: error)
-        }
-      }
-    }
+    _ = try await localDataSource.add(entity: request!)
+    return request!
   }
 }

@@ -125,7 +125,7 @@ public class ShareReducer {
       let request = PHAssetCreationRequest.forAsset()
       let options = PHAssetResourceCreationOptions()
       request.addResource(with: .photo, data: imageData, options: options)
-    } completionHandler: { success, error in
+    } completionHandler: { success, _ in
       if success {
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]

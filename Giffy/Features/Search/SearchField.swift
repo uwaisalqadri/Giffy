@@ -11,8 +11,9 @@ import CommonUI
 struct SearchField: View {
   
   @State private var query = ""
+  var initialQuery: String = ""
   var onQueryChange: ((String) -> Void)?
-  
+
   var body: some View {
     VStack(alignment: .leading) {
       HStack {
@@ -34,9 +35,6 @@ struct SearchField: View {
         .onChange(of: query) { _, text in
           onQueryChange?(text)
         }
-//        .onSubmit {
-//          onQueryChange?(query)
-//        }
         
         if !query.isEmpty {
           Button(action: {
@@ -72,6 +70,9 @@ struct SearchField: View {
       }
       .background(Color.white)
       .cornerRadius(5)
+    }
+    .onAppear {
+      query = initialQuery
     }
   }
 }

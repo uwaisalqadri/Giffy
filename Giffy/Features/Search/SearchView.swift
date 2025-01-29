@@ -14,12 +14,13 @@ import ComposableArchitecture
 
 struct SearchView: View {
   let store: StoreOf<SearchReducer>
-  @EnvironmentObject var viewModel: MainTabViewModel
+  @EnvironmentObject var tabState: MainTabStateHolder
     
   var body: some View {
     WithViewStore(store, observe: { $0 }) { viewStore in
       ScrollView(.vertical, showsIndicators: false) {
-        SearchField { query in
+        SearchField(initialQuery: tabState.searchQuery) { query in
+          tabState.searchQuery = query
           viewStore.send(.fetch(request: query))
         }.padding(.horizontal, 16)
 
@@ -83,11 +84,15 @@ struct SearchView: View {
       ) {
         ShareView(store: viewStore.share)
       }
-      .onChange(of: viewStore.shareImage) { image in
-        viewModel.isShowShare = image != nil
+      .onChange(of: viewStore.shareImage) { image, _ in
+        tabState.isShowShare = image != nil
       }
       .onAppear {
-        viewStore.send(.initialFetch)
+        if tabState.searchQuery.isEmpty {
+          viewStore.send(.initialFetch)
+        } else {
+          viewStore.send(.fetch(request: tabState.searchQuery))
+        }
       }
     }
   }

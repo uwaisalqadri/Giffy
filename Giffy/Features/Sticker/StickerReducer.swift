@@ -86,8 +86,6 @@ public struct StickerReducer {
         return .none
         
       case .shareSticker:
-        guard let data = state.currentSticker.imageData?.outputImage?
-          .pngData() else { return .none }
         state.isCopied = true
         return .none
         

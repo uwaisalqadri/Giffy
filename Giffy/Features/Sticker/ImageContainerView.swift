@@ -18,7 +18,7 @@ struct ImageContainerView: View {
   
   var body: some View {
     ZStack(alignment: .topLeading) {
-      if (image == nil && !sticker.isGeneratingImage && sticker.errorText == nil) {
+      if image == nil && !sticker.isGeneratingImage && sticker.errorText == nil {
         Image(systemName: "photo.badge.plus")
           .font(.system(size: 30))
           .foregroundStyle(.white)

@@ -11,6 +11,7 @@ import Common
 import CommonUI
 import ActivityKit
 import SwiftUI
+import SDWebImage
 
 @Reducer
 public struct DetailReducer {
@@ -42,12 +43,11 @@ public struct DetailReducer {
     var isLoading: Bool = false
     var errorMessage: String = ""
     var isError: Bool = false
-    var downloadedImage: Data?
     var shareImage: Data?
     var hearts: [HeartModel] = []
     
     var share: StoreOf<ShareReducer> {
-      Store(initialState: .init(downloadedImage)) {
+      Store(initialState: .init(shareImage)) {
         ShareReducer()
       }
     }
@@ -55,7 +55,6 @@ public struct DetailReducer {
   
   public enum Action {
     case checkFavorite
-    case downloaded(data: Data?)
     case addFavorite
     case removeFavorite
     case onDisappear
@@ -63,8 +62,9 @@ public struct DetailReducer {
     case updateHighlight(Giffy)
     case displayHeart(location: CGPoint)
     case takeOffHeart(_ heartId: UUID)
+    case prepareShare
     case showShare(Data?)
-
+    case failedShare
     case success(isFavorited: Bool)
     case failed(error: Error)
   }
@@ -83,17 +83,29 @@ public struct DetailReducer {
             await send(.failed(error: error))
           }
         }
-
-      case let .downloaded(data):
-        state.isLoading = false
-        state.downloadedImage = data
-        return .none
-
+        
+      case .prepareShare:
+        state.isLoading = true
+        let imageUrl = state.item.image.url
+        return .run { send in
+          do {
+            let imageData = try await downloadImage(from: URL(string: imageUrl))
+            await send(.showShare(imageData))
+          } catch {
+            await send(.failedShare)
+          }
+        }
+        
       case let .showShare(image):
+        state.isLoading = false
         state.shareImage = image
-        guard let data = state.shareImage else { return .none }
         return .none
-
+      
+      case .failedShare:
+        state.isLoading = false
+        Toaster.error(message: "Can't share the GIF").show()
+        return .none
+        
       case .success(let isFavorited):
         state.isLoading = false
         state.isFavorited = isFavorited
@@ -151,7 +163,7 @@ public struct DetailReducer {
           try await Task.sleep(for: .seconds(1))
           await send(.takeOffHeart(heartId))
         }
-
+        
       case let .takeOffHeart(heartId):
         state.hearts.removeAll(where: { $0.id == heartId })
         return .none
@@ -170,6 +182,29 @@ public struct DetailReducer {
       }
     }
   }
+  
+  private func downloadImage(from url: URL?) async throws -> Data? {
+    return try await withCheckedThrowingContinuation { continuation in
+      SDWebImageManager.shared.loadImage(
+        with: url,
+        options: [.queryMemoryData],
+        progress: nil
+      ) { image, data, error, _, _, _ in
+        if let error = error {
+          continuation.resume(throwing: error)
+          return
+        }
+        
+        if let data = data, let animatedImage = SDAnimatedImage(data: data) {
+          continuation.resume(returning: animatedImage.animatedImageData)
+          return
+        }
+        
+        continuation.resume(throwing: NSError(domain: "Failed to decode animated image", code: -1))
+      }
+    }
+  }
+
 }
 
 enum ShareError: Error {
