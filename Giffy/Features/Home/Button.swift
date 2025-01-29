@@ -19,8 +19,8 @@ struct IconButton: View {
       Image(systemName: iconName)
         .font(.system(size: size))
         .foregroundColor(tint)
-        .frame(width: size, height: size)
         .contentShape(.rect)
+        .padding(6)
     }
     .buttonStyle(.plain)
   }

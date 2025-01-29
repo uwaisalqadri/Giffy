@@ -114,7 +114,6 @@ struct DetailView: View {
                 .tint(.Theme.green)
                 .font(.system(size: 80))
                 .frame(width: 10, height: 10)
-                .padding(.trailing, 20)
             } else {
               IconButton(
                 iconName: viewStore.state.shareImage != nil ? "doc.on.clipboard.fill" : "doc.on.clipboard",
@@ -125,7 +124,6 @@ struct DetailView: View {
                 }
               )
               .tapScaleEffect()
-              .padding(.trailing, 20)
             }
           }
           

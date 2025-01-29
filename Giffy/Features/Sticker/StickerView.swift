@@ -64,13 +64,13 @@ struct StickerView: View {
         shouldDismissOnTapOutside: true,
         isShowing: viewStore.binding(
           get: { $0.isCopied },
-          send: .dismissShare
+          send: { .shouldShowShare($0) }
         )
       ) {
         ShareView(store: viewStore.state.share)
       }
-      .onChange(of: viewStore.state.currentSticker) { sticker, _ in
-        tabState.isShowShare = sticker.imageData != nil
+      .onChange(of: viewStore.isCopied) { _, _ in
+        tabState.isShowShare = viewStore.isCopied
       }
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
@@ -86,7 +86,7 @@ struct StickerView: View {
               tint: .Theme.green,
               size: 15,
               onClick: {
-                viewStore.send(.shareSticker)
+                viewStore.send(.shouldShowShare(true))
               }
             )
             .tapScaleEffect()

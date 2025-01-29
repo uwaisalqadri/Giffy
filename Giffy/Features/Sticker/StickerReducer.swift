@@ -53,8 +53,7 @@ public struct StickerReducer {
     case presentPhotoPicker(_ state: Bool)
     case toggleShowOriginalImage(_ state: Bool)
     case updateSticker(_ sticker: Sticker)
-    case shareSticker
-    case dismissShare
+    case shouldShowShare(_ state: Bool)
   }
   
   public var body: some Reducer<State, Action> {
@@ -85,12 +84,8 @@ public struct StickerReducer {
         state.currentSticker = sticker
         return .none
         
-      case .shareSticker:
-        state.isCopied = true
-        return .none
-        
-      case .dismissShare:
-        state.isCopied = false
+      case let .shouldShowShare(bool):
+        state.isCopied = bool
         return .none
       }
     }
