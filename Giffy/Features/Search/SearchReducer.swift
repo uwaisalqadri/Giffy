@@ -14,7 +14,7 @@ import SDWebImage
 @Reducer
 public struct SearchReducer {
 
-  @Route var router
+  @Router private var router
   private let searchUseCase: SearchUseCase
 
   init(searchUseCase: SearchUseCase) {

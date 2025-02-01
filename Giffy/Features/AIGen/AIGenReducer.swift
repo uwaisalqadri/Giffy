@@ -13,7 +13,7 @@ import CommonUI
 @Reducer
 public struct AIGenReducer {
   
-  @Route var router
+  @Router var router
   private let aiGenUseCase: AIGenUseCase
   
   init(aiGenUseCase: AIGenUseCase) {

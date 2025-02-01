@@ -17,7 +17,7 @@ import Photos
 @Reducer
 public class ShareReducer {
   
-  @Route var router
+  @Router private var router
   
   @ObservableState
   public struct State: Equatable {

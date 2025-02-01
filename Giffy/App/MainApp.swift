@@ -12,7 +12,7 @@ import netfox
 
 @main
 struct MainApp: App {
-  @Route var router
+  @Router var router
 
   init() {
     Font.loadCustomFont()

@@ -13,7 +13,7 @@ import CommonUI
 
 struct RouteView: View {
   let store: StoreOf<RouteReducer>
-  @Route var router
+  @Router var router
 
   var body: some View {
     WithViewStore(store, observe: { $0 }) { viewStore in

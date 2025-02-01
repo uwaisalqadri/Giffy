@@ -13,7 +13,7 @@ import Common
 @Reducer
 public struct FavoriteReducer {
   
-  @Route var router
+  @Router private var router
   private let favoriteUseCase: FavoriteUseCase
   private let removeUseCase: RemoveFavoriteUseCase
 

@@ -14,7 +14,7 @@ import SDWebImage
 @Reducer
 public struct HomeReducer {
 
-  @Route private var router
+  @Router private var router
   private let trendingUseCase: TrendingUseCase
 
   init(trendingUseCase: TrendingUseCase) {
