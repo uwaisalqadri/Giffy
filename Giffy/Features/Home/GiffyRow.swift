@@ -49,7 +49,6 @@ struct GiffyRow: View {
             FavoriteButton(isFavorite: $isFavorite, size: .init(width: 40, height: 40)) {
               onFavorite(giphy)
             }
-            .tapScaleEffect()
             .padding(.trailing, 10)
           }
 
@@ -64,6 +63,7 @@ struct GiffyRow: View {
     .animation(.linear(duration: 0.2), value: isSelected)
   }
 
+  @ViewBuilder
   var footer: some View {
     HStack {
       if !giphy.title.isEmpty {
@@ -84,7 +84,6 @@ struct GiffyRow: View {
       RedirectButton(onClick: {
         onTapRow?(giphy)
       })
-      .tapScaleEffect()
       .showGiffyMenu(
         URL(string: giphy.url),
         data: downloadedImage,

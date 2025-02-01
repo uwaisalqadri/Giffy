@@ -13,18 +13,20 @@ import CommonUI
 import ComposableArchitecture
 
 struct FavoriteView: View {
+  @Environment(\.dismiss) var pop
   let store: StoreOf<FavoriteReducer>
   
   var body: some View {
     WithViewStore(store, observe: { $0 }) { viewStore in
-      NavigationView {
+      ZStack {
         ScrollView(.vertical, showsIndicators: false) {
           SearchField { query in
             viewStore.send(.fetch(request: query))
           }
           .padding(.horizontal, 16)
           .padding(.vertical, 20)
-
+          .padding(.top, 52)
+          
           if viewStore.state.list.isEmpty {
             FavoriteEmptyView()
               .padding(.top, 50)
@@ -54,39 +56,53 @@ struct FavoriteView: View {
         .animation(.easeInOut(duration: 0.2), value: viewStore.list.count)
         .navigationBarBackButtonHidden(false)
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-          ToolbarItem(placement: .topBarLeading) {
-            IconButton(
-              iconName: "chevron.left",
-              tint: .blue,
-              onClick: {
-                viewStore.send(.didBackPressed)
-              }
-            )
+        .showDialog(
+          shouldDismissOnTapOutside: true,
+          isShowing: viewStore.binding(
+            get: { $0.shareImage != nil },
+            send: .showShare(nil)
+          )
+        ) {
+          ShareView(store: viewStore.share)
+        }
+        .onAppear {
+          viewStore.send(.fetch())
+        }
+        .onReceive(viewStore.state.detailDisappear) { _ in
+          viewStore.send(.fetch())
+        }
+        
+        VStack {
+          FavoriteToolbar(title: Localizable.titleFavorite.tr()) {
+            pop()
           }
-          
-          ToolbarItem(placement: .principal) {
-            Text(key: .titleFavorite)
-              .font(.bold, size: 16)
-          }
+          Spacer()
         }
       }
-      .showDialog(
-        shouldDismissOnTapOutside: true,
-        isShowing: viewStore.binding(
-          get: { $0.shareImage != nil },
-          send: .showShare(nil)
-        )
-      ) {
-        ShareView(store: viewStore.share)
-      }
-      .onAppear {
-        viewStore.send(.fetch())
-      }
-      .onReceive(viewStore.state.detailDisappear) { _ in
-        viewStore.send(.fetch())
-      }
     }
+  }
+}
+
+struct FavoriteToolbar: View {
+  var title: String
+  var onBackPressed: () -> Void
+  
+  var body: some View {
+    HStack {
+      IconButton(
+        iconName: "chevron.left",
+        tint: .Theme.red,
+        size: 26,
+        onClick: onBackPressed
+      )
+      Spacer()
+      Text(title)
+        .font(.system(size: 16, weight: .bold))
+      Spacer()
+      Spacer().frame(width: 32)
+    }
+    .padding([.horizontal, .bottom], 8)
+    .background(Blur(style: .prominent).edgesIgnoringSafeArea(.top))
   }
 }
 

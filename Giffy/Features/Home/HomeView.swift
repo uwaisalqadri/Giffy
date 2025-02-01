@@ -78,7 +78,7 @@ struct HomeView: View {
       ) {
         ShareView(store: viewStore.share)
       }
-      .onChange(of: viewStore.shareImage) { image, _ in
+      .onChange(of: viewStore.shareImage) { _, image in
         tabState.isShowShare = image != nil
       }
       .onAppear {

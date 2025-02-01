@@ -36,10 +36,8 @@ struct RedirectButton: View {
         .foregroundColor(.Theme.yellow)
         .frame(width: 17, height: 17)
         .padding(.all, 17)
-        .background(Color.Theme.background)
-        .clipShape(.circle)
-        .contentShape(.circle)
-    }.buttonStyle(.plain)
+        .background(Circle().fill(Color.Theme.background))
+    }
   }
 }
 
@@ -51,18 +49,17 @@ struct FavoriteButton: View {
   var onClick: () -> Void
   
   var body: some View {
-    Image(systemName: isFavorite ? "heart.fill" : "heart")
-      .resizable()
-      .foregroundColor(!isInverted ? Color.Theme.red : Color.white)
-      .frame(width: size.width - margin, height: size.height - margin - 4)
-      .background(
-        (!isInverted ? Color.Theme.background : Color.Theme.red)
-          .clipShape(Circle())
-          .frame(width: size.width, height: size.height)
-      )
-      .onTapGesture {
-        onClick()
-      }
+    Button(action: onClick) {
+      Image(systemName: isFavorite ? "heart.fill" : "heart")
+        .resizable()
+        .foregroundColor(!isInverted ? Color.Theme.red : Color.white)
+        .frame(width: size.width - margin, height: size.height - margin - 4)
+        .background(
+          (!isInverted ? Color.Theme.background : Color.Theme.red)
+            .clipShape(.circle)
+            .frame(width: size.width, height: size.height)
+        )
+    }
   }
   
   func frame(width: CGFloat, height: CGFloat) -> Self {

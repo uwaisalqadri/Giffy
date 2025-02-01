@@ -69,8 +69,8 @@ struct StickerView: View {
       ) {
         ShareView(store: viewStore.state.share)
       }
-      .onChange(of: viewStore.isCopied) { _, _ in
-        tabState.isShowShare = viewStore.isCopied
+      .onChange(of: viewStore.isCopied) { _, state in
+        tabState.isShowShare = state
       }
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
