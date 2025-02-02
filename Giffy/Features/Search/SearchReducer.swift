@@ -132,16 +132,17 @@ public struct SearchReducer {
   }
 
   public var greetingText: String {
+    let context = "animation"
     let hour = Calendar.current.component(.hour, from: Date())
     switch hour {
     case 5..<12:
-      return "Morning"
+      return "morning"
     case 12..<17:
-      return "Afternoon"
+      return "afternoon"
     case 17..<21:
-      return "Evening"
+      return "evening"
     default:
-      return "Night"
+      return "night"
     }
   }
 
