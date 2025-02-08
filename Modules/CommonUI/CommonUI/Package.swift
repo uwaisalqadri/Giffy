@@ -12,11 +12,13 @@ let package = Package(
       name: "CommonUI",
       targets: ["CommonUI"])
   ],
-  dependencies: [],
+  dependencies: [
+    .package(url: "https://github.com/SDWebImage/SDWebImageSwiftUI.git", .upToNextMinor(from: "3.0.2")),
+  ],
   targets: [
     .target(
       name: "CommonUI",
-      dependencies: [],
+      dependencies: ["SDWebImageSwiftUI"],
       resources: [
         .process("Assets/LottieFiles/search_empty.json"),
         .process("Assets/LottieFiles/favorite_empty.json"),

@@ -93,7 +93,14 @@ public struct SearchReducer {
         return .run { send in
           do {
             let response = try await searchUseCase.execute(request: query)
-            await send(.success(response: response))
+            let newResponse = try await response.asyncMap { item -> Giffy in
+              var newItem = item
+              if let url = URL(string: item.image.url) {
+                newItem.image.data = try await CacheImage.downloadImage(from: url)
+              }
+              return newItem
+            }
+            await send(.success(response: newResponse))
           } catch {
             await send(.failed(error: error))
           }
@@ -136,13 +143,13 @@ public struct SearchReducer {
     let hour = Calendar.current.component(.hour, from: Date())
     switch hour {
     case 5..<12:
-      return "morning"
+      return "morning \(context)"
     case 12..<17:
-      return "afternoon"
+      return "afternoon \(context)"
     case 17..<21:
-      return "evening"
+      return "evening \(context)"
     default:
-      return "night"
+      return "night \(context)"
     }
   }
 

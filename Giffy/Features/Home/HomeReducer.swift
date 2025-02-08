@@ -26,7 +26,6 @@ public struct HomeReducer {
     var errorMessage: String = ""
     var isLoading: Bool = false
     var isError: Bool = false
-    var isFetched: Bool = false
     var isSharing: Bool = false
     var shareImage: Data?
     
@@ -50,21 +49,25 @@ public struct HomeReducer {
     Reduce { state, action in
       switch action {
       case .fetch(let request):
-        guard !state.isFetched else { return .none }
-        state.isFetched = true
-
         state.isLoading = true
         return .run { send in
           do {
             let response = try await trendingUseCase.execute(request: request)
-            await send(.success(response: response))
+            let newResponse = try await response.asyncMap { item -> Giffy in
+              var newItem = item
+              if let url = URL(string: item.image.url) {
+                newItem.image.data = try await CacheImage.downloadImage(from: url)
+              }
+              return newItem
+            }
+            await send(.success(response: newResponse))
           } catch {
             await send(.failed(error: error))
           }
         }
       case .success(let data):
         state.list = data
-        state.isLoading = false
+        state.isLoading = state.list.contains { $0.image.data == nil }
         return .none
         
       case .failed:

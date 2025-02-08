@@ -89,7 +89,7 @@ public struct DetailReducer {
         let imageUrl = state.item.image.url
         return .run { send in
           do {
-            let imageData = try await downloadImage(from: URL(string: imageUrl))
+            let imageData = try await CacheImage.downloadImage(from: URL(string: imageUrl))
             await send(.showShare(imageData))
           } catch {
             await send(.failedShare)
@@ -182,29 +182,6 @@ public struct DetailReducer {
       }
     }
   }
-  
-  private func downloadImage(from url: URL?) async throws -> Data? {
-    return try await withCheckedThrowingContinuation { continuation in
-      SDWebImageManager.shared.loadImage(
-        with: url,
-        options: [.queryMemoryData],
-        progress: nil
-      ) { image, data, error, _, _, _ in
-        if let error = error {
-          continuation.resume(throwing: error)
-          return
-        }
-        
-        if let data = data, let animatedImage = SDAnimatedImage(data: data) {
-          continuation.resume(returning: animatedImage.animatedImageData)
-          return
-        }
-        
-        continuation.resume(throwing: NSError(domain: "Failed to decode animated image", code: -1))
-      }
-    }
-  }
-
 }
 
 enum ShareError: Error {

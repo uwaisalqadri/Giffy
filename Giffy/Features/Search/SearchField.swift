@@ -23,18 +23,18 @@ struct SearchField: View {
           prompt: Text(key: .labelSearchDesc)
             .foregroundColor(.gray)
         )
+        .onSubmit {
+          onQueryChange?(query)
+        }
         .font(.semibold, size: 14)
         .tint(.gray)
         .foregroundColor(.black)
         .frame(height: UIDevice.isIpad ? 60 : 40)
         .autocapitalization(.none)
         .disableAutocorrection(true)
-        .submitLabel(.done)
+        .submitLabel(.search)
         .padding(.leading, 13)
         .padding(.trailing, 30)
-        .onChange(of: query) { _, text in
-          onQueryChange?(text)
-        }
         
         if !query.isEmpty {
           Button(action: {

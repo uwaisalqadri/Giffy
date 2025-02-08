@@ -51,9 +51,8 @@ struct SearchView: View {
           }.padding(.horizontal, 10)
           
         } else {
-          NyanCatLoading()
-            .frame(maxWidth: .infinity)
-            .padding(.top, 60)
+          GiffyGridLoadingView()
+            .padding(.horizontal, 10)
         }
       }
       .scrollDismissesKeyboard(.immediately)
@@ -61,8 +60,13 @@ struct SearchView: View {
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {
-          Text(key: .titleSearch)
-            .font(.bold, size: 22)
+          HStack(spacing: 20) {
+            Text(key: .titleSearch)
+              .font(.bold, size: 22)
+            if viewStore.state.isLoading {
+              NyanCatLoading(size: 90)
+            }
+          }
         }
 
         ToolbarItem(placement: .topBarTrailing) {

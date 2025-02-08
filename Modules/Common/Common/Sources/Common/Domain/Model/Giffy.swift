@@ -55,6 +55,7 @@ public struct Giffy: Equatable, Hashable {
 
 public struct ImageOriginal {
   public var url: String
+  public var data: Data?
   public var height: String
   public var width: String
   

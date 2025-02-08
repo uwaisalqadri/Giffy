@@ -22,7 +22,7 @@ struct GiffyGridRow: View {
   var body: some View {
     VStack(alignment: .leading) {
       GIFView(
-        url: URL(string: giphy.image.url),
+        data: giphy.image.data,
         downloadedImage: $downloadedImage
       )
       .showGiffyMenu(
