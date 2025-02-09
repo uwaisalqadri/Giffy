@@ -15,7 +15,7 @@ struct MainApp: App {
   @Router var router
 
   init() {
-    Font.loadCustomFont()
+    Font.loadAllFonts()
   }
   
   var body: some Scene {

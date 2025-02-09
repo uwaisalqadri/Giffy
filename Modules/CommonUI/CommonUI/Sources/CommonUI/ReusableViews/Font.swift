@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by Uwais Alqadri on 10/10/23.
 //
@@ -26,47 +26,23 @@ public extension SwiftUI.View {
   }
 }
 
-public extension UIFont {
-  convenience init?(type: FontType, size: CGFloat) {
-    self.init(name: type.rawValue, size: size)
-  }
-}
-
 public extension Font {
-  fileprivate static func custom(type: FontType, size: CGFloat) -> Font {
-    return Font.custom(type.rawValue, size: size)
+  static func loadAllFonts() {
+    FontType.allCases.forEach(registerFont)
   }
   
-  static func loadCustomFont() {
-    FontType.allCases.forEach { jbsRegisterFont(withFontType: $0) }
-  }
-  
-  static func jbsRegisterFont(withFontType filename: FontType) {
-        
-    guard let pathForResourceString = Bundle.common.path(forResource: filename.rawValue, ofType: "ttf") else {
-      print("UIFont+:  Failed to register font - path for resource not found.")
+  private static func registerFont(_ fontType: FontType) {
+    guard let fontPath = Bundle.common.path(forResource: fontType.rawValue, ofType: "ttf"),
+          let fontData = NSData(contentsOfFile: fontPath),
+          let dataProvider = CGDataProvider(data: fontData),
+          let font = CGFont(dataProvider) else {
+      print("Failed to register font: \(fontType.rawValue)")
       return
     }
     
-    guard let fontData = NSData(contentsOfFile: pathForResourceString) else {
-      print("UIFont+:  Failed to register font - font data could not be loaded.")
-      return
-    }
-    
-    guard let dataProvider = CGDataProvider(data: fontData) else {
-      print("UIFont+:  Failed to register font - data provider could not be loaded.")
-      return
-    }
-    
-    guard let font = CGFont(dataProvider) else {
-      print("UIFont+:  Failed to register font - font could not be loaded.")
-      return
-    }
-    
-    var errorRef: Unmanaged<CFError>?
-    if CTFontManagerRegisterGraphicsFont(font, &errorRef) == false {
-      print("UIFont+:  Failed to register font - register graphics font failed - this font may have already been registered in the main bundle.")
+    var error: Unmanaged<CFError>?
+    if !CTFontManagerRegisterGraphicsFont(font, &error) {
+      print("Font registration failed: \(fontType.rawValue) (already registered or invalid)")
     }
   }
-  
 }

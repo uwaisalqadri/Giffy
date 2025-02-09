@@ -1,23 +1,24 @@
-/* 
+/*
  Localizable.strings
-  GiphyGIF
+ GiphyGIF
+ 
+ Created by Uwais Alqadri on 10/17/21.
+ 
+ */
 
-  Created by Uwais Alqadri on 10/17/21.
-  
-*/
-"profile" = "Profil";
-"search" = "Pencarian";
-"favorite" = "Favorit";
-"trending" = "Trending";
-"detail" = "Detail";
-"today_popular" = "Trend Hari Ini";
-"search_desc" = "Telusuri Giphy...";
-"searching_giphy" = "Mencari Giphy... Atau Coba Keyword Yang Berbeda";
-"favorite_empty" = "Favorit Kosong!";
-"trending_date" = "Tanggal Trending";
-"background_removal" = "Hapus Background";
-"select_photo_library" = "Select from Photo Library";
-"delete" = "Delete";
-"error_check_favorite" = "Can't sure if the GIF favorited";
-"copied" = "Copied";
-"share_via" = "Kirim melalui";
+"profile.title" = "Profil";
+"search.title" = "Pencarian";
+"favorite.title" = "Favorit";
+"trending.title" = "Trending";
+"detail.title" = "Detail";
+"trending.today_popular" = "Trend Hari Ini";
+"search.placeholder" = "Telusuri Giphy...";
+"search.loading" = "Mencari Giphy... Atau Coba Keyword Yang Berbeda";
+"favorite.empty_message" = "Favorit Kosong!";
+"trending.date" = "Tanggal Trending";
+"common.background_removal" = "Hapus Background";
+"modal.select_photo_library" = "Pilih dari Galeri";
+"button.delete" = "Hapus";
+"error.favorite_check" = "Tidak dapat memastikan apakah GIF difavoritkan";
+"toast.copied" = "Disalin";
+"share.option" = "Kirim melalui";

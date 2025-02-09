@@ -11,7 +11,7 @@ import CommonUI
 struct SearchEmptyView: View {
   var body: some View {
     VStack {
-      LottieView(fileName: "search_empty", bundle: Bundle.common, loopMode: .loop)
+      LottieView(fileName: "anim_search_empty", bundle: Bundle.common, loopMode: .loop)
         .frame(width: 200, height: 200)
         .padding(.bottom, 5)
 

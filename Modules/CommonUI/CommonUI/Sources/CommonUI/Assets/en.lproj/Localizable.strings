@@ -1,23 +1,24 @@
-/* 
-  Localizable.strings
-  GiphyGIF
+/*
+ Localizable.strings
+ GiphyGIF
+ 
+ Created by Uwais Alqadri on 10/17/21.
+ 
+ */
 
-  Created by Uwais Alqadri on 10/17/21.
-  
-*/
-"profile" = "Profile";
-"search" = "Discover GIFs!";
-"favorite" = "Favorites";
-"trending" = "Trending";
-"detail" = "Detail";
-"today_popular" = "Today's Trending";
-"search_desc" = "Search all GIFs and Stickers";
-"searching_giphy" = "Searching For The GIFs... Maybe You Should Search Different Keyword";
-"favorite_empty" = "Favorite is Empty!";
-"trending_date" = "Trending Date";
-"background_removal" = "Background Removal";
-"select_photo_library" = "Select from Photo Library";
-"delete" = "Delete";
-"error_check_favorite" = "Can't sure if the GIF favorited";
-"copied" = "Copied";
-"share_via" = "Share via";
+"profile.title" = "Profile";
+"search.title" = "Discover GIFs!";
+"favorite.title" = "Favorites";
+"trending.title" = "Trending";
+"detail.title" = "Detail";
+"trending.today_popular" = "Today's Trending";
+"search.placeholder" = "Search all GIFs and Stickers";
+"search.loading" = "Searching for the GIFs... Maybe you should try a different keyword";
+"favorite.empty_message" = "Favorite is empty!";
+"trending.date" = "Trending Date";
+"common.background_removal" = "Background Removal";
+"modal.select_photo_library" = "Select from Photo Library";
+"button.delete" = "Delete";
+"error.favorite_check" = "Can't determine if the GIF is favorited";
+"toast.copied" = "Copied";
+"share.option" = "Share via";

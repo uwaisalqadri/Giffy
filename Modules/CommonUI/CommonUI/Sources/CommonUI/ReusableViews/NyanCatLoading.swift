@@ -8,11 +8,14 @@
 import SwiftUI
 
 public struct NyanCatLoading: View {
-  public init() {}
+  private let size: CGFloat
+  public init(size: CGFloat = 200) {
+    self.size = size
+  }
   
   public var body: some View {
-    LottieView(fileName: "nyan_cat", bundle: Bundle.common, loopMode: .loop)
-      .frame(width: 200, height: 200)
+    LottieView(fileName: "anim_nyan_cat", bundle: Bundle.common, loopMode: .loop)
+      .frame(width: size, height: size)
       .padding(.trailing, -40)
   }
 }

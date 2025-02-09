@@ -11,7 +11,7 @@ import CommonUI
 struct FavoriteEmptyView: View {
   var body: some View {
     VStack {
-      LottieView(fileName: "favorite_empty", bundle: Bundle.common, loopMode: .loop)
+      LottieView(fileName: "anim_favorite_empty", bundle: Bundle.common, loopMode: .loop)
         .frame(width: 220, height: 220)
 
       Text(key: .labelFavoriteEmpty)
