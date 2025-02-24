@@ -31,6 +31,8 @@ struct DetailView: View {
                 let mainFrame = geometry.frame(in: .global)
                 let imageWidth = CGFloat(item.image.width) * 1.5
                 let imageHeight = CGFloat(item.image.height) * 1.5
+                let fullWidth = UIScreen.main.bounds.width - 16
+                let fullHeight = UIScreen.main.bounds.height - 16
                 
                 ScrollView(showsIndicators: false) {
                   ZStack {
@@ -38,14 +40,23 @@ struct DetailView: View {
                       .frame(width: mainFrame.width, height: mainFrame.height)
                       .cornerRadius(40)
                     
-                    GIFView(
-                      url: URL(string: item.image.url),
-                      contentMode: .fit
-                    )
+                    Group {
+                      if let data = item.image.data {
+                        GIFView(
+                          data: data,
+                          contentMode: .fill
+                        )
+                      } else {
+                        GIFView(
+                          url: URL(string: item.image.url),
+                          contentMode: .fit
+                        )
+                      }
+                    }
                     .scaledToFill()
                     .frame(
-                      width: min(imageWidth, UIScreen.main.bounds.width - 16),
-                      height: min(imageHeight, UIScreen.main.bounds.height - 30)
+                      width: item.image.data != nil ? fullWidth : min(imageWidth, fullWidth),
+                      height: item.image.data != nil ? fullWidth : min(imageHeight, fullHeight)
                     )
                     .clipShape(.rect(cornerRadius: 20))
                   }
@@ -108,44 +119,46 @@ struct DetailView: View {
             )
           }
           
-          ToolbarItem(placement: .navigationBarTrailing) {
-            if viewStore.state.isLoading {
-              ProgressView()
-                .tint(.Theme.green)
-                .font(.system(size: 80))
-                .frame(width: 10, height: 10)
-            } else {
+          if !viewStore.isPasted {
+            ToolbarItem(placement: .navigationBarTrailing) {
+              if viewStore.state.isLoading {
+                ProgressView()
+                  .tint(.Theme.green)
+                  .font(.system(size: 80))
+                  .frame(width: 10, height: 10)
+              } else {
+                IconButton(
+                  iconName: viewStore.state.shareImage != nil ? "doc.on.clipboard.fill" : "doc.on.clipboard",
+                  tint: .Theme.green,
+                  size: 15,
+                  onClick: {
+                    viewStore.send(.prepareShare)
+                  }
+                )
+                .tapScaleEffect()
+              }
+            }
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
               IconButton(
-                iconName: viewStore.state.shareImage != nil ? "doc.on.clipboard.fill" : "doc.on.clipboard",
-                tint: .Theme.green,
-                size: 15,
+                iconName: viewStore.state.isFavorited ? "heart.fill" : "heart",
+                tint: .Theme.blueSky,
                 onClick: {
-                  viewStore.send(.prepareShare)
+                  if viewStore.state.isFavorited {
+                    viewStore.send(.removeFavorite)
+                  } else {
+                    viewStore.send(.addFavorite)
+                    viewStore.send(.startLiveActivity(viewStore.state))
+                    
+                    let middleX: CGFloat = CGFloat((window?.screen.bounds.width ?? 0.0) / 2)
+                    let middleY: CGFloat = CGFloat((window?.screen.bounds.height ?? 0.0) / 2)
+                    viewStore.send(.displayHeart(location: .init(x: middleX, y: middleY)))
+                  }
                 }
               )
+              .animation(.easeInOut(duration: 0.2), value: viewStore.state.isFavorited)
               .tapScaleEffect()
             }
-          }
-          
-          ToolbarItem(placement: .navigationBarTrailing) {
-            IconButton(
-              iconName: viewStore.state.isFavorited ? "heart.fill" : "heart",
-              tint: .Theme.blueSky,
-              onClick: {
-                if viewStore.state.isFavorited {
-                  viewStore.send(.removeFavorite)
-                } else {
-                  viewStore.send(.addFavorite)
-                  viewStore.send(.startLiveActivity(viewStore.state))
-                  
-                  let middleX: CGFloat = CGFloat((window?.screen.bounds.width ?? 0.0) / 2)
-                  let middleY: CGFloat = CGFloat((window?.screen.bounds.height ?? 0.0) / 2)
-                  viewStore.send(.displayHeart(location: .init(x: middleX, y: middleY)))
-                }
-              }
-            )
-            .animation(.easeInOut(duration: 0.2), value: viewStore.state.isFavorited)
-            .tapScaleEffect()
           }
         }
       }

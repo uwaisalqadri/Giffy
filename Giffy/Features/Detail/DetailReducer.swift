@@ -34,9 +34,11 @@ public struct DetailReducer {
   public struct State: Equatable {
     var items: [Giffy]
     var item: Giffy
+    var isPasted: Bool = false
     init(items: [Giffy]) {
       self.items = items
       self.item = items.first(where: \.isHighlighted)!
+      self.isPasted = item.image.data != nil
     }
     
     var isFavorited: Bool = false
@@ -103,7 +105,7 @@ public struct DetailReducer {
       
       case .failedShare:
         state.isLoading = false
-        Toaster.error(message: "Can't share the GIF").show()
+        Toaster.error(message: Localizable.toastFailedShare.tr()).show()
         return .none
         
       case .success(let isFavorited):

@@ -20,10 +20,12 @@ public enum Localizable: String {
   case labelSearching = "search.loading"
   case titleBackgroundRemoval = "common.background_removal"
   case labelCopied = "toast.copied"
+  case labelFailedCopy = "toast.failed_copy"
   case labelShareVia = "share.option"
   case actionSelectPhotoLibrary = "modal.select_photo_library"
   case actionDelete = "button.delete"
   case errorCheckFavorite = "error.favorite_check"
+  case toastFailedShare = "toast.failed_share"
   
   public func tr() -> String {
     localized

@@ -21,4 +21,6 @@
 "button.delete" = "Hapus";
 "error.favorite_check" = "Tidak dapat memastikan apakah GIF difavoritkan";
 "toast.copied" = "Disalin";
+"toast.failed_copy" = "Gagal Disalin";
 "share.option" = "Kirim melalui";
+"toast.failed_share" = "Can't share the GIF";

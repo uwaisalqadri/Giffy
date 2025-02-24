@@ -7,13 +7,15 @@
 
 import SwiftUI
 import CommonUI
+import UniformTypeIdentifiers
 
 struct SearchField: View {
   
   @State private var query = ""
   var initialQuery: String = ""
   var onQueryChange: ((String) -> Void)?
-
+  var onPaste: ((String?, Data?) -> Void)?
+  
   var body: some View {
     VStack(alignment: .leading) {
       HStack {
@@ -45,6 +47,34 @@ struct SearchField: View {
               .frame(width: 14, height: 14)
               .tint(.init(uiColor: .darkGray))
           }.padding(.trailing, 12)
+        }
+        
+        Button(action: {
+          if let gifData = UIPasteboard.general.data(forPasteboardType: UTType.gif.identifier) {
+            onPaste?(nil, gifData)
+          } else if let string = UIPasteboard.general.string {
+            onPaste?(string, nil)
+            query = string
+          } else {
+            Toaster.error(message: Localizable.labelFailedCopy.tr()).show()
+          }
+        }) {
+          Image(systemName: "doc.on.clipboard")
+            .resizable()
+            .foregroundColor(.white)
+            .frame(width: 20, height: 20)
+            .background(
+              LinearGradient(
+                gradient: Gradient(
+                  colors: [.Theme.green, .Theme.blueSky]
+                ),
+                startPoint: .bottomTrailing,
+                endPoint: .topLeading
+              )
+              .frame(width: 40, height: 40)
+              .cornerRadius(5, corners: [.topLeft, .bottomLeft])
+            )
+            .padding(.trailing, 10)
         }
         
         Button(action: {

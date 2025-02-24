@@ -1,6 +1,6 @@
 //
 //  Giphy.swift
-//  
+//
 //
 //  Created by Uwais Alqadri on 10/17/21.
 //
@@ -49,17 +49,33 @@ public struct Giffy: Equatable, Hashable {
   }
   
   public func setFavorite(_ state: Bool) -> Giffy {
-    return Giffy(id: id, url: url, rating: rating, username: username, title: title, trendingDateTime: trendingDateTime, image: image, isFavorite: state)
+    return Giffy(
+      id: id,
+      url: url,
+      rating: rating,
+      username: username,
+      title: title,
+      trendingDateTime: trendingDateTime,
+      image: image,
+      isFavorite: state
+    )
   }
 }
 
 public struct ImageOriginal {
   public var url: String
+  public var data: Data?
   public var height: String
   public var width: String
   
-  public init(url: String = "", height: String = "", width: String = "") {
+  public init(
+    url: String = "",
+    data: Data? = nil,
+    height: String = "",
+    width: String = ""
+  ) {
     self.url = url
+    self.data = data
     self.height = height
     self.width = width
   }

@@ -71,6 +71,7 @@ public struct SearchReducer {
 
   public enum Action {
     case initialFetch
+    case onGIFPasted(data: Data?)
     case fetch(request: String)
     case success(response: [Giffy])
     case failed(error: Error)
@@ -86,6 +87,16 @@ public struct SearchReducer {
         return .run { send in
           await send(.fetch(request: greetingText))
         }
+        
+      case let .onGIFPasted(data):
+        let giffy = Giffy(
+          id: UUID().uuidString,
+          image: .init(data: data, height: "", width: ""),
+          isFavorite: true,
+          isHighlighted: true
+        )
+        router.present(.detail(items: [giffy]))
+        return .none
 
       case .fetch(let query):
         state.searchText = query

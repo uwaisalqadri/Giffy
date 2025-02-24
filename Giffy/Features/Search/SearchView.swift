@@ -22,6 +22,13 @@ struct SearchView: View {
         SearchField(initialQuery: tabState.searchQuery) { query in
           tabState.searchQuery = query
           viewStore.send(.fetch(request: query))
+        } onPaste: { string, gifData in
+          if let string {
+            tabState.searchQuery = string
+            viewStore.send(.fetch(request: string))
+          } else if let gifData {
+            viewStore.send(.onGIFPasted(data: gifData))
+          }
         }.padding(.horizontal, 16)
 
         if !viewStore.state.isLoading {

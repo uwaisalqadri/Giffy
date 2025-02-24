@@ -12,7 +12,7 @@
 "trending.title" = "Trending";
 "detail.title" = "Detail";
 "trending.today_popular" = "Today's Trending";
-"search.placeholder" = "Search all GIFs and Stickers";
+"search.placeholder" = "Search or Paste GIFs";
 "search.loading" = "Searching for the GIFs... Maybe you should try a different keyword";
 "favorite.empty_message" = "Favorite is empty!";
 "trending.date" = "Trending Date";
@@ -21,4 +21,6 @@
 "button.delete" = "Delete";
 "error.favorite_check" = "Can't determine if the GIF is favorited";
 "toast.copied" = "Copied";
+"toast.failed_copy" = "Failed to Copy";
 "share.option" = "Share via";
+"toast.failed_share" = "Can't share the GIF";
