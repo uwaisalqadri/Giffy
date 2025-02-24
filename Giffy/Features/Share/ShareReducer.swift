@@ -34,8 +34,10 @@ public class ShareReducer {
     
     var shareImageURL: URL?
     var imageData: Data?
-    init(_ imageData: Data?) {
+    var imageType: ImageType
+    init(_ imageData: Data?, imageType: ImageType = .gif) {
       self.imageData = imageData
+      self.imageType = imageType
     }
   }
   
@@ -51,13 +53,13 @@ public class ShareReducer {
         state.excludedShareApps = type.excludedActivities
         switch type {
         case .whatsapp, .telegram:
-          self.shareImageGIF(imageData: state.imageData) { url in
+          self.shareImageGIF(imageData: state.imageData, type: state.imageType) { url in
             state.shareImageURL = url
             state.showShareSheet = true
           }
           
         case .twitter:
-          self.shareImageGIF(imageData: state.imageData) { url in
+          self.shareImageGIF(imageData: state.imageData, type: state.imageType) { url in
             state.shareImageURL = url
             state.showShareSheet = true
           }
@@ -71,7 +73,7 @@ public class ShareReducer {
           Toaster.success(message: Localizable.labelCopied.tr()).show()
           
         case .more:
-          self.shareImageGIF(imageData: state.imageData) { url in
+          self.shareImageGIF(imageData: state.imageData, type: state.imageType) { url in
             state.shareImageURL = url
             state.showShareSheet = true
           }
@@ -85,9 +87,14 @@ public class ShareReducer {
     }
   }
   
-  private func shareImageGIF(imageData: Data?, onShare: (URL?) -> Void) {
-    if let data = imageData,
-       let imageURL = self.saveImageToTemporaryDirectory(imageData: data, fileName: "Giffy.gif") {
+  private func shareImageGIF(imageData: Data?, type: ImageType, onShare: (URL?) -> Void) {
+    guard let data = imageData else { return }
+    let gifURL = self.saveImageToTemporaryDirectory(imageData: data, fileName: "Giffy.gif")
+    let imageURL = self.saveImageToTemporaryDirectory(imageData: data, fileName: "Stickky.png")
+    switch type {
+    case .gif:
+      onShare(gifURL)
+    case .png:
       onShare(imageURL)
     }
   }
@@ -157,6 +164,11 @@ public class ShareReducer {
 }
 
 public extension ShareReducer {
+  enum ImageType {
+    case gif
+    case png
+  }
+  
   enum ShareType {
     case whatsapp
     case instagram

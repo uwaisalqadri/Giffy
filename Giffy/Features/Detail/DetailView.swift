@@ -29,8 +29,8 @@ struct DetailView: View {
             ForEach(viewStore.items.indexed, id: \.position) { _, item in
               GeometryReader { geometry in
                 let mainFrame = geometry.frame(in: .global)
-                let imageWidth = (item.image.width).cgFloat * 1.5
-                let imageHeight = (item.image.height).cgFloat * 1.5
+                let imageWidth = CGFloat(item.image.width) * 1.5
+                let imageHeight = CGFloat(item.image.height) * 1.5
                 
                 ScrollView(showsIndicators: false) {
                   ZStack {
@@ -45,7 +45,7 @@ struct DetailView: View {
                     .scaledToFill()
                     .frame(
                       width: min(imageWidth, UIScreen.main.bounds.width - 16),
-                      height: imageHeight
+                      height: min(imageHeight, UIScreen.main.bounds.height - 30)
                     )
                     .clipShape(.rect(cornerRadius: 20))
                   }

@@ -40,7 +40,10 @@ public struct StickerReducer {
     
     var share: StoreOf<ShareReducer> {
       Store(
-        initialState: .init(currentSticker.imageData?.outputImage?.pngData())
+        initialState: .init(
+          currentSticker.imageData?.outputImage?.pngData(),
+          imageType: .png
+        )
       ) {
         ShareReducer()
       }

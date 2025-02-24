@@ -14,11 +14,11 @@ public protocol RouterIdentifiable: Equatable {
 
 public final class Routing<T: RouterIdentifiable> {
   private var routes: [T] = []
-  public var onMakeRoot: ((T, Bool) -> Void)?
-  public var onPush: ((T, Bool) -> Void)?
-  public var onPresent: ((T, Bool) -> Void)?
-  public var onPopLast: ((Int, Bool) -> Void)?
-  public var onPopToRoot: ((Int?, Bool) -> Void)?
+  fileprivate var onMakeRoot: ((T, Bool) -> Void)?
+  fileprivate var onPush: ((T, Bool) -> Void)?
+  fileprivate var onPresent: ((T, Bool) -> Void)?
+  fileprivate var onPopLast: ((Int, Bool) -> Void)?
+  fileprivate var onPopToRoot: ((Int?, Bool) -> Void)?
   
   public var currentRoutes: [T] {
     return routes
@@ -82,7 +82,7 @@ public final class Routing<T: RouterIdentifiable> {
     }
   }
   
-  public func onSystemPop() {
+  fileprivate func onSystemPop() {
     guard !routes.isEmpty else { return }
     let popped = routes.removeLast()
     print("Routing popped: \(popped)")

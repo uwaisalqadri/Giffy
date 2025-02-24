@@ -32,17 +32,19 @@ public extension Font {
   }
   
   private static func registerFont(_ fontType: FontType) {
-    guard let fontPath = Bundle.common.path(forResource: fontType.rawValue, ofType: "ttf"),
-          let fontData = NSData(contentsOfFile: fontPath),
-          let dataProvider = CGDataProvider(data: fontData),
+    guard let fontURL = Bundle.common.url(forResource: fontType.rawValue, withExtension: "ttf"),
+          let fontData = try? Data(contentsOf: fontURL),
+          let dataProvider = CGDataProvider(data: fontData as CFData),
           let font = CGFont(dataProvider) else {
-      print("Failed to register font: \(fontType.rawValue)")
+      print("❌ Failed to register font: %@", fontType.rawValue)
       return
     }
     
     var error: Unmanaged<CFError>?
     if !CTFontManagerRegisterGraphicsFont(font, &error) {
-      print("Font registration failed: \(fontType.rawValue) (already registered or invalid)")
+      print("⚠️ Font registration failed: %@ (already registered or invalid)", fontType.rawValue)
+    } else {
+      print("✅ Font successfully registered: %@", fontType.rawValue)
     }
   }
 }

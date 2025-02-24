@@ -32,8 +32,8 @@ struct GiffyGridRow: View {
         onShowShare: onShare
       )
       .frame(
-        idealWidth: (giphy.image.width).cgFloat,
-        idealHeight: (giphy.image.height).cgFloat,
+        idealWidth: CGFloat(giphy.image.width),
+        idealHeight: CGFloat(giphy.image.height),
         alignment: .center
       )
       .scaledToFit()

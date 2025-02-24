@@ -8,16 +8,15 @@
 import Foundation
 import SwiftUI
 
+public extension CGFloat {
+  init(_ value: String) {
+    self = CGFloat(Double(value) ?? 0.0) / 2
+  }
+}
+
 public extension String {
   func ifEmpty(fallback: () -> String) -> String {
     return isEmpty ? fallback() : self
-  }
-  
-  var cgFloat: CGFloat {
-    guard let doubleValue = Double(self) else {
-      return 0.0
-    }
-    return CGFloat(doubleValue/2)
   }
   
   func stringToDate() -> Date? {
