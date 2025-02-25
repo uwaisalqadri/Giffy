@@ -1,28 +1,19 @@
 <p align="center">
- <img alt="A" title="B" src="https://github.com/user-attachments/assets/65f88513-376c-4778-906e-a0722c463678" width="150">
- <h1 align="center"> Giffy</h1> 
+<!--  <img alt="A" title="B" src="https://github.com/user-attachments/assets/65f88513-376c-4778-906e-a0722c463678" width="150">
+ <h1 align="center"> Giffy</h1>  -->
+ <img width="1000" alt="Giffy Thumbnail" src="https://github.com/user-attachments/assets/1b3c8c8f-6d87-4d67-baaa-aa35d1a97f71" />
 <p align="center">
-<br>
-
-<p align="center">
-     <img alt="A" title="B" src="https://github.com/uwaisalqadri/GiphyGIF/assets/55146646/2d216304-130c-4007-8308-efbf85f0732d" width="200">
-    <img alt="B" title="B" src="https://github.com/uwaisalqadri/GiphyGIF/assets/55146646/cb299bd3-6aff-4dd4-9ed8-990a55a098b6" width="200">
-    <img alt="C" title="C" src="https://github.com/uwaisalqadri/GiphyGIF/assets/55146646/b7eb36c1-7e7b-42f9-a2f9-cbd090b7659b" width="200">
-    <img alt="D" title="D" src="https://github.com/uwaisalqadri/GiphyGIF/assets/55146646/591de856-cc69-414f-bf41-7b319d1236f2" width="200">
-</p>
-
-
 
 ## <a name="introduction"></a> 🤖 Introduction
 
-Giphy Client App built with some of the interesting iOS tech such as **TCA (The Composable Architecture by Point-Free)**, **Swinject**, Beautiful UI built with **SwiftUI**, **Clean Architecture with Generic Protocol Approach**, **SPM Modularization** and **XcodeGen!**   
+A GIF app built with exciting iOS technologies, including **TCA (The Composable Architecture by pointfree.co)**, **Swinject**, and a beautiful UI crafted with **SwiftUI**. It follows **Clean Architecture with a Generic Protocol Approach**, incorporates **SPM Modularization**, and leverages **XcodeGen** for project structure management!
 
 **Module**
 
-* **`Giffy`**: the main app with presentation layer
-* **`Common`**: domain and data layer
-* **`CommonUI`**: common utils and assets
-* **`Core`**: generic protocol for _DataSource_ and _Interactor_
+* **`Giffy`**: The main app containing the presentation layer  
+* **`Common`**: Handles the domain and data layers  
+* **`CommonUI`**: Includes common utilities and assets  
+* **`Core`**: Defines generic protocols for _DataSource_ and _Interactor_
 
 ## Table of Contents
 
@@ -37,7 +28,7 @@ Giphy Client App built with some of the interesting iOS tech such as **TCA (The 
 ## <a name="features"></a> 🦾 Features
 
 - Sharing, Copy-Pasting, and AirDropping GIFs and Stickers
-- Search GIFs from various sources (Giphy and Tenor
+- Search GIFs from various sources (Giphy and Tenor)
 - Save Favorite GIFs
 - Widget, Live Activty, and Dynamic Island
 - Animations!
@@ -140,9 +131,11 @@ public struct FavoriteReducer: Reducer {
 ```
 
 **Composing** the Reducer
+
 ```swift
 struct MainTabView: View {
   let store: StoreOf<MainTabReducer>
+  @StateObject var tabState = MainTabStateHolder()
 
   var body: some View {
     WithViewStore(store, observe: \.selectedTab) { viewStore in
@@ -164,59 +157,101 @@ struct MainTabView: View {
                 action: \.search
               )
             )
-          }
-          
+            
           . . . .
 
+          }
+          
+          if !tabState.isShowShare {
+            VStack {
+              Spacer()
+              CapsuleTabView(
+                currentTab: viewStore.binding(
+                  send: MainTabReducer.Action.selectedTabChanged
+                )
+              ).padding(.bottom, 20)
+            }
+          }
         }
-      }
+        .animation(.easeInOut(duration: 0.2), value: viewStore.state)
+      }.environmentObject(tabState)
     }
   }
 }
 ```
 
-_"consistent and understandable"_ **- Point-Free**
+_"consistent and understandable"_ **- pointfree.co**
 
 
 Let your _**Store**_(d) _**Reducer**_ update the View
 
 ```swift
 struct FavoriteView: View {
+  @Environment(\.dismiss) var pop
   let store: StoreOf<FavoriteReducer>
   
   var body: some View {
     WithViewStore(store, observe: { $0 }) { viewStore in
-      ScrollView {
-        SearchField { query in
-          viewStore.send(.fetch(request: query))
-        }.padding(.vertical, 20)
-        
-        if viewStore.state.list.isEmpty {
-          FavoriteEmptyView()
-            .padding(.top, 50)
-        }
-        
-        LazyVStack {
-          ForEach(viewStore.state.list, id: \.id) { item in
-            GiphyItemRow(
-              isFavorite: true,
-              giphy: item,
-              onTapRow: { giphy in
-                viewStore.send(.showDetail(item: giphy))
-              },
-              onFavorite: { giphy in
-                viewStore.send(.removeFavorite(item: giphy, request: ""))
-              }
-            )
-            .padding(.horizontal, 20)
-            .padding(.bottom, 20)
+      ZStack {
+        ScrollView(.vertical, showsIndicators: false) {
+          SearchField { query in
+            viewStore.send(.fetch(request: query))
+          }
+          .padding(.horizontal, 16)
+          .padding(.vertical, 20)
+          .padding(.top, 52)
+          
+          if viewStore.state.list.isEmpty {
+            FavoriteEmptyView()
+              .padding(.top, 50)
+          }
+          
+          LazyVStack {
+            ForEach(viewStore.state.list, id: \.id) { item in
+              GiffyRow(
+                isFavorite: true,
+                giphy: item,
+                onTapRow: { giphy in
+                  viewStore.send(.showDetail(item: giphy))
+                },
+                onFavorite: { giphy in
+                  viewStore.send(.removeFavorite(item: giphy, request: ""))
+                },
+                onShare: { image in
+                  viewStore.send(.showShare(image))
+                }
+              )
+              .padding(.horizontal, 16)
+              .padding(.bottom, 20)
+            }
           }
         }
-      }
-      .padding(.horizontal, 10)
-      .navigationTitle(FavoriteString.titleFavorite.localized)
-      .onAppear {
-        viewStore.send(.fetch(request: ""))
+        .scrollDismissesKeyboard(.immediately)
+        .animation(.easeInOut(duration: 0.2), value: viewStore.list.count)
+        .navigationBarBackButtonHidden(false)
+        .navigationBarTitleDisplayMode(.inline)
+        .showDialog(
+          shouldDismissOnTapOutside: true,
+          isShowing: viewStore.binding(
+            get: { $0.shareImage != nil },
+            send: .showShare(nil)
+          )
+        ) {
+          ShareView(store: viewStore.share)
+        }
+        .onAppear {
+          viewStore.send(.fetch())
+        }
+        .onReceive(viewStore.state.detailDisappear) { _ in
+          viewStore.send(.fetch())
+        }
+        
+        VStack {
+          FavoriteToolbar(title: Localizable.titleFavorite.tr()) {
+            pop()
+          }
+          Spacer()
+        }
       }
     }
   }
@@ -297,7 +332,9 @@ Injection.resolve()
 Read more about [**Swinject**](https://github.com/Swinject/Swinject)
 
 ## <a name="buy-me-coffee"></a> ☕️ Buy Me a Coffee
-If you like this project please support me by <a href="https://www.buymeacoffee.com/uwaisalqadri" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" height=32></a> ;-)
+<a href="https://www.buymeacoffee.com/uwaisalqadri" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" height=32></a>
+<br>
+👆 Support me 👆
 
 ## <a name="project-structure"></a> 🏛 Project Structure
 
@@ -311,9 +348,8 @@ If you like this project please support me by <a href="https://www.buymeacoffee.
     - `Favorite`
     - `Search`
 
-
- - `**GiffyWidget**`
- - `**GiffyTests**`
+ - **`GiffyWidget`**
+ - **`GiffyTests`**
 
 **`Modules`**:
 
@@ -332,8 +368,7 @@ If you like this project please support me by <a href="https://www.buymeacoffee.
 
 **`CommonUI`**: 
  - `Assets`
- - `Extensions`
- - `Modifier`
+ - `ReusableViews`
  - `Utils`
 
 [**`Core`**](https://github.com/uwaisalqadri/CoreModule): 
