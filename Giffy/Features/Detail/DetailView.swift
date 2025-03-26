@@ -89,6 +89,7 @@ struct DetailView: View {
         .onTapGesture(count: 2) { location in
           viewStore.send(.displayHeart(location: location))
           viewStore.send(.addFavorite)
+          viewStore.send(.startLiveActivity(viewStore.state))
         }
         .padding(.top, -(window?.safeAreaInsets.top ?? 0))
         .padding(.bottom, -(window?.safeAreaInsets.bottom ?? 0))
