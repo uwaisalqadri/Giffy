@@ -24,7 +24,6 @@ struct AIGenView: View {
         }
       }
       .onAppear {
-        print("ONAPPEARED")
         viewStore.send(.onPrompt("ninja"))
       }
     }
