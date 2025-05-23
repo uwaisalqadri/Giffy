@@ -34,14 +34,12 @@ public struct AIGenReducer {
     Reduce { state, action in
       switch action {
       case let .onPrompt(string):
-        print("TRIGGRED \(string)")
         return .run { send in
           let images = try? await aiGenUseCase.execute(request: string)
           await send(.success(images ?? []))
         }
         
       case let .success(images):
-        print("GENERATED \(images)")
         state.images = images
         return .none
       }

@@ -27,7 +27,6 @@ struct MainApp: App {
       )
       .onAppear {
         router.makeRoot(.main)
-        NFX.sharedInstance().start()
       }
     }
   }

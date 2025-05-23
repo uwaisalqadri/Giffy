@@ -16,7 +16,11 @@ public enum Tabs: Int, CaseIterable {
   case aiGen
   
   public static var allCases: [Tabs] {
-    [.search, .home, .sticker]
+    var cases: [Tabs] = [.search, .home]
+    if !UIDevice.isIpad {
+      cases.append(.sticker)
+    }
+    return cases
   }
 
   var iconName: String {

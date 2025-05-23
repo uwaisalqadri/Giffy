@@ -33,8 +33,9 @@ struct RouteView: View {
 
         case let .detail(items):
           DetailView(store: viewStore[detail: items])
+            .navigationViewStyle(.stack)
         }
       }
-    }
+    }.navigationViewStyle(.stack)
   }
 }
