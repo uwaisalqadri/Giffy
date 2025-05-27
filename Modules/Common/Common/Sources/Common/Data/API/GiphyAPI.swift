@@ -29,7 +29,7 @@ extension GiphyAPI: APIFactory {
     }
   }
 
-  public var parameter: [String: Any] {
+  public var parameters: [String: Any] {
     var defaultParams: [String: Any] = ["api_key": APIConfig.giphyConfig.apiKey]
     switch self {
     case .search(let query) where query.count > 0:
@@ -39,4 +39,16 @@ extension GiphyAPI: APIFactory {
     }
     return defaultParams
   }
+  
+  public var method: HTTPMethod {
+     return .get // assuming all are GET requests
+   }
+
+   public var headers: [String: String] {
+     [:] // or provide default headers if needed
+   }
+
+   public var bodyData: Data? {
+     nil // not used in GET requests
+   }
 }
