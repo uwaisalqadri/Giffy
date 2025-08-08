@@ -8,7 +8,7 @@
 import SwiftUI
 
 private enum DialogConstants {
-  static let radius: CGFloat = 26
+  static let radius: CGFloat = 40
   static let indicatorHeight: CGFloat = 6
   static let indicatorWidth: CGFloat = 60
   static let snapRatio: CGFloat = 0.25
@@ -49,14 +49,9 @@ public struct OneDialog<Content: View>: View {
       }
       .frame(width: geometry.size.width, alignment: .top)
       .background(
-        Color.black.shadow(
-          color: Color.black.opacity(0.25),
-          radius: 4,
-          x: 0,
-          y: 4
-        )
+        Blur(style: .systemUltraThinMaterialLight, interactive: false)
       )
-      .cornerRadius(DialogConstants.radius)
+      .clipShape(.rect(cornerRadius: DialogConstants.radius))
       .frame(height: geometry.size.height, alignment: .bottom)
       .offset(y: max(offset + translation, 0))
       .animation(.interactiveSpring(duration: 0.5), value: isOpen)
@@ -92,11 +87,6 @@ struct DialogModifier<DialogContent: View>: ViewModifier {
   func body(content: Content) -> some View {
     ZStack {
       content
-        .overlay(
-          Color.black
-            .opacity(isShown ? 0.5 : 0)
-            .edgesIgnoringSafeArea(.vertical)
-        )
         .onTapGesture {
           if shouldDismissOnTapOutside {
             isShown = false

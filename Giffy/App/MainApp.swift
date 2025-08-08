@@ -16,6 +16,7 @@ struct MainApp: App {
 
   init() {
     Font.loadAllFonts()
+    NFX.sharedInstance().start()
   }
   
   var body: some Scene {
