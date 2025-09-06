@@ -8,6 +8,10 @@
 
 A GIF app built with exciting iOS technologies, including **TCA (The Composable Architecture by pointfree.co)**, **Swinject**, and a beautiful UI crafted with **SwiftUI**. It follows **Clean Architecture with a Generic Protocol Approach**, incorporates **SPM Modularization**, and leverages **XcodeGen** for project structure management!
 
+<img width="408" height="117" alt="images" src="https://github.com/user-attachments/assets/f07cbbd9-5b6f-4e84-8f69-2af8c3a29c03" />
+
+[AppStore](https://apps.apple.com/id/app/giffy-share-gifs/id6746143028)
+
 **Module**
 
 * **`Giffy`**: The main app containing the presentation layer  
